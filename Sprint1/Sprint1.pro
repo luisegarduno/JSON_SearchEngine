@@ -4,4 +4,8 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
+        dsstring.cpp \
         main.cpp
+
+HEADERS += \
+    dsstring.h
