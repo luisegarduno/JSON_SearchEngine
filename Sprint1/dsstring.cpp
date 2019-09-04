@@ -7,29 +7,33 @@ DSString::DSString(){
 }
 
 DSString::DSString(const char* dsString){           // 'dsString' is a constant, can not change
-    data = new char[strlen(dsString) + 1];          // create new 'data' array size of dsString + 1('\0')
-    strcpy(data,dsString);                          // c-copy 'dsString' into 'data' array
+    this->data = new char[strlen(dsString) + 1];          // create new 'data' array size of dsString + 1('\0')
+    strcpy(this->data,dsString);                          // c-copy 'dsString' into 'data' array
 }
 
 DSString::DSString(const DSString&){                // Copy constructor, DSString parameter is a const,
-    //data = new char[strlen(originalDSString) + 1];                   // that goes by another name (&)
-    //strcpy(data,originalDSString);
+                       // that goes by another name (&)
+
 }
 
 DSString::~DSString(){
-    delete [] data;
+    delete [] this->data;
 }
 
 DSString& DSString::operator=(const char*){
 
 }
 
-DSString& DSString::operator=(const DSString&){
+DSString& DSString::operator=(const DSString& originaldsString){
+    this->data = new char[strlen(originaldsString.data) + 1];
+    strcpy(this->data,originaldsString.data);
 
+    return *this;
 }
 
-DSString DSString::operator+(const DSString&){
-
+DSString DSString::operator+(const DSString& originaldsString){
+    strcat(this->data,originaldsString.data);
+    return *this;
 }
 
 DSString& DSString::operator+=(const DSString& originaldsString){
@@ -68,5 +72,5 @@ int DSString::size(){
 }
 
 char* DSString::c_str(){
-    return data;
+    return this->data;
 }
