@@ -13,7 +13,7 @@ class DSString{
         DSString();                         // Default constructor
         DSString(const char*);
         DSString(const DSString&);          // Copy constructor
-        ~DSString();
+        ~DSString();                        // Destructor
 
         DSString& operator=(const char*);
         DSString& operator=(const DSString&);

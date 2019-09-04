@@ -34,6 +34,13 @@ DSString DSString::operator+(const DSString&){
 
 DSString& DSString::operator+=(const DSString& originaldsString){
     char * tempString = this->data;
+    this->data = new char[strlen(tempString) + strlen(originaldsString.data) + 1];
+    strcpy(this->data,tempString);
+    strcat(this->data,originaldsString.data);
+
+    delete [] tempString;
+
+    return *this;                                                           // return a reference to invoking address
 }
 
 bool DSString::operator==(const char*){
@@ -53,7 +60,6 @@ bool DSString::operator<(const DSString&){
 }
 
 char& DSString::operator[](const int){
-
 
 }
 
