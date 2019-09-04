@@ -6,13 +6,14 @@ DSString::DSString(){
     data = nullptr;
 }
 
-DSString::DSString(const char* dsString){           // 'dsString' is a constant, can not change
-    this->data = new char[strlen(dsString) + 1];          // create new 'data' array size of dsString + 1('\0')
-    strcpy(this->data,dsString);                          // c-copy 'dsString' into 'data' array
+DSString::DSString(const char* dsString){                               // 'dsString' is a constant, can not change
+    data = new char[strlen(dsString) + 1];                              // create new 'data' array size of dsString + 1('\0')
+    strcpy(data,dsString);                                              // c-copy 'dsString' into 'data' array
 }
 
-DSString::DSString(const DSString&){                // Copy constructor, DSString parameter is a const,
-                       // that goes by another name (&)
+DSString::DSString(const DSString& originaldsString){                   // Copy constructor, DSString parameter is a const,
+    this->data = new char[strlen(originaldsString.data) + 1];           // that goes by another name (&)
+    strcpy(this->data,originaldsString.data);
 
 }
 
