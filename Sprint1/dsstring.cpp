@@ -20,8 +20,11 @@ DSString::~DSString(){
     delete [] this->data;
 }
 
-DSString& DSString::operator=(const char*){
+DSString& DSString::operator=(const char* dsString){
+    this->data = new char[strlen(dsString)];
+    strcpy(this->data,dsString);
 
+    return *this;
 }
 
 DSString& DSString::operator=(const DSString& originaldsString){
