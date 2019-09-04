@@ -1,14 +1,14 @@
 #include "dsstring.h"
 #include <iostream>
-
+#include <fstream>
 
 DSString::DSString(){
     data = nullptr;
 }
 
-DSString::DSString(const char* dsString){                               // 'dsString' is a constant, can not change
-    data = new char[strlen(dsString) + 1];                              // create new 'data' array size of dsString + 1('\0')
-    strcpy(data,dsString);                                              // c-copy 'dsString' into 'data' array
+DSString::DSString(const char* originalChar){                               // 'originalChar' is a constant, can not change
+    this->data = new char[strlen(originalChar) + 1];                        // create new 'data' array size of originalChar + 1('\0')
+    strcpy(this->data,originalChar);                                        // c-copy 'originalChar' into 'data' array
 }
 
 DSString::DSString(const DSString& originaldsString){                   // Copy constructor, DSString parameter is a const,
@@ -78,3 +78,4 @@ int DSString::size(){
 char* DSString::c_str(){
     return this->data;
 }
+
