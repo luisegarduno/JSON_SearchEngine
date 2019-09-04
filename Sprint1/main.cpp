@@ -1,21 +1,18 @@
 #include <iostream>
+#include "lasertag.h"
 
 using namespace std;
 
 int main(int argc,char * argv[]){
-    if(argc > 0){
-        cout << "One Arg" << endl;
+
+    int theFiles = argc;
+
+    if(argc != 6){
+        cout << "Error, missing files" << endl;
+        return -1;
     }
+
+    LaserTag newGame();
 
     return 0;
 }
-
-
-/*
- * git config --global user.email "myEmail"
- * git config --global user.name "myUsername"
- * git add --all
- * git status
- * git commit -m "Comment"
- * git push
-*/

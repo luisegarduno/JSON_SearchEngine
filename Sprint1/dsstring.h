@@ -37,7 +37,7 @@ class DSString{
 // c_str returns a c-string representation of the DSString obj.
         char* c_str();
 
-        friend std::ostream& operator<<(std::ostream&, const String &);
+        friend std::ostream& operator<<(std::ostream&, const DSString &);
 };
 
 #endif // DSSTRING_H

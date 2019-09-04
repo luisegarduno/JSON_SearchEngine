@@ -5,7 +5,9 @@ CONFIG -= qt
 
 SOURCES += \
         dsstring.cpp \
+        lasertag.cpp \
         main.cpp
 
 HEADERS += \
-    dsstring.h
+    dsstring.h \
+    lasertag.h
