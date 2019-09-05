@@ -17,10 +17,10 @@ LaserTag::LaserTag(char * argv[]){
 
     DSString TeamA;
     DSString TeamB;
-    ifstream FileOne;
-    FileOne.open(argv[1]);
-    FileOne >> TeamA;
-    cout << TeamA;
+    ifstream aFile;
+    aFile.open(argv[1]);
+    aFile >> TeamA;
+    cout << TeamA << endl;
 
 
 }
