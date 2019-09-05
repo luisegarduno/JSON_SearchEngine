@@ -1,16 +1,19 @@
 #include "team.h"
+#include "dsstring.h"
 #include <iostream>
 
 using std::cout;
 using std::endl;
 
 Team::Team(){
-    cout << "in Team Default constructor " << endl;
+    cout << "\nin Team Default constructor " << endl;
 }
 
-Team::Team(const DSString teamFile){
-    cout << "in Team constructor" << endl;
-    cout << teamFile << endl;
+Team::Team(DSString teamFileName){
+    cout << endl;
+    cout << teamFileName.c_str() << endl;;
+
+
 }
 
 

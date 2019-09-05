@@ -10,17 +10,17 @@ using std::endl;
 using std::ifstream;
 
 LaserTag::LaserTag(){
-    cout << "in default LaserTag constructor" << endl;
+    cout << "\nin default LaserTag constructor" << endl;
 }
 
 LaserTag::LaserTag(char * argv[]){
 
-    DSString TeamA;
-    DSString TeamB;
-    ifstream aFile;
-    aFile.open(argv[1]);
-    aFile >> TeamA;
-    cout << TeamA << endl;
+    DSString ATeamName(argv[1]);
+    Team TeamA(ATeamName);
+
+    DSString BTeamName(argv[2]);
+    Team TeamB(BTeamName);
+
 
 
 }
