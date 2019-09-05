@@ -11,6 +11,7 @@ int main(int argc,char * argv[]){
     }
 
     LaserTag newGame(argv);
+    cout << endl;
 
     return 0;
 }

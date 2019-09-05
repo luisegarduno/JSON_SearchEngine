@@ -9,9 +9,20 @@ Team::Team(){
     cout << "\nin Team Default constructor " << endl;
 }
 
-Team::Team(DSString teamFileName){
-    cout << endl;
-    cout << teamFileName.c_str() << endl;;
+Team::Team(DSString& teamFileName){
+
+    //ifstream theTeamFile(teamFileName.c_str());
+
+    ifstream theTeamFile;
+    theTeamFile.open(teamFileName.c_str());
+
+    DSString theLine;
+    theTeamFile >> theLine;
+    cout << theLine << endl;
+
+
+
+    theTeamFile.close();
 
 
 }

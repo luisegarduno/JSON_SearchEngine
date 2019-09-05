@@ -7,25 +7,26 @@ using std::cout;
 using std::endl;
 
 DSString::DSString(){
-    cout << "in default constructor << ";
+    cout << "in default constructor" << endl;
     data = nullptr;
 }
 
 DSString::DSString(const char* originalChar){                               // 'originalChar' is a constant, can not change
-    cout << "in constructor << ";
+
     this->data = new char[strlen(originalChar) + 1];                        // create new 'data' array size of originalChar + 1('\0')
     strcpy(this->data,originalChar);                                        // c-copy 'originalChar' into 'data' array
+    cout << "in constructor: " << this->data << endl;
 }
 
 DSString::DSString(const DSString& originaldsString){                       // Copy constructor, DSString parameter is a const,
-    cout << "in copy constructor << ";
     this->data = new char[strlen(originaldsString.data) + 1];               // that goes by another name (&)
     strcpy(this->data,originaldsString.data);
+    cout << "in copy constructor: " << this->data << endl;
 
 }
 
 DSString::~DSString(){                                                      // destructor
-    cout << "in destructor << ";
+    cout << "in destructor: " << this->data << endl;
     delete [] this->data;
 }
 
@@ -114,7 +115,6 @@ DSString DSString::substring(int a, int b){
 }
 
 char* DSString::c_str(){                                                    // returns by pointer
-    cout << "in c_str() << ";
     return this->data;
 }
 
@@ -123,15 +123,17 @@ ostream& operator<<(ostream&, const DSString&){
 }
 
 ifstream& operator>>(ifstream& stream,DSString& theString){
-    cout << "in ifstream& << ";
+    cout << "in ifstream&: "<< theString.data << endl;
 
-    cout << theString.data << endl;
     char * tempChar = theString.data;
+    cout << tempChar << endl;
     theString.data = new char[100];
 
     stream >> *(theString.data);
 
-    delete [] tempChar;
+
+
+    //delete tempChar;
 
     return stream;
 }
