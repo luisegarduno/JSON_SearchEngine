@@ -1,5 +1,8 @@
 #ifndef LASERTAG_H
 #define LASERTAG_H
+#include "dsstring.h"
+
+
 
 class LaserTag{
 
@@ -7,7 +10,10 @@ class LaserTag{
 
     public:
         LaserTag();
-        LaserTag(const int argc,char* argv[]);
+        LaserTag(char* argv[]);
+        //friend ifstream& operator>>(ifstream&, const DSString &);
+
+
 };
 
 #endif // LASERTAG_H

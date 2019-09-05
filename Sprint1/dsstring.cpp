@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 
+
 using std::cout;
 using std::endl;
 
@@ -17,7 +18,7 @@ DSString::DSString(const char* originalChar){                               // '
 }
 
 DSString::DSString(const DSString& originaldsString){                       // Copy constructor, DSString parameter is a const,
-    cout << "int copy constructor" << endl;
+    cout << "in copy constructor" << endl;
     this->data = new char[strlen(originaldsString.data) + 1];               // that goes by another name (&)
     strcpy(this->data,originaldsString.data);
 
@@ -117,6 +118,19 @@ char* DSString::c_str(){                                                    // r
     return this->data;
 }
 
-std::ostream& operator<<(std::ostream&, const DSString&){
+ostream& operator<<(ostream&, const DSString&){
 
 }
+
+ifstream& operator>>(ifstream& stream, const DSString& theString){
+    cout << "in fstream&" << endl;
+    char * tempChar = theString.data;
+    tempChar = new char[100];
+
+    stream >> *(theString.data);
+
+    delete [] tempChar;
+
+    return stream;
+}
+

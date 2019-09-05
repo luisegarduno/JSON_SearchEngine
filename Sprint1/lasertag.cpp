@@ -4,17 +4,23 @@
 #include <iostream>
 #include <fstream>
 
+
 using std::cout;
 using std::endl;
+using std::ifstream;
 
 LaserTag::LaserTag(){
     cout << "in default LaserTag constructor" << endl;
 }
 
-LaserTag::LaserTag(const int argc,char * argv[]){
+LaserTag::LaserTag(char * argv[]){
 
-    DSString teamAFile(argv[1]);
-    Team TeamA(teamAFile);
-    DSString TeamB(argv[2]);
-    DSString matchFile(argv[3]);
+    DSString TeamA;
+    DSString TeamB;
+    ifstream FileOne;
+    FileOne.open(argv[1]);
+    FileOne >> TeamA;
+    cout << TeamA;
+
+
 }

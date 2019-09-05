@@ -8,7 +8,7 @@ class Team{
 
     public:
         Team();
-        Team(const DSString&);
+        Team(const DSString);
 };
 
 #endif // TEAM_H

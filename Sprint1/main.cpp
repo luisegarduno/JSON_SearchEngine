@@ -10,7 +10,7 @@ int main(int argc,char * argv[]){
         return -1;
     }
 
-    LaserTag newGame(argc,argv);
+    LaserTag newGame(argv);
 
     return 0;
 }

@@ -4,6 +4,9 @@
 #include <iostream>
 #include <cstring>
 
+using std::ostream;
+using std::ifstream;
+
 class DSString{
 
     private:
@@ -37,7 +40,8 @@ class DSString{
 // c_str returns a c-string representation of the DSString obj.
         char* c_str();
 
-        friend std::ostream& operator<<(std::ostream&, const DSString &);
+        friend ostream& operator<<(ostream&, const DSString &);
+        friend ifstream& operator>>(ifstream&, const DSString &);
 };
 
 #endif // DSSTRING_H

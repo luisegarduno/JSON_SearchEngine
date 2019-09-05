@@ -8,7 +8,8 @@ Team::Team(){
     cout << "in Team Default constructor " << endl;
 }
 
-Team::Team(const DSString& teamFile){
+Team::Team(const DSString teamFile){
+    cout << "in Team constructor" << endl;
     cout << teamFile << endl;
 }
 
