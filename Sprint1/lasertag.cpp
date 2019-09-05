@@ -15,11 +15,11 @@ LaserTag::LaserTag(){
 
 LaserTag::LaserTag(char * argv[]){
 
-    DSString ATeamName(argv[1]);
-    Team TeamA(ATeamName);
+    DSString ATeamFileName(argv[1]);        // ATeamFileName(argv[1]) = 'cowboys.txt'
+    Team TeamA(ATeamFileName);              // TeamA(ATeamFileName) = 'The Cowboys'
 
-    DSString BTeamName(argv[2]);
-    Team TeamB(BTeamName);
+    DSString BTeamFileName(argv[2]);        // BTeamFileName(argv[2]) = 'sharks.txt'
+    Team TeamB(BTeamFileName);              // TeamB(BTeamFileName) = 'The Sharks'
 
 
 

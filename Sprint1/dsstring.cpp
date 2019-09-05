@@ -1,6 +1,5 @@
 #include "dsstring.h"
 #include <iostream>
-#include <fstream>
 
 
 using std::cout;
@@ -8,7 +7,7 @@ using std::endl;
 
 DSString::DSString(){
     cout << "in default constructor" << endl;
-    data = nullptr;
+    this->data = nullptr;
 }
 
 DSString::DSString(const char* originalChar){                               // 'originalChar' is a constant, can not change
@@ -118,22 +117,22 @@ char* DSString::c_str(){                                                    // r
     return this->data;
 }
 
-ostream& operator<<(ostream&, const DSString&){
+ostream& operator<<(ostream& out, const DSString& theString){
+    out << theString.data;
 
+    return out;
 }
 
 ifstream& operator>>(ifstream& stream,DSString& theString){
     cout << "in ifstream&: "<< theString.data << endl;
 
     char * tempChar = theString.data;
-    cout << tempChar << endl;
+    cout << "howdy" << tempChar << endl;
     theString.data = new char[100];
 
     stream >> *(theString.data);
 
-
-
-    //delete tempChar;
+    delete [] tempChar;
 
     return stream;
 }
