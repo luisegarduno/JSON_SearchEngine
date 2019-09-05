@@ -21,23 +21,25 @@ DSString::~DSString(){
     delete [] this->data;
 }
 
-DSString& DSString::operator=(const char* dsString){
-    this->data = new char[strlen(dsString)];
-    strcpy(this->data,dsString);
+DSString& DSString::operator=(const char* originalChar){                    // returns DSString& = originalChar
+    this->data = new char[strlen(originalChar) + 1];                        // create new data array size of parameter + 1
+    strcpy(this->data,originalChar);                                        //
 
-    return *this;
+    return *this;                                                           // *this returns a reference to the object
 }
 
-DSString& DSString::operator=(const DSString& originaldsString){
-    this->data = new char[strlen(originaldsString.data) + 1];
-    strcpy(this->data,originaldsString.data);
+DSString& DSString::operator=(const DSString& originalString){              // returns DSString& = originalString
+    this->data = new char[strlen(originalString.data) + 1];                 // create this->data size of parameter + 1
+    strcpy(this->data,originalString.data);                                 // copy parameter data, to this->data
 
     return *this;
 }
 
 DSString DSString::operator+(const DSString& originaldsString){
-    strcat(this->data,originaldsString.data);
-    return *this;
+    DSString newString;
+    strcpy(newString.data,originaldsString.data);
+
+    return newString;
 }
 
 DSString& DSString::operator+=(const DSString& originaldsString){

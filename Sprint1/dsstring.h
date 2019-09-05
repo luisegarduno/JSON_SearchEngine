@@ -11,19 +11,19 @@ class DSString{
 
     public:
         DSString();                         // Default constructor
-        DSString(const char*);
+        DSString(const char*);              // Constructor w/ 1 paramenter
         DSString(const DSString&);          // Copy constructor
         ~DSString();                        // Destructor
 
-        DSString& operator=(const char*);
-        DSString& operator=(const DSString&);
-        DSString operator+(const DSString&);
-        DSString& operator+=(const DSString&);
-        bool operator==(const char*);
-        bool operator==(const DSString&);
-        bool operator<(const char *);
-        bool operator<(const DSString&);
-        char& operator[](const int);
+        DSString& operator=(const char*);           // returns DSString a = char * orig
+        DSString& operator=(const DSString&);       // returns DSString b = DSString a
+        DSString operator+(const DSString&);        // returns DSString b + DSString a
+        DSString& operator+=(const DSString&);      // returns DSString b = DSString b + DSString a
+        bool operator==(const char*);               // returns bool b ==
+        bool operator==(const DSString&);           // returns bool b ==
+        bool operator<(const char *);               // returns bool b <
+        bool operator<(const DSString&);            // returns bool b <
+        char& operator[](const int);                // returns char
 
         int size();
 
