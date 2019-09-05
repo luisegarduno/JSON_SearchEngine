@@ -1,10 +1,6 @@
 #include "dsstring.h"
 #include <iostream>
 
-
-using std::cout;
-using std::endl;
-
 DSString::DSString(){
     cout << "in default constructor" << endl;
     this->data = nullptr;
@@ -54,7 +50,7 @@ DSString DSString::operator+(const DSString& originalString){
 }
 
 DSString& DSString::operator+=(const DSString& originaldsString){
-    cout << "in operator+=(const DSString&) << ";
+    //cout << "in operator+=(const DSString&) << ";
     char * tempChar = this->data;                                           // temporarily store this->data
     this->data = new char[strlen(tempChar) + strlen(originaldsString.data) + 1];    // empty out this->data
     strcpy(this->data,tempChar);                                            // copy tempChar to this->data
@@ -95,7 +91,8 @@ char& DSString::operator[](const int indexSize){
 
 int DSString::size(){                                                       // return by value
     cout << "in size() << ";
-    return strlen(c_str());
+    int charSize = sizeof(this->data);
+    return charSize;
 }
 
 /*  Parameter a represents the starting position
@@ -124,13 +121,15 @@ ostream& operator<<(ostream& out, const DSString& theString){
 }
 
 ifstream& operator>>(ifstream& stream,DSString& theString){
-    cout << "in ifstream&: "<< theString.data << endl;
+    cout << "in ifstream&: " << endl;
 
     char * tempChar = theString.data;
-    cout << "howdy" << tempChar << endl;
+
     theString.data = new char[100];
 
-    stream >> *(theString.data);
+    while(!stream.eof()){
+        stream >> *(theString.data);
+    }
 
     delete [] tempChar;
 
