@@ -75,7 +75,7 @@ char& DSString::operator[](const int){
 }
 
 int DSString::size(){                                                       // return by value
-    return 0;
+    return (int)strlen(this->data);
 }
 
 char* DSString::c_str(){                                                    // returns by pointer

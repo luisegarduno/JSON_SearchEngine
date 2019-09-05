@@ -15,10 +15,10 @@ class DSString{
         DSString(const DSString&);          // Copy constructor
         ~DSString();                        // Destructor
 
-        DSString& operator=(const char*);           // returns DSString a = char * orig
-        DSString& operator=(const DSString&);       // returns DSString b = DSString a
-        DSString operator+(const DSString&);        // returns DSString b + DSString a
-        DSString& operator+=(const DSString&);      // returns DSString b = DSString b + DSString a
+        DSString& operator=(const char*);           // returns DSString& = char * orig
+        DSString& operator=(const DSString&);       // returns DSString& = DSString a
+        DSString operator+(const DSString&);        // returns DSString& + DSString a
+        DSString& operator+=(const DSString&);      // returns DSString& = DSString b + DSString a
         bool operator==(const char*);               // returns bool b ==
         bool operator==(const DSString&);           // returns bool b ==
         bool operator<(const char *);               // returns bool b <
