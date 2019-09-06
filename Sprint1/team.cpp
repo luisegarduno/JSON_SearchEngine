@@ -2,7 +2,6 @@
 #include "dsstring.h"
 #include <iostream>
 
-using std::cin;
 
 Team::Team(){
     cout << "\nin Team Default constructor " << endl;
@@ -10,23 +9,23 @@ Team::Team(){
 
 Team::Team(DSString& teamFileName){
 
-
-
     ifstream theTeamFile(teamFileName.c_str());
+    char * tempArray = new char[100];
 
-
-    DSString theString;
+    DSString * getTheString;
     if(theTeamFile.good()){
-        theTeamFile >> theString;
-        cout << theString << endl;
-
+        while(!theTeamFile.eof()){
+            theTeamFile.getline(tempArray,100);
+            getTheString = new DSString(tempArray);
+        }
     }
+    cout << *getTheString << endl;
 
 
     theTeamFile.close();
 
-
-
+    delete getTheString;
+    delete [] tempArray;
 }
 
 

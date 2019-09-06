@@ -8,6 +8,7 @@
 using std::ostream;
 using std::cout;
 using std::endl;
+using std::istream;
 using std::ifstream;
 
 class DSString{
@@ -44,7 +45,7 @@ class DSString{
         char* c_str();
 
         friend ostream& operator<<(ostream&, const DSString&);
-        friend ifstream& operator>>(ifstream&,DSString&);
+        friend istream& operator>>(istream&,DSString&);
 };
 
 #endif // DSSTRING_H

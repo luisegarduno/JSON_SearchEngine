@@ -2,8 +2,6 @@
 #define LASERTAG_H
 #include "dsstring.h"
 
-
-
 class LaserTag{
 
     private:

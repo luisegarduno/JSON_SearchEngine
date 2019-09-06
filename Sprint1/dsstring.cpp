@@ -120,15 +120,17 @@ ostream& operator<<(ostream& out, const DSString& theString){
     return out;
 }
 
-ifstream& operator>>(ifstream& stream,DSString& theString){
-    cout << "in ifstream&: " << endl;
+istream& operator>>(istream& stream,DSString& theString){
 
     char * tempChar = theString.data;
 
     theString.data = new char[100];
 
-    while(!stream.eof()){
-        stream >> *(theString.data);
+    if(stream.good()){
+        while(!stream.eof()){
+            stream.getline((theString.data),100);
+            cout << (theString.data) << endl;
+        }
     }
 
     delete [] tempChar;
