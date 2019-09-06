@@ -10,7 +10,7 @@ DSString::DSString(const char* originalChar){                               // '
 
     this->data = new char[strlen(originalChar) + 1];                        // create new 'data' array size of originalChar + 1('\0')
     strcpy(this->data,originalChar);                                        // c-copy 'originalChar' into 'data' array
-    cout << "in constructor: " << this->data << endl;
+    //cout << "in constructor: " << this->data << endl;
 }
 
 DSString::DSString(const DSString& originaldsString){                       // Copy constructor, DSString parameter is a const,
@@ -129,7 +129,7 @@ istream& operator>>(istream& stream,DSString& theString){
     if(stream.good()){
         while(!stream.eof()){
             stream.getline((theString.data),100);
-            cout << (theString.data) << endl;
+            //cout << (theString.data) << endl;
         }
     }
 
