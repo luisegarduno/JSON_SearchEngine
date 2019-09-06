@@ -15,6 +15,7 @@ Team::Team(DSString& teamFileName){
     if(theTeamFile.good()){
         while(!theTeamFile.eof()){
             theTeamFile.getline(tempArray,100);
+            //theTeamFile.getline()
             getTheString = new DSString(tempArray);
             cout << *getTheString << endl;
         }
