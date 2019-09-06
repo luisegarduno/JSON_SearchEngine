@@ -10,7 +10,7 @@ DSString::DSString(const char* originalChar){                               // '
 
     this->data = new char[strlen(originalChar) + 1];                        // create new 'data' array size of originalChar + 1('\0')
     strcpy(this->data,originalChar);                                        // c-copy 'originalChar' into 'data' array
-    //cout << "in constructor: " << this->data << endl;
+    cout << "in constructor: " << this->data << endl;
 }
 
 DSString::DSString(const DSString& originaldsString){                       // Copy constructor, DSString parameter is a const,
@@ -91,8 +91,8 @@ char& DSString::operator[](const int indexSize){
 
 int DSString::size(){                                                       // return by value
     cout << "in size() << ";
-    int charSize = sizeof(this->data);
-    return charSize;
+
+    return (sizeof(this->data) / sizeof(char));
 }
 
 /*  Parameter a represents the starting position
@@ -101,7 +101,7 @@ int DSString::size(){                                                       // r
  *  If b is (-), count backward from position b.
  */
 DSString DSString::substring(int a, int b){
-
+    cout << "in substring" << endl;
     if(b > 0){
 
     }
@@ -111,17 +111,19 @@ DSString DSString::substring(int a, int b){
 }
 
 char* DSString::c_str(){                                                    // returns by pointer
+    cout << "in c_str" << endl;
     return this->data;
 }
 
 ostream& operator<<(ostream& out, const DSString& theString){
+    cout << "is ostream&" << endl;
     out << theString.data;
 
     return out;
 }
 
 istream& operator>>(istream& stream,DSString& theString){
-
+    cout << "in istream&" << endl;
     char * tempChar = theString.data;
 
     theString.data = new char[100];

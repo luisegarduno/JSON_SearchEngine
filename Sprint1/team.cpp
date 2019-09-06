@@ -8,22 +8,29 @@ Team::Team(){
 }
 
 Team::Team(DSString& teamFileName){
-    DSString * getTheString;
     ifstream theTeamFile(teamFileName.c_str());
-    char * tempArray = new char[100];
 
+    char * teamName = new char[100];
+    theTeamFile.getline(teamName,100);
+    DSString getTheString(teamName);
+    cout << "Team name:" << getTheString.size() << endl;
+
+
+    /*
     if(theTeamFile.good()){
         while(!theTeamFile.eof()){
             theTeamFile.getline(tempArray,100);
+            //cout << "Here:" << tempArray << endl;
             //theTeamFile.getline()
             getTheString = new DSString(tempArray);
-            cout << *getTheString << endl;
+            cout << "Line: " << *getTheString;
         }
     }
+    */
 
     theTeamFile.close();
 
-    delete [] tempArray;
+    delete [] teamName;
 }
 
 
