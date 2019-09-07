@@ -61,25 +61,42 @@ DSString& DSString::operator+=(const DSString& originaldsString){
     return *this;                                                           // return a reference to invoking address
 }
 
-bool DSString::operator==(const char*){
+bool DSString::operator==(const char* parameterData){
     cout << "in operator==(const char*) << ";
+    if(this->data == parameterData){
+        return true;
+    }
+
     return false;
 }
 
-bool DSString::operator==(const DSString&){
+bool DSString::operator==(const DSString& parameterString){
     cout << "in operator==(const DSString&) << ";
-    return true;
+    if(this->data == parameterString.data){
+        return true;
+    }
+
+    return false;
+
 }
 
-bool DSString::operator<(const char *){
+bool DSString::operator<(const char * parameterChar){
     cout << "in operator<(const char*) << ";
-    return true;
+    if(this->data < parameterChar){
+        return true;
+    }
+
+    return false;
 }
 
 
-bool DSString::operator<(const DSString&){
+bool DSString::operator<(const DSString& parameterString){
     cout << "in operator<(const DSString&) << ";
-    return true;
+    if(this->data < parameterString.data){
+        return true;
+    }
+
+    return false;
 }
 
 char& DSString::operator[](const int indexSize){

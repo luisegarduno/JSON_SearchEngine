@@ -11,13 +11,13 @@ LaserTag::LaserTag(char * argv[]){
 
     DSString ATeamFileName(argv[1]);        // ATeamFileName(argv[1]) = 'cowboys.txt'
     Team TeamA(ATeamFileName);              // TeamA(ATeamFileName) = 'The Cowboys'
-    cout << TeamA.getTeamName() << endl;
-    cout << TeamA.getNumOfMembers() << endl;
+    cout << "Team: " << TeamA.getTeamName() << endl;
+    cout << "Number of Team Members: " << TeamA.getNumOfMembers() << endl;
 
     DSString BTeamFileName(argv[2]);        // BTeamFileName(argv[2]) = 'sharks.txt'
     Team TeamB(BTeamFileName);              // TeamB(BTeamFileName) = 'The Sharks'
-    cout << TeamB.getTeamName() << endl;
-    cout << TeamB.getNumOfMembers() << endl;
+    cout << "Team: " << TeamB.getTeamName() << endl;
+    cout << "Number of Team Members: " << TeamB.getNumOfMembers() << endl;
 
     DSString matchFileName(argv[3]);
     /*

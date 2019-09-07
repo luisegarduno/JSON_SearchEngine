@@ -42,7 +42,7 @@ Team::Team(DSString& teamFileName){
     theTeamFile.close();
 
     delete [] tempTeamChar;
-    //delete [] tempNumOfMembersChar;
+    delete [] tempNumOfMembers;
 }
 
 void Team::setTeamName(const char * tempTeamName){
@@ -61,7 +61,6 @@ void Team::setNumOfMembers(const char * tempNumOfMembers){
         }
     }
     teamSize = total;
-
 }
 
 DSString Team::getTeamName(){
