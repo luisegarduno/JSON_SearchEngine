@@ -32,6 +32,7 @@ class DSString{
         bool operator<(const DSString&);            // returns bool b <
         char& operator[](const int);                // returns char
 
+        int charToNum(char aValue);
         int size();
 
 // substring: parameter a represents the starting position

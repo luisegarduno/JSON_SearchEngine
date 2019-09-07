@@ -5,6 +5,9 @@
 
 Team::Team(){
     cout << "\nin Team Default constructor " << endl;
+    teamName = nullptr;
+    numOfMembers = nullptr;
+    teamSize = 0;
 }
 
 Team::Team(DSString& teamFileName){
@@ -12,13 +15,15 @@ Team::Team(DSString& teamFileName){
 
     char * tempTeamChar = new char[100];
     theTeamFile.getline(tempTeamChar,100);
-    DSString teamName(tempTeamChar);
-    cout << "Team name: " << teamName << endl;
+    setTeamName(tempTeamChar);
 
-    char * tempNumOfMembersChar = new char[3];
-    theTeamFile.getline(tempNumOfMembersChar,3);
-    DSString numOfMembers(tempNumOfMembersChar);
-    cout << "Number of team members: " << numOfMembers << endl;
+    char * tempNumOfMembers = new char[3];
+    theTeamFile.getline(tempNumOfMembers,3);
+    setNumOfMembers(tempNumOfMembers);
+
+    //int memberCounter = 0;
+
+
 
     /*
      *
@@ -37,7 +42,33 @@ Team::Team(DSString& teamFileName){
     theTeamFile.close();
 
     delete [] tempTeamChar;
-    delete [] tempNumOfMembersChar;
+    //delete [] tempNumOfMembersChar;
 }
 
+void Team::setTeamName(const char * tempTeamName){
+    teamName = tempTeamName;
+}
+
+void Team::setNumOfMembers(const char * tempNumOfMembers){
+    numOfMembers = tempNumOfMembers;
+    int total = 0;
+    for(int i = 0; i < numOfMembers.size(); i++){
+        if(numOfMembers.size() == 2 && i == 0){
+            total = (numOfMembers.charToNum(numOfMembers[i]) * 10);
+        }
+        else {
+            total += (numOfMembers.charToNum(numOfMembers[i]));
+        }
+    }
+    teamSize = total;
+
+}
+
+DSString Team::getTeamName(){
+    return teamName;
+}
+
+int Team::getNumOfMembers(){
+    return teamSize;
+}
 

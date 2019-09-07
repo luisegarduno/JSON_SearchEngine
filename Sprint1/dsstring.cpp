@@ -2,7 +2,7 @@
 #include <iostream>
 
 DSString::DSString(){
-    cout << "in default constructor" << endl;
+    //cout << "in default constructor" << endl;
     this->data = nullptr;
 }
 
@@ -16,7 +16,7 @@ DSString::DSString(const char* originalChar){                               // '
 DSString::DSString(const DSString& originaldsString){                       // Copy constructor, DSString parameter is a const,
     this->data = new char[strlen(originaldsString.data) + 1];               // that goes by another name (&)
     strcpy(this->data,originaldsString.data);
-    cout << "in copy constructor: " << this->data << endl;
+    //cout << "in copy constructor: " << this->data << endl;
 
 }
 
@@ -26,7 +26,7 @@ DSString::~DSString(){                                                      // d
 }
 
 DSString& DSString::operator=(const char* originalChar){                    // returns DSString& = originalChar
-    cout << "in operator=(const char*) << ";
+    //cout << "in operator=(const char*) << ";
     this->data = new char[strlen(originalChar) + 1];
     strcpy(this->data,originalChar);                                        // copies originalChar to this->data
 
@@ -34,7 +34,7 @@ DSString& DSString::operator=(const char* originalChar){                    // r
 }
 
 DSString& DSString::operator=(const DSString& originalString){              // returns DSString& = originalString
-    cout << "in operator=(const DSString&) << ";
+    //cout << "in operator=(const DSString&) << ";
     this->data = new char[strlen(originalString.data) + 1];
     strcpy(this->data,originalString.data);                                 // copies originalString.data to this->data
 
@@ -83,13 +83,40 @@ bool DSString::operator<(const DSString&){
 }
 
 char& DSString::operator[](const int indexSize){
-    cout << "in operator[] << ";
+    //cout << "in operator[] << ";
     return *(this->data + indexSize);
 
 }
 
+int DSString::charToNum(char aValue){
+    switch(aValue){
+        case '1':
+            return 1;
+        case '2':
+            return 2;
+        case '3':
+            return 3;
+        case '4':
+            return 4;
+        case '5':
+            return 5;
+        case '6':
+            return 6;
+        case '7':
+            return 7;
+        case '8':
+            return 8;
+        case '9':
+            return 9;
+        case '0':
+            return 0;
+        default:
+            return -1;
+    }
+}
+
 int DSString::size(){                                                       // return by value
-    cout << "in size() << ";
+    //cout << "in size() << ";
     char *tempSize = &this->data[0];
 
 
@@ -131,9 +158,9 @@ istream& operator>>(istream& stream,DSString& theString){
 
     if(stream.good()){
         while(!stream.eof()){
-            stream.getline((theString.data),100);
-            //cout << (theString.data) << endl;
+            stream >> *(theString.data);
         }
+        cout << *(theString.data) << endl;
     }
 
     delete [] tempChar;
