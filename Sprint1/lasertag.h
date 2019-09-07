@@ -5,6 +5,7 @@
 class LaserTag{
 
     private:
+    //Player * player;
 
     public:
         LaserTag();

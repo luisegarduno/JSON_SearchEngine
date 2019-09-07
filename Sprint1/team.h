@@ -1,6 +1,7 @@
 #ifndef TEAM_H
 #define TEAM_H
 #include "dsstring.h"
+#include "player.h"
 
 class Team{
 
@@ -8,6 +9,7 @@ class Team{
         DSString teamName;
         DSString numOfMembers;
         int teamSize;
+        Player * player;
 
     public:
         Team();

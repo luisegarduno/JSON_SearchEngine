@@ -168,6 +168,10 @@ DSString DSString::substring(int a, int b){
 
         return this->data;
     }
+    else{
+        cout << "b = 0" << endl;
+        return this->data;
+    }
 }
 
 char* DSString::c_str(){                                                    // returns by pointer
@@ -192,7 +196,7 @@ istream& operator>>(istream& stream,DSString& theString){
         while(!stream.eof()){
             stream >> *(theString.data);
         }
-        cout << *(theString.data) << endl;
+        //cout << *(theString.data) << endl;
     }
 
     delete [] tempChar;

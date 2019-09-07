@@ -13,9 +13,9 @@ class Player{
 
     public:
         Player();
-        Player(int idNumber,DSString name);
+        Player(ifstream&);
         DSString getName();
-        void setName(const DSString&);
+        //void setName(ifstream&);
         void addPoints(int points);
         int getPoints();
 
