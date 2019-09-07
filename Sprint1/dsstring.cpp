@@ -1,5 +1,4 @@
 #include "dsstring.h"
-#include <iostream>
 
 DSString::DSString(){
     //cout << "in default constructor" << endl;
@@ -143,15 +142,31 @@ int DSString::size(){                                                       // r
 /*  Parameter a represents the starting position
  *  Parameter b represents the # of characters to copy into the substring that is returned.
  *  If b is (+), count forward from position a.
- *  If b is (-), count backward from position b.
+ *  If b is (-), count backward from position a.
  */
 DSString DSString::substring(int a, int b){
     cout << "in substring" << endl;
-    if(b > 0){
 
+    char * tempData = this->data;
+    this->data = new char[(b * b) / b];
+
+    if(b > 0){
+        for(int i = 0; i < b ; i++){
+            this->data[i] = tempData[a + (i + 1)];
+        }
+
+        delete [] tempData;
+
+        return this->data;
     }
     else if(b < 0){
+        for(int i = 0; i < ((b * b) / b) ; i++){
+            this->data[i] = tempData[a - (i + 1)];
+        }
 
+        delete [] tempData;
+
+        return this->data;
     }
 }
 

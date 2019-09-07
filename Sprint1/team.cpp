@@ -21,6 +21,8 @@ Team::Team(DSString& teamFileName){
     theTeamFile.getline(tempNumOfMembers,3);
     setNumOfMembers(tempNumOfMembers);
 
+
+
     //int memberCounter = 0;
 
 
