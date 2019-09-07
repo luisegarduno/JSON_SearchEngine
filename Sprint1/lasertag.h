@@ -9,9 +9,6 @@ class LaserTag{
     public:
         LaserTag();
         LaserTag(char* argv[]);
-        //friend ifstream& operator>>(ifstream&, const DSString &);
-
-
 };
 
 #endif // LASERTAG_H

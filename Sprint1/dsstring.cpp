@@ -10,7 +10,7 @@ DSString::DSString(const char* originalChar){                               // '
 
     this->data = new char[strlen(originalChar) + 1];                        // create new 'data' array size of originalChar + 1('\0')
     strcpy(this->data,originalChar);                                        // c-copy 'originalChar' into 'data' array
-    cout << "in constructor: " << this->data << endl;
+    //cout << "in constructor: " << this->data << endl;
 }
 
 DSString::DSString(const DSString& originaldsString){                       // Copy constructor, DSString parameter is a const,
@@ -21,7 +21,7 @@ DSString::DSString(const DSString& originaldsString){                       // C
 }
 
 DSString::~DSString(){                                                      // destructor
-    cout << "in destructor: " << this->data << endl;
+    //cout << "in destructor: " << this->data << endl;
     delete [] this->data;
 }
 
@@ -50,7 +50,7 @@ DSString DSString::operator+(const DSString& originalString){
 }
 
 DSString& DSString::operator+=(const DSString& originaldsString){
-    //cout << "in operator+=(const DSString&) << ";
+    cout << "in operator+=(const DSString&) << ";
     char * tempChar = this->data;                                           // temporarily store this->data
     this->data = new char[strlen(tempChar) + strlen(originaldsString.data) + 1];    // empty out this->data
     strcpy(this->data,tempChar);                                            // copy tempChar to this->data
@@ -77,7 +77,6 @@ bool DSString::operator<(const char *){
 }
 
 
-
 bool DSString::operator<(const DSString&){
     cout << "in operator<(const DSString&) << ";
     return true;
@@ -91,8 +90,10 @@ char& DSString::operator[](const int indexSize){
 
 int DSString::size(){                                                       // return by value
     cout << "in size() << ";
+    char *tempSize = &this->data[0];
 
-    return (sizeof(this->data) / sizeof(char));
+
+    return strlen(tempSize);
 }
 
 /*  Parameter a represents the starting position
@@ -111,12 +112,12 @@ DSString DSString::substring(int a, int b){
 }
 
 char* DSString::c_str(){                                                    // returns by pointer
-    cout << "in c_str" << endl;
+    //cout << "in c_str" << endl;
     return this->data;
 }
 
 ostream& operator<<(ostream& out, const DSString& theString){
-    cout << "is ostream&" << endl;
+    //cout << "is ostream&" << endl;
     out << theString.data;
 
     return out;

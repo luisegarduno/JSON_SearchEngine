@@ -15,6 +15,19 @@ LaserTag::LaserTag(char * argv[]){
     DSString BTeamFileName(argv[2]);        // BTeamFileName(argv[2]) = 'sharks.txt'
     Team TeamB(BTeamFileName);              // TeamB(BTeamFileName) = 'The Sharks'
 
+    DSString matchFileName(argv[3]);
+    /*
+     * Match(matchFileName){
+     *  open matchFile
+     *  read first line to get total # of tags
+     *
+     *  int tags =0
+     *  while  tags != # of tags
+     *      istream(readfrom, save to, '\0');
+     *
+     * }
+     * */
+
 
 
 }

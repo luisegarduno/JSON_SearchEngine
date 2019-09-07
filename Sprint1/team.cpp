@@ -10,13 +10,19 @@ Team::Team(){
 Team::Team(DSString& teamFileName){
     ifstream theTeamFile(teamFileName.c_str());
 
-    char * teamName = new char[100];
-    theTeamFile.getline(teamName,100);
-    DSString getTheString(teamName);
-    cout << "Team name:" << getTheString.size() << endl;
+    char * tempTeamChar = new char[100];
+    theTeamFile.getline(tempTeamChar,100);
+    DSString teamName(tempTeamChar);
+    cout << "Team name: " << teamName << endl;
 
+    char * tempNumOfMembersChar = new char[3];
+    theTeamFile.getline(tempNumOfMembersChar,3);
+    DSString numOfMembers(tempNumOfMembersChar);
+    cout << "Number of team members: " << numOfMembers << endl;
 
     /*
+     *
+     *
     if(theTeamFile.good()){
         while(!theTeamFile.eof()){
             theTeamFile.getline(tempArray,100);
@@ -30,7 +36,8 @@ Team::Team(DSString& teamFileName){
 
     theTeamFile.close();
 
-    delete [] teamName;
+    delete [] tempTeamChar;
+    delete [] tempNumOfMembersChar;
 }
 
 
