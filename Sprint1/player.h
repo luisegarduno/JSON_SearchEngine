@@ -10,14 +10,17 @@ class Player{
         DSString name;
         DSString idNumber;
         int points;
-        //int idNumber;
+        int ID_AsInt;
 
     public:
         Player();
         Player(ifstream&);
         DSString getName();
+        DSString getIDNumber();
         void setName(const DSString&);
-        void setIdNumber(const DSString&);
+        void setIDNumber(const DSString&);
+        void setIDNumber_AsInt(const DSString&);
+
         void addPoints(int points);
         int getPoints();
 

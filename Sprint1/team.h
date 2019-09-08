@@ -17,8 +17,10 @@ class Team{
         void setTeamName(const char*);
         void setNumOfMembers(const char *);
         DSString getTeamName();
+        DSString getIDNum();
         int getNumOfMembers();
-        void addPlayer(ifstream&);
+        void setMemberID_AsInt();
+        void addMember(ifstream&);
 
 };
 

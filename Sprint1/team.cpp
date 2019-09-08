@@ -24,7 +24,7 @@ Team::Team(DSString& teamFileName){
 
 
     for(int i = 0; i < getNumOfMembers(); i++){
-        addPlayer(theTeamFile);
+        addMember(theTeamFile);
     }
 
 
@@ -54,8 +54,15 @@ Team::Team(DSString& teamFileName){
     delete [] tempNumOfMembers;
 }
 
-void Team::addPlayer(ifstream& stream){
+void Team::setMemberID_AsInt(){
+    //player[0];
+}
+
+
+void Team::addMember(ifstream& stream){
     player = new Player(stream);
+    cout << "Team: " << getTeamName() << "\tName: " << player->getName();
+    cout << "\tID: " << player->getIDNumber() << endl;
 }
 
 void Team::setTeamName(const char * tempTeamName){
@@ -74,6 +81,10 @@ void Team::setNumOfMembers(const char * tempNumOfMembers){
         }
     }
     teamSize = total;
+}
+
+DSString Team::getIDNum(){
+    return player->getIDNumber();
 }
 
 DSString Team::getTeamName(){

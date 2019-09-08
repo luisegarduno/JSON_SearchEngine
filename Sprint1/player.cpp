@@ -3,6 +3,7 @@
 
 Player::Player(){
     points = 0;
+    ID_AsInt = 0;
     this->idNumber = nullptr;
     this->name = nullptr;
 }
@@ -18,14 +19,15 @@ Player::Player(ifstream& stream){
     while(tempLineChar[a] != '\0'){
 
         if(tempLineChar[a] == ' '){
-            setIdNumber(theID->substring(a,0 - a));
-            cout << "ID: " << *theID;
+            setIDNumber(theID->substring(a,0 - a));
+
+            //cout << "ID: " << *theID;
             b = a;
         }
         a++;
     }
     setName(theName->substring(b,a));
-    cout << "\tName: " << *theName << endl;
+    //cout << "\tName: " << *theName << endl;
 
     //stream.close();
 
@@ -44,8 +46,27 @@ void Player::setName(const DSString& name){
     this->name = name;
 }
 
-void Player::setIdNumber(const DSString& idNumber){
+void Player::setIDNumber_AsInt(const DSString& idNumber){
     this->idNumber = idNumber;
+    this->points = 0;
+    int total = 0;
+    for(int i = 0; i < this->idNumber.size(); i++){
+        if(this->idNumber.size() == 2 && i == 0){
+            total = (this->idNumber.charToNum(this->idNumber[i]) * 10);
+        }
+        else {
+            total += (this->idNumber.charToNum(this->idNumber[i]));
+        }
+    }
+    ID_AsInt = total;
+}
+
+void Player::setIDNumber(const DSString& idNumber){
+    this->idNumber = idNumber;
+}
+
+DSString Player::getIDNumber(){
+    return this->idNumber;
 }
 
 void Player::addPoints(int points){
