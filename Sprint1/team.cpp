@@ -8,6 +8,7 @@ Team::Team(){
     teamName = nullptr;
     numOfMembers = nullptr;
     teamSize = 0;
+    player = nullptr;
 }
 
 Team::Team(DSString& teamFileName){
@@ -21,7 +22,12 @@ Team::Team(DSString& teamFileName){
     theTeamFile.getline(tempNumOfMembers,3);
     setNumOfMembers(tempNumOfMembers);
 
-    player = new Player(theTeamFile);
+
+    for(int i = 0; i < getNumOfMembers(); i++){
+        addPlayer(theTeamFile);
+    }
+
+
 
 
     //int memberCounter = 0;
@@ -46,6 +52,10 @@ Team::Team(DSString& teamFileName){
 
     delete [] tempTeamChar;
     delete [] tempNumOfMembers;
+}
+
+void Team::addPlayer(ifstream& stream){
+    player = new Player(stream);
 }
 
 void Team::setTeamName(const char * tempTeamName){

@@ -18,6 +18,7 @@ class Team{
         void setNumOfMembers(const char *);
         DSString getTeamName();
         int getNumOfMembers();
+        void addPlayer(ifstream&);
 
 };
 

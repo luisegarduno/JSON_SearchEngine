@@ -15,7 +15,6 @@ LaserTag::LaserTag(char * argv[]){
     cout << "Number of Team Members: " << TeamA.getNumOfMembers() << endl;
 
 
-
     DSString BTeamFileName(argv[2]);        // BTeamFileName(argv[2]) = 'sharks.txt'
     Team TeamB(BTeamFileName);              // TeamB(BTeamFileName) = 'The Sharks'
     cout << "Team: " << TeamB.getTeamName() << endl;
