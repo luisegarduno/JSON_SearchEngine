@@ -9,18 +9,18 @@ DSString::DSString(const char* originalChar){                               // '
 
     this->data = new char[strlen(originalChar) + 1];                        // create new 'data' array size of originalChar + 1('\0')
     strcpy(this->data,originalChar);                                        // c-copy 'originalChar' into 'data' array
-    //cout << "in constructor: " << this->data << endl;
+    cout << "in constructor: " << this->data << endl;
 }
 
 DSString::DSString(const DSString& originaldsString){                       // Copy constructor, DSString parameter is a const,
     this->data = new char[strlen(originaldsString.data) + 1];               // that goes by another name (&)
     strcpy(this->data,originaldsString.data);
-    //cout << "in copy constructor: " << this->data << endl;
+    cout << "in copy constructor: " << this->data << endl;
 
 }
 
 DSString::~DSString(){                                                      // destructor
-    //cout << "in destructor: " << this->data << endl;
+    cout << " in destructor: " << this->data << endl;
     delete [] this->data;
 }
 
@@ -41,7 +41,7 @@ DSString& DSString::operator=(const DSString& originalString){              // r
 }
 
 DSString DSString::operator+(const DSString& originalString){
-    cout << "in operator+(const DSString&) << ";
+    //cout << "in operator+(const DSString&) << ";
     DSString newString = this->data;
     strcat(newString.data,originalString.data);
 
@@ -49,7 +49,7 @@ DSString DSString::operator+(const DSString& originalString){
 }
 
 DSString& DSString::operator+=(const DSString& originaldsString){
-    cout << "in operator+=(const DSString&) << ";
+    //cout << "in operator+=(const DSString&) << ";
     char * tempChar = this->data;                                           // temporarily store this->data
     this->data = new char[strlen(tempChar) + strlen(originaldsString.data) + 1];    // empty out this->data
     strcpy(this->data,tempChar);                                            // copy tempChar to this->data
@@ -61,7 +61,7 @@ DSString& DSString::operator+=(const DSString& originaldsString){
 }
 
 bool DSString::operator==(const char* parameterData){
-    cout << "in operator==(const char*) << ";
+    //cout << "in operator==(const char*) << ";
     if(this->data == parameterData){
         return true;
     }
@@ -70,7 +70,7 @@ bool DSString::operator==(const char* parameterData){
 }
 
 bool DSString::operator==(const DSString& parameterString){
-    cout << "in operator==(const DSString&) << ";
+    //cout << "in operator==(const DSString&) << ";
     if(this->data == parameterString.data){
         return true;
     }
@@ -80,7 +80,7 @@ bool DSString::operator==(const DSString& parameterString){
 }
 
 bool DSString::operator<(const char * parameterChar){
-    cout << "in operator<(const char*) << ";
+    //cout << "in operator<(const char*) << ";
     if(this->data < parameterChar){
         return true;
     }
@@ -90,7 +90,7 @@ bool DSString::operator<(const char * parameterChar){
 
 
 bool DSString::operator<(const DSString& parameterString){
-    cout << "in operator<(const DSString&) << ";
+    //cout << "in operator<(const DSString&) << ";
     if(this->data < parameterString.data){
         return true;
     }

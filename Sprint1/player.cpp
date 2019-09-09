@@ -61,6 +61,10 @@ void Player::setIDNumber_AsInt(const DSString& idNumber){
     ID_AsInt = total;
 }
 
+int Player::getMemberID_AsInt(){
+    return ID_AsInt;
+}
+
 void Player::setIDNumber(const DSString& idNumber){
     this->idNumber = idNumber;
 }
@@ -75,4 +79,8 @@ void Player::addPoints(int points){
 
 int Player::getPoints(){
     return this->points;
+}
+
+Player::~Player(){
+    cout << " in Player Destructor" << endl;
 }

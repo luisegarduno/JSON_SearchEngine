@@ -23,6 +23,8 @@ class Player{
 
         void addPoints(int points);
         int getPoints();
+        int getMemberID_AsInt();
+        ~Player();
 
 };
 

@@ -55,7 +55,7 @@ Team::Team(DSString& teamFileName){
 }
 
 void Team::setMemberID_AsInt(){
-    //player[0];
+    player->setIDNumber_AsInt(player->getIDNumber());
 }
 
 
@@ -93,5 +93,10 @@ DSString Team::getTeamName(){
 
 int Team::getNumOfMembers(){
     return teamSize;
+}
+
+Team::~Team(){
+    cout << "in Team Destructor: " << this->player <<  endl;
+    delete player;
 }
 

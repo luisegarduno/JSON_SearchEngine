@@ -16,11 +16,13 @@ class Team{
         Team(DSString&);
         void setTeamName(const char*);
         void setNumOfMembers(const char *);
+        void setMemberID_AsInt();
+        int getMemberID_AsInt();
         DSString getTeamName();
         DSString getIDNum();
         int getNumOfMembers();
-        void setMemberID_AsInt();
         void addMember(ifstream&);
+        ~Team();
 
 };
 
