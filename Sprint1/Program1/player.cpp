@@ -35,8 +35,8 @@ Player::Player(ifstream& stream){
     //stream.close();
 
     delete [] tempLineChar;
-    delete theID;
-    delete theName;
+    //delete theID;
+    //delete theName;
 }
 
 Player::Player(Player* originalPlayer){

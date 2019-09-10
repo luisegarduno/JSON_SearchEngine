@@ -36,19 +36,6 @@ LaserTag::LaserTag(char * argv[]){
             cout << "Verbosity Error" << endl;
         break;
     }
-
-    /*
-     * Match(matchFileName){
-     *  open matchFile
-     *  read first line to get total # of tags
-     *
-     *  int tags =0
-     *  while  tags != # of tags
-     *      istream(readfrom, save to, '\0');
-     *
-     * }
-     * */
-
 }
 
 void LaserTag::verbosityLow(DSString& matchFileName,const DSString& outputFile){
