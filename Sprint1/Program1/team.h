@@ -21,7 +21,6 @@ class Team{
         int getNumOfMembers();
         void addMember(ifstream&);
         bool isFirstMember();
-        void setTeamMember(Player*);
         Player * getTeamMember();
         ~Team();
 

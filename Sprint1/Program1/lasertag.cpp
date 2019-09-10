@@ -3,8 +3,10 @@
 #include "dsstring.h"
 #include <iostream>
 
+const bool DEBUG = false;
+
 LaserTag::LaserTag(){
-    cout << "\nin default LaserTag constructor" << endl;
+    if(DEBUG)cout << "\nin default LaserTag constructor" << endl;
 }
 
 LaserTag::LaserTag(char * argv[]){
@@ -39,7 +41,7 @@ LaserTag::LaserTag(char * argv[]){
 }
 
 void LaserTag::verbosityLow(DSString& matchFileName,const DSString& outputFile){
-    cout << "Low Verbosity(" <<  matchFileName << ") -> " << outputFile << endl;
+    if(DEBUG)cout << "Low Verbosity(" <<  matchFileName << ") -> " << outputFile << endl;
     ifstream verbLow(matchFileName.c_str());
 
     char * readLow = new char[7];
@@ -55,7 +57,7 @@ void LaserTag::verbosityLow(DSString& matchFileName,const DSString& outputFile){
 }
 
 void LaserTag::verbosityMedium(DSString& matchFileName,const DSString& outputFile){
-    cout << "Medium Verbosity(" <<  matchFileName << ") -> " << outputFile << endl;
+    if(DEBUG)cout << "Medium Verbosity(" <<  matchFileName << ") -> " << outputFile << endl;
     ifstream verbMed(matchFileName.c_str());
 
     char * readMed = new char[7];
@@ -75,7 +77,7 @@ void LaserTag::verbosityMedium(DSString& matchFileName,const DSString& outputFil
 }
 
 void LaserTag::verbosityHigh(DSString& matchFileName,const DSString& outputFile){
-    cout << "High Verbosity(" <<  matchFileName << ") -> " << outputFile << endl;
+    if(DEBUG)cout << "High Verbosity(" <<  matchFileName << ") -> " << outputFile << endl;
     ifstream verbHigh(matchFileName.c_str());
 
     char * readHigh = new char[7];

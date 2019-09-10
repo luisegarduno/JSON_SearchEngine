@@ -1,6 +1,8 @@
 #include "player.h"
 #include "dsstring.h"
 
+const bool DEBUG1 = false;
+
 Player::Player(){
     points = 0;
     ID_AsInt = 0;
@@ -23,16 +25,14 @@ Player::Player(ifstream& stream){
         if(tempLineChar[a] == ' '){
             setIDNumber(theID->substring(a,0 - a));
 
-            //cout << "ID: " << *theID;
+            if(DEBUG1)cout << "ID: " << *theID;
             b = a;
         }
         a++;
     }
     setName(theName->substring(b,a));
     setIDNumber_AsInt(getIDNumber());
-    //cout << "\tName: " << *theName << endl;
-
-    //stream.close();
+    if(DEBUG1)cout << "\tName: " << *theName << endl;
 
     delete [] tempLineChar;
     delete theID;
@@ -45,19 +45,13 @@ Player::Player(Player* originalPlayer){
 
 }
 
-/*Player::Player(int MemberIDNumber){
-    ID_AsInt = MemberIDNumber;
-    //this->name = MemberName;
-    //points = bodyArea;  // do point system later;
-}*/
-
 DSString Player::getName(){
-    //cout << "get name: " << this->name << endl;
+    if(DEBUG1)cout << "get name: " << this->name << endl;
     return this->name;
 }
 
 void Player::setName(const DSString& name){
-    //cout << "set name: " << endl;
+    if(DEBUG1)cout << "set name: " << endl;
     this->name = name;
 }
 
@@ -97,6 +91,5 @@ int Player::getPoints(){
 }
 
 Player::~Player(){
-    //cout << " in Player Destructor" << endl;
-    //delete player;
+    if(DEBUG1)cout << " in Player Destructor" << endl;
 }
