@@ -27,12 +27,12 @@ Team::Team(DSString& teamFileName){
 
     firstMember = true;
 
-    Player * player[getNumOfMembers()];
+    /*Player * player[getNumOfMembers()];
 
     for(int i = 0; i < getNumOfMembers(); i++){
         addMember(theTeamFile);
         player[i] = this->player;
-    }
+    }*/
 
     theTeamFile.close();
 

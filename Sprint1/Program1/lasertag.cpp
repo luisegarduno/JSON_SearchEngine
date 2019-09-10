@@ -12,7 +12,7 @@ LaserTag::LaserTag(){
 LaserTag::LaserTag(char * argv[]){
 
     DSString ATeamFileName(argv[1]);        // ATeamFileName(argv[1]) = 'cowboys.txt'
-    //Team TeamA(ATeamFileName);              // TeamA(ATeamFileName) = 'The Cowboys'
+    Team TeamA(ATeamFileName);              // TeamA(ATeamFileName) = 'The Cowboys'
 
     DSString BTeamFileName(argv[2]);        // BTeamFileName(argv[2]) = 'sharks.txt'
     //Team TeamB(BTeamFileName);              // TeamB(BTeamFileName) = 'The Sharks'
@@ -48,7 +48,7 @@ void LaserTag::verbosityLow(DSString& matchFileName,const DSString& outputFile){
     verbLow.getline(readLow,7);
 
     DSString totalNumOfTagsInGame(readLow);
-    cout << totalNumOfTagsInGame << endl;
+    if(DEBUG)cout << totalNumOfTagsInGame << endl;
 
 
     verbLow.close();
@@ -64,7 +64,7 @@ void LaserTag::verbosityMedium(DSString& matchFileName,const DSString& outputFil
     verbMed.getline(readMed,7);
 
     DSString totalNumOfTagsInGame(readMed);
-    cout << totalNumOfTagsInGame << endl;
+    if(DEBUG)cout << totalNumOfTagsInGame << endl;
 
 
 
@@ -84,7 +84,7 @@ void LaserTag::verbosityHigh(DSString& matchFileName,const DSString& outputFile)
     verbHigh.getline(readHigh,7);
 
     DSString totalNumOfTagsInGame(readHigh);
-    cout << totalNumOfTagsInGame << endl;
+    if(DEBUG)cout << totalNumOfTagsInGame << endl;
 
 
 
