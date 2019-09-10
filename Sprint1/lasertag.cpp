@@ -62,10 +62,6 @@ void LaserTag::verbosityLow(DSString& matchFileName,const DSString& outputFile){
     cout << totalNumOfTagsInGame << endl;
 
 
-
-
-
-
     verbLow.close();
 
     delete [] readLow;
