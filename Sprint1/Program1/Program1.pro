@@ -15,5 +15,3 @@ HEADERS += \
     lasertag.h \
     player.h \
     team.h
-
-DISTFILES +=

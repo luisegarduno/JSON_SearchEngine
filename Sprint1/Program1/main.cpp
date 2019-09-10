@@ -5,9 +5,7 @@ using namespace std;
 
 int main(int argc,char * argv[]){
 
-    if(argc != 7){
-        cout << argv[0] << endl;
-        cout << argv[1] << endl;
+    if(argc != 6){
         cout << "Error, missing files" << endl;
         return -1;
     }
