@@ -8,7 +8,7 @@ DSString::DSString(){
 }
 
 DSString::DSString(const char* originalChar){                               // 'originalChar' is a constant, can not change
-    this->data = new char[strlen(originalChar) + 1];                        // create new 'data' array size of originalChar + 1('\0')
+    this->data = new char[int(strlen(originalChar)) + 1];                        // create new 'data' array size of originalChar + 1('\0')
     strcpy(this->data,originalChar);                                        // c-copy 'originalChar' into 'data' array
     if(DEBUG0)cout << "in constructor: " << this->data << endl;
 }
