@@ -10,9 +10,9 @@ class LaserTag{
     public:
         LaserTag();
         LaserTag(char* argv[]);
-        void verbosityLow(const DSString&,const DSString&);
-        void verbosityMedium(const DSString&,const DSString&);
-        void verbosityHigh(const DSString&,const DSString&);
+        void verbosityLow( DSString&,const DSString&);
+        void verbosityMedium(DSString&,const DSString&);
+        void verbosityHigh(DSString&,const DSString&);
 };
 
 #endif // LASERTAG_H
