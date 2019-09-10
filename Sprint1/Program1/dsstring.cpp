@@ -35,8 +35,11 @@ DSString& DSString::operator=(const char* originalChar){                    // r
 
 DSString& DSString::operator=(const DSString& originalString){              // returns DSString& = originalString
     if(DEBUG0)cout << "in operator=(const DSString&) << ";
+    char * tempData = data;
     this->data = new char[strlen(originalString.data) + 1];
     strcpy(this->data,originalString.data);                                 // copies originalString.data to this->data
+
+    delete [] tempData;
 
     return *this;                                                           // return DSString by reference
 }
