@@ -27,6 +27,7 @@ class Player{
         void addPoints(int points);
         int getPoints();
         int getMemberID_AsInt();
+        friend class Team;
         ~Player();
 
 };

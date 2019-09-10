@@ -34,18 +34,11 @@ Team::Team(DSString& teamFileName){
 
     setTeamMember(player[0]);
 
-
     theTeamFile.close();
 
     delete [] tempTeamChar;
     delete [] tempNumOfMembers;
 }
-
-void Team::setMemberID_AsInt(){
-    this->player->setIDNumber_AsInt(this->player->getIDNumber());
-}
-
-
 
 
 void Team::addMember(ifstream& stream){
@@ -54,7 +47,6 @@ void Team::addMember(ifstream& stream){
     cout << "\tID: " << this->player->getMemberID_AsInt() << endl;
     if(this->player->getMemberID_AsInt() == 1){
         isFirstMember();
-        //cout << "PlayerID: " << this->player->getMemberID_AsInt() << getTeamName() << endl;
     }
 }
 
@@ -79,10 +71,6 @@ void Team::setNumOfMembers(const char * tempNumOfMembers){
 bool Team::isFirstMember(){
     firstMember = false;
     return firstMember;
-}
-
-DSString Team::getIDNum(){
-    return player->getIDNumber();
 }
 
 DSString Team::getTeamName(){
