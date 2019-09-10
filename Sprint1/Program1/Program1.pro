@@ -16,8 +16,4 @@ HEADERS += \
     player.h \
     team.h
 
-DISTFILES += \
-    OutputFile.txt \
-    cowboys.txt \
-    match1.txt \
-    sharks.txt
+DISTFILES +=
