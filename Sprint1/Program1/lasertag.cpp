@@ -9,19 +9,19 @@ LaserTag::LaserTag(){
 
 LaserTag::LaserTag(char * argv[]){
 
-    DSString ATeamFileName(argv[2]);        // ATeamFileName(argv[1]) = 'cowboys.txt'
+    DSString ATeamFileName(argv[1]);        // ATeamFileName(argv[1]) = 'cowboys.txt'
     Team TeamA(ATeamFileName);              // TeamA(ATeamFileName) = 'The Cowboys'
 
-    DSString BTeamFileName(argv[3]);        // BTeamFileName(argv[2]) = 'sharks.txt'
+    DSString BTeamFileName(argv[2]);        // BTeamFileName(argv[2]) = 'sharks.txt'
     Team TeamB(BTeamFileName);              // TeamB(BTeamFileName) = 'The Sharks'
 
     int totalNumberOfPlayers = TeamA.getNumOfMembers() + TeamB.getNumOfMembers();
     Player * allPlayers[totalNumberOfPlayers];
 
-    DSString matchFileName(argv[4]);
-    DSString outputFile(argv[5]);
+    DSString matchFileName(argv[3]);
+    DSString outputFile(argv[4]);
 
-    DSString verbosity(argv[6]);
+    DSString verbosity(argv[5]);
     switch(verbosity[1]){
         case 'l':
             verbosityLow(matchFileName,outputFile);
