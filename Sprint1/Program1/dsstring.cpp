@@ -207,4 +207,3 @@ istream& operator>>(istream& stream,DSString& theString){
 
     return stream;
 }
-

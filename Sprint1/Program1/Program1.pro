@@ -4,4 +4,20 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
-        main.cpp
+        dsstring.cpp \
+        lasertag.cpp \
+        main.cpp \
+        player.cpp \
+        team.cpp
+
+HEADERS += \
+    dsstring.h \
+    lasertag.h \
+    player.h \
+    team.h
+
+DISTFILES += \
+    OutputFile.txt \
+    cowboys.txt \
+    match1.txt \
+    sharks.txt
