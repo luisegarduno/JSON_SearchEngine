@@ -102,7 +102,7 @@ Player* Team::getTeamMember(){
 }
 
 Team::~Team(){
-    cout << "in Team Destructor: " << this->teamName <<  endl;
-    //delete  this->player;
+    //cout << "in Team Destructor: " << this->teamName <<  endl;
+    delete  this->player;
 }
 

@@ -12,35 +12,14 @@ LaserTag::LaserTag(char * argv[]){
     DSString ATeamFileName(argv[1]);        // ATeamFileName(argv[1]) = 'cowboys.txt'
     Team TeamA(ATeamFileName);              // TeamA(ATeamFileName) = 'The Cowboys'
 
-
-
-    for(int i = 0; i < TeamA.getNumOfMembers(); i++){
-
-    }
-
-
-    cout << endl;
-
     DSString BTeamFileName(argv[2]);        // BTeamFileName(argv[2]) = 'sharks.txt'
     Team TeamB(BTeamFileName);              // TeamB(BTeamFileName) = 'The Sharks'
-
-    for(int i = 0; i < TeamB.getNumOfMembers();i++){
-
-    }
 
     int totalNumberOfPlayers = TeamA.getNumOfMembers() + TeamB.getNumOfMembers();
     Player * allPlayers[totalNumberOfPlayers];
 
-
-    //cout << TeamA.isFirstMember() << endl;
-    //cout << TeamB.isFirstMember() << endl;
-
     DSString matchFileName(argv[3]);
     DSString outputFile(argv[4]);
-
-    // cout << TeamA.getIDNum() << endl; //prints 15
-    // cout << TeamB.getIDNum() << endl; //prints 30
-    // Since TeamA < TeamB     TeamA: 1-15     TeamB: 16-30
 
     DSString verbosity(argv[5]);
     switch(verbosity[1]){
@@ -74,6 +53,7 @@ LaserTag::LaserTag(char * argv[]){
 
 void LaserTag::verbosityLow(const DSString& matchFileName,const DSString& outputFile){
     cout << "Low Verbosity(" <<  matchFileName << ") -> " << outputFile << endl;
+
 }
 
 void LaserTag::verbosityMedium(const DSString& matchFileName,const DSString& outputFile){
