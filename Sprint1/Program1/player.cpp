@@ -92,4 +92,5 @@ int Player::getPoints(){
 
 Player::~Player(){
     if(DEBUG1)cout << " in Player Destructor" << endl;
+    //delete player;
 }

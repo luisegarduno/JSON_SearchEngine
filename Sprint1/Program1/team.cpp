@@ -11,7 +11,6 @@ Team::Team(){
     numOfMembers = nullptr;
     teamSize = 0;
     player = nullptr;
-    firstMember = true;
 }
 
 Team::Team(DSString& teamFileName){
@@ -24,8 +23,6 @@ Team::Team(DSString& teamFileName){
     char * tempNumOfMembers = new char[3];
     theTeamFile.getline(tempNumOfMembers,3);
     setNumOfMembers(tempNumOfMembers);
-
-    firstMember = true;
 
     /*Player * player[getNumOfMembers()];
 
@@ -86,5 +83,5 @@ Player* Team::getTeamMember(){
 
 Team::~Team(){
     if(DEBUG2)cout << "in Team Destructor: " << this->teamName <<  endl;
-    delete player;
+
 }
