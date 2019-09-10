@@ -12,13 +12,13 @@ LaserTag::LaserTag(){
 LaserTag::LaserTag(char * argv[]){
 
     DSString ATeamFileName(argv[1]);        // ATeamFileName(argv[1]) = 'cowboys.txt'
-    Team TeamA(ATeamFileName);              // TeamA(ATeamFileName) = 'The Cowboys'
+    //Team TeamA(ATeamFileName);              // TeamA(ATeamFileName) = 'The Cowboys'
 
     DSString BTeamFileName(argv[2]);        // BTeamFileName(argv[2]) = 'sharks.txt'
-    Team TeamB(BTeamFileName);              // TeamB(BTeamFileName) = 'The Sharks'
+    //Team TeamB(BTeamFileName);              // TeamB(BTeamFileName) = 'The Sharks'
 
-    int totalNumberOfPlayers = TeamA.getNumOfMembers() + TeamB.getNumOfMembers();
-    Player * allPlayers[totalNumberOfPlayers];
+    //int totalNumberOfPlayers = TeamA.getNumOfMembers() + TeamB.getNumOfMembers();
+    //Player * allPlayers[totalNumberOfPlayers];
 
     DSString matchFileName(argv[3]);
     DSString outputFile(argv[4]);
