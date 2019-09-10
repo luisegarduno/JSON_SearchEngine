@@ -9,18 +9,18 @@ DSString::DSString(const char* originalChar){                               // '
 
     this->data = new char[strlen(originalChar) + 1];                        // create new 'data' array size of originalChar + 1('\0')
     strcpy(this->data,originalChar);                                        // c-copy 'originalChar' into 'data' array
-    cout << "in constructor: " << this->data << endl;
+    //cout << "in constructor: " << this->data << endl;
 }
 
 DSString::DSString(const DSString& originaldsString){                       // Copy constructor, DSString parameter is a const,
     this->data = new char[strlen(originaldsString.data) + 1];               // that goes by another name (&)
     strcpy(this->data,originaldsString.data);
-    cout << "in copy constructor: " << this->data << endl;
+    //cout << "in copy constructor: " << this->data << endl;
 
 }
 
 DSString::~DSString(){                                                      // destructor
-    cout << " in destructor: " << this->data << endl;
+    //cout << " in destructor: " << this->data << endl;
     delete [] this->data;
 }
 

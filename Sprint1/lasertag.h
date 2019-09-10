@@ -1,11 +1,11 @@
 #ifndef LASERTAG_H
 #define LASERTAG_H
 #include "dsstring.h"
+#include "player.h"
 
 class LaserTag{
 
     private:
-    //Player * player;
 
     public:
         LaserTag();

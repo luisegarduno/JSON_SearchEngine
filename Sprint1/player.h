@@ -11,10 +11,13 @@ class Player{
         DSString idNumber;
         int points;
         int ID_AsInt;
+        int tags;
 
     public:
         Player();
         Player(ifstream&);
+        Player(int); // Player(int IDnum, DSString MemberName,int pointArea)
+        Player(Player*);
         DSString getName();
         DSString getIDNumber();
         void setName(const DSString&);

@@ -4,8 +4,10 @@
 Player::Player(){
     points = 0;
     ID_AsInt = 0;
+    tags = 0;
     this->idNumber = nullptr;
     this->name = nullptr;
+
 }
 
 Player::Player(ifstream& stream){
@@ -27,6 +29,7 @@ Player::Player(ifstream& stream){
         a++;
     }
     setName(theName->substring(b,a));
+    setIDNumber_AsInt(getIDNumber());
     //cout << "\tName: " << *theName << endl;
 
     //stream.close();
@@ -35,6 +38,18 @@ Player::Player(ifstream& stream){
     delete theID;
     delete theName;
 }
+
+Player::Player(Player* originalPlayer){
+    ID_AsInt = originalPlayer->getMemberID_AsInt();
+    this->name = originalPlayer->getName();
+
+}
+
+/*Player::Player(int MemberIDNumber){
+    ID_AsInt = MemberIDNumber;
+    //this->name = MemberName;
+    //points = bodyArea;  // do point system later;
+}*/
 
 DSString Player::getName(){
     //cout << "get name: " << this->name << endl;
@@ -62,6 +77,7 @@ void Player::setIDNumber_AsInt(const DSString& idNumber){
 }
 
 int Player::getMemberID_AsInt(){
+    //cout << "Player::getMemberID_AsInt " << ID_AsInt << endl;
     return ID_AsInt;
 }
 
@@ -82,5 +98,5 @@ int Player::getPoints(){
 }
 
 Player::~Player(){
-    cout << " in Player Destructor" << endl;
+    //cout << " in Player Destructor" << endl;
 }

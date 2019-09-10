@@ -9,6 +9,7 @@ Team::Team(){
     numOfMembers = nullptr;
     teamSize = 0;
     player = nullptr;
+    firstMember = true;
 }
 
 Team::Team(DSString& teamFileName){
@@ -22,31 +23,17 @@ Team::Team(DSString& teamFileName){
     theTeamFile.getline(tempNumOfMembers,3);
     setNumOfMembers(tempNumOfMembers);
 
+    firstMember = true;
+
+    Player * player[getNumOfMembers()];
 
     for(int i = 0; i < getNumOfMembers(); i++){
         addMember(theTeamFile);
+        player[i] = this->player;
     }
 
+    setTeamMember(player[0]);
 
-
-
-    //int memberCounter = 0;
-
-
-
-    /*
-     *
-     *
-    if(theTeamFile.good()){
-        while(!theTeamFile.eof()){
-            theTeamFile.getline(tempArray,100);
-            //cout << "Here:" << tempArray << endl;
-            //theTeamFile.getline()
-            getTheString = new DSString(tempArray);
-            cout << "Line: " << *getTheString;
-        }
-    }
-    */
 
     theTeamFile.close();
 
@@ -55,14 +42,20 @@ Team::Team(DSString& teamFileName){
 }
 
 void Team::setMemberID_AsInt(){
-    player->setIDNumber_AsInt(player->getIDNumber());
+    this->player->setIDNumber_AsInt(this->player->getIDNumber());
 }
 
 
+
+
 void Team::addMember(ifstream& stream){
-    player = new Player(stream);
-    cout << "Team: " << getTeamName() << "\tName: " << player->getName();
-    cout << "\tID: " << player->getIDNumber() << endl;
+    this->player = new Player(stream);
+    cout << "Team: " << getTeamName() << "\tName: " << this->player->getName();
+    cout << "\tID: " << this->player->getMemberID_AsInt() << endl;
+    if(this->player->getMemberID_AsInt() == 1){
+        isFirstMember();
+        //cout << "PlayerID: " << this->player->getMemberID_AsInt() << getTeamName() << endl;
+    }
 }
 
 void Team::setTeamName(const char * tempTeamName){
@@ -83,20 +76,33 @@ void Team::setNumOfMembers(const char * tempNumOfMembers){
     teamSize = total;
 }
 
+bool Team::isFirstMember(){
+    firstMember = false;
+    return firstMember;
+}
+
 DSString Team::getIDNum(){
     return player->getIDNumber();
 }
 
 DSString Team::getTeamName(){
-    return teamName;
+    return this->teamName;
 }
 
 int Team::getNumOfMembers(){
     return teamSize;
 }
 
+void Team::setTeamMember(Player * aPlayer){
+   aPlayer = this->player;
+}
+
+Player* Team::getTeamMember(){
+    return this->player;
+}
+
 Team::~Team(){
-    cout << "in Team Destructor: " << this->player <<  endl;
-    delete player;
+    cout << "in Team Destructor: " << this->teamName <<  endl;
+    //delete  this->player;
 }
 

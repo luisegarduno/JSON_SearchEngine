@@ -10,6 +10,7 @@ class Team{
         DSString numOfMembers;
         int teamSize;
         Player * player;
+        bool firstMember;
 
     public:
         Team();
@@ -22,7 +23,12 @@ class Team{
         DSString getIDNum();
         int getNumOfMembers();
         void addMember(ifstream&);
+        bool isFirstMember();
+        void setTeamMember(Player*);
+        Player * getTeamMember();
         ~Team();
+
+        //Player * player;
 
 };
 
