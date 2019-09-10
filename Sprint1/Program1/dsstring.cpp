@@ -21,7 +21,7 @@ DSString::DSString(const DSString& originaldsString){                       // C
 
 DSString::~DSString(){                                                      // destructor
     //cout << " in destructor: " << this->data << endl;
-    delete [] this->data;
+    delete [] data;
 }
 
 DSString& DSString::operator=(const char* originalChar){                    // returns DSString& = originalChar
