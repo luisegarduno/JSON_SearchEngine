@@ -35,8 +35,8 @@ Player::Player(ifstream& stream){
     //stream.close();
 
     delete [] tempLineChar;
-    //delete theID;
-    //delete theName;
+    delete theID;
+    delete theName;
 }
 
 Player::Player(Player* originalPlayer){
@@ -77,7 +77,6 @@ void Player::setIDNumber_AsInt(const DSString& idNumber){
 }
 
 int Player::getMemberID_AsInt(){
-    //cout << "Player::getMemberID_AsInt " << ID_AsInt << endl;
     return ID_AsInt;
 }
 
@@ -99,4 +98,5 @@ int Player::getPoints(){
 
 Player::~Player(){
     //cout << " in Player Destructor" << endl;
+    //delete player;
 }
