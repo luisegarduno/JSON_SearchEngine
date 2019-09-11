@@ -42,18 +42,32 @@ LaserTag::LaserTag(char * argv[]){
 }
 
 void LaserTag::verbosityLow(DSString& matchFileName,const DSString& outputFile){
-    if(DEBUG)cout << "Low Verbosity(" <<  matchFileName << ") -> " << outputFile << endl;
     ifstream verbLow(matchFileName.c_str());
 
     char * readLow = new char[7];
-    verbLow.getline(readLow,7);
+    verbLow.getline(readLow,7); 
 
-    DSString totalNumOfTagsInGame(readLow);
-    if(DEBUG)cout << totalNumOfTagsInGame << endl;
+    int totalNumberOfTags[0],total;
+    verbLow >> totalNumberOfTags[0];
+    total = totalNumberOfTags[0];
+
+
+    char * getLines[total];
+    int lineCount = 0;
+    while(lineCount != total){
+        getLines[lineCount] = new char[25];
+        verbLow.getline(getLines[lineCount],25,' ');
+        lineCount++;
+    }
+
+    //DSString totalNumOfTagsInGame(readLow);
+    //DSString fileLines;
+    //char * fileLine = new char[100];
+
+    //int lineNumber = 0;
 
 
     verbLow.close();
-
     delete [] readLow;
 }
 
@@ -65,12 +79,6 @@ void LaserTag::verbosityMedium(DSString& matchFileName,const DSString& outputFil
     verbMed.getline(readMed,7);
 
     DSString totalNumOfTagsInGame(readMed);
-    if(DEBUG)cout << totalNumOfTagsInGame << endl;
-
-
-
-
-
 
     verbMed.close();
 
@@ -85,8 +93,6 @@ void LaserTag::verbosityHigh(DSString& matchFileName,const DSString& outputFile)
     verbHigh.getline(readHigh,7);
 
     DSString totalNumOfTagsInGame(readHigh);
-    if(DEBUG)cout << totalNumOfTagsInGame << endl;
-
 
 
 

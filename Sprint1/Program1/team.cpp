@@ -23,6 +23,12 @@ Team::Team(DSString& TeamFile){
     theTeamFile.getline(tempNumOfMembers,3);
     setNumOfMembers(tempNumOfMembers);
 
+    //theTeamFile.close();
+
+    //addMember(theTeamFile);
+    //addMember(theTeamFile);
+    //addMember(theTeamFile);
+
     delete [] tempTeamChar;
     delete [] tempNumOfMembers;
 }
@@ -30,6 +36,7 @@ Team::Team(DSString& TeamFile){
 void Team::addMember(ifstream& stream){
     this->player = new Player(stream);
     cout << "Name: " << this->player->getName() << "\tID: " << this->player->getMemberID_AsInt() << endl;
+    //stream.close();
 }
 
 void Team::setTeamName(const char * tempTeamName){
