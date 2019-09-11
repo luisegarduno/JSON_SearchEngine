@@ -1,7 +1,6 @@
 #include "lasertag.h"
 #include "team.h"
 #include "dsstring.h"
-#include "player.h"
 #include <iostream>
 
 const bool DEBUG = false;
@@ -13,33 +12,27 @@ LaserTag::LaserTag(){
 LaserTag::LaserTag(char * argv[]){
 
     DSString ATeamFileName(argv[1]);        // ATeamFileName(argv[1]) = 'cowboys.txt'
+    Team TeamA(ATeamFileName);              // TeamA(ATeamFileName) = 'The Cowboys'
+    //TeamA.addPlayers(TeamA.getNumOfMembers());
+
     DSString BTeamFileName(argv[2]);        // BTeamFileName(argv[2]) = 'sharks.txt'
+    //Team TeamB(BTeamFileName);              // TeamB(BTeamFileName) = 'The Sharks'
 
+    Player * thePlayer[TeamA.getNumOfMembers()];// + TeamB.getNumOfMembers()];
 
-    ifstream AFile(ATeamFileName.c_str());
-    Team TeamA(AFile);
-    int a = TeamA.getNumOfMembers();
-    AFile.close();
+    int aPlayerNum = 0;
 
-    ifstream BFile(BTeamFileName.c_str());
-    Team TeamB(BFile);
-    int b = TeamB.getNumOfMembers();
-    BFile.close();
+    ifstream theFile(ATeamFileName.c_str());
 
-
-    //Player * thePlayers = new Player[a+b];
-    /*
-    int aPlayerNum;
-
-    for(int i = 0; i <= TeamA.getNumOfMembers();i++){
-        TeamA.addMember(AFile);
+    for(int i = 0; i < TeamA.getNumOfMembers(); i++){
         aPlayerNum = TeamA.getTeamMember()->getMemberID_AsInt();
-        cout << aPlayerNum << endl;
-        thePlayers[aPlayerNum] = new Player(AFile);
+        thePlayer[aPlayerNum] = new Player(theFile);
     }
-    AFile.close();
-    BFile.close();
-    */
+    theFile.close();
+
+    cout << thePlayer[1]->getName() << endl;
+
+    //Player * allPlayers[totalNumberOfPlayers];
 
     DSString matchFileName(argv[3]);
     DSString outputFile(argv[4]);
@@ -59,8 +52,6 @@ LaserTag::LaserTag(char * argv[]){
             cout << "Verbosity Error" << endl;
         break;
     }
-
-
 }
 
 void LaserTag::verbosityLow(DSString& matchFileName,const DSString& outputFile){
@@ -115,8 +106,4 @@ void LaserTag::verbosityHigh(DSString& matchFileName,const DSString& outputFile)
     verbHigh.close();
 
     delete [] readHigh;
-}
-
-LaserTag::~LaserTag(){
-    cout << "in LaserTag delete" << endl;
 }

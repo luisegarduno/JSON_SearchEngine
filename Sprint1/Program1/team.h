@@ -13,7 +13,7 @@ class Team{
 
     public:
         Team();
-        Team(ifstream&);
+        Team(DSString&);
         void setTeamName(const char*);
         void setNumOfMembers(const char *);
         DSString getTeamName();

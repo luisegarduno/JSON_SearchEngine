@@ -13,7 +13,8 @@ Team::Team(){
     player = nullptr;
 }
 
-Team::Team(ifstream& theTeamFile){
+Team::Team(DSString& TeamFile){
+    ifstream theTeamFile(TeamFile.c_str());
     char * tempTeamChar = new char[100];
     theTeamFile.getline(tempTeamChar,100);
     setTeamName(tempTeamChar);
