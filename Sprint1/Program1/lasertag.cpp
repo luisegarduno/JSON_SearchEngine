@@ -27,7 +27,7 @@ LaserTag::LaserTag(char * argv[]){
     BFile.close();
 
 
-    Player * thePlayers = new Player[a+b];
+    //Player * thePlayers = new Player[a+b];
     /*
     int aPlayerNum;
 
