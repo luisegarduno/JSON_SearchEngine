@@ -13,6 +13,7 @@ Player::Player(){
 }
 
 Player::Player(ifstream& stream){
+    if(DEBUG1)cout << "Player(ifstream)" << endl;
     char * tempLineChar = new char[100];
     stream.getline(tempLineChar,100);
     DSString* theID = new DSString(tempLineChar);

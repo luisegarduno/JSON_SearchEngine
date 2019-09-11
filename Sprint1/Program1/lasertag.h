@@ -2,6 +2,9 @@
 #define LASERTAG_H
 #include "dsstring.h"
 #include "player.h"
+#include <fstream>
+
+//using std::ifstream;
 
 class LaserTag{
 

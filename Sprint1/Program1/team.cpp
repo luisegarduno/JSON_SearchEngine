@@ -24,6 +24,8 @@ Team::Team(DSString& teamFileName){
     theTeamFile.getline(tempNumOfMembers,3);
     setNumOfMembers(tempNumOfMembers);
 
+    //addMember(theTeamFile);
+
     /*Player * player[getNumOfMembers()];
 
     for(int i = 0; i < getNumOfMembers(); i++){
