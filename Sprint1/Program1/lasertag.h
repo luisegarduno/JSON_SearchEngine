@@ -16,6 +16,7 @@ class LaserTag{
         void verbosityLow( DSString&,const DSString&);
         void verbosityMedium(DSString&,const DSString&);
         void verbosityHigh(DSString&,const DSString&);
+        ~LaserTag();
 };
 
 #endif // LASERTAG_H

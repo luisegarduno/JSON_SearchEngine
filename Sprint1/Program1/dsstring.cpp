@@ -14,15 +14,18 @@ DSString::DSString(const char* originalChar){                               // '
 }
 
 DSString::DSString(const DSString& originaldsString){                       // Copy constructor, DSString parameter is a const,
+    char * tempoData = data;
     this->data = new char[strlen(originaldsString.data) + 1];               // that goes by another name (&)
     strcpy(this->data,originaldsString.data);
-    if(DEBUG0)cout << "in copy constructor: " << this->data << endl;
+    cout << "in copy constructor: " << this->data << endl;
+
+    delete [] tempoData;
 
 }
 
 DSString::~DSString(){                                                      // destructor
     if(DEBUG0)cout << " in destructor: " << this->data << endl;
-    delete [] data;
+    delete [] this->data;
 }
 
 DSString& DSString::operator=(const char* originalChar){                    // returns DSString& = originalChar
@@ -191,7 +194,7 @@ ostream& operator<<(ostream& out, const DSString& theString){
 }
 
 istream& operator>>(istream& stream,DSString& theString){
-    if(DEBUG0)cout << "in istream&" << endl;
+    cout << "in istream&" << endl;
     char * tempChar = theString.data;
 
     theString.data = new char[100];

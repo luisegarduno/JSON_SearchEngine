@@ -10,17 +10,15 @@ class Team{
         DSString numOfMembers;
         int teamSize;
         Player * player;
-        bool firstMember;
 
     public:
         Team();
-        Team(DSString&);
+        Team(ifstream&);
         void setTeamName(const char*);
         void setNumOfMembers(const char *);
         DSString getTeamName();
         int getNumOfMembers();
         void addMember(ifstream&);
-        bool isFirstMember();
         Player * getTeamMember();
         ~Team();
 
