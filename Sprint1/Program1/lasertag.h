@@ -4,7 +4,6 @@
 #include "player.h"
 #include <fstream>
 
-//using std::ifstream;
 
 class LaserTag{
 

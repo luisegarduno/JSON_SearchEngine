@@ -44,60 +44,45 @@ LaserTag::LaserTag(char * argv[]){
 void LaserTag::verbosityLow(DSString& matchFileName,const DSString& outputFile){
     ifstream verbLow(matchFileName.c_str());
 
-    //char * readLow = new char[7];
-    //verbLow.getline(readLow,7);
-
     int totalNumberOfTags;
+    int a[5];
     verbLow >> totalNumberOfTags;
-
+    //verbLow >> a;
 
     char * theLine;// = new char [totalNumberOfTags];
     int lineCount = 0;
+    //DSString * aString = new DSString[totalNumberOfTags];
     while(lineCount != totalNumberOfTags){
-        theLine = new char[25];
-        verbLow.getline(theLine,25,'\0');
-        //cout << "Line[" << lineCount << "]: " << endl;// theLine[0] << endl;
+        theLine = new char[15];
+        verbLow >> a[0] >> a[1] >> a[2] >> a[3];
+        cout << a[0] << " " << a[1] << " " << a[2] << " " << a[3] << endl;
+        //verbLow.getline(theLine,15,'\n');
+        //aString[lineCount] = theLine;
+        //cout << "line: " << lineCount << "\t " << aString[lineCount] << endl;
         lineCount++;
-        cout << theLine << endl;
     }
-
-    //DSString totalNumOfTagsInGame(readLow);
-    //DSString fileLines;
-    //char * fileLine = new char[100];
-
-    //int lineNumber = 0;
+    //cout << aString[0] << endl;
+    //cout << theLine << endl;
 
 
     verbLow.close();
-    //delete [] readLow;
 }
 
 void LaserTag::verbosityMedium(DSString& matchFileName,const DSString& outputFile){
-    if(DEBUG)cout << "Medium Verbosity(" <<  matchFileName << ") -> " << outputFile << endl;
     ifstream verbMed(matchFileName.c_str());
 
-    char * readMed = new char[7];
-    verbMed.getline(readMed,7);
+    int totalNumberOfTags;
+    verbMed >> totalNumberOfTags;
 
-    DSString totalNumOfTagsInGame(readMed);
 
     verbMed.close();
-
-    delete [] readMed;
 }
 
 void LaserTag::verbosityHigh(DSString& matchFileName,const DSString& outputFile){
-    if(DEBUG)cout << "High Verbosity(" <<  matchFileName << ") -> " << outputFile << endl;
     ifstream verbHigh(matchFileName.c_str());
 
-    char * readHigh = new char[7];
-    verbHigh.getline(readHigh,7);
-
-    DSString totalNumOfTagsInGame(readHigh);
 
 
 
     verbHigh.close();
-
-    delete [] readHigh;
 }
