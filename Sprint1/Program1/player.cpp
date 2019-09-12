@@ -1,7 +1,7 @@
 #include "player.h"
 #include "dsstring.h"
 
-const bool DEBUG1 = true;
+//const bool DEBUG1 = true;
 
 Player::Player(){
     points = 0;

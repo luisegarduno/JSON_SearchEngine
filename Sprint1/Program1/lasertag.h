@@ -2,8 +2,6 @@
 #define LASERTAG_H
 #include "dsstring.h"
 #include "player.h"
-#include <fstream>
-
 
 class LaserTag{
 
@@ -12,9 +10,9 @@ class LaserTag{
     public:
         LaserTag();
         LaserTag(char* argv[]);
-        void verbosityLow( DSString&,const DSString&);
-        void verbosityMedium(DSString&,const DSString&);
-        void verbosityHigh(DSString&,const DSString&);
+        void verbosityLow(DSString&,DSString&);
+        void verbosityMedium(DSString&,DSString&);
+        void verbosityHigh(DSString&,DSString&);
         int getPointValue(int);
 };
 

@@ -41,7 +41,10 @@ LaserTag::LaserTag(char * argv[]){
     }
 }
 
-void LaserTag::verbosityLow(DSString& matchFileName,const DSString& outputFile){
+void LaserTag::verbosityLow(DSString& matchFileName,DSString& outputFile){
+    fstream aFile(outputFile.c_str());
+    aFile.close();
+
     ifstream verbLow(matchFileName.c_str());
 
     int totalNumberOfTags;
@@ -90,7 +93,9 @@ int LaserTag::getPointValue(int a){
     }
 }
 
-void LaserTag::verbosityMedium(DSString& matchFileName,const DSString& outputFile){
+void LaserTag::verbosityMedium(DSString& matchFileName,DSString& outputFile){
+    fstream aFile(outputFile.c_str());
+    aFile.close();
     ifstream verbMed(matchFileName.c_str());
 
     int totalNumberOfTags;
@@ -100,11 +105,14 @@ void LaserTag::verbosityMedium(DSString& matchFileName,const DSString& outputFil
     verbMed.close();
 }
 
-void LaserTag::verbosityHigh(DSString& matchFileName,const DSString& outputFile){
+void LaserTag::verbosityHigh(DSString& matchFileName,DSString& outputFile){
+    fstream aFile(outputFile.c_str());
+    aFile.close();
+
     ifstream verbHigh(matchFileName.c_str());
 
-
-
+    int totalNumberOfTags;
+    verbHigh >> totalNumberOfTags;
 
     verbHigh.close();
 }
