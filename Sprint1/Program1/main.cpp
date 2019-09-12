@@ -11,7 +11,9 @@ int main(int argc,char * argv[]){
     }
 
     LaserTag newGame(argv);
-    cout << endl;
+    cout << "\n--------------------------------" << endl;
+    cout << "PROGRAM HAS TERMINATED CORRECTLY" << endl;
+    cout << "--------------------------------" << endl;
 
     return 0;
 }
