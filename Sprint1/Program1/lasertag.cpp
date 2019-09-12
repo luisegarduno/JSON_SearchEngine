@@ -95,6 +95,7 @@ int LaserTag::getPointValue(int a){
 void LaserTag::verbosityMedium(DSString& matchFileName,DSString& outputFile){
     fstream aFile(outputFile.c_str());
     aFile.close();
+
     ifstream verbMed(matchFileName.c_str());
 
     int totalNumberOfTags;

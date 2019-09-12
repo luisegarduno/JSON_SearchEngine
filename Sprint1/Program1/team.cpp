@@ -8,7 +8,6 @@ const bool DEBUG2 = false;
 Team::Team(){
     if(DEBUG2)cout << "\nin Team Default constructor " << endl;
     teamName = nullptr;
-    numOfMembers = nullptr;
     teamSize = 0;
     player = nullptr;
 }
@@ -19,9 +18,9 @@ Team::Team(DSString& TeamFile){
     theTeamFile.getline(tempTeamChar,100);
     setTeamName(tempTeamChar);
 
-    char * tempNumOfMembers = new char[3];
-    theTeamFile.getline(tempNumOfMembers,3);
-    setNumOfMembers(tempNumOfMembers);
+    int tempNumOfMembers;
+    theTeamFile >> tempNumOfMembers;
+    setTeamSize(tempNumOfMembers);
 
     //theTeamFile.close();
 
@@ -30,12 +29,11 @@ Team::Team(DSString& TeamFile){
     //addMember(theTeamFile);
 
     delete [] tempTeamChar;
-    delete [] tempNumOfMembers;
 }
 
 void Team::addMember(ifstream& stream){
     this->player = new Player(stream);
-    cout << "Name: " << this->player->getName() << "\tID: " << this->player->getMemberID_AsInt() << endl;
+    //cout << "Name: " << this->player->getName() << "\tID: " << this->player->getMemberID_AsInt() << endl;
     //stream.close();
 }
 
@@ -43,25 +41,15 @@ void Team::setTeamName(const char * tempTeamName){
     teamName = tempTeamName;
 }
 
-void Team::setNumOfMembers(const char * tempNumOfMembers){
-    numOfMembers = tempNumOfMembers;
-    int total = 0;
-    for(int i = 0; i < numOfMembers.size(); i++){
-        if(numOfMembers.size() == 2 && i == 0){
-            total = (numOfMembers.charToNum(numOfMembers[i]) * 10);
-        }
-        else {
-            total += (numOfMembers.charToNum(numOfMembers[i]));
-        }
-    }
-    teamSize = total;
+void Team::setTeamSize(int tempNumOfMembers){
+    teamSize = tempNumOfMembers;
 }
 
 DSString Team::getTeamName(){
     return this->teamName;
 }
 
-int Team::getNumOfMembers(){
+int Team::getTeamSize(){
     return teamSize;
 }
 

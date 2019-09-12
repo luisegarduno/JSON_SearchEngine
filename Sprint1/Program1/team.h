@@ -7,7 +7,6 @@ class Team{
 
     private:
         DSString teamName;
-        DSString numOfMembers;
         int teamSize;
         Player * player;
 
@@ -15,9 +14,9 @@ class Team{
         Team();
         Team(DSString&);
         void setTeamName(const char*);
-        void setNumOfMembers(const char *);
+        void setTeamSize(int);
         DSString getTeamName();
-        int getNumOfMembers();
+        int getTeamSize();
         void addMember(ifstream&);
         Player * getTeamMember();
         ~Team();
