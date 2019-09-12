@@ -99,6 +99,16 @@ void LaserTag::verbosityMedium(DSString& matchFileName,DSString& outputFile){
 
     int totalNumberOfTags;
     verbMed >> totalNumberOfTags;
+    int a[5];
+
+    int lineCount = 0;
+    int pointsToAdd = 0;
+    while(lineCount != totalNumberOfTags){
+        verbMed >> a[0] >> a[1] >> a[2] >> a[3];
+        pointsToAdd = getPointValue(a[3]);
+        cout << a[0] << " " << a[1] << " " << a[2] << " " << pointsToAdd << endl;
+        lineCount++;
+    }
 
 
     verbMed.close();
@@ -112,6 +122,16 @@ void LaserTag::verbosityHigh(DSString& matchFileName,DSString& outputFile){
 
     int totalNumberOfTags;
     verbHigh >> totalNumberOfTags;
+    int a[5];
+
+    int lineCount = 0;
+    int pointsToAdd = 0;
+    while(lineCount != totalNumberOfTags){
+        verbHigh >> a[0] >> a[1] >> a[2] >> a[3];
+        pointsToAdd = getPointValue(a[3]);
+        cout << a[0] << " " << a[1] << " " << a[2] << " " << pointsToAdd << endl;
+        lineCount++;
+    }
 
     verbHigh.close();
 }
