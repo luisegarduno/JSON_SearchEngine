@@ -5,7 +5,6 @@
 #include <cstring>
 #include <fstream>
 
-using std::stringstream;
 using std::ostream;
 using std::cout;
 using std::endl;

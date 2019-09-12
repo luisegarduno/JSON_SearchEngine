@@ -15,6 +15,7 @@ class LaserTag{
         void verbosityLow( DSString&,const DSString&);
         void verbosityMedium(DSString&,const DSString&);
         void verbosityHigh(DSString&,const DSString&);
+        int getPointValue(int);
 };
 
 #endif // LASERTAG_H

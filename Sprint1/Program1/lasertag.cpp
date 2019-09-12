@@ -49,13 +49,15 @@ void LaserTag::verbosityLow(DSString& matchFileName,const DSString& outputFile){
     verbLow >> totalNumberOfTags;
     //verbLow >> a;
 
-    char * theLine;// = new char [totalNumberOfTags];
+    //char * theLine;// = new char [totalNumberOfTags];
     int lineCount = 0;
+    int pointsToAdd = 0;
     //DSString * aString = new DSString[totalNumberOfTags];
     while(lineCount != totalNumberOfTags){
-        theLine = new char[15];
+        //theLine = new char[15];
         verbLow >> a[0] >> a[1] >> a[2] >> a[3];
-        cout << a[0] << " " << a[1] << " " << a[2] << " " << a[3] << endl;
+        pointsToAdd = getPointValue(a[3]);
+        cout << a[0] << " " << a[1] << " " << a[2] << " " << pointsToAdd << endl;
         //verbLow.getline(theLine,15,'\n');
         //aString[lineCount] = theLine;
         //cout << "line: " << lineCount << "\t " << aString[lineCount] << endl;
@@ -66,6 +68,26 @@ void LaserTag::verbosityLow(DSString& matchFileName,const DSString& outputFile){
 
 
     verbLow.close();
+}
+
+int LaserTag::getPointValue(int a){
+    switch(a){
+        case 1:
+            //cout << "Back" << endl;
+            return 5;
+        case 2:
+            //cout << "Chest" << endl;
+            return 6;
+        case 3:
+            //cout << "Shoulder" << endl;
+            return 7;
+        case 4:
+            //cout << "Laser gun" << endl;
+            return 4;
+        default:
+            //cout << "Invalid point area" << endl;
+            return 0;
+    }
 }
 
 void LaserTag::verbosityMedium(DSString& matchFileName,const DSString& outputFile){
