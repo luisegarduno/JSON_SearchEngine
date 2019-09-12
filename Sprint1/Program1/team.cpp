@@ -2,11 +2,8 @@
 #include "dsstring.h"
 #include <iostream>
 
-const bool DEBUG2 = false;
-
-
 Team::Team(){
-    if(DEBUG2)cout << "\nin Team Default constructor " << endl;
+    cout << "\nin Team Default constructor " << endl;
     teamName = nullptr;
     teamSize = 0;
     player = nullptr;
@@ -22,19 +19,20 @@ Team::Team(DSString& TeamFile){
     theTeamFile >> tempNumOfMembers;
     setTeamSize(tempNumOfMembers);
 
-    //theTeamFile.close();
+    thePlayer(theTeamFile);
 
-    //addMember(theTeamFile);
-    //addMember(theTeamFile);
-    //addMember(theTeamFile);
+    //theTeamFile.close();
 
     delete [] tempTeamChar;
 }
 
-void Team::addMember(ifstream& stream){
+void Team::thePlayer(ifstream& stream){
     this->player = new Player(stream);
     //cout << "Name: " << this->player->getName() << "\tID: " << this->player->getMemberID_AsInt() << endl;
+    //cout << this->player->getIDNumber();
     //stream.close();
+    //int *arg = malloc(sizeof(*arg));
+    //*arg = i
 }
 
 void Team::setTeamName(const char * tempTeamName){
@@ -59,5 +57,5 @@ Player* Team::getTeamMember(){
 
 Team::~Team(){
     //cout << "in Team Destructor: " << this->teamName <<  endl;
-    //delete player;
+    delete player;
 }

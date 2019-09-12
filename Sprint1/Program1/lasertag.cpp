@@ -3,16 +3,15 @@
 #include "dsstring.h"
 #include <iostream>
 
-const bool DEBUG = false;
-
 LaserTag::LaserTag(){
-    if(DEBUG)cout << "\nin default LaserTag constructor" << endl;
+    //cout << "\nin default LaserTag constructor" << endl;
 }
 
 LaserTag::LaserTag(char * argv[]){
     DSString ATeamFileName(argv[1]);        // ATeamFileName(argv[1]) = 'cowboys.txt'
     Team TeamA(ATeamFileName);              // TeamA(ATeamFileName) = 'The Cowboys'
     //TeamA.addPlayers(TeamA.getNumOfMembers());
+
 
     DSString BTeamFileName(argv[2]);        // BTeamFileName(argv[2]) = 'sharks.txt'
     //Team TeamB(BTeamFileName);              // TeamB(BTeamFileName) = 'The Sharks'

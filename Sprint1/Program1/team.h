@@ -17,7 +17,7 @@ class Team{
         void setTeamSize(int);
         DSString getTeamName();
         int getTeamSize();
-        void addMember(ifstream&);
+        void thePlayer(ifstream&);
         Player * getTeamMember();
         ~Team();
 
