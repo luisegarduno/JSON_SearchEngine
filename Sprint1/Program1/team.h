@@ -2,6 +2,7 @@
 #define TEAM_H
 #include "dsstring.h"
 #include "player.h"
+#include "linkedlist.h"
 
 class Team{
 
@@ -20,7 +21,7 @@ class Team{
         int getTeamSize();
         DSString& getTeamName();
         Player * getTeamMember();
-        void thePlayer(ifstream&);
+        void thePlayer(ifstream&,LinkedList&);
         ~Team();
 
         //Player * player;

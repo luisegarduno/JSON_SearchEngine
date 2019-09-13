@@ -8,7 +8,7 @@ Player::Player(){
     name = nullptr;
 }
 
-Player::Player(ifstream& stream){
+/*Player::Player(ifstream& stream){
     int num, a = 0, b = 0;
     stream >> num;
     setIDNumber(num);
@@ -26,7 +26,7 @@ Player::Player(ifstream& stream){
     setPlayerName(theName.substring(b,a));
 
     delete [] tempLineChar;
-}
+}*/
 
 Player::Player(Player* originalPlayer){
     this->IDNumber = originalPlayer->getIDNumber();

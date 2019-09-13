@@ -1,5 +1,6 @@
 #include "team.h"
 #include "dsstring.h"
+
 #include <iostream>
 
 Team::Team(){
@@ -10,6 +11,7 @@ Team::Team(){
 }
 
 Team::Team(DSString& TeamFile){
+    LinkedList team;
     ifstream theTeamFile(TeamFile.c_str());
 
     char * tempTeamChar = new char[100];
@@ -23,7 +25,8 @@ Team::Team(DSString& TeamFile){
     cout << "Team: " << getTeamName() << "\tPlayers: " << getTeamSize()  << endl;
 
     for(int i = 0; i < getTeamSize(); i++){
-        thePlayer(theTeamFile);
+        //thePlayer(theTeamFile,team);
+        team.printLow();
     }
 
     theTeamFile.close();
@@ -33,12 +36,34 @@ Team::Team(DSString& TeamFile){
     delete [] tempTeamChar;
 }
 
-void Team::thePlayer(ifstream& TeamFile){
-    this->player = new Player(TeamFile);
-    this->player->print();
+void Team::thePlayer(ifstream& TeamFile, LinkedList& team){
+    int num, a = 0, b = 0;
+    TeamFile >> num;
+    this->player->setIDNumber(num);
 
-    delete this->player;
+    char * tempLineChar = new char[100];
+    TeamFile.getline(tempLineChar,100);
+    DSString theName(tempLineChar);
+
+    while(theName[a] != '\0' && theName[0] != 0){
+        if(theName[a] == ' '){
+            b = a;
+        }
+        a++;
+    }
+    this->player->setPlayerName(theName.substring(b,a));
+    team.addPlayer(player);
+
+    delete [] tempLineChar;
+
+
+
+
+    //this->player = new Player(TeamFile);
+    //this->player->print();
+    //delete this->player;
 }
+
 
 void Team::setTeamName(const char * tempTeamName){
     teamName = tempTeamName;

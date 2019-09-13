@@ -16,7 +16,7 @@ class Player{
     public:
         Player();
         Player(Player*);
-        Player(ifstream&);
+        //Player(ifstream&);
 
         int getPoints();
         int getIDNumber();
