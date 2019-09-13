@@ -55,13 +55,13 @@ void Player::setName(const DSString& name){
 }
 
 int Player::getMemberID_AsInt(){
-    char* tempData = idNumber.c_str();
+    char* tempData = this->idNumber.c_str();
     //int  number = *idNumber.c_str() - '0';
     //cout << number << endl;
 
     this->points = 0;
     int total = 0;
-    cout << "idNumber: " << idNumber << endl;
+    cout << "idNumber: " << this->idNumber << endl;
     for(int i = 0; i < idNumber.size(); i++){
         if(idNumber.size() == 2 && i == 0){
             total = (idNumber.charToNum(tempData[i]) * 10);

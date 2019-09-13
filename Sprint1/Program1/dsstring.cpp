@@ -141,8 +141,8 @@ int DSString::charToNum(char aValue){
 }
 
 int DSString::size(){                                                       // return by value
-    int x = int(strlen(this->data));
-    return x;
+    cout << "in here" << int(strlen(this->data)) << endl;
+    return int(strlen(this->data));
 }
 
 /*  Parameter a represents the starting position
