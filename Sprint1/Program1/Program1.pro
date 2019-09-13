@@ -6,6 +6,7 @@ CONFIG -= qt
 SOURCES += \
         dsstring.cpp \
         lasertag.cpp \
+        linkedlist.cpp \
         main.cpp \
         player.cpp \
         team.cpp
@@ -13,5 +14,6 @@ SOURCES += \
 HEADERS += \
     dsstring.h \
     lasertag.h \
+    linkedlist.h \
     player.h \
     team.h

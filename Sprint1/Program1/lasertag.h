@@ -5,8 +5,6 @@
 
 class LaserTag{
 
-    private:
-
     public:
         LaserTag();
         LaserTag(char* argv[]);
