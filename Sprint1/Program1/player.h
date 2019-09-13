@@ -9,6 +9,7 @@ class Player{
     private:
         DSString name;
         DSString idNumber;
+        int IDNumber;
         int points;
         int ID_AsInt;
         int tags;

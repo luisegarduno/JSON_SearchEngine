@@ -28,15 +28,19 @@ DSString::~DSString(){                                                      // d
 
 DSString& DSString::operator=(const char* originalChar){                    // returns DSString& = originalChar
     //cout << "in operator=(const char*) << ";
+    char * tempData = this->data;
+
+    //cout << "im here: " << originalChar << endl;
     this->data = new char[strlen(originalChar) + 1];
     strcpy(this->data,originalChar);                                        // copies originalChar to this->data
 
+    delete [] tempData;
     return *this;                                                           // *this returns a reference to the object
 }
 
 DSString& DSString::operator=(const DSString& originalString){              // returns DSString& = originalString
     //cout << "in operator=(const DSString&) << ";
-    char * tempData = data;
+    char * tempData = this->data;
     this->data = new char[strlen(originalString.data) + 1];
     strcpy(this->data,originalString.data);                                 // copies originalString.data to this->data
 
@@ -137,7 +141,8 @@ int DSString::charToNum(char aValue){
 }
 
 int DSString::size(){                                                       // return by value
-    return int(strlen(this->data));
+    int x = int(strlen(this->data));
+    return x;
 }
 
 /*  Parameter a represents the starting position

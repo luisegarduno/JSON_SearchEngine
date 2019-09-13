@@ -6,7 +6,6 @@ Team::Team(){
     cout << "\nin Team Default constructor " << endl;
     teamName = nullptr;
     teamSize = 0;
-    player = nullptr;
 }
 
 Team::Team(DSString& TeamFile){
@@ -19,12 +18,29 @@ Team::Team(DSString& TeamFile){
     theTeamFile >> tempNumOfMembers;
     setTeamSize(tempNumOfMembers);
 
-    thePlayer(theTeamFile);
+    for(int i = 0; i < getTeamSize(); i++){
+        *player = new Player[getTeamSize()];
+        thePlayer(theTeamFile);
+        *(player) = i;
+        cout << (player[i]).getName() << endl;
+    }
+    //*player = new Player[getTeamSize()];
+    //thePlayer(theTeamFile);
+    //*(player + 0) = *(this->player);
+    //cout << (player + 0)->getName() << endl;
+
+    //DSString * yo = new DSString[3];
+    //*(yo + 0) = "hi";
+    //cout << *(yo + 0) << endl;
+
+
+
+    //thePlayer(theTeamFile);
 
     //theTeamFile.close();
 
     delete [] tempTeamChar;
-}
+}   //this->team->
 
 void Team::thePlayer(ifstream& stream){
     this->player = new Player(stream);
@@ -33,14 +49,15 @@ void Team::thePlayer(ifstream& stream){
     //stream.close();
     //int *arg = malloc(sizeof(*arg));
     //*arg = i
+    //delete [] this->player;
 }
 
 void Team::setTeamName(const char * tempTeamName){
-    teamName = tempTeamName;
+    this->teamName = tempTeamName;
 }
 
 void Team::setTeamSize(int tempNumOfMembers){
-    teamSize = tempNumOfMembers;
+    this->teamSize = tempNumOfMembers;
 }
 
 DSString Team::getTeamName(){
