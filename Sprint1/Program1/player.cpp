@@ -2,82 +2,51 @@
 #include "dsstring.h"
 
 Player::Player(){
-    points = 0;
-    ID_AsInt = 0;
     tags = 0;
-    idNumber = nullptr;
+    points = 0;
+    IDNumber = 0;
     name = nullptr;
-
 }
 
 Player::Player(ifstream& stream){
-    //cout << "Player(ifstream)" << endl;
+    int num, a = 0, b = 0;
+    stream >> num;
+    setIDNumber(num);
+
     char * tempLineChar = new char[100];
     stream.getline(tempLineChar,100);
-    cout << "Player" << tempLineChar << endl;
-
-    DSString theID(tempLineChar);
     DSString theName(tempLineChar);
-    cout << theID << endl;
-    int a = 0;
-    int b = 0;
-    while(tempLineChar[a] != '\0'){
 
-        if(tempLineChar[a] == ' '){
-            setIDNumber(theID.substring(a,0 - a));
+    while(theName[a] != '\0' && theName[0] != 0){
+        if(theName[a] == ' '){
             b = a;
         }
         a++;
     }
-
-    setName(theName.substring(b,a));
-    //theTeamFile.close();
+    setPlayerName(theName.substring(b,a));
 
     delete [] tempLineChar;
 }
 
 Player::Player(Player* originalPlayer){
-    ID_AsInt = originalPlayer->getMemberID_AsInt();
-    name = originalPlayer->getName();
+    this->IDNumber = originalPlayer->getIDNumber();
+    this->name = originalPlayer->getPlayerName();
 }
 
-Player::Player(int anID){
-    ID_AsInt = anID;
-}
-
-DSString& Player::getName(){
+DSString& Player::getPlayerName(){
     return this->name;
 }
 
-void Player::setName(const DSString& name){
+void Player::setPlayerName(const DSString& name){
     this->name = name;
 }
 
-int Player::getMemberID_AsInt(){
-    char* tempData = this->idNumber.c_str();
-    //int  number = *idNumber.c_str() - 81;
-
-    points = 0;
-    int total = 0;
-
-    for(int i = 0; i < idNumber.size(); i++){
-        if(idNumber.size() == 2 && i == 0){
-            total = (idNumber.charToNum(tempData[i]) * 10);
-        }
-        else {
-            total += (idNumber.charToNum(tempData[i]));
-        }
-    }
-    ID_AsInt = total;
-    return ID_AsInt;
+void Player::setIDNumber(int IDNumber){
+    this->IDNumber = IDNumber;
 }
 
-void Player::setIDNumber(const DSString& idNumber){
-    this->idNumber = idNumber;
-}
-
-DSString& Player::getIDNumber(){
-    return this->idNumber;
+int Player::getIDNumber(){
+    return this->IDNumber;
 }
 
 void Player::addPoints(int points){

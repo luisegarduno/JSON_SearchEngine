@@ -20,25 +20,22 @@ Team::Team(DSString& TeamFile){
     theTeamFile >> tempNumOfMembers;
     setTeamSize(tempNumOfMembers);
 
+    cout << "Team: " << getTeamName() << "\tPlayers: " << getTeamSize()  << endl;
+
     for(int i = 0; i < getTeamSize(); i++){
         thePlayer(theTeamFile);
     }
 
-
-
-    //thePlayer(theTeamFile);
-
     theTeamFile.close();
+
+    cout << endl;
 
     delete [] tempTeamChar;
 }
 
 void Team::thePlayer(ifstream& TeamFile){
     this->player = new Player(TeamFile);
-
-    //cout << "Name: " << this->player->getName() << "\tID: " << this->player->getMemberID_AsInt()
-                //<< "\tPlayerName: " << this->player->getName() << endl;
-    //stream.close();
+    cout << "-> ID: " << this->player->getIDNumber() << "\tPlayer: " << this->player->getPlayerName() << endl;
     delete this->player;
 }
 
@@ -63,6 +60,5 @@ Player* Team::getTeamMember(){
 }
 
 Team::~Team(){
-    //cout << "in Team Destructor: " << this->teamName <<  endl;
     //delete [] player;
 }

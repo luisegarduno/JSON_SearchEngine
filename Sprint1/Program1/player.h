@@ -9,29 +9,26 @@ class Player{
     private:
         DSString TeamName;
         DSString name;
-        DSString idNumber;
         int IDNumber;
         int points;
-        int ID_AsInt;
         int tags;
 
     public:
         Player();
-        Player(ifstream&);
-        Player(int); // Player(int IDnum, DSString MemberName,int pointArea)
         Player(Player*);
-        DSString& getName();
-        DSString& getIDNumber();
+        Player(ifstream&);
+
+        int getPoints();
+        int getIDNumber();
+        DSString& getPlayerName();
         DSString& getTeamName();
-        void setName(const DSString&);
+
+        void setIDNumber(int);
+        void addPoints(int points);
+        void setPlayerName(const DSString&);
         void setTeamName(const DSString&);
 
-        void setIDNumber(const DSString&);
-
-        void addPoints(int points);
-        int getPoints();
-        int getMemberID_AsInt();
-        friend class Team;
+        //friend class Team;
         ~Player();
 
 };

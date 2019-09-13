@@ -3,15 +3,25 @@
 
 using namespace std;
 
+class missingFilesException{
+    public:
+        const char * what() {
+            return "Missing/invalid number of arguments";
+        }
+};
 
 int main(int argc,char * argv[]){
 
-    if(argc != 6){
-        cout << "Error, missing files" << endl;
-        return -1;
+    try {
+        if(argc != 6)
+            throw missingFilesException{};
+        LaserTag newGame(argv);
     }
 
-    LaserTag newGame(argv);
+    catch (missingFilesException& e) {
+        cout << e.what() << endl;
+    }
+
     cout << "\n--------------------------------" << endl;
     cout << "PROGRAM HAS TERMINATED CORRECTLY" << endl;
     cout << "--------------------------------" << endl;

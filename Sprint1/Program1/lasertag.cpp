@@ -14,7 +14,7 @@ LaserTag::LaserTag(char * argv[]){
 
 
     DSString BTeamFileName(argv[2]);        // BTeamFileName(argv[2]) = 'sharks.txt'
-    //Team TeamB(BTeamFileName);              // TeamB(BTeamFileName) = 'The Sharks'
+    Team TeamB(BTeamFileName);              // TeamB(BTeamFileName) = 'The Sharks'
 
     //Player * thePlayer[TeamA.getNumOfMembers()];// + TeamB.getNumOfMembers()];
 
@@ -48,25 +48,15 @@ void LaserTag::verbosityLow(DSString& matchFileName,DSString& outputFile){
     int totalNumberOfTags;
     int a[5];
     verbLow >> totalNumberOfTags;
-    //verbLow >> a;
 
-    //char * theLine;// = new char [totalNumberOfTags];
     int lineCount = 0;
     int pointsToAdd = 0;
-    //DSString * aString = new DSString[totalNumberOfTags];
     while(lineCount != totalNumberOfTags){
-        //theLine = new char[15];
         verbLow >> a[0] >> a[1] >> a[2] >> a[3];
         pointsToAdd = getPointValue(a[3]);
         cout << a[0] << " " << a[1] << " " << a[2] << " " << pointsToAdd << endl;
-        //verbLow.getline(theLine,15,'\n');
-        //aString[lineCount] = theLine;
-        //cout << "line: " << lineCount << "\t " << aString[lineCount] << endl;
         lineCount++;
     }
-    //cout << aString[0] << endl;
-    //cout << theLine << endl;
-
 
     verbLow.close();
 }
