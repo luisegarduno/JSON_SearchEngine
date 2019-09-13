@@ -12,13 +12,13 @@ class LinkedList{
 
     PlayerNode* firstPlayer;
     PlayerNode* lastPlayer;
-    int size;
+    int TeamSize;
 
     public:
         LinkedList();
         void addPlayer(Player * player);
         void getPlayer(int index);
-        void print();
+        void printLow();
 };
 
 #endif // LINKEDLIST_H
