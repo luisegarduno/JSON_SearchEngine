@@ -6,19 +6,21 @@
 class Team{
 
     private:
-        DSString teamName;
         int teamSize;
+        int teamPoints;
         Player * player;
+        //Player thePlayers;
+        DSString teamName;
 
     public:
         Team();
         Team(DSString&);
-        void setTeamName(const char*);
         void setTeamSize(int);
-        DSString getTeamName();
+        void setTeamName(const char*);
         int getTeamSize();
-        void thePlayer(ifstream&);
+        DSString& getTeamName();
         Player * getTeamMember();
+        void thePlayer(ifstream&);
         ~Team();
 
         //Player * player;

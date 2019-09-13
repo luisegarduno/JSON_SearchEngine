@@ -12,7 +12,7 @@ DSString::DSString(const char* originalChar){                               // '
 }
 
 DSString::DSString(const DSString& originaldsString){                       // Copy constructor, DSString parameter is a const,
-    char * tempoData = data;
+    char * tempoData = this->data;
     this->data = new char[strlen(originaldsString.data) + 1];               // that goes by another name (&)
     strcpy(this->data,originaldsString.data);
     //cout << "in copy constructor: " << this->data << endl;
@@ -141,7 +141,6 @@ int DSString::charToNum(char aValue){
 }
 
 int DSString::size(){                                                       // return by value
-    cout << "in here" << int(strlen(this->data)) << endl;
     return int(strlen(this->data));
 }
 

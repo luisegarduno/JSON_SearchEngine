@@ -99,6 +99,7 @@ void LaserTag::verbosityMedium(DSString& matchFileName,DSString& outputFile){
 
     int totalNumberOfTags;
     verbMed >> totalNumberOfTags;
+
     int a[5];
 
     int lineCount = 0;

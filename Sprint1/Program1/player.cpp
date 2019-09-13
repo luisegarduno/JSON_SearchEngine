@@ -5,8 +5,8 @@ Player::Player(){
     points = 0;
     ID_AsInt = 0;
     tags = 0;
-    //idNumber = nullptr;
-    //name = nullptr;
+    idNumber = nullptr;
+    name = nullptr;
 
 }
 
@@ -14,9 +14,11 @@ Player::Player(ifstream& stream){
     //cout << "Player(ifstream)" << endl;
     char * tempLineChar = new char[100];
     stream.getline(tempLineChar,100);
+    cout << "Player" << tempLineChar << endl;
+
     DSString theID(tempLineChar);
     DSString theName(tempLineChar);
-
+    cout << theID << endl;
     int a = 0;
     int b = 0;
     while(tempLineChar[a] != '\0'){
@@ -29,39 +31,35 @@ Player::Player(ifstream& stream){
     }
 
     setName(theName.substring(b,a));
+    //theTeamFile.close();
 
     delete [] tempLineChar;
 }
 
 Player::Player(Player* originalPlayer){
-    //cout << "in Player(Player* originalPlayer)" << endl;
     ID_AsInt = originalPlayer->getMemberID_AsInt();
-    this->name = originalPlayer->getName();
+    name = originalPlayer->getName();
 }
 
 Player::Player(int anID){
-    cout << "in Player(int)" << endl;
     ID_AsInt = anID;
 }
 
 DSString& Player::getName(){
-    //cout << "get name: " << this->name << endl;
-    return name;
+    return this->name;
 }
 
 void Player::setName(const DSString& name){
-    //cout << "set name: " << endl;
     this->name = name;
 }
 
 int Player::getMemberID_AsInt(){
     char* tempData = this->idNumber.c_str();
-    //int  number = *idNumber.c_str() - '0';
-    //cout << number << endl;
+    //int  number = *idNumber.c_str() - 81;
 
-    this->points = 0;
+    points = 0;
     int total = 0;
-    cout << "idNumber: " << this->idNumber << endl;
+
     for(int i = 0; i < idNumber.size(); i++){
         if(idNumber.size() == 2 && i == 0){
             total = (idNumber.charToNum(tempData[i]) * 10);
@@ -71,9 +69,6 @@ int Player::getMemberID_AsInt(){
         }
     }
     ID_AsInt = total;
-
-
-    delete [] tempData;
     return ID_AsInt;
 }
 
@@ -93,6 +88,15 @@ int Player::getPoints(){
     return this->points;
 }
 
+void Player::setTeamName(const DSString& TeamName){
+    this->TeamName = TeamName;
+}
+
+DSString& Player::getTeamName(){
+    return this->TeamName;
+}
+
 Player::~Player(){
     //cout << "in Player Destructor" << endl;
+
 }

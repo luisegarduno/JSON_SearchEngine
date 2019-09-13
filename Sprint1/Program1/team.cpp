@@ -3,13 +3,15 @@
 #include <iostream>
 
 Team::Team(){
-    cout << "\nin Team Default constructor " << endl;
     teamName = nullptr;
     teamSize = 0;
+    teamPoints = 0;
+    player = nullptr;
 }
 
 Team::Team(DSString& TeamFile){
     ifstream theTeamFile(TeamFile.c_str());
+
     char * tempTeamChar = new char[100];
     theTeamFile.getline(tempTeamChar,100);
     setTeamName(tempTeamChar);
@@ -19,53 +21,41 @@ Team::Team(DSString& TeamFile){
     setTeamSize(tempNumOfMembers);
 
     for(int i = 0; i < getTeamSize(); i++){
-        *player = new Player[getTeamSize()];
         thePlayer(theTeamFile);
-        *(player) = i;
-        cout << (player[i]).getName() << endl;
     }
-    //*player = new Player[getTeamSize()];
-    //thePlayer(theTeamFile);
-    //*(player + 0) = *(this->player);
-    //cout << (player + 0)->getName() << endl;
-
-    //DSString * yo = new DSString[3];
-    //*(yo + 0) = "hi";
-    //cout << *(yo + 0) << endl;
 
 
 
     //thePlayer(theTeamFile);
 
-    //theTeamFile.close();
+    theTeamFile.close();
 
     delete [] tempTeamChar;
-}   //this->team->
+}
 
-void Team::thePlayer(ifstream& stream){
-    this->player = new Player(stream);
-    //cout << "Name: " << this->player->getName() << "\tID: " << this->player->getMemberID_AsInt() << endl;
-    //cout << this->player->getIDNumber();
+void Team::thePlayer(ifstream& TeamFile){
+    this->player = new Player(TeamFile);
+
+    //cout << "Name: " << this->player->getName() << "\tID: " << this->player->getMemberID_AsInt()
+                //<< "\tPlayerName: " << this->player->getName() << endl;
     //stream.close();
-    //int *arg = malloc(sizeof(*arg));
-    //*arg = i
-    //delete [] this->player;
+    delete this->player;
 }
 
 void Team::setTeamName(const char * tempTeamName){
-    this->teamName = tempTeamName;
+    teamName = tempTeamName;
 }
 
 void Team::setTeamSize(int tempNumOfMembers){
     this->teamSize = tempNumOfMembers;
 }
 
-DSString Team::getTeamName(){
+DSString& Team::getTeamName(){
     return this->teamName;
 }
 
 int Team::getTeamSize(){
-    return teamSize;
+    return this->teamSize;
 }
 
 Player* Team::getTeamMember(){
@@ -74,5 +64,5 @@ Player* Team::getTeamMember(){
 
 Team::~Team(){
     //cout << "in Team Destructor: " << this->teamName <<  endl;
-    delete player;
+    //delete [] player;
 }

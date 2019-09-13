@@ -7,6 +7,7 @@
 class Player{
 
     private:
+        DSString TeamName;
         DSString name;
         DSString idNumber;
         int IDNumber;
@@ -21,7 +22,10 @@ class Player{
         Player(Player*);
         DSString& getName();
         DSString& getIDNumber();
+        DSString& getTeamName();
         void setName(const DSString&);
+        void setTeamName(const DSString&);
+
         void setIDNumber(const DSString&);
 
         void addPoints(int points);
