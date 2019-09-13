@@ -28,6 +28,8 @@ class Player{
         void setPlayerName(const DSString&);
         void setTeamName(const DSString&);
 
+        void print();
+
         //friend class Team;
         ~Player();
 

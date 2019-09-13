@@ -35,7 +35,8 @@ Team::Team(DSString& TeamFile){
 
 void Team::thePlayer(ifstream& TeamFile){
     this->player = new Player(TeamFile);
-    cout << "-> ID: " << this->player->getIDNumber() << "\tPlayer: " << this->player->getPlayerName() << endl;
+    this->player->print();
+
     delete this->player;
 }
 
