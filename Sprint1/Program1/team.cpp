@@ -50,7 +50,7 @@ void Team::thePlayer(ifstream& TeamFile, LinkedList& team){
     this->player->setPlayerName(theName.substring(b,a));
     team.addPlayer(this->player);
 
-    delete [] tempLineChar;
+    //delete [] tempLineChar;
 }
 
 
