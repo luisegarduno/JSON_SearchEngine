@@ -8,25 +8,25 @@ LaserTag::LaserTag(){
 }
 
 LaserTag::LaserTag(char * argv[]){
-    LinkedList teamA;
+    LinkedList teamA;                               // creates a Linked List for TeamA
     DSString ATeamFileName(argv[1]);                // ATeamFileName(argv[1]) = 'cowboys.txt'
     Team TeamA(ATeamFileName,teamA);
 
-    LinkedList teamB;
+    LinkedList teamB;                               // creates a Linked List for TeamB
     DSString BTeamFileName(argv[2]);                // BTeamFileName(argv[2]) = 'sharks.txt'
-    Team TeamB(BTeamFileName,teamB);
+    Team TeamB(BTeamFileName,teamB);                // TeamB is used to construct the Linked List
 
-    DSString matchFileName(argv[3]);
-    DSString outputFile(argv[4]);
-    DSString verbosity(argv[5]);
+    DSString matchFileName(argv[3]);                // "match.txt"
+    DSString outputFile(argv[4]);                   // "output.txt"
+    DSString verbosity(argv[5]);                    // "vlow" / "vmed" / "vhigh"
 
-    int aPoints = verbosityPartOne(matchFileName,teamA,teamB);
+    int aPoints = verbosityPartOne(matchFileName,teamA,teamB);      // collects points for TeamA
     TeamA.setTeamPoints(aPoints);
 
-    int bPoints = verbosityPartTwo(matchFileName,teamA,teamB);
+    int bPoints = verbosityPartTwo(matchFileName,teamA,teamB);      // collects points for TeamB
     TeamB.setTeamPoints(bPoints);
 
-    switch(verbosity[1]){
+    switch(verbosity[1]){                           // a switch statement is used to determine the verbosity
         case 'l':
             verbosityLow(outputFile,TeamA,TeamB);
             break;
