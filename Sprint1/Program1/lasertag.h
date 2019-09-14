@@ -12,7 +12,7 @@ class LaserTag{
         LaserTag(char* argv[]);
         //int getMatchPartA(DSString&,LinkedList&,LinkedList&);
         //int getMatchPartB(DSString&,LinkedList&,LinkedList&);
-        int verbosityLow(DSString&,DSString&,LinkedList&,LinkedList&);
+        int verbosityPartOne(DSString&,LinkedList&,LinkedList&);
         void verbosityMedium(DSString&,DSString&);
         void verbosityHigh(DSString&,DSString&);
         int getPointValue(int);
