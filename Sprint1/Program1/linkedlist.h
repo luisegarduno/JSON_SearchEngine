@@ -18,7 +18,8 @@ class LinkedList{
         LinkedList();
         void addPlayer(Player * player);
         void getPlayer(int index);
-        void printLow();
+        void print();
+        ~LinkedList();
 };
 
 #endif // LINKEDLIST_H

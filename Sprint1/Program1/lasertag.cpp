@@ -14,7 +14,7 @@ LaserTag::LaserTag(char * argv[]){
 
 
     DSString BTeamFileName(argv[2]);        // BTeamFileName(argv[2]) = 'sharks.txt'
-    Team TeamB(BTeamFileName);              // TeamB(BTeamFileName) = 'The Sharks'
+    //Team TeamB(BTeamFileName);              // TeamB(BTeamFileName) = 'The Sharks'
 
     //Player * thePlayer[TeamA.getNumOfMembers()];// + TeamB.getNumOfMembers()];
 

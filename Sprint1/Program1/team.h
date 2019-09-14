@@ -10,17 +10,16 @@ class Team{
         int teamSize;
         int teamPoints;
         Player * player;
-        //Player thePlayers;
         DSString teamName;
 
     public:
         Team();
         Team(DSString&);
+        void print();
         void setTeamSize(int);
         void setTeamName(const char*);
         int getTeamSize();
         DSString& getTeamName();
-        Player * getTeamMember();
         void thePlayer(ifstream&,LinkedList&);
         ~Team();
 

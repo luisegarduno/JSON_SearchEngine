@@ -4,10 +4,8 @@
 #include <iostream>
 
 Team::Team(){
-    teamName = nullptr;
     teamSize = 0;
     teamPoints = 0;
-    player = nullptr;
 }
 
 Team::Team(DSString& TeamFile){
@@ -25,20 +23,17 @@ Team::Team(DSString& TeamFile){
     cout << "Team: " << getTeamName() << "\tPlayers: " << getTeamSize()  << endl;
 
     for(int i = 0; i < getTeamSize(); i++){
-        //thePlayer(theTeamFile,team);
-        team.printLow();
+        thePlayer(theTeamFile,team);
     }
-
     theTeamFile.close();
-
-    cout << endl;
-
+    team.print();
     delete [] tempTeamChar;
 }
 
 void Team::thePlayer(ifstream& TeamFile, LinkedList& team){
     int num, a = 0, b = 0;
     TeamFile >> num;
+    this->player = new Player;
     this->player->setIDNumber(num);
 
     char * tempLineChar = new char[100];
@@ -52,16 +47,9 @@ void Team::thePlayer(ifstream& TeamFile, LinkedList& team){
         a++;
     }
     this->player->setPlayerName(theName.substring(b,a));
-    team.addPlayer(player);
+    team.addPlayer(this->player);
 
     delete [] tempLineChar;
-
-
-
-
-    //this->player = new Player(TeamFile);
-    //this->player->print();
-    //delete this->player;
 }
 
 
@@ -81,10 +69,10 @@ int Team::getTeamSize(){
     return this->teamSize;
 }
 
-Player* Team::getTeamMember(){
-    return this->player;
+void Team::print(){
+
 }
 
 Team::~Team(){
-    //delete [] player;
+    delete  player;
 }

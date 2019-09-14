@@ -5,28 +5,8 @@ Player::Player(){
     tags = 0;
     points = 0;
     IDNumber = 0;
-    name = nullptr;
+    //name = nullptr;
 }
-
-/*Player::Player(ifstream& stream){
-    int num, a = 0, b = 0;
-    stream >> num;
-    setIDNumber(num);
-
-    char * tempLineChar = new char[100];
-    stream.getline(tempLineChar,100);
-    DSString theName(tempLineChar);
-
-    while(theName[a] != '\0' && theName[0] != 0){
-        if(theName[a] == ' '){
-            b = a;
-        }
-        a++;
-    }
-    setPlayerName(theName.substring(b,a));
-
-    delete [] tempLineChar;
-}*/
 
 Player::Player(Player* originalPlayer){
     this->IDNumber = originalPlayer->getIDNumber();
@@ -46,7 +26,7 @@ void Player::setIDNumber(int IDNumber){
 }
 
 int Player::getIDNumber(){
-    return this->IDNumber;
+    return IDNumber;
 }
 
 void Player::addPoints(int points){
