@@ -7,7 +7,6 @@ Player::Player(){
     IDNumber = 0;
 }
 
-
 DSString& Player::getPlayerName(){
     return this->name;
 }

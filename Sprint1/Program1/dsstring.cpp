@@ -1,14 +1,12 @@
 #include "dsstring.h"
 
 DSString::DSString(){
-    //cout << "in default constructor" << endl;
     this->data = nullptr;
 }
 
 DSString::DSString(const char* originalChar){                               // 'originalChar' is a constant, can not change
     this->data = new char[strlen(originalChar) + 1];                        // create new 'data' array size of originalChar + 1('\0')
     strcpy(this->data,originalChar);                                        // c-copy 'originalChar' into 'data' array
-    //cout << "in constructor: " << this->data << endl;
 }
 
 DSString::DSString(const DSString& originaldsString){                       // Copy constructor, DSString parameter is a const,
@@ -39,7 +37,6 @@ DSString& DSString::operator=(const DSString& originalString){              // r
     strcpy(this->data,originalString.data);                                 // copies originalString.data to this->data
 
     delete [] tempData;
-
     return *this;                                                           // return DSString by reference
 }
 
@@ -140,11 +137,10 @@ DSString DSString::substring(int a, int b){
         for(int i = 0; i < c ; i++){
             this->data[i] = tempData[a + (i + 1)];
         }
-
         delete [] tempData;
-
         return this->data;
     }
+
     else if(b < 0){
         this->data = new char[-b + 1];
         for(int i = 0; i < a ; i++){
@@ -152,9 +148,9 @@ DSString DSString::substring(int a, int b){
         }
 
         delete [] tempData;
-
         return this->data;
     }
+
     else{
         return this->data;
     }
@@ -172,7 +168,6 @@ ostream& operator<<(ostream& out, const DSString& theString){
 
 istream& operator>>(istream& stream,DSString& theString){
     char * tempChar = theString.data;
-
     theString.data = new char[100];
 
     if(stream.good()){
@@ -180,8 +175,6 @@ istream& operator>>(istream& stream,DSString& theString){
             stream >> *(theString.data);
         }
     }
-
     delete [] tempChar;
-
     return stream;
 }

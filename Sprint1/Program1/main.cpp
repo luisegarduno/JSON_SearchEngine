@@ -11,7 +11,6 @@ class missingFilesException{
 };
 
 int main(int argc,char * argv[]){
-
     try {
         if(argc != 6){
             throw missingFilesException{};

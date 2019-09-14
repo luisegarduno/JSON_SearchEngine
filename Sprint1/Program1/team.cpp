@@ -22,7 +22,6 @@ Team::Team(DSString& TeamFile,LinkedList& teamA){
     }
 
     theTeamFile.close();
-
     delete [] tempTeamChar;
 }
 
@@ -46,10 +45,8 @@ void Team::thePlayer(ifstream& TeamFile, LinkedList& team){
     this->player->setPlayerName(theName.substring(b,a));
     team.addPlayer(this->player);
 
-
     delete [] tempLineChar;
 }
-
 
 void Team::setTeamName(const char * tempTeamName){
     this->teamName = tempTeamName;
@@ -73,8 +70,4 @@ void Team::setTeamPoints(int points){
 
 int Team::getTeamPoints(){
     return this->teamPoints;
-}
-
-Team::~Team(){
-
 }

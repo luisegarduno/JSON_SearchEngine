@@ -1,26 +1,20 @@
 #include "lasertag.h"
-#include "team.h"
-#include "player.h"
 #include "dsstring.h"
 #include "linkedlist.h"
 #include <iostream>
 
 LaserTag::LaserTag(){
-    //cout << "\nin default LaserTag constructor" << endl;
+    cout << "Default LaserTag constructor" << endl;
 }
 
 LaserTag::LaserTag(char * argv[]){
     LinkedList teamA;
-    DSString ATeamFileName(argv[1]);        // ATeamFileName(argv[1]) = 'cowboys.txt'
-    Team TeamA(ATeamFileName,teamA);              // TeamA(ATeamFileName) = 'The Cowboys'
-    //teamA.print();
+    DSString ATeamFileName(argv[1]);                // ATeamFileName(argv[1]) = 'cowboys.txt'
+    Team TeamA(ATeamFileName,teamA);
 
     LinkedList teamB;
-    DSString BTeamFileName(argv[2]);        // BTeamFileName(argv[2]) = 'sharks.txt'
-    Team TeamB(BTeamFileName,teamB);              // TeamB(BTeamFileName) = 'The Sharks'
-    //teamA.print();
-
-
+    DSString BTeamFileName(argv[2]);                // BTeamFileName(argv[2]) = 'sharks.txt'
+    Team TeamB(BTeamFileName,teamB);
 
     DSString matchFileName(argv[3]);
     DSString outputFile(argv[4]);
@@ -28,7 +22,6 @@ LaserTag::LaserTag(char * argv[]){
 
     int aPoints = verbosityPartOne(matchFileName,teamA,teamB);
     TeamA.setTeamPoints(aPoints);
-
 
     int bPoints = verbosityPartTwo(matchFileName,teamA,teamB);
     TeamB.setTeamPoints(bPoints);
@@ -50,30 +43,24 @@ LaserTag::LaserTag(char * argv[]){
 }
 
 int LaserTag::verbosityPartOne(DSString& matchFileName, LinkedList& teamA,LinkedList& teamB){
-
     ifstream verbLow(matchFileName.c_str());
-    int totalNumberOfTags;
-    int a[5];
+
+    int totalNumberOfTags, a[5];
     verbLow >> totalNumberOfTags;
 
-    int lineCount = 0;
-    int pointsToAdd = 0;
-    int totalA = 0, totalB = 0;
+
+    int totalA = 0;
+    int lineCount = 0, pointsToAdd = 0;
     while(lineCount != totalNumberOfTags){
         verbLow >> a[0] >> a[1] >> a[2] >> a[3];
         pointsToAdd = getPointValue(a[3]);
         bool aChecker = teamA.checkTeam(a[0] - 1);
-        if(aChecker == false){
-            teamB.getPlayer(a[0] - 1,pointsToAdd,aChecker);
-            totalB += pointsToAdd;
-        }
         if(aChecker == true) {
             teamA.getPlayer(a[0] - 1,pointsToAdd,aChecker);
             totalA += pointsToAdd;
         }
         lineCount++;
     }
-
     verbLow.close();
     verbLow.clear();
 
@@ -81,15 +68,13 @@ int LaserTag::verbosityPartOne(DSString& matchFileName, LinkedList& teamA,Linked
 }
 
 int LaserTag::verbosityPartTwo(DSString& matchFileName, LinkedList& teamA,LinkedList& teamB){
-
     ifstream verbLow(matchFileName.c_str());
-    int totalNumberOfTags;
-    int a[5];
+
+    int totalNumberOfTags, a[5];
     verbLow >> totalNumberOfTags;
 
-    int lineCount = 0;
-    int pointsToAdd = 0;
-    int totalA = 0, totalB = 0;
+    int lineCount = 0, pointsToAdd = 0;
+    int totalB = 0;
     while(lineCount != totalNumberOfTags){
         verbLow >> a[0] >> a[1] >> a[2] >> a[3];
         pointsToAdd = getPointValue(a[3]);
@@ -97,10 +82,6 @@ int LaserTag::verbosityPartTwo(DSString& matchFileName, LinkedList& teamA,Linked
         if(aChecker == false){
             teamB.getPlayer(a[0] - 1,pointsToAdd,aChecker);
             totalB += pointsToAdd;
-        }
-        if(aChecker == true) {
-            teamA.getPlayer(a[0] - 1,pointsToAdd,aChecker);
-            totalA += pointsToAdd;
         }
         lineCount++;
     }
@@ -111,19 +92,19 @@ int LaserTag::verbosityPartTwo(DSString& matchFileName, LinkedList& teamA,Linked
 }
 
 void LaserTag::verbosityLow(DSString& outputFile,Team& TeamA,Team& TeamB){
-
     fstream aFile(outputFile.c_str());
+
     aFile << TeamA.getTeamName() << ": " << TeamA.getTeamPoints() << " points\n";
     aFile << TeamB.getTeamName() << ": " << TeamB.getTeamPoints() << " points\n";
-    if(TeamA.getTeamPoints() < TeamB.getTeamPoints()){
+
+    if(TeamA.getTeamPoints() < TeamB.getTeamPoints())
         aFile << "Overall Winners: " << TeamB.getTeamName();
-    }
-    if(TeamA.getTeamPoints() > TeamB.getTeamPoints()){
+
+    if(TeamA.getTeamPoints() > TeamB.getTeamPoints())
         aFile << "Overall Winners: " << TeamA.getTeamName();
-    }
-    if(TeamA.getTeamPoints() < TeamB.getTeamPoints()){
+
+    if(TeamA.getTeamPoints() < TeamB.getTeamPoints())
         aFile << "Overall Winners: It's a Draw!";
-    }
 
     aFile.close();
 }
@@ -135,17 +116,13 @@ void LaserTag::verbosityMedium(DSString& matchFileName,DSString& outputFile){
 
     ifstream verbMed(matchFileName.c_str());
 
-    int totalNumberOfTags;
+    int totalNumberOfTags, a[5];;
     verbMed >> totalNumberOfTags;
 
-    int a[5];
-
-    int lineCount = 0;
-    int pointsToAdd = 0;
+    int lineCount = 0, pointsToAdd = 0;
     while(lineCount != totalNumberOfTags){
         verbMed >> a[0] >> a[1] >> a[2] >> a[3];
         pointsToAdd = getPointValue(a[3]);
-        cout << a[0] << " " << a[1] << " " << a[2] << " " << pointsToAdd << endl;
         lineCount++;
     }
 
@@ -158,16 +135,14 @@ void LaserTag::verbosityHigh(DSString& matchFileName,DSString& outputFile){
 
     ifstream verbHigh(matchFileName.c_str());
 
-    int totalNumberOfTags;
+    int totalNumberOfTags, a[5];
     verbHigh >> totalNumberOfTags;
-    int a[5];
 
-    int lineCount = 0;
-    int pointsToAdd = 0;
+
+    int lineCount = 0, pointsToAdd = 0;
     while(lineCount != totalNumberOfTags){
         verbHigh >> a[0] >> a[1] >> a[2] >> a[3];
         pointsToAdd = getPointValue(a[3]);
-        cout << a[0] << " " << a[1] << " " << a[2] << " " << pointsToAdd << endl;
         lineCount++;
     }
 
@@ -176,20 +151,15 @@ void LaserTag::verbosityHigh(DSString& matchFileName,DSString& outputFile){
 
 int LaserTag::getPointValue(int a){
     switch(a){
-        case 1:
-            //cout << "Back" << endl;
+        case 1:                                                                 // "Back" - 5 Points
             return 5;
-        case 2:
-            //cout << "Chest" << endl;
+        case 2:                                                                 // "Chest" - 8 Points
             return 8;
-        case 3:
-            //cout << "Shoulder" << endl;
+        case 3:                                                                 // "Shoulder" - 7 Points
             return 7;
-        case 4:
-            //cout << "Laser gun" << endl;
+        case 4:                                                                 // "Laser gun" - 4 Points
             return 4;
-        default:
-            //cout << "Invalid point area" << endl;
+        default:                                                                // "Invalid point area"
             return 0;
     }
 }

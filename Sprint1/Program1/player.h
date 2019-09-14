@@ -6,11 +6,12 @@
 class Player{
 
     private:
-        DSString TeamName;
-        DSString name;
-        int IDNumber;
-        int points;
         int tags;
+        int points;
+        int IDNumber;
+        DSString name;
+        DSString TeamName;
+
 
     public:
         Player();
@@ -26,7 +27,6 @@ class Player{
         void setTeamName(const DSString&);
 
         void print();
-
 };
 
 #endif // PLAYER_H

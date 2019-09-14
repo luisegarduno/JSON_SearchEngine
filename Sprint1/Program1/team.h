@@ -24,8 +24,6 @@ class Team{
 
         DSString& getTeamName();
         void thePlayer(ifstream&,LinkedList&);
-        ~Team();
-
 };
 
 #endif // TEAM_H
