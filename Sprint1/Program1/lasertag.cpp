@@ -74,13 +74,6 @@ int LaserTag::verbosityLow(DSString& matchFileName,DSString& outputFile, LinkedL
 
     verbLow.close();
 
-    cout << totalA << endl;
-    cout << totalB << endl;
-
-    fstream aFile(outputFile.c_str());
-
-    aFile << "testing" << endl;
-    aFile.close();
     return totalA;
 }
 
