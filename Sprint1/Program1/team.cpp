@@ -47,6 +47,7 @@ void Team::thePlayer(ifstream& TeamFile, LinkedList& team){
         }
         a++;
     }
+    this->player->setTeamName(getTeamName());
     this->player->setPlayerName(theName.substring(b,a));
     team.addPlayer(this->player);
 
