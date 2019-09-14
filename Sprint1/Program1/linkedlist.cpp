@@ -8,9 +8,9 @@ LinkedList::LinkedList(){
     TeamSize = 0;
 }
 
-void LinkedList::addPlayer(Player *player){
+void LinkedList::addPlayer(Player *aPlayer){
     PlayerNode* newPlayerNode = new PlayerNode();
-    newPlayerNode->player = player;
+    newPlayerNode->player = aPlayer;
 
     if(firstPlayer == nullptr){
         firstPlayer = newPlayerNode;
@@ -22,6 +22,7 @@ void LinkedList::addPlayer(Player *player){
         lastPlayer = newPlayerNode;
     }
     TeamSize++;
+    delete newPlayerNode;
 }
 
 void LinkedList::getPlayer(int playerID){
@@ -68,10 +69,10 @@ void LinkedList::print(){
             currentPlayer->player->print();
             currentPlayer = currentPlayer->nextPlayer;
         }
+
         cout << endl;
     }
 }
 
 LinkedList::~LinkedList(){
-
 }

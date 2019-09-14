@@ -5,7 +5,6 @@ Player::Player(){
     tags = 0;
     points = 0;
     IDNumber = 0;
-    //name = nullptr;
 }
 
 
@@ -42,7 +41,7 @@ DSString& Player::getTeamName(){
 }
 
 void Player::print(){
-    cout << getIDNumber() << " " << getPlayerName() << endl;
+    cout << this->getIDNumber() << " " << this->getPlayerName() << endl;
 }
 
 Player::~Player(){

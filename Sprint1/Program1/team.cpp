@@ -23,8 +23,11 @@ Team::Team(DSString& TeamFile){
     for(int i = 0; i < getTeamSize(); i++){
         thePlayer(theTeamFile,team);
     }
+
+
     theTeamFile.close();
-    team.print();
+    //team.print();
+
     delete [] tempTeamChar;
 }
 
@@ -32,7 +35,7 @@ void Team::thePlayer(ifstream& TeamFile, LinkedList& team){
     int num = 0, a = 0, b = 0;
     TeamFile >> num;
     this->player = new Player();
-    this->player->setIDNumber(num);
+    player->setIDNumber(num);
 
     char * tempLineChar = new char[100];
     TeamFile.getline(tempLineChar,100);
@@ -52,7 +55,7 @@ void Team::thePlayer(ifstream& TeamFile, LinkedList& team){
 
 
 void Team::setTeamName(const char * tempTeamName){
-    teamName = tempTeamName;
+    this->teamName = tempTeamName;
 }
 
 void Team::setTeamSize(int tempNumOfMembers){
@@ -65,10 +68,6 @@ DSString& Team::getTeamName(){
 
 int Team::getTeamSize(){
     return this->teamSize;
-}
-
-void Team::print(){
-
 }
 
 Team::~Team(){

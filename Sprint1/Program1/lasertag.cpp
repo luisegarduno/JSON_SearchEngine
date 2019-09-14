@@ -1,6 +1,8 @@
 #include "lasertag.h"
 #include "team.h"
+#include "player.h"
 #include "dsstring.h"
+#include "linkedlist.h"
 #include <iostream>
 
 LaserTag::LaserTag(){
@@ -8,8 +10,10 @@ LaserTag::LaserTag(){
 }
 
 LaserTag::LaserTag(char * argv[]){
+    LinkedList teamA;
     DSString ATeamFileName(argv[1]);        // ATeamFileName(argv[1]) = 'cowboys.txt'
     Team TeamA(ATeamFileName);              // TeamA(ATeamFileName) = 'The Cowboys'
+
     //TeamA.addPlayers(TeamA.getNumOfMembers());
 
 
