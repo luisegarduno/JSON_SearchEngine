@@ -1,4 +1,4 @@
-#include "team.h"
+﻿#include "team.h"
 #include <iostream>
 
 Team::Team(){
@@ -7,7 +7,6 @@ Team::Team(){
 }
 
 Team::Team(DSString& TeamFile,LinkedList& teamA){
-    //LinkedList team;
     ifstream theTeamFile(TeamFile.c_str());
 
     char * tempTeamChar = new char[100];
@@ -18,15 +17,11 @@ Team::Team(DSString& TeamFile,LinkedList& teamA){
     theTeamFile >> tempNumOfMembers;
     setTeamSize(tempNumOfMembers);
 
-    cout << "Team: " << getTeamName() << "\tPlayers: " << getTeamSize()  << endl;
-
     for(int i = 0; i < getTeamSize(); i++){
         thePlayer(theTeamFile,teamA);
     }
 
-
     theTeamFile.close();
-   // team.print();
 
     delete [] tempTeamChar;
 }
@@ -53,7 +48,6 @@ void Team::thePlayer(ifstream& TeamFile, LinkedList& team){
 
 
     delete [] tempLineChar;
-    //delete player;
 }
 
 

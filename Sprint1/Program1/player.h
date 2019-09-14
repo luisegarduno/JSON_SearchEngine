@@ -3,7 +3,6 @@
 
 #include "dsstring.h"
 
-
 class Player{
 
     private:
@@ -27,9 +26,6 @@ class Player{
         void setTeamName(const DSString&);
 
         void print();
-
-        //friend class Team;
-        ~Player();
 
 };
 

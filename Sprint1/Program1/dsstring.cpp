@@ -15,14 +15,11 @@ DSString::DSString(const DSString& originaldsString){                       // C
     char * tempoData = this->data;
     this->data = new char[strlen(originaldsString.data) + 1];               // that goes by another name (&)
     strcpy(this->data,originaldsString.data);
-    //cout << "in copy constructor: " << this->data << endl;
 
     delete [] tempoData;
-
 }
 
 DSString::~DSString(){                                                      // destructor
-    //cout << " in destructor: " << this->data << endl;
     delete [] this->data;
 }
 
@@ -37,7 +34,6 @@ DSString& DSString::operator=(const char* originalChar){                    // r
 }
 
 DSString& DSString::operator=(const DSString& originalString){              // returns DSString& = originalString
-    //cout << "in operator=(const DSString&) << ";
     char * tempData = this->data;
     this->data = new char[strlen(originalString.data) + 1];
     strcpy(this->data,originalString.data);                                 // copies originalString.data to this->data
@@ -48,7 +44,6 @@ DSString& DSString::operator=(const DSString& originalString){              // r
 }
 
 DSString DSString::operator+(const DSString& originalString){
-    //cout << "in operator+(const DSString&) << ";
     DSString newString = this->data;
     strcat(newString.data,originalString.data);
 
@@ -56,7 +51,6 @@ DSString DSString::operator+(const DSString& originalString){
 }
 
 DSString& DSString::operator+=(const DSString& originaldsString){
-    //cout << "in operator+=(const DSString&) << ";
     char * tempChar = this->data;                                           // temporarily store this->data
     this->data = new char[strlen(tempChar) + strlen(originaldsString.data) + 1];    // empty out this->data
     strcpy(this->data,tempChar);                                            // copy tempChar to this->data
@@ -68,7 +62,6 @@ DSString& DSString::operator+=(const DSString& originaldsString){
 }
 
 bool DSString::operator==(const char* parameterData){
-    //cout << "in operator==(const char*) << ";
     if(this->data == parameterData){
         return true;
     }
@@ -77,38 +70,29 @@ bool DSString::operator==(const char* parameterData){
 }
 
 bool DSString::operator==(const DSString& parameterString){
-    //cout << "in operator==(const DSString&) << ";
     if(this->data == parameterString.data){
         return true;
     }
-
     return false;
-
 }
 
 bool DSString::operator<(const char * parameterChar){
-    //cout << "in operator<(const char*) << ";
     if(this->data < parameterChar){
         return true;
     }
-
     return false;
 }
 
 
 bool DSString::operator<(const DSString& parameterString){
-    //cout << "in operator<(const DSString&) << ";
     if(this->data < parameterString.data){
         return true;
     }
-
     return false;
 }
 
 char& DSString::operator[](const int indexSize){
-    //cout << "in operator[] << ";
     return *(this->data + indexSize);
-
 }
 
 int DSString::charToNum(char aValue){
@@ -148,12 +132,9 @@ int DSString::size(){                                                       // r
  *  If b is (-), count backward from position a.
  */
 DSString DSString::substring(int a, int b){
-    //cout << "in substring" << endl;
-
     char * tempData = this->data;
     int c = 0;
     if(b > 0){
-        //cout << "(b>0) " << endl;
         c = b;
         this->data = new char[c];
         for(int i = 0; i < c ; i++){
@@ -165,7 +146,6 @@ DSString DSString::substring(int a, int b){
         return this->data;
     }
     else if(b < 0){
-        //cout << "(b<0) " << endl;
         this->data = new char[-b + 1];
         for(int i = 0; i < a ; i++){
             this->data[i] = tempData[i];
@@ -176,25 +156,21 @@ DSString DSString::substring(int a, int b){
         return this->data;
     }
     else{
-        //cout << "b = 0" << endl;
         return this->data;
     }
 }
 
 char* DSString::c_str(){                                                    // returns by pointer
-    //cout << "in c_str" << endl;
     return this->data;
 }
 
 ostream& operator<<(ostream& out, const DSString& theString){
-    //cout << "is ostream&" << endl;
     out << theString.data;
 
     return out;
 }
 
 istream& operator>>(istream& stream,DSString& theString){
-    //cout << "in istream&" << endl;
     char * tempChar = theString.data;
 
     theString.data = new char[100];
@@ -203,7 +179,6 @@ istream& operator>>(istream& stream,DSString& theString){
         while(!stream.eof()){
             stream >> *(theString.data);
         }
-        //cout << *(theString.data) << endl;
     }
 
     delete [] tempChar;
