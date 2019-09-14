@@ -14,6 +14,7 @@ class LaserTag{
         //int getMatchPartB(DSString&,LinkedList&,LinkedList&);
         int verbosityPartOne(DSString&,LinkedList&,LinkedList&);
         int verbosityPartTwo(DSString&,LinkedList&,LinkedList&);
+        void verbosityLow(DSString&,Team&,Team&);
         void verbosityMedium(DSString&,DSString&);
         void verbosityHigh(DSString&,DSString&);
         int getPointValue(int);

@@ -17,13 +17,14 @@ class Team{
         Team(DSString&,LinkedList&);
         void print();
         void setTeamSize(int);
+        void setTeamPoints(int);
         void setTeamName(const char*);
         int getTeamSize();
+        int getTeamPoints();
+
         DSString& getTeamName();
         void thePlayer(ifstream&,LinkedList&);
         ~Team();
-
-        //Player * player;
 
 };
 

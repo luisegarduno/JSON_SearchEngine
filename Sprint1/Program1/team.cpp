@@ -73,6 +73,14 @@ int Team::getTeamSize(){
     return this->teamSize;
 }
 
+void Team::setTeamPoints(int points){
+    this->teamPoints = points;
+}
+
+int Team::getTeamPoints(){
+    return this->teamPoints;
+}
+
 Team::~Team(){
 
 }
