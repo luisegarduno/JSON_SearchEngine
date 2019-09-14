@@ -18,6 +18,7 @@ class LinkedList{
         LinkedList();
         void addPlayer(Player * player);
         void getPlayer(int index);
+        void deletePlayerNode(PlayerNode * currentPlayer);
         void print();
         ~LinkedList();
 };

@@ -1,5 +1,6 @@
 #include "linkedlist.h"
 #include "player.h"
+#include <iostream>
 
 LinkedList::LinkedList(){
     firstPlayer = nullptr;
@@ -37,6 +38,24 @@ void LinkedList::getPlayer(int playerID){
     }
 }
 
+void LinkedList::deletePlayerNode(PlayerNode *currentPlayer){
+    PlayerNode * newNextPlayer = currentPlayer->nextPlayer;
+    PlayerNode * newPreviousPlayer = currentPlayer->previousPlayer;
+
+    if(newNextPlayer != nullptr){
+        newNextPlayer->previousPlayer = newPreviousPlayer;
+    }
+    if(newPreviousPlayer != nullptr){
+        newPreviousPlayer->nextPlayer = newNextPlayer;
+    }
+    if(currentPlayer == firstPlayer){
+        firstPlayer = newNextPlayer;
+    }
+    if(currentPlayer == lastPlayer){
+        lastPlayer = newPreviousPlayer;
+    }
+}
+
 void LinkedList::print(){
     if(firstPlayer == nullptr){
         cout << "No players" << endl;
@@ -50,11 +69,9 @@ void LinkedList::print(){
             currentPlayer = currentPlayer->nextPlayer;
         }
         cout << endl;
-
     }
 }
 
 LinkedList::~LinkedList(){
-    //delete firstPlayer;
-    //delete lastPlayer;
+
 }

@@ -8,10 +8,6 @@ Player::Player(){
     //name = nullptr;
 }
 
-Player::Player(Player* originalPlayer){
-    this->IDNumber = originalPlayer->getIDNumber();
-    this->name = originalPlayer->getPlayerName();
-}
 
 DSString& Player::getPlayerName(){
     return this->name;
@@ -26,7 +22,7 @@ void Player::setIDNumber(int IDNumber){
 }
 
 int Player::getIDNumber(){
-    return IDNumber;
+    return this->IDNumber;
 }
 
 void Player::addPoints(int points){
@@ -51,5 +47,4 @@ void Player::print(){
 
 Player::~Player(){
     //cout << "in Player Destructor" << endl;
-
 }

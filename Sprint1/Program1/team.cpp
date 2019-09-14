@@ -1,6 +1,4 @@
 #include "team.h"
-#include "dsstring.h"
-
 #include <iostream>
 
 Team::Team(){
@@ -31,9 +29,9 @@ Team::Team(DSString& TeamFile){
 }
 
 void Team::thePlayer(ifstream& TeamFile, LinkedList& team){
-    int num, a = 0, b = 0;
+    int num = 0, a = 0, b = 0;
     TeamFile >> num;
-    this->player = new Player;
+    this->player = new Player();
     this->player->setIDNumber(num);
 
     char * tempLineChar = new char[100];
@@ -74,5 +72,5 @@ void Team::print(){
 }
 
 Team::~Team(){
-    delete  player;
+    delete this->player;
 }
