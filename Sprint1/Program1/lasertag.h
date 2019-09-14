@@ -9,7 +9,7 @@ class LaserTag{
     public:
         LaserTag();
         LaserTag(char* argv[]);
-        void verbosityLow(DSString&,DSString&,LinkedList&);
+        void verbosityLow(DSString&,DSString&,LinkedList&,LinkedList&);
         void verbosityMedium(DSString&,DSString&);
         void verbosityHigh(DSString&,DSString&);
         int getPointValue(int);

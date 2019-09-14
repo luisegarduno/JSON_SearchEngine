@@ -23,12 +23,17 @@ void LinkedList::addPlayer(Player *aPlayer){
     TeamSize++;
 }
 
-void LinkedList::getPlayer(int taggerID,int taggedID,int pointsToAdd){
-    if(taggerID >= TeamSize){
-        cout << "Error: Invalid Player ID" << endl;
+void LinkedList::getPlayer(int taggerID,int pointsToAdd,bool aChecker){
+    if(aChecker == false){
+        PlayerNode * currentPlayer = firstPlayer;
+        int count = 0+TeamSize;
+        while(count != taggerID){
+            currentPlayer = currentPlayer->nextPlayer;
+            count++;
+        }
+        currentPlayer->player->addPoints(pointsToAdd);
     }
     else{
-        cout << "TeamSize" << TeamSize << endl;
         PlayerNode * currentPlayer = firstPlayer;
         int count = 0;
         while(count != taggerID){

@@ -29,7 +29,7 @@ LaserTag::LaserTag(char * argv[]){
 
     switch(verbosity[1]){
         case 'l':
-            verbosityLow(matchFileName,outputFile,teamA);
+            verbosityLow(matchFileName,outputFile,teamA,teamB);
             break;
         case 'm':
             verbosityMedium(matchFileName,outputFile);
@@ -43,7 +43,7 @@ LaserTag::LaserTag(char * argv[]){
     }
 }
 
-void LaserTag::verbosityLow(DSString& matchFileName,DSString& outputFile, LinkedList& teamA){
+void LaserTag::verbosityLow(DSString& matchFileName,DSString& outputFile, LinkedList& teamA,LinkedList& teamB){
     fstream aFile(outputFile.c_str());
     aFile << "testing" << endl;
     aFile.close();
@@ -56,22 +56,27 @@ void LaserTag::verbosityLow(DSString& matchFileName,DSString& outputFile, Linked
 
     int lineCount = 0;
     int pointsToAdd = 0;
+    int totalA = 0;
     while(lineCount != totalNumberOfTags){
         verbLow >> a[0] >> a[1] >> a[2] >> a[3];
         pointsToAdd = getPointValue(a[3]);
-        cout << a[0] << " " << a[1] << " " << a[2] << " " << pointsToAdd << endl;
-        bool checker = teamA.checkTeam(a[0] - 1);
-        if(checker == false){
-            cout << "Sorry false" << endl;
+        //cout << a[0] << " " << a[1] << " " << a[2] << " " << pointsToAdd << endl;
+        bool aChecker = teamA.checkTeam(a[0] - 1);
+        if(aChecker == false){
+            teamB.getPlayer(a[0] - 1,pointsToAdd,aChecker);
         }
-        if(checker == true) {
-            cout << "True Boy" << endl;
+        if(aChecker == true) {
+            teamA.getPlayer(a[0] - 1,pointsToAdd,aChecker);
+            totalA += pointsToAdd;
         }
         lineCount++;
     }
 
     verbLow.close();
-    teamA.print();
+
+    cout << totalA << endl;
+    teamB.print();
+
 }   
 
 void LaserTag::verbosityMedium(DSString& matchFileName,DSString& outputFile){
@@ -127,7 +132,7 @@ int LaserTag::getPointValue(int a){
             return 5;
         case 2:
             //cout << "Chest" << endl;
-            return 6;
+            return 8;
         case 3:
             //cout << "Shoulder" << endl;
             return 7;

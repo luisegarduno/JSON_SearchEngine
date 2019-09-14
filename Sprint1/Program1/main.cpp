@@ -28,3 +28,17 @@ int main(int argc,char * argv[]){
 
     return 0;
 }
+
+/*fstream aFile(outputFile.c_str());
+aFile << teamNameA << ": " << totalA << " points\n";
+aFile << teamNameB << ": " << totalB << " points\n";
+if(totalA > totalB){
+    aFile << "Overall Winners: " << teamNameA;
+}
+if(totalA > totalB){
+    aFile << "Overall Winners: " << teamNameB;
+}
+if(totalA == totalB){
+    aFile << "Overall Winners: it's a draw!";
+}
+aFile.close();*/

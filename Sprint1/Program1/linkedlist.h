@@ -16,7 +16,7 @@ class LinkedList{
     public:
         LinkedList();
         void addPlayer(Player * player);
-        void getPlayer(int taggerID,int taggedID,int pointsToBeAdded);
+        void getPlayer(int taggerID,int pointsToBeAdded,bool aChecker);
         bool checkTeam(int);
         void print();
         ~LinkedList();
