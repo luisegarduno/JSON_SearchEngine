@@ -41,7 +41,7 @@ DSString& Player::getTeamName(){
 }
 
 void Player::print(){
-    cout << this->getIDNumber() << " " << this->getPlayerName() << endl;
+    cout << this->getIDNumber() << " " << this->getPlayerName() << " " << getPoints() << endl;
 }
 
 Player::~Player(){

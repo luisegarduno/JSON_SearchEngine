@@ -14,7 +14,7 @@ class Team{
 
     public:
         Team();
-        Team(DSString&);
+        Team(DSString&,LinkedList&);
         void print();
         void setTeamSize(int);
         void setTeamName(const char*);

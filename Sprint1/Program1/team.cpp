@@ -6,8 +6,8 @@ Team::Team(){
     teamPoints = 0;
 }
 
-Team::Team(DSString& TeamFile){
-    LinkedList team;
+Team::Team(DSString& TeamFile,LinkedList& teamA){
+    //LinkedList team;
     ifstream theTeamFile(TeamFile.c_str());
 
     char * tempTeamChar = new char[100];
@@ -21,12 +21,12 @@ Team::Team(DSString& TeamFile){
     cout << "Team: " << getTeamName() << "\tPlayers: " << getTeamSize()  << endl;
 
     for(int i = 0; i < getTeamSize(); i++){
-        thePlayer(theTeamFile,team);
+        thePlayer(theTeamFile,teamA);
     }
 
 
     theTeamFile.close();
-    //team.print();
+   // team.print();
 
     delete [] tempTeamChar;
 }
@@ -50,7 +50,9 @@ void Team::thePlayer(ifstream& TeamFile, LinkedList& team){
     this->player->setPlayerName(theName.substring(b,a));
     team.addPlayer(this->player);
 
-    //delete [] tempLineChar;
+
+    delete [] tempLineChar;
+    //delete player;
 }
 
 
@@ -71,5 +73,5 @@ int Team::getTeamSize(){
 }
 
 Team::~Team(){
-    delete this->player;
+
 }

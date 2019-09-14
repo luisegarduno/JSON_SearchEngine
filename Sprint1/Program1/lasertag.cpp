@@ -12,13 +12,13 @@ LaserTag::LaserTag(){
 LaserTag::LaserTag(char * argv[]){
     LinkedList teamA;
     DSString ATeamFileName(argv[1]);        // ATeamFileName(argv[1]) = 'cowboys.txt'
-    Team TeamA(ATeamFileName);              // TeamA(ATeamFileName) = 'The Cowboys'
+    Team TeamA(ATeamFileName,teamA);              // TeamA(ATeamFileName) = 'The Cowboys'
+    //teamA.print();
 
-    //TeamA.addPlayers(TeamA.getNumOfMembers());
-
-
+    LinkedList teamB;
     DSString BTeamFileName(argv[2]);        // BTeamFileName(argv[2]) = 'sharks.txt'
-    //Team TeamB(BTeamFileName);              // TeamB(BTeamFileName) = 'The Sharks'
+    Team TeamB(BTeamFileName,teamB);              // TeamB(BTeamFileName) = 'The Sharks'
+    //teamA.print();
 
     //Player * thePlayer[TeamA.getNumOfMembers()];// + TeamB.getNumOfMembers()];
 
@@ -29,7 +29,7 @@ LaserTag::LaserTag(char * argv[]){
 
     switch(verbosity[1]){
         case 'l':
-            verbosityLow(matchFileName,outputFile);
+            verbosityLow(matchFileName,outputFile,teamA);
             break;
         case 'm':
             verbosityMedium(matchFileName,outputFile);
@@ -43,8 +43,9 @@ LaserTag::LaserTag(char * argv[]){
     }
 }
 
-void LaserTag::verbosityLow(DSString& matchFileName,DSString& outputFile){
+void LaserTag::verbosityLow(DSString& matchFileName,DSString& outputFile, LinkedList& teamA){
     fstream aFile(outputFile.c_str());
+    aFile << "testing" << endl;
     aFile.close();
 
     ifstream verbLow(matchFileName.c_str());
@@ -59,10 +60,18 @@ void LaserTag::verbosityLow(DSString& matchFileName,DSString& outputFile){
         verbLow >> a[0] >> a[1] >> a[2] >> a[3];
         pointsToAdd = getPointValue(a[3]);
         cout << a[0] << " " << a[1] << " " << a[2] << " " << pointsToAdd << endl;
+        bool checker = teamA.checkTeam(a[0] - 1);
+        if(checker == false){
+            cout << "Sorry false" << endl;
+        }
+        if(checker == true) {
+            cout << "True Boy" << endl;
+        }
         lineCount++;
     }
 
     verbLow.close();
+    teamA.print();
 }   
 
 void LaserTag::verbosityMedium(DSString& matchFileName,DSString& outputFile){

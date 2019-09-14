@@ -4,56 +4,57 @@
 
 LinkedList::LinkedList(){
     firstPlayer = nullptr;
-    lastPlayer = nullptr;
     TeamSize = 0;
 }
 
 void LinkedList::addPlayer(Player *aPlayer){
-    PlayerNode* newPlayerNode = new PlayerNode();
+    PlayerNode * newPlayerNode = new PlayerNode();
     newPlayerNode->player = aPlayer;
 
     if(firstPlayer == nullptr){
         firstPlayer = newPlayerNode;
         lastPlayer = newPlayerNode;
+        newPlayerNode = nullptr;
     }
     else{
         lastPlayer->nextPlayer = newPlayerNode;
-        newPlayerNode->previousPlayer = lastPlayer;
         lastPlayer = newPlayerNode;
     }
     TeamSize++;
-    delete newPlayerNode;
 }
 
-void LinkedList::getPlayer(int playerID){
-    if(playerID >= TeamSize){
+void LinkedList::getPlayer(int taggerID,int taggedID,int pointsToAdd){
+    if(taggerID >= TeamSize){
         cout << "Error: Invalid Player ID" << endl;
+    }
+    else{
+        cout << "TeamSize" << TeamSize << endl;
+        PlayerNode * currentPlayer = firstPlayer;
+        int count = 0;
+        while(count != taggerID){
+            currentPlayer = currentPlayer->nextPlayer;
+            count++;
+        }
+        currentPlayer->player->addPoints(pointsToAdd);
+    }
+}
+
+bool LinkedList::checkTeam(int taggerID){
+
+    if(taggerID >= TeamSize){
+        return false;
     }
     else{
         PlayerNode * currentPlayer = firstPlayer;
         int count = 0;
-        while(count != playerID){
+        while(count != taggerID){
             currentPlayer = currentPlayer->nextPlayer;
             count++;
         }
-    }
-}
-
-void LinkedList::deletePlayerNode(PlayerNode *currentPlayer){
-    PlayerNode * newNextPlayer = currentPlayer->nextPlayer;
-    PlayerNode * newPreviousPlayer = currentPlayer->previousPlayer;
-
-    if(newNextPlayer != nullptr){
-        newNextPlayer->previousPlayer = newPreviousPlayer;
-    }
-    if(newPreviousPlayer != nullptr){
-        newPreviousPlayer->nextPlayer = newNextPlayer;
-    }
-    if(currentPlayer == firstPlayer){
-        firstPlayer = newNextPlayer;
-    }
-    if(currentPlayer == lastPlayer){
-        lastPlayer = newPreviousPlayer;
+        if(currentPlayer->player->getIDNumber() == taggerID){
+            return true;
+        }
+        return true;
     }
 }
 
@@ -63,13 +64,10 @@ void LinkedList::print(){
     }
     else {
         PlayerNode * currentPlayer = firstPlayer;
-        int count = 0;
         while(currentPlayer != nullptr){
-            ++count;
             currentPlayer->player->print();
             currentPlayer = currentPlayer->nextPlayer;
         }
-
         cout << endl;
     }
 }

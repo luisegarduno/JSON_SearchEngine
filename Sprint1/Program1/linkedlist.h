@@ -5,7 +5,6 @@
 struct PlayerNode{
     Player * player;
     PlayerNode* nextPlayer;
-    PlayerNode* previousPlayer;
 };
 
 class LinkedList{
@@ -17,8 +16,8 @@ class LinkedList{
     public:
         LinkedList();
         void addPlayer(Player * player);
-        void getPlayer(int index);
-        void deletePlayerNode(PlayerNode * currentPlayer);
+        void getPlayer(int taggerID,int taggedID,int pointsToBeAdded);
+        bool checkTeam(int);
         void print();
         ~LinkedList();
 };
