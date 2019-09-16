@@ -1,40 +1,36 @@
-#include "lasertag.h"
-#include "dsstring.h"
-#include "linkedlist.h"
 #include <iostream>
+#include "lasertag.h"
 
 LaserTag::LaserTag(){
     cout << "Default LaserTag constructor" << endl;
 }
 
 LaserTag::LaserTag(char * argv[]){
-    LinkedList teamA;                               // creates a Linked List for TeamA
-    DSString ATeamFileName(argv[1]);                // ATeamFileName(argv[1]) = 'cowboys.txt'
+    DSString ATeamFileName(argv[1]);                    // ATeamFileName(argv[1]) = 'cowboys.txt'
     Team TeamA(ATeamFileName,teamA);
 
-    LinkedList teamB;                               // creates a Linked List for TeamB
-    DSString BTeamFileName(argv[2]);                // BTeamFileName(argv[2]) = 'sharks.txt'
-    Team TeamB(BTeamFileName,teamB);                // TeamB is used to construct the Linked List
+    DSString BTeamFileName(argv[2]);                    // BTeamFileName(argv[2]) = 'sharks.txt'
+    Team TeamB(BTeamFileName,teamB);                    // TeamB is used to construct the Linked List
 
-    DSString matchFileName(argv[3]);                // "match.txt"
-    DSString outputFile(argv[4]);                   // "output.txt"
-    DSString verbosity(argv[5]);                    // "vlow" / "vmed" / "vhigh"
+    DSString matchFileName(argv[3]);                    // "match.txt"
+    DSString outputFile(argv[4]);                       // "output.txt"
+    DSString verbosity(argv[5]);                        // "vlow" / "vmed" / "vhigh"
 
-    int aPoints = verbosityPartOne(matchFileName,teamA,teamB);      // collects points for TeamA
+    int aPoints = verbosityPartOne(matchFileName);      // collects points for TeamA
     TeamA.setTeamPoints(aPoints);
 
-    int bPoints = verbosityPartTwo(matchFileName,teamA,teamB);      // collects points for TeamB
+    int bPoints = verbosityPartTwo(matchFileName);      // collects points for TeamB
     TeamB.setTeamPoints(bPoints);
 
-    switch(verbosity[1]){                           // a switch statement is used to determine the verbosity
-        case 'l':
+    switch(verbosity[1]){                               // a switch statement is used to determine the verbosity
+        case 'l':                                       // output Low Verbosity
             verbosityLow(outputFile,TeamA,TeamB);
             break;
-        case 'm':
-            verbosityMedium(matchFileName,outputFile);
+        case 'm':                                       // output Medium Verbosity
+            verbosityMedium(outputFile,TeamA,TeamB);
             break;
-        case 'h':
-            verbosityHigh(matchFileName,outputFile);
+        case 'h':                                       // output High Verbosity
+            verbosityHigh(outputFile,TeamA,TeamB);
             break;
         default:
             cout << "Verbosity Error" << endl;
@@ -42,17 +38,18 @@ LaserTag::LaserTag(char * argv[]){
     }
 }
 
-int LaserTag::verbosityPartOne(DSString& matchFileName, LinkedList& teamA,LinkedList& teamB){
-    ifstream verbLow(matchFileName.c_str());
+int LaserTag::verbosityPartOne(DSString& matchFileName){
+    ifstream verbTags(matchFileName.c_str());           // open match file
 
-    int totalNumberOfTags, a[5];
-    verbLow >> totalNumberOfTags;
+    int totalNumberOfTags, a[5];                        // a[0]: player tagging, a[1]: player getting tagged
+                                                        // a[2]: time tagged after game started, a[3]: body area tagged
+    verbTags >> totalNumberOfTags;                      // gets total number of tags
 
 
-    int totalA = 0;
+    int totalA = 0;                                     // total number of points for TeamA
     int lineCount = 0, pointsToAdd = 0;
     while(lineCount != totalNumberOfTags){
-        verbLow >> a[0] >> a[1] >> a[2] >> a[3];
+        verbTags >> a[0] >> a[1] >> a[2] >> a[3];
         pointsToAdd = getPointValue(a[3]);
         bool aChecker = teamA.checkTeam(a[0] - 1);
         if(aChecker == true) {
@@ -61,38 +58,38 @@ int LaserTag::verbosityPartOne(DSString& matchFileName, LinkedList& teamA,Linked
         }
         lineCount++;
     }
-    verbLow.close();
-    verbLow.clear();
+    verbTags.close();                                   // closes match file
+    verbTags.clear();                                   // clears match file flags
 
-    return totalA;
+    return totalA;                                      // returns total number of points obtained by TeamA
 }
 
-int LaserTag::verbosityPartTwo(DSString& matchFileName, LinkedList& teamA,LinkedList& teamB){
-    ifstream verbLow(matchFileName.c_str());
+int LaserTag::verbosityPartTwo(DSString& matchFileName){
+    ifstream verbTags(matchFileName.c_str());
 
     int totalNumberOfTags, a[5];
-    verbLow >> totalNumberOfTags;
+    verbTags >> totalNumberOfTags;                      // gets total number of tags/lines in match file
 
     int lineCount = 0, pointsToAdd = 0;
     int totalB = 0;
-    while(lineCount != totalNumberOfTags){
-        verbLow >> a[0] >> a[1] >> a[2] >> a[3];
+    while(lineCount != totalNumberOfTags){              // while lineCount does not exceed totalNumberofTags
+        verbTags >> a[0] >> a[1] >> a[2] >> a[3];
         pointsToAdd = getPointValue(a[3]);
         bool aChecker = teamA.checkTeam(a[0] - 1);
         if(aChecker == false){
             teamB.getPlayer(a[0] - 1,pointsToAdd,aChecker);
-            totalB += pointsToAdd;
+            totalB += pointsToAdd;                      // adds points to teamB total points
         }
-        lineCount++;
+        lineCount++;                                    // increment lineCounter
     }
 
-    verbLow.close();
+    verbTags.close();                                   // closes match file
 
-    return totalB;
+    return totalB;                                      // returns total number of points obtained by TeamB
 }
 
 void LaserTag::verbosityLow(DSString& outputFile,Team& TeamA,Team& TeamB){
-    fstream aFile(outputFile.c_str());
+    fstream aFile(outputFile.c_str());                  // writes to "OutputFile.txt"
 
     aFile << TeamA.getTeamName() << ": " << TeamA.getTeamPoints() << " points\n";
     aFile << TeamB.getTeamName() << ": " << TeamB.getTeamPoints() << " points\n";
@@ -103,50 +100,57 @@ void LaserTag::verbosityLow(DSString& outputFile,Team& TeamA,Team& TeamB){
     if(TeamA.getTeamPoints() > TeamB.getTeamPoints())
         aFile << "Overall Winners: " << TeamA.getTeamName();
 
+    if(TeamA.getTeamPoints() == TeamB.getTeamPoints())
+        aFile << "Overall Winners: It's a Draw!";
+
+    aFile.close();                                      // closes the OutputFile
+}
+
+
+void LaserTag::verbosityMedium(DSString& outputFile,Team& TeamA, Team& TeamB){
+    fstream aFile(outputFile.c_str());
+
+    aFile << TeamA.getTeamName() << endl;
+    aFile << TeamB.getTeamName() << endl;
+
+    aFile << "Best score from " << TeamA.getTeamName() << ": " << endl;
+    aFile << "Best score from " << TeamB.getTeamName() << ": " << endl;
+
+    aFile << TeamA.getTeamName() << ": " << TeamA.getTeamPoints() << " points" << endl;
+    aFile << TeamB.getTeamName() << ": " << TeamB.getTeamPoints() << " points" << endl;
+
     if(TeamA.getTeamPoints() < TeamB.getTeamPoints())
+        aFile << "Overall Winners: " << TeamB.getTeamName();
+
+    if(TeamA.getTeamPoints() > TeamB.getTeamPoints())
+        aFile << "Overall Winners: " << TeamA.getTeamName();
+
+    if(TeamA.getTeamPoints() == TeamB.getTeamPoints())
         aFile << "Overall Winners: It's a Draw!";
 
     aFile.close();
 }
 
-
-void LaserTag::verbosityMedium(DSString& matchFileName,DSString& outputFile){
+void LaserTag::verbosityHigh(DSString& outputFile,Team& TeamA, Team& TeamB){
     fstream aFile(outputFile.c_str());
+
+    aFile << TeamA.getTeamName() << endl;
+    aFile << TeamA.getTeamName() << ": " << TeamA.getTeamPoints() << " points" << endl;
+
+    aFile << TeamB.getTeamName() << endl;
+    aFile << TeamB.getTeamName() << ": " << TeamB.getTeamPoints() << " points" << endl;
+
+    if(TeamA.getTeamPoints() < TeamB.getTeamPoints())
+        aFile << "Winners: " << TeamB.getTeamName();
+
+    if(TeamA.getTeamPoints() > TeamB.getTeamPoints())
+        aFile << "Winners: " << TeamA.getTeamName();
+
+    if(TeamA.getTeamPoints() == TeamB.getTeamPoints())
+        aFile << "Winners: It's a Draw!";
+
     aFile.close();
 
-    ifstream verbMed(matchFileName.c_str());
-
-    int totalNumberOfTags, a[5];;
-    verbMed >> totalNumberOfTags;
-
-    int lineCount = 0, pointsToAdd = 0;
-    while(lineCount != totalNumberOfTags){
-        verbMed >> a[0] >> a[1] >> a[2] >> a[3];
-        pointsToAdd = getPointValue(a[3]);
-        lineCount++;
-    }
-
-    verbMed.close();
-}
-
-void LaserTag::verbosityHigh(DSString& matchFileName,DSString& outputFile){
-    fstream aFile(outputFile.c_str());
-    aFile.close();
-
-    ifstream verbHigh(matchFileName.c_str());
-
-    int totalNumberOfTags, a[5];
-    verbHigh >> totalNumberOfTags;
-
-
-    int lineCount = 0, pointsToAdd = 0;
-    while(lineCount != totalNumberOfTags){
-        verbHigh >> a[0] >> a[1] >> a[2] >> a[3];
-        pointsToAdd = getPointValue(a[3]);
-        lineCount++;
-    }
-
-    verbHigh.close();
 }
 
 int LaserTag::getPointValue(int a){

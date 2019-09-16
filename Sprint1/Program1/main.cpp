@@ -12,13 +12,13 @@ class missingFilesException{
 
 int main(int argc,char * argv[]){
     try {
-        if(argc != 6){
-            throw missingFilesException{};
+        if(argc != 6){                              // if argument counter != 6,
+            throw missingFilesException{};          // throw custom exception
         }
-        LaserTag newGame(argv);
+        LaserTag newGame(argv);                     // else, create new LaserTag
     }
 
-    catch (missingFilesException& e) {
+    catch (missingFilesException& e) {              // catches custom exception message
         cout << e.what() << endl;
     }
 

@@ -5,12 +5,10 @@
 #include <cstring>
 #include <fstream>
 
-using std::ostream;
 using std::cout;
 using std::endl;
-using std::istream;
-using std::ifstream;
 using std::fstream;
+using std::ifstream;
 
 class DSString{
 
@@ -33,15 +31,14 @@ class DSString{
         bool operator<(const DSString&);            // returns bool b <
         char& operator[](const int);                // returns char
 
-        int charToNum(char aValue);
-        int size();
+        int size();                                 // returns size of DSString
 
         DSString substring(int a, int b);           // View DSString.cpp for extended info
 
         char* c_str();                              // returns a c-string representation of the DSString Obj
 
-        friend ostream& operator<<(ostream&, const DSString&);
-        friend istream& operator>>(istream&,DSString&);
+        friend std::ostream& operator<<(std::ostream&, const DSString&);
+        friend std::istream& operator>>(std::istream&,DSString&);
 };
 
 #endif // DSSTRING_H

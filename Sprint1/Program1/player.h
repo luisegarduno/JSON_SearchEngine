@@ -6,25 +6,25 @@
 class Player{
 
     private:
-        int tags;
-        int points;
-        int IDNumber;
-        DSString name;
-        DSString TeamName;
-
+        int points;                                 // points obtained by this->player
+        int IDNumber;                               // player IDNumber
+        DSString name;                              // player Name
+        DSString TeamName;                          // player TeamName
 
     public:
-        Player();
+        int tags;                                   // total number this->players tagged
 
-        int getPoints();
-        int getIDNumber();
-        DSString& getPlayerName();
-        DSString& getTeamName();
+        Player();                                   // default Player constructor
 
-        void setIDNumber(int);
-        void addPoints(int points);
-        void setPlayerName(const DSString&);
-        void setTeamName(const DSString&);
+        void setIDNumber(int);                      // setter for this->player's IDNumber
+        void addPoints(int points);                 // adds points to this->players total score
+        void setTeamName(const DSString&);          // setter for this->players TeamName
+        void setPlayerName(const DSString&);        // setter for this->players Name
+
+        int getPoints();                            // returns this->players points
+        int getIDNumber();                          // returns this->players IDNumber
+        DSString& getTeamName();                    // returns this->players TeamName
+        DSString& getPlayerName();                  // returns this->player Name
 
         void print();
 };
