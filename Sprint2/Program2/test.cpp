@@ -1,7 +1,5 @@
-//#define CATCH_CONFIG_MAIN
-#include "catch.hpp"
-
 #include <cstring>
+#include "catch.hpp"
 #include "dsstring.cpp"
 
 
