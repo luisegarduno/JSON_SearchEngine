@@ -16,14 +16,13 @@ int runCatchTests(int argc, char* argv[]){
 
 int main(int argc, char * argv[]){
 
-    //if(argc > 1 && strcmp(argv[1], "-t") == 0){
-        if(TEST){
-            return runCatchTests(argc, argv);
-        }
-    //}
-        //else if(argc > 1 && strcmp(argv[1], "-c") == 0){
-          //  cout << "6" << endl;
-        //}
+
+    if(TEST && argc == 1){
+        return runCatchTests(argc, argv);
+    }
+    else{
+        cout << "6" << endl;
+    }
 
 
     return 0;

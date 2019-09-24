@@ -20,8 +20,8 @@ TEST_CASE("DSString class", "[DSString]"){
     SECTION("Equality operators"){
         REQUIRE(s[0] == DSString("testDSString"));
         REQUIRE(s[0] == s[9]);
-        REQUIRE(s[2] == "");
-        REQUIRE(s[1] == "a test DSString");
+        REQUIRE(s[2] == DSString(""));
+        REQUIRE(s[1] == DSString("a test DSString"));
         REQUIRE(!(s[3] == s[4]));
     }
 
@@ -38,15 +38,15 @@ TEST_CASE("DSString class", "[DSString]"){
     }
 
     SECTION("Addition operator"){
-        REQUIRE(DSString("testDSStringtestDSString") == DSString(s[0]+s[9]));
-        REQUIRE(s[6] + s[6] == "");
+        REQUIRE(DSString("testDSStringtestDSString") == s[0]+s[9]);
+        REQUIRE(s[6] + s[6] == DSString(""));
         REQUIRE(s[5] + s[6] == DSString("\n"));
-        REQUIRE(s[0] + s[1] + s[2] == "testDSStringa test DSString");
+        REQUIRE(s[0] + s[1] + s[2] == DSString("testDSStringa test DSString"));
     }
 
     SECTION("Less than operator"){
         REQUIRE(s[0] < s[1]);
-        REQUIRE(s[3] < s[4]);
+        REQUIRE(s[4] < s[3]);
         REQUIRE(s[6] < s[9]);
         REQUIRE(s[6] < s[7]);
     }
@@ -65,9 +65,9 @@ TEST_CASE("DSString class", "[DSString]"){
     }
 
     SECTION("DSSubstring function"){
-        REQUIRE(s[0].substring(-1, 5) == "testD");
-        REQUIRE(s[4].substring(-1, 4) == "this");
-        REQUIRE(s[4].substring(0, 3) == "his");
+        REQUIRE(s[0].substring(0, 5) == DSString("testD"));
+        REQUIRE(s[4].substring(0, 4) == DSString("this"));
+        REQUIRE(s[4].substring(1, 3) == DSString("his"));
     }
 
     SECTION("c_str function"){

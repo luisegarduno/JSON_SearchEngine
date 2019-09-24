@@ -1,7 +1,9 @@
 #include "dsstring.h"
 
 DSString::DSString(){
+
     this->data = nullptr;
+
 }
 
 DSString::DSString(const char* originalChar){                               // 'originalChar' is a constant, can not change
@@ -41,9 +43,13 @@ DSString& DSString::operator=(const DSString& originalString){              // r
 }
 
 DSString DSString::operator+(const DSString& originalString){
-    DSString newString = this->data;
-    strcat(newString.data,originalString.data);
+    char * tempData = new char[strlen(this->data) + strlen(originalString.data) + 1];
 
+    strcpy(tempData,this->data);
+    strcat(tempData,originalString.data);
+    DSString newString = tempData;
+
+    delete [] tempData;
     return newString;                                                       // return DSString by value
 }
 
@@ -58,7 +64,7 @@ DSString& DSString::operator+=(const DSString& originaldsString){
     return *this;                                                           // return a reference to invoking address
 }
 
-bool DSString::operator==(const char* parameterData){
+bool DSString::operator==(const char* parameterData) const{
     if(this->data == parameterData){
         return true;
     }
@@ -78,19 +84,41 @@ bool DSString::operator==(const DSString& parameterString) const{
 
 }
 
-bool DSString::operator<(const char * parameterChar){
+bool DSString::operator<(const char * parameterChar) const{
     if(this->data < parameterChar){
         return true;
+    }
+    else if(this->data == parameterChar){
+        for(int i = 0; i < int(strlen(this->data));i++){
+            if(int(this->data[i]) > int(parameterChar[i])){
+               return true;
+            }
+            else if(int(this->data[i]) < int(parameterChar[i])){
+                return false;
+            }
+        }
     }
     return false;
 }
 
 
-bool DSString::operator<(const DSString& parameterString) const{
-    if(this->data < parameterString.data){
+bool DSString::operator<(const DSString& parameterDSString) const{
+    if(this->data < parameterDSString.data){
         return true;
     }
-    return false;
+    else if(this->data == parameterDSString.data){
+        for(int i = 0; i < int(strlen(this->data));i++){
+            if(int(this->data[i]) > int(parameterDSString.data[i])){
+               return false;
+            }
+            else if(int(this->data[i]) < int(parameterDSString.data[i])){
+                return true;
+            }
+        }
+    }
+
+    return true;
+
 }
 
 char& DSString::operator[](const int indexSize){
@@ -107,19 +135,35 @@ int DSString::size(){                                                       // r
  *  If b is (-), count backward from position a.
  */
 DSString DSString::substring(int a, int b){
-    char * tempData = this->data;
-    int c = 0;
     if(b > 0){
-        c = b;
-        this->data = new char[c];
-        for(int i = 0; i < c ; i++){
-            this->data[i] = tempData[a + (i + 1)];
+        char * tempData = this->data;
+        int c = 0;
+        if(a == 0){
+            c = b;
+            this->data = new char[c];
+            //this->data[c] = '\0';
+            for(int i = 0; i < c; i++){
+                this->data[i]  = tempData[i];
+            }
+            this->data[c] = '\0';
         }
+        else if(a != 0){
+            c = (b - a) + 1;
+            this->data = new char[c];
+            //this->data[c] = '\0';
+            for(int i = 0; i <= c -1; i++){
+                this->data[i]  = tempData[a + i];
+            }
+            this->data[c] = '\0';
+        }
+
+
         delete [] tempData;
         return this->data;
     }
 
     else if(b < 0){
+        char * tempData = this->data;
         this->data = new char[-b + 1];
         for(int i = 0; i < a ; i++){
             this->data[i] = tempData[i];
@@ -130,6 +174,7 @@ DSString DSString::substring(int a, int b){
     }
 
     else{
+        std::cout << "howdy" << endl;
         return this->data;
     }
 }

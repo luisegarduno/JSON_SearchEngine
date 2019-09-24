@@ -25,10 +25,10 @@ class DSString{
         DSString& operator=(const DSString&);       // returns DSString& = DSString a
         DSString operator+(const DSString&);        // returns DSString& + DSString a
         DSString& operator+=(const DSString&);      // returns DSString& = DSString b + DSString a
-        bool operator==(const char*);               // returns bool b ==
-        bool operator==(const DSString&)const;           // returns bool b ==
-        bool operator<(const char *);               // returns bool b <
-        bool operator<(const DSString&)const;            // returns bool b <
+        bool operator==(const char*)const;          // returns bool b ==
+        bool operator==(const DSString&)const;      // returns bool b ==
+        bool operator<(const char *)const;          // returns bool b <
+        bool operator<(const DSString&)const;       // returns bool b <
         char& operator[](const int);                // returns char
 
         int size();                                 // returns size of DSString
