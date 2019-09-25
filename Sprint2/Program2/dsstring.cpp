@@ -133,14 +133,15 @@ int DSString::size(){                                                       // r
  *  If b is (-), count backward from position a.
  */
 DSString DSString::substring(int a, int b){
-    DSString aSubstring;
+    DSString aDSString;
+    char * tempData = this->data;
     if(b > 0){
-        char * tempData = this->data;
         if(a == 0){
-            this->data = new char[b];
+            this->data = new char[int(b)];
             for(int i = 0; i < b; i++){
                 this->data[i]  = tempData[i];
             }
+            this->data[b] = '\0';
         }
         else if(a != 0){
             int c = (b - a) + 1;
@@ -149,25 +150,28 @@ DSString DSString::substring(int a, int b){
                 this->data[i]  = tempData[a + i];
             }
         }
-        aSubstring = this->data;
+
+
+
         delete [] tempData;
-        return aSubstring;
+        return this->data;
     }
 
     else if(b < 0){
         char * tempData = this->data;
-        int dsStringSize = int(strlen(this->data));
-        this->data = new char[-a + b];
-        for(int i = 0; i > a ; i--){
-            this->data[i * -1] = tempData[dsStringSize + i];
+        int sizeOfChar = (b * -1) + 1;
+        this->data = new char[sizeOfChar];
+        for(int i = 0; i < -b ; i++){
+            this->data[i] = tempData[(a + b) + i];
         }
-        aSubstring = this->data;
+        aDSString = this->data;
+
         delete [] tempData;
-        return aSubstring;
+        return aDSString;
     }
 
     else{
-        return aSubstring;
+        return aDSString;
     }
 }
 
