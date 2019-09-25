@@ -1,9 +1,7 @@
 #include "dsstring.h"
 
 DSString::DSString(){
-
     this->data = nullptr;
-
 }
 
 DSString::DSString(const char* originalChar){                               // 'originalChar' is a constant, can not change
@@ -135,47 +133,41 @@ int DSString::size(){                                                       // r
  *  If b is (-), count backward from position a.
  */
 DSString DSString::substring(int a, int b){
+    DSString aSubstring;
     if(b > 0){
         char * tempData = this->data;
-        int c = 0;
         if(a == 0){
-            c = b;
-            this->data = new char[c];
-            //this->data[c] = '\0';
-            for(int i = 0; i < c; i++){
+            this->data = new char[b];
+            for(int i = 0; i < b; i++){
                 this->data[i]  = tempData[i];
             }
-            this->data[c] = '\0';
         }
         else if(a != 0){
-            c = (b - a) + 1;
+            int c = (b - a) + 1;
             this->data = new char[c];
-            //this->data[c] = '\0';
-            for(int i = 0; i <= c -1; i++){
+            for(int i = 0; i < c; i++){
                 this->data[i]  = tempData[a + i];
             }
-            this->data[c] = '\0';
         }
-
-
+        aSubstring = this->data;
         delete [] tempData;
-        return this->data;
+        return aSubstring;
     }
 
     else if(b < 0){
         char * tempData = this->data;
-        this->data = new char[-b + 1];
-        for(int i = 0; i < a ; i++){
-            this->data[i] = tempData[i];
+        int dsStringSize = int(strlen(this->data));
+        this->data = new char[-a + b];
+        for(int i = 0; i > a ; i--){
+            this->data[i * -1] = tempData[dsStringSize + i];
         }
-
+        aSubstring = this->data;
         delete [] tempData;
-        return this->data;
+        return aSubstring;
     }
 
     else{
-        std::cout << "howdy" << endl;
-        return this->data;
+        return aSubstring;
     }
 }
 

@@ -67,6 +67,7 @@ TEST_CASE("DSString class", "[DSString]"){
     SECTION("DSSubstring function"){
         REQUIRE(s[0].substring(0, 5) == DSString("testD"));
         REQUIRE(s[4].substring(0, 4) == DSString("this"));
+        REQUIRE(s[1].substring(-6, -1) == DSString("tring"));
         REQUIRE(s[4].substring(1, 3) == DSString("his"));
     }
 
