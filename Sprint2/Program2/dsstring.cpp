@@ -137,18 +137,19 @@ DSString DSString::substring(int a, int b){
     char * tempData = this->data;
     if(b > 0){
         if(a == 0){
-            this->data = new char[int(b)];
+            this->data = new char[int(b) + 1];
             for(int i = 0; i < b; i++){
                 this->data[i]  = tempData[i];
             }
-            this->data[b] = '\0';
+            this->data[int(b)] = '\0';
         }
         else if(a != 0){
-            int c = (b - a) + 1;
-            this->data = new char[c];
+            int c = (int(b) - a) + 1;
+            this->data = new char[c + 1];
             for(int i = 0; i < c; i++){
                 this->data[i]  = tempData[a + i];
             }
+            this->data[c] = '\0';
         }
 
 
