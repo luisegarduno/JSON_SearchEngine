@@ -17,8 +17,8 @@ class DSVector{
         int getCapacity();              // returns vector capacity
 
         void pushBack(T);               // push elements into a vector from the back
-        DSVector popBack();                    // pop/remove elements from a vector from the back
-        DSVector swap(int,int);                // used to swap the contents between 2 vectors
+        DSVector popBack();             // pop/remove elements from a vector from the back
+        DSVector swap(int,int);         // used to swap the contents between 2 vectors
         void clear();                   // used to remove all the elements of the vector container
         void assign();                  // assigns new value to the vector elements by replacing old ones
 
