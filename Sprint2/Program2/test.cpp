@@ -1,5 +1,6 @@
 #include <cstring>
 #include "catch.hpp"
+#include "dsvector.h"
 #include "dsstring.cpp"
 
 

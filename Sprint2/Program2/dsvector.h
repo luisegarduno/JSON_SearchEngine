@@ -1,5 +1,4 @@
-//#ifndef DSVECTOR_H
-//#define DSVECTOR_H
+#include "dsstring.h"
 
 template <typename T>
 class DSVector{
@@ -16,60 +15,61 @@ class DSVector{
         int getSize();                  // returns size of vector
         int getCapacity();              // returns vector capacity
 
-        void pushBack(T);               // push elements into a vector from the back
-        DSVector popBack();             // pop/remove elements from a vector from the back
-        DSVector swap(int,int);         // used to swap the contents between 2 vectors
-        void clear();                   // used to remove all the elements of the vector container
+        void clearVector();             // used to remove all the elements of the vector container
+        void print();
         void assign();                  // assigns new value to the vector elements by replacing old ones
+        void pushBack(T);               // push elements into a vector from the back
+
+        DSVector popBack();             // pop/remove/delete's last element from vector
+        DSVector swap(int,int);         // used to swap the contents between 2 vectors
 
         T& operator=(const DSVector&);
         T& operator+(const DSVector&);
         T& operator+=(const DSVector&);
+        T& operator[](const int);
 
         bool operator==(const DSVector<T>&) const;
         bool operator!=(const DSVector<T>&) const;
 
-        T & operator[](const int);
-        T * arr();
-
-
-        void print();
+        T* arr();
 
         ~DSVector();
 };
 
 template <typename T>
 DSVector<T>::DSVector(){
-
+    data = nullptr;
+    size = 0;
+    capacity = 0;
 }
 
 template <typename T>
 int DSVector<T>::getSize(){
-
+    return size;
 }
 
 template <typename T>
 int DSVector<T>::getCapacity(){              // returns vector capacity
+    return capacity;
+}
+
+template <typename T>
+void DSVector<T>::pushBack(T){               // add element to back of vector
 
 }
 
 template <typename T>
-void DSVector<T>::pushBack(T){               // push elements into a vector from the back
+DSVector<T> DSVector<T>::popBack(){           // pop/remove elements from a vector from the back
 
 }
 
 template <typename T>
-DSVector<T> DSVector<T>::popBack(){                    // pop/remove elements from a vector from the back
+DSVector<T> DSVector<T>::swap(int,int){       // used to swap the contents between 2 vectors
 
 }
 
 template <typename T>
-DSVector<T> DSVector<T>::swap(int,int){                // used to swap the contents between 2 vectors
-
-}
-
-template <typename T>
-void DSVector<T>::clear(){                   // used to remove all the elements of the vector container
+void DSVector<T>::clearVector(){                   // used to remove all the elements of the vector container
 
 }
 
@@ -104,7 +104,7 @@ bool DSVector<T>::operator!=(const DSVector<T>& aDSVector) const{
 }
 
 template <typename T>
-T& DSVector<T>::operator[](const int aNum){
+T& DSVector<T>::operator[](const int indexLocation){
 
 }
 
@@ -117,5 +117,3 @@ template <typename T>
 void DSVector<T>::print(){
 
 }
-
-//#endif // DSVECTOR_H
