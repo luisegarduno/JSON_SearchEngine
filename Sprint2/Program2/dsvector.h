@@ -1,4 +1,5 @@
-#include "dsstring.h"
+#include <iostream>
+//#include "dsstring.h"
 
 template <typename T>
 class DSVector{
@@ -63,10 +64,10 @@ DSVector<T>::DSVector(const DSVector& originalDSVector){
 template <typename T>
 void DSVector<T>::reSize(){
 
-    this->capacity *= 2;                                // doubles the capacity
+    capacity *= 2;                                // doubles the capacity
 
     T * temp = this->data;                              // create temp holder for this->data
-    this->data = new T[this->capacity];                 // "resizing" data
+    this->data = new T[capacity];                 // "resizing" data
 
     for(int i = 0; i < sizeOfDSVector; i++){
         this->data[i] = temp[i];                        // copy contents to new data array
@@ -249,10 +250,10 @@ template <typename T>
 void DSVector<T>::printVector(){
     for(int i = 0; i < getSize(); i++){
         if(i < (getSize() - 1)){
-            cout << this->data[i] << ",";
+            std::cout << this->data[i] << ",";
         }
         else{
-            cout << this->data[i] << endl;
+            std::cout << this->data[i] << std::endl;
         }
     }
 }

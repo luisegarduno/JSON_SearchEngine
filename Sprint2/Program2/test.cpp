@@ -82,7 +82,22 @@ TEST_CASE("DSString class", "[DSString]"){
 
 TEST_CASE("DSVector class", "[DSVector]"){
 
-    DSVector<int> aVector;
+    DSVector<DSString> aVector;
+    aVector.pushBack("Hello");
+    aVector.pushBack("My");
+    aVector.pushBack("Name");
+    aVector.pushBack("Is");
+    aVector.pushBack("Luis");
+    aVector.pushBack("Garduno");
+    aVector.pushBack("and");
+    aVector.pushBack("I");
+    aVector.pushBack("go");
+    aVector.pushBack("to");
+    aVector.pushBack("SMU");
+    aVector.pushBack("in");
+    aVector.pushBack("Dallas");
+    aVector.pushBack("Texas");
+    aVector.pushBack("end");
 }
 
 /*
