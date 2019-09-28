@@ -11,7 +11,8 @@ class DSVector{
 
     public:
         DSVector();                     // default constructor
-        DSVector(const T&);      // copy constructor
+        //DSVector(const T&);
+        DSVector(const DSVector&);             // copy constructor
 
         int getSize();                  // returns size of vector
         int getCapacity();              // returns vector capacity
@@ -44,8 +45,10 @@ DSVector<T>::DSVector(){                // Default constructor
     data = new T[capacity];             // allocate memory for data
 }
 
+
+
 template<typename T>
-DSVector<T>::DSVector(const T& originalDSVector){
+DSVector<T>::DSVector(const DSVector& originalDSVector){
     this->data = new T[capacity];                       // dynamically allocate data
     capacity = originalDSVector.capacity;               // copy originalDSVector capacity
     sizeOfDSVector = originalDSVector.size;             // copy originalDSVector size

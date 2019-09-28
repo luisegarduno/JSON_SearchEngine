@@ -82,7 +82,7 @@ TEST_CASE("DSString class", "[DSString]"){
 
 TEST_CASE("DSVector class", "[DSVector]"){
 
-    DSVector<int> aVector(5);
+    DSVector<int> aVector;
 }
 
 /*
