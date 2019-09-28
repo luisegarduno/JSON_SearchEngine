@@ -8,8 +8,7 @@
 using namespace std;
 
 int runCatchTests(int argc, char* argv[]){
-    // This line of code causes the Catch library to
-    // run the tests in the project.
+    // Runs test.cpp using Catch2 lib
     return Catch::Session().run(argc,argv);
 }
 
@@ -23,7 +22,6 @@ int main(int argc, char * argv[]){
     else{
         cout << "6" << endl;
     }
-
 
     return 0;
 }
