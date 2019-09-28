@@ -11,7 +11,7 @@ class DSVector{
 
     public:
         DSVector();                     // default constructor
-        DSVector(const DSVector&);      // copy constructor
+        DSVector(const T&);      // copy constructor
 
         int getSize();                  // returns size of vector
         int getCapacity();              // returns vector capacity
@@ -45,7 +45,7 @@ DSVector<T>::DSVector(){                // Default constructor
 }
 
 template<typename T>
-DSVector<T>::DSVector(const DSVector<T>& originalDSVector){
+DSVector<T>::DSVector(const T& originalDSVector){
     this->data = new T[capacity];                       // dynamically allocate data
     capacity = originalDSVector.capacity;               // copy originalDSVector capacity
     sizeOfDSVector = originalDSVector.size;             // copy originalDSVector size
@@ -54,6 +54,8 @@ DSVector<T>::DSVector(const DSVector<T>& originalDSVector){
         this->data[i] = originalDSVector.data[i];       // copy originalDSVector data
     }
 }
+
+
 
 template <typename T>
 void DSVector<T>::reSize(){
@@ -108,6 +110,27 @@ DSVector<T>& DSVector<T>::popBack(){                     // pop/remove elements 
 
 template <typename T>
 void DSVector<T>::swap(DSVector<T>& bDSVector){       // used to swap the contents between 2 vectors
+    T * tempData = this->data;
+    int tempCapactity = capacity;
+    int tempSize = sizeOfDSVector;
+
+    this->data = new T[bDSVector.getSize()];
+    capacity = bDSVector.getCapacity();
+    sizeOfDSVector = bDSVector.getSize();
+
+    for(int i = 0;i < capacity; i++) {
+        this->data[i] = bDSVector.data[i];
+    }
+
+    bDSVector.data = new T[sizeOfDSVector];
+    bDSVector.capacity = tempCapactity;
+    bDSVector.sizeOfDSVector = tempSize;
+
+    for(int j = 0; j < bDSVector.capacity; j++){
+        bDSVector.data[j] = tempData[j];
+    }
+
+    delete [] tempData;
 
 }
 

@@ -80,6 +80,11 @@ TEST_CASE("DSString class", "[DSString]"){
 
 }
 
+TEST_CASE("DSVector class", "[DSVector]"){
+
+    DSVector<int> aVector(5);
+}
+
 /*
 TEMPLATE_TEST_CASE( "DSVectors can be sized and resized", "[DSVector][template]", int, DSString, (std::tuple<int,float>),DSVector<double>) {
 
