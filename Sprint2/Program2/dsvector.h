@@ -18,7 +18,7 @@ class DSVector{
         int getSize();                  // returns size of vector
         int getCapacity();              // returns vector capacity
 
-        void assign();                  // assigns new value to the vector elements by replacing old ones
+        void assign(DSVector);                  // assigns new value to the vector elements by replacing old ones
         void clearVector();             // used to remove all the elements of the vector container
         void printVector();
         void pushBack(const T&);        // push elements into a vector from the back
@@ -26,11 +26,12 @@ class DSVector{
         DSVector& popBack();            // pop/remove/delete's last element from vector
         void swap(DSVector&);           // used to swap the contents between 2 vectors
 
-        DSVector& operator=(const DSVector&);  // copy assignment operator
         DSVector operator+(const DSVector&);
+        DSVector& operator=(const DSVector&);  // copy assignment operator
         DSVector& operator+=(const DSVector&);
         T& operator[](const int);
 
+        bool isEmpty() const;
         bool operator==(const DSVector&) const;
         bool operator!=(const DSVector&) const;
 
@@ -107,30 +108,32 @@ DSVector<T>& DSVector<T>::popBack(){                     // pop/remove elements 
     }
 
     delete [] temps;
-
     return *this;
 }
 
 template <typename T>
 void DSVector<T>::swap(DSVector<T>& bDSVector){       // used to swap the contents between 2 vectors
-    T * tempData = this->data;
-    int tempCapactity = capacity;
-    int tempSize = sizeOfDSVector;
+    T * tempData = new T[getCapacity()];
+    int tempCapacity = bDSVector.getCapacity();
+    int tempSize = bDSVector.getSize();
 
-    this->data = new T[bDSVector.getSize()];
-    capacity = bDSVector.getCapacity();
-    sizeOfDSVector = bDSVector.getSize();
+    bDSVector.capacity = getCapacity();
+    bDSVector.sizeOfDSVector = getSize();
 
-    for(int i = 0;i < capacity; i++) {
-        this->data[i] = bDSVector.data[i];
+    for(int i = 0;i < sizeOfDSVector; i++) {
+        tempData[i] = this->data[i];
     }
 
-    bDSVector.data = new T[sizeOfDSVector];
-    bDSVector.capacity = tempCapactity;
-    bDSVector.sizeOfDSVector = tempSize;
+    delete [] bDSVector.data;
+    bDSVector.data = tempData;
 
-    for(int j = 0; j < bDSVector.capacity; j++){
-        bDSVector.data[j] = tempData[j];
+    delete [] this->data;
+    capacity = tempCapacity;
+    sizeOfDSVector = tempSize;
+    this->data = new T[tempCapacity];
+
+    for(int j = 0;j < getCapacity(); j++) {
+        this->data[j] = tempData[j];
     }
 
     delete [] tempData;
@@ -148,7 +151,7 @@ void DSVector<T>::clearVector(){                        // used to remove all th
 }
 
 template <typename T>
-void DSVector<T>::assign(){                             // assigns new value to the vector elements by replacing old ones
+void DSVector<T>::assign(DSVector<T> assignElement){                             // assigns new value to the vector elements by replacing old ones
 
 }
 

@@ -115,11 +115,14 @@ TEST_CASE("DSVector class", "[DSVector]"){
     }
 
     SECTION("Swap Function"){
+    DSVector<DSString> newVector;
+    newVector.pushBack("This");
+    newVector.pushBack("is");
+    newVector.pushBack("brand");
+    newVector.pushBack("new");
+    newVector.pushBack(",swapping");
 
-    }
-
-    SECTION("pushBack Function"){
-
+    aVector.swap(newVector);
     }
 
     SECTION("Print Function"){
