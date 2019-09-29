@@ -68,6 +68,7 @@ void DSVector<T>::reSize(){
 
     for(int i = 0;i < sizeOfDSVector;i++) {
         temp[i] = this->data[i];
+        std::cout << temp[i] << std::endl;
     }
     delete [] this->data;
     this->data = temp;

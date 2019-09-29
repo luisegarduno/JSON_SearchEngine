@@ -83,55 +83,83 @@ TEST_CASE("DSString class", "[DSString]"){
 TEST_CASE("DSVector class", "[DSVector]"){
 
     DSVector<DSString> aVector;
-    aVector.pushBack("Hello");
-    aVector.pushBack("My");
-    aVector.pushBack("Name");
-    aVector.pushBack("Is");
-    aVector.pushBack("Luis");
-    aVector.pushBack("Garduno");
-    aVector.pushBack("and");
-    aVector.pushBack("I");
-    aVector.pushBack("go");
-    aVector.pushBack("to");
-    aVector.pushBack("SMU");
-    aVector.pushBack("in");
-    aVector.pushBack("Dallas");
-    aVector.pushBack("Texas");
-    aVector.pushBack("end");
+    aVector.pushBack("Hello");      // 1
+    aVector.pushBack("My");         // 2
+    aVector.pushBack("Name");       // 3
+    aVector.pushBack("Is");         // 4
+    aVector.pushBack("Luis");       // 5
+    aVector.pushBack("Garduno");    // 6
+    aVector.pushBack("and");        // 7
+    aVector.pushBack("I");          // 8
+    aVector.pushBack("go");         // 9
+    aVector.pushBack("to");         // 10
+    aVector.pushBack("SMU");        // 11
+    aVector.pushBack("in");         // 12
+    aVector.pushBack("Dallas");     // 13
+    aVector.pushBack("Texas");      // 14
+    aVector.pushBack("end");        // 15
+
+    SECTION("Equality Operators"){
+        DSVector<int> aDSVector = DSVector<int>(10);
+    }
+
+    SECTION("getSize Function"){
+        REQUIRE(aVector.getSize() == 15);
+    }
+
+    SECTION("getCapacity Function"){
+
+    }
+
+    SECTION("Swap Function"){
+
+    }
+
+    SECTION("pushBack Function"){
+
+    }
+
+    SECTION("Print Function"){
+
+    }
+
+    SECTION("Clear Function"){
+
+    }
 }
 
 /*
 TEMPLATE_TEST_CASE( "DSVectors can be sized and resized", "[DSVector][template]", int, DSString, (std::tuple<int,float>),DSVector<double>) {
 
-    DSVector<TestType> v( 5 );
+    DSVector<TestType> v;
 
-    REQUIRE( v.size() == 5 );
-    REQUIRE( v.capacity() >= 5 );
+    REQUIRE( v.getSize() == 5 );
+    REQUIRE( v.getCapacity() >= 5 );
 
     SECTION( "resizing bigger changes size and capacity" ) {
-        v.resize( 10 );
+        v.reSize();
 
-        REQUIRE( v.size() == 10 );
-        REQUIRE( v.capacity() >= 10 );
+        REQUIRE( v.getSize() == 10 );
+        REQUIRE( v.getCapacity() >= 10 );
     }
     SECTION( "resizing smaller changes size but not capacity" ) {
-        v.resize( 0 );
+        v.reSize();
 
-        REQUIRE( v.size() == 0 );
-        REQUIRE( v.capacity() >= 5 );
+        REQUIRE( v.getSize() == 0 );
+        REQUIRE( v.getCapacity() >= 5 );
 
         SECTION( "We can use the 'swap trick' to reset the capacity" ) {
             std::vector<TestType> empty;
             empty.swap( v );
 
-            REQUIRE( v.capacity() == 0 );
+            REQUIRE( v.getCapacity() == 0 );
         }
     }
     SECTION( "reserving smaller does not change size or capacity" ) {
         v.reserve( 0 );
 
-        REQUIRE( v.size() == 5 );
-        REQUIRE( v.capacity() >= 5 );
+        REQUIRE( v.getSize() == 5 );
+        REQUIRE( v.getCapacity() >= 5 );
     }
 }
 */
