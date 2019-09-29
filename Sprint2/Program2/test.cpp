@@ -88,23 +88,26 @@ TEST_CASE("DSVector class", "[DSVector]"){
     aVector.pushBack("Name");       // 3
     aVector.pushBack("Is");         // 4
     aVector.pushBack("Luis");       // 5
-    aVector.pushBack("Garduno");    // 6
-    aVector.pushBack("and");        // 7
-    aVector.pushBack("I");          // 8
-    aVector.pushBack("go");         // 9
-    aVector.pushBack("to");         // 10
-    aVector.pushBack("SMU");        // 11
-    aVector.pushBack("in");         // 12
-    aVector.pushBack("Dallas");     // 13
-    aVector.pushBack("Texas");      // 14
-    aVector.pushBack("end");        // 15
+    aVector.pushBack("and");        // 6
+    aVector.pushBack("I");          // 7
+    aVector.pushBack("go");         // 8
+    aVector.pushBack("to");         // 9
+    aVector.pushBack("SMU");        // 10
 
     SECTION("Equality Operators"){
-        DSVector<int> aDSVector = DSVector<int>(10);
+
     }
 
-    SECTION("getSize Function"){
-        REQUIRE(aVector.getSize() == 15);
+    SECTION("Size Operator"){
+        REQUIRE(aVector.getSize() == 10);           // Size should equal 15
+        aVector.pushBack("again");                  // data[15] = "again" & size increases
+        REQUIRE(aVector.getSize() == 11);
+        aVector.popBack();                          // popBack removes last item from data Array
+        REQUIRE(aVector.getSize() == 10);
+        aVector.popBack();
+        aVector.popBack();
+        aVector.popBack();
+        REQUIRE(aVector.getSize() == 7);           // after removing 3 items, data array should equal 12
     }
 
     SECTION("getCapacity Function"){
@@ -137,13 +140,13 @@ TEMPLATE_TEST_CASE( "DSVectors can be sized and resized", "[DSVector][template]"
     REQUIRE( v.getCapacity() >= 5 );
 
     SECTION( "resizing bigger changes size and capacity" ) {
-        v.reSize();
+        v.reSize(10);
 
         REQUIRE( v.getSize() == 10 );
         REQUIRE( v.getCapacity() >= 10 );
     }
     SECTION( "resizing smaller changes size but not capacity" ) {
-        v.reSize();
+        v.reSize(0);
 
         REQUIRE( v.getSize() == 0 );
         REQUIRE( v.getCapacity() >= 5 );

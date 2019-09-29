@@ -12,6 +12,7 @@ class DSVector{
 
     public:
         DSVector();                     // default constructor
+        DSVector(int);
         DSVector(const DSVector&);      // copy constructor
 
         int getSize();                  // returns size of vector
@@ -45,7 +46,11 @@ DSVector<T>::DSVector(){                // Default constructor
     data = new T[capacity];             // allocate memory for data
 }
 
-
+template <typename T>
+DSVector<T>::DSVector(int numOfElements){
+    sizeOfDSVector = numOfElements;
+    data = new T[capacity];
+}
 
 template<typename T>
 DSVector<T>::DSVector(const DSVector& originalDSVector){
@@ -58,19 +63,16 @@ DSVector<T>::DSVector(const DSVector& originalDSVector){
     }
 }
 
-
-
 template <typename T>
 void DSVector<T>::reSize(){
 
-    capacity *= 2;                                // doubles the capacity
-    T * temp = new T[capacity];
+    capacity *= 2;                                  // doubles the capacity
+    T * temp = new T[capacity];                     // create temp data array to copy elements
 
     for(int i = 0;i < sizeOfDSVector;i++) {
         temp[i] = this->data[i];
-        std::cout << temp[i] << std::endl;
     }
-    delete [] this->data;
+    delete [] this->data;                           // delete the memory allocated
     this->data = temp;
 }
 
@@ -96,15 +98,15 @@ void DSVector<T>::pushBack(const T& anElement){         // add element to back o
 
 template <typename T>
 DSVector<T>& DSVector<T>::popBack(){                     // pop/remove elements from a vector from the back
-    T * temp = this->data;
+    T * temps = this->data;
     sizeOfDSVector -= 1;
     this->data = new T[capacity];
 
     for(int i = 0; i < sizeOfDSVector; i++){
-        this->data[i] = temp[i];
+        this->data[i] = temps[i];
     }
 
-    delete [] this->temp;
+    delete [] temps;
 
     return *this;
 }
@@ -210,13 +212,19 @@ DSVector<T>& DSVector<T>::operator+=(const DSVector<T>& aDSVector){
 }
 
 template <typename T>
-bool DSVector<T>::operator==(const DSVector& aDSVector) const{
-    if(this->data == aDSVector.data){
-        return true;
-    }
-    else {
+bool DSVector<T>::operator==(const DSVector& aDSVector)const{
+    if(this->getCapacity() != aDSVector.getCapacity()){
         return false;
     }
+    if(this->getSize() != aDSVector.getSize()){
+        return false;
+    }
+    for (int i = 0;i < aDSVector.getSize(); i++) {
+        if(this->data[i] != aDSVector.data[i]){
+            return false;
+        }
+    }
+    return true;
 }
 
 template <typename T>
