@@ -12,8 +12,7 @@ class DSVector{
 
     public:
         DSVector();                     // default constructor
-        //DSVector(const T&);
-        DSVector(const DSVector&);             // copy constructor
+        DSVector(const DSVector&);      // copy constructor
 
         int getSize();                  // returns size of vector
         int getCapacity();              // returns vector capacity
@@ -23,8 +22,8 @@ class DSVector{
         void printVector();
         void pushBack(const T&);        // push elements into a vector from the back
 
-        DSVector& popBack();             // pop/remove/delete's last element from vector
-        void swap(DSVector&);         // used to swap the contents between 2 vectors
+        DSVector& popBack();            // pop/remove/delete's last element from vector
+        void swap(DSVector&);           // used to swap the contents between 2 vectors
 
         DSVector& operator=(const DSVector&);  // copy assignment operator
         DSVector operator+(const DSVector&);
@@ -65,16 +64,13 @@ template <typename T>
 void DSVector<T>::reSize(){
 
     capacity *= 2;                                // doubles the capacity
+    T * temp = new T[capacity];
 
-    T * temp = this->data;                              // create temp holder for this->data
-    this->data = new T[capacity];                 // "resizing" data
-
-    for(int i = 0; i < sizeOfDSVector; i++){
-        this->data[i] = temp[i];                        // copy contents to new data array
+    for(int i = 0;i < sizeOfDSVector;i++) {
+        temp[i] = this->data[i];
     }
-
-    delete [] temp;                                     // deallocate memory
-    sizeOfDSVector += 1;                                // increase total sizeOfDSVector
+    delete [] this->data;
+    this->data = temp;
 }
 
 template <typename T>
@@ -213,7 +209,7 @@ DSVector<T>& DSVector<T>::operator+=(const DSVector<T>& aDSVector){
 }
 
 template <typename T>
-bool DSVector<T>::operator==(const DSVector<T>& aDSVector) const{
+bool DSVector<T>::operator==(const DSVector& aDSVector) const{
     if(this->data == aDSVector.data){
         return true;
     }
