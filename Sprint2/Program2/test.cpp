@@ -107,9 +107,6 @@ TEST_CASE("DSVector class", "[DSVector]"){
         aVector.popBack();
         aVector.popBack();
         REQUIRE(aVector.getSize() == 7);           // after removing 3 items, data array should equal 12
-    }
-
-    SECTION("getCapacity Function"){
 
     }
 
@@ -155,36 +152,39 @@ TEST_CASE("DSVector class", "[DSVector]"){
 /*
 TEMPLATE_TEST_CASE( "DSVectors can be sized and resized", "[DSVector][template]", int, DSString, (std::tuple<int,float>),DSVector<double>) {
 
-    DSVector<TestType> v;
+    DSVector<double> v;
 
     REQUIRE( v.getSize() == 5 );
     REQUIRE( v.getCapacity() >= 5 );
 
     SECTION( "resizing bigger changes size and capacity" ) {
-        v.reSize(10);
+        v.reSize();
 
         REQUIRE( v.getSize() == 10 );
         REQUIRE( v.getCapacity() >= 10 );
     }
     SECTION( "resizing smaller changes size but not capacity" ) {
-        v.reSize(0);
+        v.reSize();
 
         REQUIRE( v.getSize() == 0 );
         REQUIRE( v.getCapacity() >= 5 );
 
         SECTION( "We can use the 'swap trick' to reset the capacity" ) {
-            std::vector<TestType> empty;
+            DSVector<double> empty;
             empty.swap( v );
 
             REQUIRE( v.getCapacity() == 0 );
         }
     }
+
     SECTION( "reserving smaller does not change size or capacity" ) {
         v.reserve( 0 );
 
         REQUIRE( v.getSize() == 5 );
         REQUIRE( v.getCapacity() >= 5 );
     }
+
 }
 */
+
 
