@@ -143,6 +143,7 @@ TEST_CASE("DSVector class", "[DSVector]"){
     }
 
     SECTION("Print Function"){
+    DSVector<DSString> newVector;
 
     }
 
