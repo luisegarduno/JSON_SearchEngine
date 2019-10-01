@@ -233,6 +233,14 @@ bool DSVector<T>::operator!=(const DSVector<T>& aDSVector) const{
 }
 
 template <typename T>
+bool DSVector<T>::isEmpty() const{
+    if(sizeOfDSVector == 0){                                    // checks to see if vector is empty
+        return true;
+    }
+    return false;                                               // if the size of the vector is >= 0 return false
+}
+
+template <typename T>
 T& DSVector<T>::operator[](const int indexLocation){
     if(indexLocation < 0 || indexLocation > capacity - 1){      // if statement to check location exists
         return -1;

@@ -94,7 +94,11 @@ TEST_CASE("DSVector class", "[DSVector]"){
     aVector.pushBack("SMU");        // 10
 
     SECTION("Equality Operators"){
-
+    DSVector<int> v1;
+    v1.pushBack(1);
+    REQUIRE(v1.isEmpty() == false);
+    v1.popBack();
+    REQUIRE(v1.isEmpty() == true);
     }
 
     SECTION("Size Operator"){
@@ -107,7 +111,6 @@ TEST_CASE("DSVector class", "[DSVector]"){
         aVector.popBack();
         aVector.popBack();
         REQUIRE(aVector.getSize() == 7);           // after removing 3 items, data array should equal 12
-
     }
 
     SECTION("Swap Function"){
