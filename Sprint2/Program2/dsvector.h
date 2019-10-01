@@ -12,7 +12,7 @@ class DSVector{
     public:
         DSVector();                     // default constructor
         DSVector(int);
-        DSVector(const DSVector&);      // copy constructor
+        DSVector(const T&);      // copy constructor
 
         int getSize();                  // returns size of vector
         int getCapacity();              // returns vector capacity
@@ -26,8 +26,8 @@ class DSVector{
         void swap(DSVector&);           // used to swap the contents between 2 vectors
 
         DSVector operator+(const DSVector&);
-        const DSVector& operator=(const DSVector&);  // copy assignment operator
-        const DSVector& operator+=(const DSVector&);
+        T& operator=(const DSVector&);  // copy assignment operator
+        DSVector& operator+=(const DSVector&);
         T& operator[](const int);
 
         bool isEmpty() const;           // checks to see if vector is empty
@@ -35,7 +35,7 @@ class DSVector{
         bool operator!=(const DSVector&) const;
 
 
-        T* elementIndex(int);
+        T& elementIndex(int);
 
         ~DSVector();
 };
@@ -54,7 +54,7 @@ DSVector<T>::DSVector(int numOfElements){
 }
 
 template<typename T>
-DSVector<T>::DSVector(const DSVector<T>& originalDSVector){
+DSVector<T>::DSVector(const T& originalDSVector){
     this->data = new T[capacity];                       // dynamically allocate data
     capacity = originalDSVector.capacity;               // copy originalDSVector capacity
     sizeOfDSVector = originalDSVector.sizeOfDSVector;        // copy originalDSVector size
@@ -143,14 +143,15 @@ void DSVector<T>::assign(const DSVector<T>& assignElement){    // assigns new va
 }
 
 template <typename T>
-const DSVector<T>& DSVector<T>::operator=(const DSVector<T>& aDSVector){
+T& DSVector<T>::operator=(const DSVector<T>& aDSVector){
+    if(this->data == aDSVector.data){
+        capacity = aDSVector.getCapacity();                 // declare capacity = parameters capacity
+        sizeOfDSVector = aDSVector.getSize();               // declare sizeOfDsVector = parameters size
+        this->data = new T[capacity];                       // dynamically allocate data
 
-    capacity = aDSVector.getCapacity();                 // declare capacity = parameters capacity
-    sizeOfDSVector = aDSVector.getSize();               // declare sizeOfDsVector = parameters size
-    this->data = new T[capacity];                       // dynamically allocate data
-
-    for(int i = 0;i < capacity; i++) {
-        this->data[i] = aDSVector.elementIndex(i);      // copy elements to new data array
+        for(int i = 0;i < capacity; i++) {
+            this->data[i] = aDSVector.elementIndex(i);      // copy elements to new data array
+        }
     }
 
     return *this;
@@ -160,7 +161,7 @@ template <typename T>
 DSVector<T> DSVector<T>::operator+(const DSVector<T>& aDSVector){
     DSVector tempVector;                                // create the vector we will be returning
     tempVector.sizeOfDSVector = sizeOfDSVector + aDSVector.getSize();
-    tempVector.capacity = tempVector.getSize() + 1;
+    tempVector.capacity = tempVector.getSize();
 
     T * tempData = this->data;                          // temporarily copy data
     this->data = new T[tempVector.getCapacity()];       // allocate memory for data on heap
@@ -181,9 +182,9 @@ DSVector<T> DSVector<T>::operator+(const DSVector<T>& aDSVector){
 }
 
 template <typename T>
-const DSVector<T>& DSVector<T>::operator+=(const DSVector<T>& aDSVector){
+DSVector<T>& DSVector<T>::operator+=(const DSVector<T>& aDSVector){
     T * temp = this->data;                                      // copy data temporarily to the heap
-    std::cout << "in Here" << std::endl;
+
     capacity += aDSVector.getCapacity();                        // capacity = capacity + aDSVector.getCapacity
     sizeOfDSVector += aDSVector.getSize();
     this->data = new T[this->data.getSize() + aDSVector.getSize()];     // allocate memory for data on HEAP
@@ -249,7 +250,7 @@ T& DSVector<T>::operator[](const int indexLocation){
 }
 
 template <typename T>
-T* DSVector<T>::elementIndex(int elementNumber){
+T& DSVector<T>::elementIndex(int elementNumber){
     return this->data[elementNumber];
 }
 
@@ -257,7 +258,7 @@ template <typename T>
 void DSVector<T>::printVector(){
     for(int i = 0; i < getSize(); i++){                         // returns every element in Vector
         if(i < (getSize() - 1)){
-            std::cout << this->data[i] << ",";
+            std::cout << this->data[i] << " | ";
         }
         else{
             std::cout << this->data[i] << std::endl;            // once the end is reached, newline

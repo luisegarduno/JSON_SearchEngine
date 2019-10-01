@@ -82,23 +82,19 @@ TEST_CASE("DSString class", "[DSString]"){
 TEST_CASE("DSVector class", "[DSVector]"){
 
     DSVector<DSString> aVector;
-    aVector.pushBack("Hello");      // 1
-    aVector.pushBack("My");         // 2
-    aVector.pushBack("Name");       // 3
-    aVector.pushBack("Is");         // 4
-    aVector.pushBack("Luis");       // 5
-    aVector.pushBack("and");        // 6
-    aVector.pushBack("I");          // 7
-    aVector.pushBack("go");         // 8
-    aVector.pushBack("to");         // 9
-    aVector.pushBack("SMU");        // 10
+    aVector.pushBack("Hello");      // 0
+    aVector.pushBack("My");         // 1
+    aVector.pushBack("Name");       // 2
+    aVector.pushBack("Is");         // 3
+    aVector.pushBack("Luis");       // 4
+    aVector.pushBack("and");        // 5
+    aVector.pushBack("I");          // 6
+    aVector.pushBack("go");         // 7
+    aVector.pushBack("to");         // 8
+    aVector.pushBack("SMU");        // 9
 
     SECTION("Equality Operators"){
-    DSVector<int> v1;
-    v1.pushBack(1);
-    REQUIRE(v1.isEmpty() == false);
-    v1.popBack();
-    REQUIRE(v1.isEmpty() == true);
+
     }
 
     SECTION("Size Operator"){
@@ -110,70 +106,60 @@ TEST_CASE("DSVector class", "[DSVector]"){
         aVector.popBack();
         aVector.popBack();
         aVector.popBack();
-        REQUIRE(aVector.getSize() == 7);           // after removing 3 items, data array should equal 12
+        REQUIRE(aVector.getSize() == 7);            // after removing 3 items, data array should equal 12
     }
 
-    SECTION("Swap Function"){
-    DSVector<DSString> newVector;
-    newVector.pushBack("This");
-    newVector.pushBack("is");
-    newVector.pushBack("brand");
-    newVector.pushBack("new");
-    newVector.pushBack("SWAPPING");
+    SECTION("Swap Function"){                       // swap elements between 2 vectors
+        DSVector<DSString> newVector;
+        newVector.pushBack("This");
+        newVector.pushBack("is");
+        newVector.pushBack("brand");
+        newVector.pushBack("new");
+        newVector.pushBack("SWAPPING");
 
-    /*
-    cout << "Before: " << endl;
-    cout << "\tVector 1: " << std::flush;
-    aVector.printVector();
-    cout << "\tVector 2: " << std::flush;
-    newVector.printVector();
-    */
+        aVector.swap(newVector);
+        REQUIRE(aVector.getSize() == 5);
+        REQUIRE(newVector.getSize() == 10);
 
-    aVector.swap(newVector);
-    REQUIRE(aVector.getSize() == 5);
-    REQUIRE(newVector.getSize() == 10);
-
-    /*
-    cout << "After:" << endl;
-    cout << "\tVector 1: " << std::flush;
-    aVector.printVector();
-    cout << "\tVector 2: " << std::flush;
-    newVector.printVector();
-    */
+        SECTION("Vector print"){                    // prints out specific element in vector
+            REQUIRE(newVector.elementIndex(0) == DSString("Hello"));
+            REQUIRE(newVector.elementIndex(9) == DSString("SMU"));
+            REQUIRE(aVector.elementIndex(0) == DSString("This"));
+            REQUIRE(aVector.elementIndex(4) == DSString("SWAPPING"));
+        }
     }
 
-    SECTION("Print Function"){
-    DSVector<DSString> newVector;
-
-    }
-
-    SECTION("Clear Function"){
-
+    SECTION("Clear Function"){                      // Empty's out Vector
+        DSVector<int> v1;
+        v1.pushBack(1);
+        REQUIRE(v1.isEmpty() == false);
+        v1.popBack();
+        REQUIRE(v1.isEmpty() == true);
     }
 }
 
 /*
 TEMPLATE_TEST_CASE( "DSVectors can be sized and resized", "[DSVector][template]", int, DSString, (std::tuple<int,float>),DSVector<double>) {
 
-    DSVector<double> v;
+    DSVector<DSString> v;
 
     REQUIRE( v.getSize() == 5 );
     REQUIRE( v.getCapacity() >= 5 );
 
     SECTION( "resizing bigger changes size and capacity" ) {
-        v.reSize();
+        v = 5;
 
         REQUIRE( v.getSize() == 10 );
         REQUIRE( v.getCapacity() >= 10 );
     }
     SECTION( "resizing smaller changes size but not capacity" ) {
-        v.reSize();
+        v = 0;
 
         REQUIRE( v.getSize() == 0 );
         REQUIRE( v.getCapacity() >= 5 );
 
         SECTION( "We can use the 'swap trick' to reset the capacity" ) {
-            DSVector<double> empty;
+            DSVector<DSString> empty;
             empty.swap( v );
 
             REQUIRE( v.getCapacity() == 0 );
@@ -181,7 +167,7 @@ TEMPLATE_TEST_CASE( "DSVectors can be sized and resized", "[DSVector][template]"
     }
 
     SECTION( "reserving smaller does not change size or capacity" ) {
-        v.reserve( 0 );
+        v = 0;
 
         REQUIRE( v.getSize() == 5 );
         REQUIRE( v.getCapacity() >= 5 );
