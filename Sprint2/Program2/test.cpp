@@ -135,6 +135,11 @@ TEST_CASE("DSVector class", "[DSVector]"){
         REQUIRE(v1.isEmpty() == false);
         v1.popBack();
         REQUIRE(v1.isEmpty() == true);
+        v1.pushBack(1);
+        v1.pushBack(2);
+        v1.pushBack(3);
+        v1.clearVector();
+        REQUIRE(v1.isEmpty() == true);
     }
 }
 
