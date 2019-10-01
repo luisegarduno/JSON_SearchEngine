@@ -26,14 +26,13 @@ class DSVector{
         void swap(DSVector&);           // used to swap the contents between 2 vectors
 
         DSVector operator+(const DSVector&);
-        T& operator=(const DSVector&);  // copy assignment operator
-        DSVector& operator+=(const DSVector&);
         T& operator[](const int);
+        T& operator=(const DSVector&);  // copy assignment operator
+        T& operator+=(const DSVector&);
 
         bool isEmpty() const;           // checks to see if vector is empty
         bool operator==(const DSVector&) const;
         bool operator!=(const DSVector&) const;
-
 
         T& elementIndex(int);
 
@@ -139,7 +138,15 @@ void DSVector<T>::clearVector(){                        // used to remove all th
 
 template <typename T>
 void DSVector<T>::assign(const DSVector<T>& assignElement){    // assigns new value to the vector elements by replacing old ones
+    delete [] this->data;                                      // delete data from HEAP
 
+    capacity = assignElement.capacity;                         // assign capacity, size, data
+    sizeOfDSVector = assignElement.sizeOfDSVector;
+    this->data = new T[assignElement.sizeOfDSVector];
+
+    for(int i = 0; i < assignElement.sizeOfDSVector; i++){
+        this->data[i] = assignElement.data;
+    }
 }
 
 template <typename T>
@@ -182,7 +189,7 @@ DSVector<T> DSVector<T>::operator+(const DSVector<T>& aDSVector){
 }
 
 template <typename T>
-DSVector<T>& DSVector<T>::operator+=(const DSVector<T>& aDSVector){
+T& DSVector<T>::operator+=(const DSVector<T>& aDSVector){
     T * temp = this->data;                                      // copy data temporarily to the heap
 
     capacity += aDSVector.getCapacity();                        // capacity = capacity + aDSVector.getCapacity
