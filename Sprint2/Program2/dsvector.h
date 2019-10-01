@@ -113,30 +113,19 @@ DSVector<T>& DSVector<T>::popBack(){                     // pop/remove elements 
 
 template <typename T>
 void DSVector<T>::swap(DSVector<T>& bDSVector){       // used to swap the contents between 2 vectors
-    T * tempData = new T[getCapacity()];
-    int tempCapacity = bDSVector.getCapacity();
-    int tempSize = bDSVector.getSize();
 
-    bDSVector.capacity = getCapacity();
-    bDSVector.sizeOfDSVector = getSize();
+    int tempCapacity = capacity;
+    capacity = bDSVector.getCapacity();
+    bDSVector.capacity = tempCapacity;
 
-    for(int i = 0;i < sizeOfDSVector; i++) {
-        tempData[i] = this->data[i];
-    }
 
-    delete [] bDSVector.data;
+    int tempSize = sizeOfDSVector;
+    sizeOfDSVector = bDSVector.getSize();
+    bDSVector.sizeOfDSVector = tempSize;
+
+    T * tempData = this->data;
+    this->data = bDSVector.data;
     bDSVector.data = tempData;
-
-    delete [] this->data;
-    capacity = tempCapacity;
-    sizeOfDSVector = tempSize;
-    this->data = new T[tempCapacity];
-
-    for(int j = 0;j < getCapacity(); j++) {
-        this->data[j] = tempData[j];
-    }
-
-    delete [] tempData;
 
 }
 
@@ -232,12 +221,18 @@ bool DSVector<T>::operator==(const DSVector& aDSVector)const{
 
 template <typename T>
 bool DSVector<T>::operator!=(const DSVector<T>& aDSVector) const{
-    if(this->data != aDSVector.data){
+    if(this->getCapacity() != aDSVector.getCapacity()){
         return true;
     }
-    else {
-        return false;
+    if(this->getSize() != aDSVector.getSize()){
+        return true;
     }
+    for (int i = 0;i < aDSVector.getSize(); i++) {
+        if(this->data[i] != aDSVector.data[i]){
+            return true;
+        }
+    }
+    return false;
 
 }
 

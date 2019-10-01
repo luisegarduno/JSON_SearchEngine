@@ -3,7 +3,6 @@
 #include "dsvector.h"
 #include "dsstring.cpp"
 
-
 TEST_CASE("DSString class", "[DSString]"){
 
     DSString s[10];
@@ -120,9 +119,27 @@ TEST_CASE("DSVector class", "[DSVector]"){
     newVector.pushBack("is");
     newVector.pushBack("brand");
     newVector.pushBack("new");
-    newVector.pushBack(",swapping");
+    newVector.pushBack("SWAPPING");
+
+    /*
+    cout << "Before: " << endl;
+    cout << "\tVector 1: " << std::flush;
+    aVector.printVector();
+    cout << "\tVector 2: " << std::flush;
+    newVector.printVector();
+    */
 
     aVector.swap(newVector);
+    REQUIRE(aVector.getSize() == 5);
+    REQUIRE(newVector.getSize() == 10);
+
+    /*
+    cout << "After:" << endl;
+    cout << "\tVector 1: " << std::flush;
+    aVector.printVector();
+    cout << "\tVector 2: " << std::flush;
+    newVector.printVector();
+    */
     }
 
     SECTION("Print Function"){
