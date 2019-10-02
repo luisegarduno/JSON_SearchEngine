@@ -14,11 +14,10 @@ int runCatchTests(int argc, char* argv[]){
 
 
 int main(int argc, char * argv[]){
-
-
     if(TEST && argc == 1){
         return runCatchTests(argc, argv);
     }
+
     else{
         cout << "6" << endl;
     }

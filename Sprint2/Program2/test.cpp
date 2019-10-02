@@ -76,56 +76,62 @@ TEST_CASE("DSString class", "[DSString]"){
         REQUIRE(strcmp(s[9].c_str(), s[0].c_str()) == 0);
         REQUIRE(strcmp(s[2].c_str(), "") == 0);
     }
-
 }
 
 TEST_CASE("DSVector class", "[DSVector]"){
 
-    DSVector<DSString> aVector;
-    aVector.pushBack("Hello");      // 0
-    aVector.pushBack("My");         // 1
-    aVector.pushBack("Name");       // 2
-    aVector.pushBack("Is");         // 3
-    aVector.pushBack("Luis");       // 4
-    aVector.pushBack("and");        // 5
-    aVector.pushBack("I");          // 6
-    aVector.pushBack("go");         // 7
-    aVector.pushBack("to");         // 8
-    aVector.pushBack("SMU");        // 9
+    DSVector<DSString> v1;
+    v1.pushBack("Hello");      // 0
+    v1.pushBack("My");         // 1
+    v1.pushBack("Name");       // 2
+    v1.pushBack("Is");         // 3
+    v1.pushBack("Luis");       // 4
+    v1.pushBack("and");        // 5
+    v1.pushBack("I");          // 6
+    v1.pushBack("go");         // 7
+    v1.pushBack("to");         // 8
+    v1.pushBack("SMU");        // 9
 
-    SECTION("Equality Operators"){
+    DSVector<DSString> v2;
+    v2.pushBack("This");        // 0
+    v2.pushBack("is");          // 1
+    v2.pushBack("brand");       // 2
+    v2.pushBack("new");         // 3
+    v2.pushBack("END");         // 4
 
+    SECTION("Overloaded Operators"){
+        SECTION("+= Overload"){
+            v1 += v2;
+
+            REQUIRE(v1.elementIndex(0) ==  DSString("Hello"));
+            REQUIRE(v2.elementIndex(0) == DSString("This"));
+            REQUIRE(v1.elementIndex(10) == DSString("This"));
+            REQUIRE(v1.elementIndex(14) == DSString("END"));
+        }
     }
 
     SECTION("Size Operator"){
-        REQUIRE(aVector.getSize() == 10);           // Size should equal 15
-        aVector.pushBack("again");                  // data[15] = "again" & size increases
-        REQUIRE(aVector.getSize() == 11);
-        aVector.popBack();                          // popBack removes last item from data Array
-        REQUIRE(aVector.getSize() == 10);
-        aVector.popBack();
-        aVector.popBack();
-        aVector.popBack();
-        REQUIRE(aVector.getSize() == 7);            // after removing 3 items, data array should equal 12
+        REQUIRE(v1.getSize() == 10);           // Size should equal 15
+        v1.pushBack("again");                  // data[15] = "again" & size increases
+        REQUIRE(v1.getSize() == 11);
+        v1.popBack();                          // popBack removes last item from data Array
+        REQUIRE(v1.getSize() == 10);
+        v1.popBack();
+        v1.popBack();
+        v1.popBack();
+        REQUIRE(v1.getSize() == 7);            // after removing 3 items, data array should equal 12
     }
 
     SECTION("Swap Function"){                       // swap elements between 2 vectors
-        DSVector<DSString> newVector;
-        newVector.pushBack("This");
-        newVector.pushBack("is");
-        newVector.pushBack("brand");
-        newVector.pushBack("new");
-        newVector.pushBack("SWAPPING");
-
-        aVector.swap(newVector);
-        REQUIRE(aVector.getSize() == 5);
-        REQUIRE(newVector.getSize() == 10);
+        v1.swap(v2);
+        REQUIRE(v1.getSize() == 5);
+        REQUIRE(v2.getSize() == 10);
 
         SECTION("Vector print"){                    // prints out specific element in vector
-            REQUIRE(newVector.elementIndex(0) == DSString("Hello"));
-            REQUIRE(newVector.elementIndex(9) == DSString("SMU"));
-            REQUIRE(aVector.elementIndex(0) == DSString("This"));
-            REQUIRE(aVector.elementIndex(4) == DSString("SWAPPING"));
+            REQUIRE(v2.elementIndex(0) == DSString("Hello"));
+            REQUIRE(v2.elementIndex(9) == DSString("SMU"));
+            REQUIRE(v1.elementIndex(0) == DSString("This"));
+            REQUIRE(v1.elementIndex(4) == DSString("END"));
         }
     }
 

@@ -17,7 +17,7 @@ class DSVector{
         int getSize();                  // returns size of vector
         int getCapacity();              // returns vector capacity
 
-        void assign(const DSVector&);          // assigns new value to the vector elements by replacing old ones
+        void assign(const DSVector&);   // assigns new value to the vector elements by replacing old ones
         void clearVector();             // used to remove all the elements of the vector container
         void printVector();
         void pushBack(const T&);        // push elements into a vector from the back
@@ -25,10 +25,12 @@ class DSVector{
         DSVector& popBack();            // pop/remove/delete's last element from vector
         void swap(DSVector&);           // used to swap the contents between 2 vectors
 
-        DSVector operator+(const DSVector&);
         T& operator[](const int);
         T& operator=(const DSVector&);  // copy assignment operator
-        T& operator+=(const DSVector&);
+        DSVector& operator+=( DSVector&);
+        DSVector operator+(const DSVector&);
+
+
 
         bool isEmpty() const;           // checks to see if vector is empty
         bool operator==(const DSVector&) const;
@@ -56,7 +58,7 @@ template<typename T>
 DSVector<T>::DSVector(const T& originalDSVector){
     this->data = new T[capacity];                       // dynamically allocate data
     capacity = originalDSVector.capacity;               // copy originalDSVector capacity
-    sizeOfDSVector = originalDSVector.sizeOfDSVector;        // copy originalDSVector size
+    sizeOfDSVector = originalDSVector.sizeOfDSVector;   // copy originalDSVector size
 
     for(int i = 0; i < capacity; i++){
         this->data[i] = originalDSVector.data[i];       // copy originalDSVector data
@@ -151,10 +153,10 @@ void DSVector<T>::assign(const DSVector<T>& assignElement){    // assigns new va
 
 template <typename T>
 T& DSVector<T>::operator=(const DSVector<T>& aDSVector){
-    if(this->data == aDSVector.data){
+    if(this->data != nullptr){
         capacity = aDSVector.getCapacity();                 // declare capacity = parameters capacity
         sizeOfDSVector = aDSVector.getSize();               // declare sizeOfDsVector = parameters size
-        this->data = new T[capacity];                       // dynamically allocate data
+        this->data = new T[sizeOfDSVector];                 // dynamically allocate data
 
         for(int i = 0;i < capacity; i++) {
             this->data[i] = aDSVector.elementIndex(i);      // copy elements to new data array
@@ -189,22 +191,24 @@ DSVector<T> DSVector<T>::operator+(const DSVector<T>& aDSVector){
 }
 
 template <typename T>
-T& DSVector<T>::operator+=(const DSVector<T>& aDSVector){
-    T * temp = this->data;                                      // copy data temporarily to the heap
+DSVector<T>& DSVector<T>::operator+=( DSVector<T>& v2){
+    T * temp = this->data;                               // copy data temporarily to the heap
 
-    capacity += aDSVector.getCapacity();                        // capacity = capacity + aDSVector.getCapacity
-    sizeOfDSVector += aDSVector.getSize();
-    this->data = new T[this->data.getSize() + aDSVector.getSize()];     // allocate memory for data on HEAP
 
-    for(int i = 0; i < temp->getCapacity(); i++){
-        this->data[i] = temp->elementIndex(i);                  // iteratively add v1 data elements to new data
+    this->data = new T[sizeOfDSVector + v2.getSize()];   // allocate memory for data on HEAP
+
+    for(int i = 0; i < sizeOfDSVector; i++){
+        this->data[i] = temp[i];                         // iteratively add v1 data elements to new data
     }
 
-    for(int j = (temp->getCapacity());j < aDSVector.getSize(); j ++){
-        this->data[j] = aDSVector.elementIndex(j);              // iteratively add v2 data elements to new data
+    for(int j = 0;j < v2.getSize(); j++){
+        this->data[j + sizeOfDSVector] = v2.data[j];     // iteratively add v2 data elements to new data
     }
 
-    delete [] this->temp;                                       // deallocate temp memory
+    capacity += v2.getCapacity();                        // capacity = capacity + aDSVector.getCapacity
+    sizeOfDSVector += v2.getSize();
+
+    delete [] temp;                                      // deallocate temp memory
     return *this;
 }
 
