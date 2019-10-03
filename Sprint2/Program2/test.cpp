@@ -103,10 +103,20 @@ TEST_CASE("DSVector class", "[DSVector]"){
         SECTION("+= Overload"){
             v1 += v2;
 
-            REQUIRE(v1.elementIndex(0) ==  DSString("Hello"));
+            REQUIRE(v1.elementIndex(0) == DSString("Hello"));
             REQUIRE(v2.elementIndex(0) == DSString("This"));
             REQUIRE(v1.elementIndex(10) == DSString("This"));
             REQUIRE(v1.elementIndex(14) == DSString("END"));
+        }
+
+        SECTION("= Overload"){
+            DSVector<DSString> v3 = v1;
+            //v1 = v2;
+            //DSVector<DSString> v3 = v1 + v2;
+        }
+
+        SECTION("+ Overload"){
+
         }
     }
 
