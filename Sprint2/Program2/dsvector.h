@@ -19,16 +19,16 @@ class DSVector{
         int getSize();                  // returns size of vector
         int getCapacity();              // returns vector capacity
 
-        void assign(size_t,const DSVector&);   // assigns new value to the vector elements by replacing old ones
         void clearVector();             // used to remove all the elements of the vector container
         void printVector();
-        void pushBack(const T&);        // push elements into a vector from the back
-
-        DSVector& popBack();            // pop/remove/delete's last element from vector
         void swap(DSVector&);           // used to swap the contents between 2 vectors
+        void pushBack(const T&);        // push elements into a vector from the back
+        void reserve(size_t);
+        void assign(size_t,const DSVector&);   // assigns new value to the vector elements by replacing old ones
 
         T& operator[](const int);
-        T& operator=(T&);  // copy assignment operator
+        T& operator=(T&);               // copy assignment operator
+        DSVector& popBack();            // pop/remove/delete's last element from vector
         DSVector& operator+=(DSVector&);
         DSVector operator+(const DSVector&) const;
 
@@ -133,6 +133,13 @@ void DSVector<T>::swap(DSVector<T>& bDSVector){         // used to swap the cont
     T * tempData = this->data;                          // use tempData to point to data
     this->data = bDSVector.data;                        // this->data now points to bDSVector.data
     bDSVector.data = tempData;                          // bDSVector now points to tempData
+}
+
+template <typename T>
+void DSVector<T>::reserve(size_t space){
+    if(sizeOfDSVector < int(space)){
+        capacity = int(space);
+    }
 }
 
 template <typename T>

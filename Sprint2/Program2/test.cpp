@@ -190,12 +190,12 @@ TEST_CASE( "DSVector class 2", "<int>") {
         }
     }
 
-    /*SECTION( "reserving smaller does not change size or capacity" ) {
-        v1 = 0;
+    SECTION( "reserving smaller does not change size or capacity" ) {
+        v1.reserve(0);
 
-        REQUIRE( v1.getSize() == 5 );
-        REQUIRE( v1.getCapacity() >= 5 );
-    }*/
+        REQUIRE( v1.getSize() == 10 );
+        REQUIRE( v1.getCapacity() >= 10 );
+    }
 
 }
 
