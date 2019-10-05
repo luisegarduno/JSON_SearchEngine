@@ -78,7 +78,7 @@ TEST_CASE("DSString class", "[DSString]"){
     }
 }
 
-TEST_CASE("DSVector class", "[DSVector]"){
+TEST_CASE("DSVector class 1", "<DSString>"){
 
     DSVector<DSString> v1;
     v1.pushBack("Hello");      // 0
@@ -100,23 +100,26 @@ TEST_CASE("DSVector class", "[DSVector]"){
     v2.pushBack("END");         // 4
 
     SECTION("Overloaded Operators"){
-        SECTION("+= Overload"){
+        SECTION("+= Overload Operator"){
             v1 += v2;
 
             REQUIRE(v1.elementIndex(0) == DSString("Hello"));
-            REQUIRE(v2.elementIndex(0) == DSString("This"));
             REQUIRE(v1.elementIndex(10) == DSString("This"));
             REQUIRE(v1.elementIndex(14) == DSString("END"));
         }
 
-        SECTION("= Overload"){
-            DSVector<DSString> v3 = v1;
-            //v1 = v2;
+        SECTION("Operator ="){
+            REQUIRE(v1.elementIndex(0) == DSString("Hello"));
+            v1.elementIndex(0) = v2.elementIndex(0);
+            REQUIRE(v2.elementIndex(0) == DSString("This"));
+
+            //DSVector<DSString> v3 = v1;
             //DSVector<DSString> v3 = v1 + v2;
         }
 
-        SECTION("+ Overload"){
-
+        SECTION("Operator +"){
+        //DSVector<DSString> v3;
+        //v3 = v2 + v1;
         }
     }
 
@@ -159,42 +162,42 @@ TEST_CASE("DSVector class", "[DSVector]"){
     }
 }
 
-/*
-TEMPLATE_TEST_CASE( "DSVectors can be sized and resized", "[DSVector][template]", int, DSString, (std::tuple<int,float>),DSVector<double>) {
 
-    DSVector<DSString> v;
 
-    REQUIRE( v.getSize() == 5 );
-    REQUIRE( v.getCapacity() >= 5 );
+TEST_CASE( "DSVector class 2", "<int>") {
+    DSVector<int> v1(10);
 
-    SECTION( "resizing bigger changes size and capacity" ) {
-        v = 5;
+    REQUIRE( v1.getSize() == 10);
+    REQUIRE( v1.getCapacity() >= 10 );
 
-        REQUIRE( v.getSize() == 10 );
-        REQUIRE( v.getCapacity() >= 10 );
+    SECTION( "resizing bigger changes size and capacity" ) {                        // size & capacity get equally as big
+        v1.assign(11,v1);
+
+        REQUIRE( v1.getSize() == 11 );
+        REQUIRE( v1.getCapacity() >= 11 );
     }
     SECTION( "resizing smaller changes size but not capacity" ) {
-        v = 0;
+        v1.assign(0,v1);
 
-        REQUIRE( v.getSize() == 0 );
-        REQUIRE( v.getCapacity() >= 5 );
+        REQUIRE( v1.getSize() == 0 );
+        REQUIRE( v1.getCapacity() >= 5 );
 
         SECTION( "We can use the 'swap trick' to reset the capacity" ) {
-            DSVector<DSString> empty;
-            empty.swap( v );
+            DSVector<int> empty;
+            empty.swap( v1 );
 
-            REQUIRE( v.getCapacity() == 0 );
+            REQUIRE( v1.getCapacity() == 5 );
         }
     }
 
-    SECTION( "reserving smaller does not change size or capacity" ) {
-        v = 0;
+    /*SECTION( "reserving smaller does not change size or capacity" ) {
+        v1 = 0;
 
-        REQUIRE( v.getSize() == 5 );
-        REQUIRE( v.getCapacity() >= 5 );
-    }
+        REQUIRE( v1.getSize() == 5 );
+        REQUIRE( v1.getCapacity() >= 5 );
+    }*/
 
 }
-*/
+
 
 

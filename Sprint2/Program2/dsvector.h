@@ -14,12 +14,12 @@ class DSVector{
     public:
         DSVector();                     // default constructor
         DSVector(int);
-        DSVector(const T&);             // copy constructor
+        DSVector(const DSVector&);             // copy constructor
 
         int getSize();                  // returns size of vector
         int getCapacity();              // returns vector capacity
 
-        void assign(const DSVector&);   // assigns new value to the vector elements by replacing old ones
+        void assign(size_t,const DSVector&);   // assigns new value to the vector elements by replacing old ones
         void clearVector();             // used to remove all the elements of the vector container
         void printVector();
         void pushBack(const T&);        // push elements into a vector from the back
@@ -28,7 +28,7 @@ class DSVector{
         void swap(DSVector&);           // used to swap the contents between 2 vectors
 
         T& operator[](const int);
-        DSVector& operator=(const DSVector&) const;  // copy assignment operator
+        T& operator=(T&);  // copy assignment operator
         DSVector& operator+=(DSVector&);
         DSVector operator+(const DSVector&) const;
 
@@ -47,20 +47,22 @@ template <typename T>
 DSVector<T>::DSVector(){                                // Default constructor
     capacity = 5;                                       // initial capacity size
     sizeOfDSVector = 0;
-    data = new T[capacity];                             // allocate memory for data
+    this->data = new T[capacity];                             // allocate memory for data
+    aResize = false;
 }
 
 template <typename T>
 DSVector<T>::DSVector(int numOfElements){
+    capacity = 5;
     sizeOfDSVector = numOfElements;
-    while(sizeOfDSVector > capacity){
-        capacity *= 2;
+    if(sizeOfDSVector > capacity){
+        capacity = sizeOfDSVector;
     }
     this->data = new T[capacity];
 }
 
 template<typename T>
-DSVector<T>::DSVector(const T& originalDSVector){
+DSVector<T>::DSVector(const DSVector<T>& originalDSVector){
     capacity = originalDSVector.capacity;               // copy originalDSVector capacity
     sizeOfDSVector = originalDSVector.sizeOfDSVector;   // copy originalDSVector size
     this->data = new T[capacity];                       // dynamically allocate data
@@ -77,7 +79,7 @@ void DSVector<T>::reSize(){
     T * temp = new T[capacity];                         // create temp data array to copy elements
 
     for(int i = 0;i < sizeOfDSVector;i++) {
-        temp[i] = this->data[i];
+        temp[i] = this->data[i];                        // deep copy data to temp
     }
     delete [] this->data;                               // delete the memory allocated
     this->data = temp;
@@ -144,28 +146,36 @@ void DSVector<T>::clearVector(){                        // used to remove all th
 }
 
 template <typename T>
-void DSVector<T>::assign(const DSVector<T>& assignElement){    // assigns new value to the vector elements by replacing old ones
+void DSVector<T>::assign(size_t newX,const DSVector<T>& assignElement){    // assigns new value to the vector elements by replacing old ones
     delete [] this->data;                                      // delete data from HEAP
 
-    capacity = assignElement.capacity;                         // assign capacity, size, data
-    sizeOfDSVector = assignElement.sizeOfDSVector;
-    this->data = new T[assignElement.sizeOfDSVector];
+    if(newX >= size_t(capacity)){
+        capacity = newX;
+        sizeOfDSVector = newX;
+    }
+    if(newX < size_t(sizeOfDSVector)){
+        sizeOfDSVector = newX;
+    }
+                            // assign capacity, size, data
 
-    for(int i = 0; i < assignElement.sizeOfDSVector; i++){
-        this->data[i] = assignElement.data;
+    //sizeOfDSVector = newX;
+    this->data = new T[capacity];
+
+    for(int i = 0; i < sizeOfDSVector; i++){
+        this->data[i] = assignElement.data[i];
     }
 }
 
 template <typename T>
-DSVector<T>& DSVector<T>::operator=(const DSVector<T>& v2) const{
-    if(*this != v2){
+T& DSVector<T>::operator=(T& v2){
+    if(this != nullptr){
         delete [] data;
-        capacity = v2.getCapacity();                 // declare capacity = parameters capacity
+        this->capacity = v2.getCapacity();                 // declare capacity = parameters capacity
         sizeOfDSVector = v2.getSize();               // declare sizeOfDsVector = parameters size
-        this->data = new T[capacity];                 // dynamically allocate data
+        this->data = new T[capacity];                // dynamically allocate data
 
         for(int i = 0;i < sizeOfDSVector; i++) {
-            this->data[i] = v2.elementIndex(i);      // copy elements to new data array
+            this->data[i] = v2.data[i];      // copy elements to new data array
         }
     }
 
