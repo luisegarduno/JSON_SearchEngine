@@ -2,10 +2,21 @@
 #include <cstring>
 #include <iostream>
 #include "catch.hpp"
+#include "dsstring.h"
+#include "dsvector.h"
+#include "classifier.h"
 
-#define TEST true
+
+#define TEST false
 
 using namespace std;
+
+class missingFilesException{
+    public:
+        const char * what() {
+            return "Missing/invalid number of arguments";
+        }
+};
 
 int runCatchTests(int argc, char* argv[]){
     // Runs test.cpp using Catch2 lib
@@ -14,13 +25,24 @@ int runCatchTests(int argc, char* argv[]){
 
 
 int main(int argc, char * argv[]){
-    if(TEST && argc == 1){
-        return runCatchTests(argc, argv);
-    }
+    try {
+            if(argc != 6){                              // if argument counter != 6,
+                throw missingFilesException{};          // throw custom exception
+            }
+            else {
+                if(TEST && argc == 1){
+                    return runCatchTests(argc, argv);
+                }
+                else{
+                    Classifier test(argv);
 
-    else{
-        cout << "6" << endl;
-    }
+                }
+            }
+        }
+
+        catch (missingFilesException& e) {              // catches custom exception message
+            cout << e.what() << endl;
+        }
 
     return 0;
 }
