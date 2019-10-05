@@ -113,14 +113,10 @@ TEST_CASE("DSVector class 1", "<DSString>"){
             v1.elementIndex(0) = v2.elementIndex(0);
             REQUIRE(v2.elementIndex(0) == DSString("This"));
 
-            //DSVector<DSString> v3 = v1;
-            //DSVector<DSString> v3 = v1 + v2;
+            DSVector<DSString> v3 = v1;
+            REQUIRE(v3.elementIndex(0) == DSString("This"));
         }
 
-        SECTION("Operator +"){
-        //DSVector<DSString> v3;
-        //v3 = v2 + v1;
-        }
     }
 
     SECTION("Size Operator"){
