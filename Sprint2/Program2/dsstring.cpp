@@ -138,29 +138,21 @@ DSString DSString::substring(int a, int b){
     if(b > a){
         if(a == 0){
             this->data = new char[int(b) + 1];
-            //aDSString.data = new char[int(b) + 1];
             for(int i = 0; i < b; i++){
-                //aDSString.data[i] = tempData[i];
                 this->data[i]  = tempData[i];
             }
-            //aDSString.data[int(b)] = '\0';
             this->data[int(b)] = '\0';
         }
         else if(a != 0){
             int c = (int(b) - a);
             this->data = new char[c + 1];
-            //aDSString.data = new char[c + 1];
             for(int i = 0; i < c; i++){
-                //aDSString.data[i] = tempData[a + 1];
                 this->data[i]  = tempData[a + i];
             }
             this->data[c] = '\0';
-            //aDSString.data[c] = '\0';
         }
-        //aDSString.data = this->data;
         delete [] tempData;
-        //this->data = tempData;
-        return this->data; //aDSString;
+        return this->data;
     }
 
     else if(b < a){
