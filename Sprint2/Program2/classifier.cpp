@@ -4,6 +4,11 @@
 Classifier::Classifier(){
     //rowNum = 0;
     buffer = new char[1000];
+    rowNumber = 0;
+    tweetID = 0;
+    username = 0;
+    tweets = 0;
+    words = 0;
 }
 
 Classifier::Classifier(char * arg[]){
@@ -28,23 +33,37 @@ void Classifier::classifierTrain(DSString& dataArg){
     dataFile.getline(temp,100);
 
     buffer = new char[1000];
-    dataFile.getline(buffer,1000,',');
-    cout << buffer << endl;
 
-            /*
-    for(int i = 0; i < 1; i++){
-        for(int j = 0; j < 4; j++ ){
+    /*
+    int delim = 0;
+    buffer = new char[1000];
+    rowBuffer = new char[10];
+    dataFile.getline(buffer,1000);
+    */
+
+    DSString theLine("");
+    for(int i = 0; i < 2; i++){
+        for(int j = 0; j < 5; j++){
             if(j == 0){
                 dataFile.getline(buffer,1000,',');
+                cout << "Row: " << buffer << endl;
             }
             if(j == 1){
                 dataFile.getline(buffer,1000,',');
+                cout << "Tweet ID: " << buffer << endl;
+            }
+            if(j == 3){
+                dataFile.getline(buffer,1000,',');
+                cout << "Username: " << buffer << endl;
+            }
+            if(j == 4){
+                dataFile.getline(buffer,1000,'\n');
+                cout << "Tweet: " << buffer << endl;
             }
         }
-        dataFile.getline(buffer, 1000, ',');
-        cout << buffer << endl;
+        cout << endl;
+
     }
-    */
 
     dataFile.close();
 
@@ -56,4 +75,5 @@ void Classifier::classifierTest(DSString&){
 
 Classifier::~Classifier(){
     delete [] buffer;
+    //delete [] rowBuffer;
 }
