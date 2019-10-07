@@ -36,31 +36,31 @@ void Classifier::classifierTrain(DSString& dataArg){
     buffer = new char[1000];
 
     bool end = true;
-    for(int i = 0; i < 2; i++){
+    for(int i = 0; i < 100000; i++){
         DSString tempString("");
         DSString tempWord("");
         for(int j = 0; j < 4; j++){
             if(j == 0){
                 dataFile.getline(buffer,1000,',');
                 rowNumber.pushBack(buffer);
-                cout << buffer << ",";
+                //cout << buffer << ",";
             }
             if(j == 1){
                 dataFile.getline(buffer,1000,',');
                 tweetID.pushBack(buffer);
-                cout << buffer << ",";
+                //cout << buffer << ",";
             }
             if(j == 2){
                 dataFile.getline(buffer,1000,',');
                 username.pushBack(buffer);
-                cout << buffer << ",";
+                //cout << buffer << ",";
             }
             if(j == 3){
                 dataFile.getline(buffer,1000);
                 int size = 0;
                 int start = 0;
                 tempString = buffer;
-                cout << buffer << endl;
+                //cout << buffer << endl;
 
                 while(end){
                     // if character is ABC, abc, ', read next character
@@ -94,13 +94,13 @@ void Classifier::classifierTrain(DSString& dataArg){
                 end = true;
             }
         }
-        cout << endl;
+        //cout << endl;
 
     }
 
     dataFile.close();
 
-    words.printVector();
+    //words.printVector();
 
 }
 
