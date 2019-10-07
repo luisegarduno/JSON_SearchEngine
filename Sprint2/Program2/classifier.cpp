@@ -29,6 +29,7 @@ void Classifier::classifierTrain(DSString& dataArg){
         cout << "Train Data File is not Open. Please check command line input" << endl;
         exit(-1);
     }
+
     char temp[100];
     dataFile.getline(temp,100);
 
@@ -41,24 +42,62 @@ void Classifier::classifierTrain(DSString& dataArg){
     dataFile.getline(buffer,1000);
     */
 
+    bool end = true;
     DSString theLine("");
     for(int i = 0; i < 2; i++){
-        for(int j = 0; j < 5; j++){
+        DSString tempString("");
+
+        DSString tempWord("");
+        for(int j = 0; j < 4; j++){
             if(j == 0){
                 dataFile.getline(buffer,1000,',');
-                cout << "Row: " << buffer << endl;
+                rowNumber.pushBack(buffer);
+                cout << buffer << ",";
             }
             if(j == 1){
                 dataFile.getline(buffer,1000,',');
-                cout << "Tweet ID: " << buffer << endl;
+                tweetID.pushBack(buffer);
+                cout << buffer << ",";
+            }
+            if(j == 2){
+                dataFile.getline(buffer,1000,',');
+                username.pushBack(buffer);
+                cout << buffer << ",";
             }
             if(j == 3){
-                dataFile.getline(buffer,1000,',');
-                cout << "Username: " << buffer << endl;
-            }
-            if(j == 4){
-                dataFile.getline(buffer,1000,'\n');
-                cout << "Tweet: " << buffer << endl;
+                dataFile.getline(buffer,1000);
+                int size = 0;//int(strlen(buffer)) - 2;
+                int start = 0;
+                tempString = buffer;
+                cout << buffer << endl;
+
+                while(end){
+                    // if character is ABC, abc, ', read next character
+                    if( ( (buffer[size] > 64) && (buffer[size] < 91) ) || ( (buffer[size] > 96)  && (buffer[size] < 123) ) || (buffer[size] == 39) ){
+                        size += 1;
+                    }
+
+                    else if(size > (tempString.size() - 1)){ // if  size is greater than tempString size, the end of the tweet has been reached
+                        end = false;
+                        break;
+                    }
+                    else if( (buffer[start] < 65) || ( (buffer[start] > 90) && (buffer[start] < 97) ) || (buffer[start] > 122)){
+                        start = size + 1;
+                        size = start;
+                    }
+                    else{
+                        //cout << "tempSize " << tempString.size() << endl;
+                        //DSString tempsString = tempString;
+                        tempWord = tempString.substring(start,size - start);
+                        cout << tempString << endl;
+                        words.pushBack(tempWord);
+                        start = size + 1;
+                        size = start;
+                        //tempString = buffer;
+                        //cout << "tempSize " << tempString.size() << endl;
+                    }
+                }
+                end = true;
             }
         }
         cout << endl;
@@ -66,6 +105,8 @@ void Classifier::classifierTrain(DSString& dataArg){
     }
 
     dataFile.close();
+
+    words.printVector();
 
 }
 

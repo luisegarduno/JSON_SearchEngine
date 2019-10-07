@@ -6,7 +6,7 @@
 #include "dsvector.h"
 #include "classifier.h"
 
-#define TEST false
+#define TEST true
 
 using namespace std;
 

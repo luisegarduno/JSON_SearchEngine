@@ -30,6 +30,7 @@ class Classifier{
         char * wordsBuffer;
 
 
+
     public:
         Classifier();
         Classifier(char *[]);
