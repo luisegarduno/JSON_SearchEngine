@@ -29,6 +29,9 @@ class DSString{
         bool operator==(const DSString&)const;      // returns bool b ==
         bool operator<(const char *)const;          // returns bool b <
         bool operator<(const DSString&)const;       // returns bool b <
+        bool operator>(const DSString&)const;       // returns bool b >
+        bool operator<=(const DSString&)const;      // returns bool <=
+        bool operator>=(const DSString&)const;
         char& operator[](const int);                // returns char
 
         int size();                                 // returns size of DSString

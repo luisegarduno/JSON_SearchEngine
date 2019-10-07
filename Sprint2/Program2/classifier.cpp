@@ -2,13 +2,7 @@
 #include <iostream>
 
 Classifier::Classifier(){
-    //rowNum = 0;
     buffer = new char[1000];
-    rowNumber = 0;
-    tweetID = 0;
-    username = 0;
-    tweets = 0;
-    words = 0;
 }
 
 Classifier::Classifier(char * arg[]){
@@ -18,8 +12,8 @@ Classifier::Classifier(char * arg[]){
     DSString testTarget(arg[4]);        // testTarget = "dev-test-target.csv"
 
     classifierTrain(trainData);
+    //classifierTest(testData);
 }
-
 
 void Classifier::classifierTrain(DSString& dataArg){
     ifstream dataFile;
@@ -36,7 +30,7 @@ void Classifier::classifierTrain(DSString& dataArg){
     buffer = new char[1000];
 
     bool end = true;
-    for(int i = 0; i < 100000; i++){
+    for(int i = 0; i < 5000; i++){
         DSString tempString("");
         DSString tempWord("");
         for(int j = 0; j < 4; j++){
@@ -99,14 +93,87 @@ void Classifier::classifierTrain(DSString& dataArg){
     }
 
     dataFile.close();
+    words.quickSort();
 
-    //words.printVector();
-
-}
-
-void Classifier::classifierTest(DSString&){
+    words.printVector();
 
 }
+
+
+void Classifier::classifierTest(DSString& dataArg){
+    ifstream dataFile;
+    dataFile.open(dataArg.c_str());
+
+    if(!dataFile.is_open()){
+        cout << "Train Data File is not Open. Please check command line input" << endl;
+        exit(-1);
+    }
+
+    char temp[100];
+    dataFile.getline(temp,100);
+
+    //buffer = new char[1000];
+
+    bool end = true;
+    for(int i = 0; i < 10001; i++){
+        DSString tempString("");
+        DSString tempWord("");
+        for(int j = 0; j < 4; j++){
+            if(j == 0){
+                dataFile.getline(buffer,1000,',');
+                rowNumber.pushBack(buffer);
+            }
+            if(j == 1){
+                dataFile.getline(buffer,1000,',');
+                tweetID.pushBack(buffer);
+            }
+            if(j == 2){
+                dataFile.getline(buffer,1000,',');
+                username.pushBack(buffer);
+            }
+            if(j == 3){
+                dataFile.getline(buffer,1000);
+                int size = 0;
+                int start = 0;
+                tempString = buffer;
+
+                while(end){
+                    // if character is ABC, abc, ', read next character
+                    if( ( ( (buffer[size] > 64) && (buffer[size] < 91) ) || ( (buffer[size] > 96)  && (buffer[size] < 123) ) || (buffer[size] == 39))){
+                        size += 1;
+                    }
+
+                    else if(size > (tempString.size() - 1)){ // if  size is greater than tempString size, the end of the tweet has been reached
+                        end = false;
+                        break;
+                    }
+                    else if( (buffer[start] < 65) || ( (buffer[start] > 90) && (buffer[start] < 97) ) || (buffer[start] > 122)){
+                        start = size + 1;
+                        size = start;
+                    }
+                    else{
+                        if(start == 0){
+                            tempWord = tempString.substring(start,size - start);
+                            start = size + 1;
+                        }
+                        else{
+                            tempWord = tempString.substring(start,size);
+                            start = size;
+                        }
+                        words.pushBack(tempWord);
+                        size = start;
+                        tempString = buffer;
+                    }
+                }
+                end = true;
+            }
+        }
+
+    }
+
+    dataFile.close();
+}
+
 
 Classifier::~Classifier(){
     delete [] buffer;

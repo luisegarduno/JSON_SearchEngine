@@ -20,16 +20,8 @@ class Classifier{
         DSVector<DSString> rowNumber;
         DSVector<DSString> tweetID;
         DSVector<DSString> username;
-        DSVector<DSString> tweets;
         DSVector<DSString> words;
         char * buffer;
-        char * rowBuffer;
-        char * tweetIDBuffer;
-        char * usernameBuffer;
-        char * tweetsBuffer;
-        char * wordsBuffer;
-
-
 
     public:
         Classifier();
