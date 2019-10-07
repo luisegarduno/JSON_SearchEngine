@@ -83,13 +83,6 @@ bool DSString::operator==(const DSString& parameterString) const{
 }
 
 bool DSString::operator<(const char * parameterChar) const{
-    if(strcmp(this->data,parameterChar) < 0){
-        return true;
-    }
-    else{
-        return false;
-    }
-    /*
     if(this->data < parameterChar){
         return true;
     }
@@ -104,18 +97,11 @@ bool DSString::operator<(const char * parameterChar) const{
         }
     }
     return false;
-    */
+
 }
 
 
 bool DSString::operator<(const DSString& parameterDSString) const{
-    if(strcmp(this->data,parameterDSString.data) < 0){
-        return true;
-    }
-    else{
-        return false;
-    }
-    /*
     if(this->data < parameterDSString.data){
         return true;
     }
@@ -131,8 +117,6 @@ bool DSString::operator<(const DSString& parameterDSString) const{
     }
 
     return true;
-    */
-
 }
 
 bool DSString::operator>(const DSString& parameterDSString) const{

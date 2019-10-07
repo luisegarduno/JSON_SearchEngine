@@ -93,9 +93,9 @@ void Classifier::classifierTrain(DSString& dataArg){
     }
 
     dataFile.close();
-    words.quickSort();
+    //words.quickSort();
 
-    words.printVector();
+    //words.printVector();
 
 }
 
