@@ -25,7 +25,7 @@ int runCatchTests(int argc, char* argv[]){
 
 int main(int argc, char * argv[]){
     try {
-            if(argc != 6){                              // if argument counter != 6,
+            if(argc != 6 && argc != 1){                              // if argument counter != 6,
                 throw missingFilesException{};          // throw custom exception
             }
             else {
