@@ -135,7 +135,7 @@ int DSString::size(){                                                       // r
 DSString DSString::substring(int a, int b){
     DSString aDSString;
     char * tempData = this->data;
-    if(b > 0){
+    if(b > a){
         if(a == 0){
             this->data = new char[int(b) + 1];
             //aDSString.data = new char[int(b) + 1];
@@ -147,7 +147,7 @@ DSString DSString::substring(int a, int b){
             this->data[int(b)] = '\0';
         }
         else if(a != 0){
-            int c = (int(b) - a) + 1;
+            int c = (int(b) - a);
             this->data = new char[c + 1];
             //aDSString.data = new char[c + 1];
             for(int i = 0; i < c; i++){
@@ -163,8 +163,7 @@ DSString DSString::substring(int a, int b){
         return this->data; //aDSString;
     }
 
-    else if(b < 0){
-        char * tempData = this->data;
+    else if(b < a){
         int sizeOfChar = (b * -1) + 1;
         this->data = new char[sizeOfChar];
         for(int i = 0; i < -b ; i++){

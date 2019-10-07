@@ -35,18 +35,9 @@ void Classifier::classifierTrain(DSString& dataArg){
 
     buffer = new char[1000];
 
-    /*
-    int delim = 0;
-    buffer = new char[1000];
-    rowBuffer = new char[10];
-    dataFile.getline(buffer,1000);
-    */
-
     bool end = true;
-    DSString theLine("");
     for(int i = 0; i < 2; i++){
         DSString tempString("");
-
         DSString tempWord("");
         for(int j = 0; j < 4; j++){
             if(j == 0){
@@ -66,14 +57,14 @@ void Classifier::classifierTrain(DSString& dataArg){
             }
             if(j == 3){
                 dataFile.getline(buffer,1000);
-                int size = 0;//int(strlen(buffer)) - 2;
+                int size = 0;
                 int start = 0;
                 tempString = buffer;
                 cout << buffer << endl;
 
                 while(end){
                     // if character is ABC, abc, ', read next character
-                    if( ( (buffer[size] > 64) && (buffer[size] < 91) ) || ( (buffer[size] > 96)  && (buffer[size] < 123) ) || (buffer[size] == 39) ){
+                    if( ( ( (buffer[size] > 64) && (buffer[size] < 91) ) || ( (buffer[size] > 96)  && (buffer[size] < 123) ) || (buffer[size] == 39))){
                         size += 1;
                     }
 
@@ -86,15 +77,18 @@ void Classifier::classifierTrain(DSString& dataArg){
                         size = start;
                     }
                     else{
-                        //cout << "tempSize " << tempString.size() << endl;
-                        //DSString tempsString = tempString;
-                        tempWord = tempString.substring(start,size - start);
-                        cout << tempString << endl;
+                        if(start == 0){
+                            tempWord = tempString.substring(start,size - start);
+                            start = size + 1;
+                        }
+                        else{
+                            tempWord = tempString.substring(start,size);
+                            start = size;
+                        }
                         words.pushBack(tempWord);
-                        start = size + 1;
+
                         size = start;
-                        //tempString = buffer;
-                        //cout << "tempSize " << tempString.size() << endl;
+                        tempString = buffer;
                     }
                 }
                 end = true;
@@ -116,5 +110,4 @@ void Classifier::classifierTest(DSString&){
 
 Classifier::~Classifier(){
     delete [] buffer;
-    //delete [] rowBuffer;
 }
