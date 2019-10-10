@@ -8,5 +8,6 @@ SOURCES += \
         main.cpp
 
 HEADERS += \
+    dssorter.h \
     dsstring.h \
     sorter.h
