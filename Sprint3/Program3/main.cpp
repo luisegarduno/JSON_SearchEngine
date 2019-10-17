@@ -7,11 +7,11 @@ using namespace std;
 
 int main(){
 
-    DSSorter * tempNew = new DSSorter();
-    //tempNew->test1();
-    tempNew->test2();
+    DSSorter * sortData = new DSSorter();
+    sortData->test1();
+    //sortData->test2();
 
-    delete tempNew;
+    delete sortData;
 
     return 0;
 }

@@ -82,8 +82,9 @@ class MysterySorterB : public Sorter<T> {
 template <typename T>
 class MysterySorterC : public Sorter<T> {
     public:
-        virtual void sort() {   // Bubble Sort (it is optimized)
+        virtual void sort() {   // Bubble Sort (optimized)
         // http://www.algolist.net/Algorithms/Sorting/Bubble_sort
+
             std::cout << "Mystery Sorter C" << std::endl;
             bool swapped = true;
             int j = 0, vectorSize = this->data.size(),tmp;
@@ -110,9 +111,8 @@ class MysterySorterC : public Sorter<T> {
 template <typename T>
 class MysterySorterD : public Sorter<T> {
     private:
-        int vectorSize;
-        int low;
-        int high;
+        int low,high,vectorSize;
+
         void swap(int * a, int * b){
             int t = *a;
             *a = *b;
