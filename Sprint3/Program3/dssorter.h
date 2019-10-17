@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <vector>
 #include <chrono>
-#include <algorithm>
 #include "sorter.h"
 
 using std::cout;
@@ -41,11 +40,13 @@ class DSSorter{
         void test1(){
 
                 for(int i = 0; i < 10; i++){
-                    data.push_back(i);
+                    data.push_back(i);                              // adds values 1-10 to vector
                 }
-                int expSize = 5;
+
+                const int expSize = 5;                              // declare number of experiments as constant
                 Sorter<int>* experiment[expSize];
-                std::vector<double>* average[expSize];
+                std::vector<double> theAverage[expSize];
+                std::vector<double> times[expSize];
                 experiment[0] = new MysterySorterA<int>;
                 experiment[1] = new MysterySorterB<int>;
                 experiment[2] = new MysterySorterC<int>;
@@ -53,24 +54,35 @@ class DSSorter{
                 experiment[4] = new MysterySorterE<int>;
 
                 Timer theTime;
-                double n;
+                double timeValue;
 
                 for(int j = 0; j < 3; j++){
                     for(int k = 0; k < expSize; k++){
                         experiment[k]->setData(data);
                         theTime.reset();
                         experiment[k]->sort();
-                        n = theTime.elapsed();
-                        average[k]->push_back(n);
-                        cout << "Time taken: " << n << " milliseconds\n" << endl;
+                        timeValue = theTime.elapsed();
+                        times[k].push_back(timeValue);
+                        cout << "Time taken: " << timeValue << " milliseconds\n" << endl;
                     }
                 }
 
-                for(int m = 0; m < expSize; m++){
-                    int averageVectorSize = average[m]->size();
-                    for(int l = 0; l < averageVectorSize; l++){
 
+                size_t averageVectorSize;
+                double finalAverage,total;//,sum;
+
+                for(int m = 0; m < expSize; m++){
+                    averageVectorSize = times[m].size();
+                    total = 0.0;
+                    finalAverage = 0.0;
+                    for(size_t l = 0; l < averageVectorSize; l++){
+                        //sum = times[m].at(l);
+                        total += times[m].at(l);
                     }
+                    finalAverage = total / averageVectorSize;
+                    theAverage[m].push_back(finalAverage);
+
+                    cout << "AVERAGE: " << theAverage[m].at(0) << endl;
                 }
 
         }
