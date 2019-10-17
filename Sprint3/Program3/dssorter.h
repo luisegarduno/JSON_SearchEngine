@@ -4,13 +4,18 @@
 #include <stdlib.h>
 #include <vector>
 #include <chrono>
+#include <algorithm>
 #include "sorter.h"
+
+using std::cout;
+using std::endl;
+using std::chrono::high_resolution_clock;
+
 
 class Timer{
     private:
-        // Type aliases to make accessing nested type easier
-        using clock_t = std::chrono::high_resolution_clock;
-        using second_t = std::chrono::duration<double, std::ratio<1> >;
+        using clock_t = high_resolution_clock;
+        using milli_t = std::chrono::duration<double, std::milli>;
 
         std::chrono::time_point<clock_t> m_beg;
 
@@ -21,19 +26,19 @@ class Timer{
         }
 
         double elapsed() const{
-            return std::chrono::duration_cast<second_t>(clock_t::now() - m_beg).count();
+            return std::chrono::duration_cast<milli_t>(clock_t::now() - m_beg).count();
         }
 };
 
 class DSSorter{
     private:
-        using clock_t = std::chrono::high_resolution_clock;
-        using second_t = std::chrono::duration<double, std::ratio<1>>;
+        std::vector<int> data;
+        using clock_t = high_resolution_clock;
+        using milli_t = std::chrono::duration<double, std::milli>;
 
     public:
         DSSorter(){}
         void test1(){
-                std::vector<int> data;
 
                 for(int i = 0; i < 10; i++){
                     data.push_back(i);
@@ -46,16 +51,61 @@ class DSSorter{
                 experiment[3] = new MysterySorterD<int>;
                 experiment[4] = new MysterySorterE<int>;
 
-                Timer t;
-                double n = 0;
-
+                Timer theTime;
 
                 for(int j = 0; j < 5; j++){
                     experiment[j]->setData(data);
-                    t.reset();
+                    theTime.reset();
                     experiment[j]->sort();
-                    std::cout << "Time taken: " << t.elapsed() << " seconds\n" << std::endl;
+                    cout << "Time taken: " << theTime.elapsed() << " milliseconds\n" << endl;
                 }
+
+                /*
+                for(int j = 0; j < 5; j++){
+                    experiment[j]->setData(data);
+                    auto start = clock_t::now();
+                    experiment[j]->sort();
+                    auto stop = clock_t::now();
+                    std::chrono::duration<double,std::milli> floating_MicroSec = stop - start;
+                    cout << "Time taken: " << floating_MicroSec.count() << " ms\n" << endl;
+                }
+                */
+
+        }
+
+        void test2(){
+
+            for(int i = 0; i < 10; i++){
+               data.push_back(rand() % 10);
+            }
+
+            Sorter<int>* experiment[5];
+            experiment[0] = new MysterySorterA<int>;
+            experiment[1] = new MysterySorterB<int>;
+            experiment[2] = new MysterySorterC<int>;
+            experiment[3] = new MysterySorterD<int>;
+            experiment[4] = new MysterySorterE<int>;
+
+            Timer theTime;
+
+            for(int j = 0; j < 5; j++){
+                experiment[j]->setData(data);
+                theTime.reset();
+                experiment[j]->sort();
+                cout << "Time taken: " << theTime.elapsed() << " milliseconds\n" << endl;
+            }
+
+            /*
+            for(int j = 0; j < 5; j++){
+                experiment[j]->setData(data);
+                auto start = clock_t::now();
+                experiment[j]->sort();
+                auto stop = clock_t::now();
+
+                auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+                cout << "Time taken: " << duration.count() << " microseconds\n" << endl;
+            }
+            */
 
 
 

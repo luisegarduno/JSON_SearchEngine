@@ -7,8 +7,9 @@ using namespace std;
 
 int main(){
 
-    DSSorter * tempNew = new DSSorter;
+    DSSorter * tempNew = new DSSorter();
     tempNew->test1();
+    //tempNew->test2();
 
     delete tempNew;
 
