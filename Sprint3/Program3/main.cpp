@@ -8,8 +8,8 @@ using namespace std;
 int main(){
 
     DSSorter * tempNew = new DSSorter();
-    tempNew->test1();
-    //tempNew->test2();
+    //tempNew->test1();
+    tempNew->test2();
 
     delete tempNew;
 

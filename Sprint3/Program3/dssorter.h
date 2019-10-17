@@ -59,18 +59,6 @@ class DSSorter{
                     experiment[j]->sort();
                     cout << "Time taken: " << theTime.elapsed() << " milliseconds\n" << endl;
                 }
-
-                /*
-                for(int j = 0; j < 5; j++){
-                    experiment[j]->setData(data);
-                    auto start = clock_t::now();
-                    experiment[j]->sort();
-                    auto stop = clock_t::now();
-                    std::chrono::duration<double,std::milli> floating_MicroSec = stop - start;
-                    cout << "Time taken: " << floating_MicroSec.count() << " ms\n" << endl;
-                }
-                */
-
         }
 
         void test2(){
@@ -94,21 +82,6 @@ class DSSorter{
                 experiment[j]->sort();
                 cout << "Time taken: " << theTime.elapsed() << " milliseconds\n" << endl;
             }
-
-            /*
-            for(int j = 0; j < 5; j++){
-                experiment[j]->setData(data);
-                auto start = clock_t::now();
-                experiment[j]->sort();
-                auto stop = clock_t::now();
-
-                auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
-                cout << "Time taken: " << duration.count() << " microseconds\n" << endl;
-            }
-            */
-
-
-
         }
 };
 
