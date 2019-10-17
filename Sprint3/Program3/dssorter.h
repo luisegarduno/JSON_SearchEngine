@@ -1,6 +1,7 @@
 #ifndef DSSORTER_H
 #define DSSORTER_H
 
+#include <stdlib.h>
 #include <vector>
 #include <chrono>
 #include "sorter.h"
@@ -14,9 +15,7 @@ class Timer{
         std::chrono::time_point<clock_t> m_beg;
 
     public:
-        Timer() : m_beg(clock_t::now()){
-        }
-
+        Timer() : m_beg(clock_t::now()){}
         void reset(){
             m_beg = clock_t::now();
         }
@@ -55,9 +54,10 @@ class DSSorter{
                     experiment[j]->setData(data);
                     t.reset();
                     experiment[j]->sort();
-                    n = t.elapsed();
-                    std::cout << "Time taken: " << n << " seconds\n" << std::endl;
+                    std::cout << "Time taken: " << t.elapsed() << " seconds\n" << std::endl;
                 }
+
+
 
         }
 };

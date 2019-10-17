@@ -25,7 +25,7 @@ class MysterySorterA : public Sorter<T> {
     public:
         virtual void sort() {   // Insertion sort
             std::cout << "Mystery Sorter A" << std::endl;
-            int i, j, tmp;
+            unsigned i, j, tmp;
             for(i = 1;i < this->data.size(); i++){
                 j = 1;
                 while(j > 0 && this->data[j - 1] > this->data[j]){
@@ -43,7 +43,7 @@ class MysterySorterB : public Sorter<T> {
     public:
         virtual void sort() {   // Selection Sort
             std::cout << "Mystery Sorter B" << std::endl;
-            int i, j, minIndex, tmp;
+            unsigned int i,j, minIndex, tmp;
             for (i = 0; i < this->data.size() - 1; i++) {
                 minIndex = i;
                 for (j = i + 1; j < this->data.size(); j++){
@@ -66,12 +66,11 @@ class MysterySorterC : public Sorter<T> {
         virtual void sort() {   // Bubble Sort
             std::cout << "Mystery Sorter C" << std::endl;
             bool swapped = true;
-            int j = 0;
-            int tmp;
+            int j = 0,tmp;
             while (swapped) {
                 swapped = false;
                 j++;
-                for (int i = 0; i < this->data.size() - j; i++) {
+                for (unsigned int i = 0; i < this->data.size() - j; i++) {
                     if (this->data[i] > this->data[i + 1]) {
                         tmp = this->data[i];
                         this->data[i] = this->data[i + 1];

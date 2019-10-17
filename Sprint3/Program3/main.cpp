@@ -7,8 +7,10 @@ using namespace std;
 
 int main(){
 
-    DSSorter * tempNew = nullptr;
+    DSSorter * tempNew = new DSSorter;
     tempNew->test1();
+
+    delete tempNew;
 
     return 0;
 }
