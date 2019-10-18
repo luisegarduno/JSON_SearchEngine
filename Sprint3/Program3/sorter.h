@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <stdlib.h>
 
 #ifndef SORTINGFUN_SORTER_H
 #define SORTINGFUN_SORTER_H
@@ -26,7 +27,7 @@ class MysterySorterA : public Sorter<T> {
         virtual void sort() {   // Insertion sort
         // http://www.algolist.net/Algorithms/Sorting/Insertion_sort
 
-            std::cout << "Mystery Sorter A" << std::endl;
+            // std::cout << "Mystery Sorter A" << std::endl;
 
             int i, j, tmp, vectorSize = this->data.size();
             for(i = 1;i < vectorSize; i++){
@@ -38,6 +39,7 @@ class MysterySorterA : public Sorter<T> {
                     j--;
                 }
             }
+
             /*
             for(int i = 0; i < vectorSize; i++){
                 std::cout << this->data[i] << std::endl;
@@ -54,7 +56,7 @@ class MysterySorterB : public Sorter<T> {
         virtual void sort() {   // Selection Sort
         // http://www.algolist.net/Algorithms/Sorting/Selection_sort
 
-            std::cout << "Mystery Sorter B" << std::endl;
+            // std::cout << "Mystery Sorter B" << std::endl;
 
             int i,j, minIndex, tmp, vectorSize = this->data.size();
 
@@ -85,7 +87,7 @@ class MysterySorterC : public Sorter<T> {
         virtual void sort() {   // Bubble Sort (optimized)
         // http://www.algolist.net/Algorithms/Sorting/Bubble_sort
 
-            std::cout << "Mystery Sorter C" << std::endl;
+            // std::cout << "Mystery Sorter C" << std::endl;
             bool swapped = true;
             int j = 0, vectorSize = this->data.size(),tmp;
             while (swapped) {
@@ -144,10 +146,9 @@ class MysterySorterD : public Sorter<T> {
         virtual void sort() {   // Quick Sort
             // http://www.algolist.net/Algorithms/Sorting/Quicksort
 
-            std::cout << "Mystery Sorter D" << std::endl;
+            // std::cout << "Mystery Sorter D" << std::endl;
 
             vectorSize = this->data.size();
-
             quickSort(0,vectorSize - 1);
 
             /*
@@ -161,11 +162,81 @@ class MysterySorterD : public Sorter<T> {
 
 template <typename T>
 class MysterySorterE : public Sorter<T> {
+
+    private:
+        int vectorSize;
+        void merge(int left, int middle, int right)
+        {
+            int i, j, k;
+            int n1 = middle - left + 1;
+            int n2 =  right - middle;
+
+            /* create temp arrays */
+            int L[n1], R[n2];
+
+            /* Copy data to temp arrays L[] and R[] */
+            for (i = 0; i < n1; i++){
+                L[i] = this->data[left + i];
+            }
+            for (j = 0; j < n2; j++){
+                R[j] = this->data[middle + 1 + j];
+            }
+
+            /* Merge the temp arrays back into arr[l..r]*/
+            i = 0; // Initial index of first subarray
+            j = 0; // Initial index of second subarray
+            k = left; // Initial index of merged subarray
+            while (i < n1 && j < n2){
+                if (L[i] <= R[j]){
+                    this->data[k] = L[i];
+                    i++;
+                }
+                else{
+                    this->data[k] = R[j];
+                    j++;
+                }
+                k++;
+            }
+
+            /* Copy the remaining elements of L[], if there
+               are any */
+            while (i < n1){
+                this->data[k] = L[i];
+                i++;
+                k++;
+            }
+
+            /* Copy the remaining elements of R[], if there
+               are any */
+            while (j < n2){
+                this->data[k] = R[j];
+                j++;
+                k++;
+            }
+        }
+        void mergeSort(int left, int right){
+            if(left < right){
+                int middle = left + (right - left) / 2;
+
+                mergeSort(left, middle);
+                mergeSort(middle + 1, right);
+
+                merge(left, middle, right);
+            }
+        }
     public:
         virtual void sort() {   // Merge Sort
-            std::cout << "Mystery Sorter E" << std::endl;
+            // https://www.geeksforgeeks.org/merge-sort/
+            // std::cout << "Mystery Sorter E" << std::endl;
 
+            vectorSize = this->data.size();
+            mergeSort(0,vectorSize - 1);
 
+            /*
+            for(int i = 0; i < vectorSize; i++){
+                std::cout << this->data[i] << std::endl;
+            }
+            */
         }
 };
 
