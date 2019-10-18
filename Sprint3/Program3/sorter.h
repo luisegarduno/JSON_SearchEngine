@@ -1,5 +1,5 @@
-#include <iostream>
 #include <vector>
+#include <iostream>
 #include <stdlib.h>
 
 #ifndef SORTINGFUN_SORTER_H
@@ -27,8 +27,6 @@ class MysterySorterA : public Sorter<T> {
         virtual void sort() {   // Insertion sort
         // http://www.algolist.net/Algorithms/Sorting/Insertion_sort
 
-            // std::cout << "Mystery Sorter A" << std::endl;
-
             int i, j, tmp, vectorSize = this->data.size();
             for(i = 1;i < vectorSize; i++){
                 j = i;
@@ -41,12 +39,11 @@ class MysterySorterA : public Sorter<T> {
             }
 
             /*
+            std::cout << "Mystery Sorter A" << std::endl;
             for(int i = 0; i < vectorSize; i++){
                 std::cout << this->data[i] << std::endl;
             }
             */
-
-
         }
 };
 
@@ -55,8 +52,6 @@ class MysterySorterB : public Sorter<T> {
     public:
         virtual void sort() {   // Selection Sort
         // http://www.algolist.net/Algorithms/Sorting/Selection_sort
-
-            // std::cout << "Mystery Sorter B" << std::endl;
 
             int i,j, minIndex, tmp, vectorSize = this->data.size();
 
@@ -74,6 +69,7 @@ class MysterySorterB : public Sorter<T> {
                 }
             }
             /*
+            std::cout << "Mystery Sorter B" << std::endl;
             for(int i = 0; i < vectorSize; i++){
                 std::cout << this->data[i] << std::endl;
             }
@@ -87,7 +83,6 @@ class MysterySorterC : public Sorter<T> {
         virtual void sort() {   // Bubble Sort (optimized)
         // http://www.algolist.net/Algorithms/Sorting/Bubble_sort
 
-            // std::cout << "Mystery Sorter C" << std::endl;
             bool swapped = true;
             int j = 0, vectorSize = this->data.size(),tmp;
             while (swapped) {
@@ -103,6 +98,7 @@ class MysterySorterC : public Sorter<T> {
                 }
             }
             /*
+            std::cout << "Mystery Sorter C" << std::endl;
             for(int i = 0; i < vectorSize; i++){
                 std::cout << this->data[i] << std::endl;
             }
@@ -146,17 +142,15 @@ class MysterySorterD : public Sorter<T> {
         virtual void sort() {   // Quick Sort
             // http://www.algolist.net/Algorithms/Sorting/Quicksort
 
-            // std::cout << "Mystery Sorter D" << std::endl;
-
             vectorSize = this->data.size();
             quickSort(0,vectorSize - 1);
 
             /*
+            std::cout << "Mystery Sorter D" << std::endl;
             for(int i = 0; i < vectorSize; i++){
                 std::cout << this->data[i] << std::endl;
             }
             */
-
         }
 };
 
