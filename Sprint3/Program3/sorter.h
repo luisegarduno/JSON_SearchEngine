@@ -144,13 +144,6 @@ class MysterySorterD : public Sorter<T> {
 
             vectorSize = this->data.size();
             quickSort(0,vectorSize - 1);
-
-            /*
-            std::cout << "Mystery Sorter D" << std::endl;
-            for(int i = 0; i < vectorSize; i++){
-                std::cout << this->data[i] << std::endl;
-            }
-            */
         }
 };
 
@@ -159,8 +152,7 @@ class MysterySorterE : public Sorter<T> {
 
     private:
         int vectorSize;
-        void merge(int left, int middle, int right)
-        {
+        void merge(int left, int middle, int right){
             int i, j, k;
             int n1 = middle - left + 1;
             int n2 =  right - middle;
@@ -192,16 +184,14 @@ class MysterySorterE : public Sorter<T> {
                 k++;
             }
 
-            /* Copy the remaining elements of L[], if there
-               are any */
+            /* Copy the remaining elements of L[], if there are any */
             while (i < n1){
                 this->data[k] = L[i];
                 i++;
                 k++;
             }
 
-            /* Copy the remaining elements of R[], if there
-               are any */
+            /* Copy the remaining elements of R[], if there are any */
             while (j < n2){
                 this->data[k] = R[j];
                 j++;
@@ -227,6 +217,7 @@ class MysterySorterE : public Sorter<T> {
             mergeSort(0,vectorSize - 1);
 
             /*
+            std::cout << "Mystery Sorter E" << std::endl;
             for(int i = 0; i < vectorSize; i++){
                 std::cout << this->data[i] << std::endl;
             }

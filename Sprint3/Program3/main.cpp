@@ -1,5 +1,6 @@
 #include <vector>
 #include <iostream>
+#include <sorter.h>
 #include "dssorter.h"
 
 using namespace std;

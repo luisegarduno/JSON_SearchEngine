@@ -33,11 +33,11 @@ class Timer{
 class DSSorter{
 
     private:
-        std::vector<int> data;
-        std::vector<double> theAverage[EXPERIMENT_SIZE];
         using clock_t = high_resolution_clock;
         using milli_t = std::chrono::duration<double,std::micro>;
+        std::vector<int> data;
         size_t experimentNumber;
+        std::vector<double> theAverage[EXPERIMENT_SIZE];
 
     public:
         DSSorter(){}
@@ -65,7 +65,6 @@ class DSSorter{
                     experiment[k]->sort();
                     timeValue = theTime.elapsed();
                     times[k].push_back(timeValue);
-                    //cout << "Time taken: " << timeValue << " milliseconds\n" << endl;
                 }
             }
 
@@ -98,7 +97,6 @@ class DSSorter{
                     experiment[k]->sort();
                     timeValue = theTime.elapsed();
                     times[k].push_back(timeValue);
-                    //cout << "Time taken: " << timeValue << " milliseconds\n" << endl;
                 }
             }
 
@@ -131,7 +129,6 @@ class DSSorter{
                     experiment[k]->sort();
                     timeValue = theTime.elapsed();
                     times[k].push_back(timeValue);
-                    //cout << "Time taken: " << timeValue << " milliseconds\n" << endl;
                 }
             }
 
@@ -164,7 +161,6 @@ class DSSorter{
                     experiment[k]->sort();
                     timeValue = theTime.elapsed();
                     times[k].push_back(timeValue);
-                    //cout << "Time taken: " << timeValue << " milliseconds\n" << endl;
                 }
             }
 
@@ -197,7 +193,6 @@ class DSSorter{
                     experiment[k]->sort();
                     timeValue = theTime.elapsed();
                     times[k].push_back(timeValue);
-                    //cout << "Time taken: " << timeValue << " milliseconds\n" << endl;
                 }
             }
 
@@ -222,8 +217,6 @@ class DSSorter{
             cout << endl;
         }
 };
-
-
 
 
 #endif // DSSORTER_H
