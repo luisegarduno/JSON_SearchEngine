@@ -180,7 +180,7 @@ class DSSorter{
 
             cout << "Test 5: " << endl;
             calculateAverage(times);
-            data.clear();
+            data.clear();                                           // erases everything from data vector
         }
 
         void test6(){
