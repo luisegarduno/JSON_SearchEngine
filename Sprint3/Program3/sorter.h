@@ -1,6 +1,5 @@
 #include <vector>
 #include <iostream>
-#include <stdlib.h>
 
 #ifndef SORTINGFUN_SORTER_H
 #define SORTINGFUN_SORTER_H
