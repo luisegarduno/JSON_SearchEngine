@@ -1,5 +1,6 @@
 #include <vector>
 #include <iostream>
+#include "dsstring.h"
 #include "dssorter.h"
 
 using namespace std;
@@ -14,6 +15,15 @@ int main(){
     sortData->test4();                      // Sort Vector size 50
     sortData->test5();                      // Sort Vector size 100
     sortData->test6();                      // Sort Vector size 200
+
+
+    sortData->printResults(0);              // prints best,worst,avg case for MysterySortA
+    sortData->printResults(1);              //                                MysterySortB
+    sortData->printResults(2);              //                                MysterySortC
+    sortData->printResults(3);              //                                MysterySortD
+    sortData->printResults(4);                //                                MysterySortE
+
+    sortData->printAverage(0);
 
     delete sortData;
 

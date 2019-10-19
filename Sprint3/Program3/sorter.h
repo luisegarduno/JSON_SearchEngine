@@ -36,13 +36,6 @@ class MysterySorterA : public Sorter<T> {
                     j--;
                 }
             }
-
-            /*
-            std::cout << "Mystery Sorter A" << std::endl;
-            for(int i = 0; i < vectorSize; i++){
-                std::cout << this->data[i] << std::endl;
-            }
-            */
         }
 };
 
@@ -67,56 +60,32 @@ class MysterySorterB : public Sorter<T> {
                     this->data[minIndex] = tmp;
                 }
             }
-            /*
-            std::cout << "Mystery Sorter B" << std::endl;
-            for(int i = 0; i < vectorSize; i++){
-                std::cout << this->data[i] << std::endl;
-            }
-            */
         }
 };
 
 template <typename T>
 class MysterySorterC : public Sorter<T> {
     private:
-    void swap(int *xp, int *yp){
-        int temp = *xp;
-        *xp = *yp;
-        *yp = temp;
+        void swap(int *a, int *b){
+            int temp = *a;
+            *a = *b;
+            *b = temp;
     }
 
     public:
         virtual void sort() {   // Bubble Sort (optimized)
-        // http://www.algolist.net/Algorithms/Sorting/Bubble_sort
-        int i, j,vectorSize = this->data.size();
-            for (i = 0; i < vectorSize-1; i++)
+        // https://www.geeksforgeeks.org/bubble-sort/
 
-            // Last i elements are already in place
-            for (j = 0; j < vectorSize-i-1; j++)
-                if (this->data[j] > this->data[j+1])
-                    swap(&this->data[j], &this->data[j+1]);
-        /*
-            bool swapped = true;
-            int j = 0, vectorSize = this->data.size(),tmp;
-            while (swapped) {
-                swapped = false;
-                j++;
-                for (int i = 0; i < vectorSize - j; i++) {
-                    if (this->data[i] > this->data[i + 1]) {
-                        tmp = this->data[i];
-                        this->data[i] = this->data[i + 1];
-                        this->data[i + 1] = tmp;
-                        swapped = true;
+            int i, j,vectorSize = this->data.size();
+                for (i = 0; i < vectorSize-1; i++){
+
+                    // Last i elements are already in place
+                    for (j = 0; j < vectorSize-i-1; j++){
+                        if (this->data[j] > this->data[j+1]){
+                            swap(&this->data[j], &this->data[j+1]);
+                        }
                     }
                 }
-            }
-            */
-            /*
-            std::cout << "Mystery Sorter C" << std::endl;
-            for(int i = 0; i < vectorSize; i++){
-                std::cout << this->data[i] << std::endl;
-            }
-            */
         }
 };
 
@@ -225,17 +194,9 @@ class MysterySorterE : public Sorter<T> {
     public:
         virtual void sort() {   // Merge Sort
             // https://www.geeksforgeeks.org/merge-sort/
-            // std::cout << "Mystery Sorter E" << std::endl;
 
             vectorSize = this->data.size();
             mergeSort(0,vectorSize - 1);
-
-            /*
-            std::cout << "Mystery Sorter E" << std::endl;
-            for(int i = 0; i < vectorSize; i++){
-                std::cout << this->data[i] << std::endl;
-            }
-            */
         }
 };
 
