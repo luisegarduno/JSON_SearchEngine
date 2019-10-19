@@ -57,10 +57,10 @@ class DSSorter{
             experiment[3] = new MysterySorterD<T>;
             experiment[4] = new MysterySorterE<T>;
 
-            for(int p = 0; p < EXPERIMENT_SIZE; p++){
-                theBest[p].push_back(1000000000.000000);          // declare a VERY large number the best case (so it's easily replaced)
-                theWorst[p].push_back(0.00001);                 // declare a small number the worst case (so it's easily replaced)
-            }
+           // for(int p = 0; p < EXPERIMENT_SIZE; p++){
+             //   theBest[p].push_back(1000000000.000000);          // declare a VERY large number the best case (so it's easily replaced)
+            //    theWorst[p].push_back(0.00001);                 // declare a small number the worst case (so it's easily replaced)
+            //}
         }
 
         ~DSSorter(){
@@ -72,6 +72,11 @@ class DSSorter{
             experimentNumber = 0;
             for(int i = 0; i < 10; i++){
                 data.push_back(i);                              // adds values 1-10 to vector
+            }
+
+            for(int p = 0; p < EXPERIMENT_SIZE; p++){
+                theBest[p].push_back(1000000000.000000);          // declare a VERY large number the best case (so it's easily replaced)
+                theWorst[p].push_back(0.00001);                 // declare a small number the worst case (so it's easily replaced)
             }
 
             Timer theTime;
@@ -99,14 +104,9 @@ class DSSorter{
 
             //cout << "Test 1: " << endl;
             calculateAverage(times);                            // calculate avg of times for each MysterySorter
-            cout << "The Best: " << theBest[0].at(0);
+            //cout << "The Best: " << theBest[0].at(0);
             addMysterySortA(experimentNumber);
             addMysterySortB(experimentNumber);
-            addMysterySortC(experimentNumber);
-            addMysterySortD(experimentNumber);
-            addMysterySortE(experimentNumber);
-
-
 
             data.clear();                                       // erases everything in data vector
         }
@@ -116,6 +116,11 @@ class DSSorter{
 
             for(int i = 0; i < 15; i++){                        // adds 15 random values to data vector
                data.push_back(rand() % 10);
+            }
+
+            for(int p = 0; p < EXPERIMENT_SIZE; p++){
+                theBest[p].push_back(1000000000.000000);          // declare a VERY large number the best case (so it's easily replaced)
+                theWorst[p].push_back(0.00001);                 // declare a small number the worst case (so it's easily replaced)
             }
 
             Timer theTime;
@@ -145,9 +150,6 @@ class DSSorter{
 
             addMysterySortA(experimentNumber);
             addMysterySortB(experimentNumber);
-            addMysterySortC(experimentNumber);
-            addMysterySortD(experimentNumber);
-            addMysterySortE(experimentNumber);
 
             data.clear();
         }
@@ -155,7 +157,7 @@ class DSSorter{
         void test3(){
             experimentNumber = 2;
 
-            for(int i = 0; i < 30; i++){                        // adds 30 random values to data vector
+            for(int i = 0; i < 20; i++){                        // adds 30 random values to data vector
                data.push_back(rand() % 10);                     // adds values between 1-9
             }
 
@@ -186,9 +188,6 @@ class DSSorter{
 
             addMysterySortA(experimentNumber);
             addMysterySortB(experimentNumber);
-            addMysterySortC(experimentNumber);
-            addMysterySortD(experimentNumber);
-            addMysterySortE(experimentNumber);
 
             data.clear();
         }
@@ -196,7 +195,7 @@ class DSSorter{
         void test4(){
             experimentNumber = 3;
 
-            for(int i = 0; i < 50; i++){                            // generate 50 random variables to add to data vector
+            for(int i = 0; i < 75; i++){                            // generate 50 random variables to add to data vector
                data.push_back(rand() % 10);
             }
 
@@ -227,9 +226,6 @@ class DSSorter{
 
             addMysterySortA(experimentNumber);
             addMysterySortB(experimentNumber);
-            addMysterySortC(experimentNumber);
-            addMysterySortD(experimentNumber);
-            addMysterySortE(experimentNumber);
 
             data.clear();
         }
@@ -237,7 +233,7 @@ class DSSorter{
         void test5(){
             experimentNumber = 4;
 
-            for(int i = 0; i < 100; i++){
+            for(int i = 0; i < 150; i++){
                data.push_back(rand() % 10);
             }
 
@@ -269,59 +265,11 @@ class DSSorter{
 
             addMysterySortA(experimentNumber);
             addMysterySortB(experimentNumber);
-            addMysterySortC(experimentNumber);
-            addMysterySortD(experimentNumber);
-            addMysterySortE(experimentNumber);
 
             data.clear();                                           // erases everything from data vector
         }
 
-        void test6(){
-            experimentNumber = 5;
-
-            for(int i = 0; i < 200; i++){                           // add 200 random single digit numbers to
-               data.push_back(rand() % 10);                         // data vector
-            }
-
-            Timer theTime;
-            double timeValue;
-            std::vector<double> times[EXPERIMENT_SIZE];
-
-            for(int j = 0; j < 20; j++){                            // calculate the average of 15 occurances
-                for(int k = 0; k < EXPERIMENT_SIZE; k++){
-                    experiment[k]->setData(data);
-                    theTime.reset();
-                    experiment[k]->sort();
-                    timeValue = theTime.elapsed();
-
-                    if(timeValue <= theBest[k].at(0)){
-                        theBest[k].pop_back();
-                        theBest[k].push_back(timeValue);
-                    }
-
-                    if(timeValue >= theWorst[k].at(0)){
-                        theWorst[k].pop_back();
-                        theWorst[k].push_back(timeValue);
-                    }
-                    times[k].push_back(timeValue);
-                }
-            }
-
-
-            //cout << "Test 6: " << endl;
-            calculateAverage(times);
-
-            addMysterySortA(experimentNumber);
-            addMysterySortB(experimentNumber);
-            addMysterySortC(experimentNumber);
-            addMysterySortD(experimentNumber);
-            addMysterySortE(experimentNumber);
-
-            data.clear();
-        }
-
         void addMysterySortA(int i){
-
             mystSortA[i].push_back(theBest[i].at(0));
             mystSortA[i].push_back(theWorst[i].at(0));
             mystSortA[i].push_back(theAverage[i].at(0));
@@ -332,24 +280,6 @@ class DSSorter{
             mystSortB[i].push_back(theBest[i].at(0));
             mystSortB[i].push_back(theWorst[i].at(0));
             mystSortB[i].push_back(theAverage[i].at(0));
-        }
-
-        void addMysterySortC(int i){
-            mystSortC[i].push_back(theBest[i].at(0));
-            mystSortC[i].push_back(theWorst[i].at(0));
-            mystSortC[i].push_back(theAverage[i].at(0));
-        }
-
-        void addMysterySortD(int i){
-            mystSortD[i].push_back(theBest[i].at(0));
-            mystSortD[i].push_back(theWorst[i].at(0));
-            mystSortD[i].push_back(theAverage[i].at(0));
-        }
-
-        void addMysterySortE(int i){
-            mystSortE[i].push_back(theBest[i].at(0));
-            mystSortE[i].push_back(theWorst[i].at(0));
-            mystSortE[i].push_back(theAverage[i].at(0));
         }
 
 
@@ -375,7 +305,7 @@ class DSSorter{
         void printResults(int mysterySorter){
             if(mysterySorter == 0){
                 cout << "MysterySortA: " << endl;
-                for(int b = 0; b < EXPERIMENT_SIZE + 1; b++){
+                for(int b = 0; b < EXPERIMENT_SIZE; b++){
                     cout << "TEST[" << b + 1 << "]:" << endl;
                     cout << "\tBest Case: " << mystSortA[b].at(0) << endl;
                     cout << "\tWorst Case: " << mystSortA[b].at(1) << endl;
@@ -385,46 +315,13 @@ class DSSorter{
             }
             else if(mysterySorter == 1){
                 cout << "MysterySortB: " << endl;
-                for(int b = 0; b < EXPERIMENT_SIZE + 1; b++){
+                for(int b = 0; b < EXPERIMENT_SIZE; b++){
                     cout << "TEST[" << b + 1 << "]:" << endl;
                     cout << "\tBest Case: " << mystSortB[b].at(0) << endl;
                     cout << "\tWorst Case: " << mystSortB[b].at(1) << endl;
                     cout << "\tAverage Case: " << mystSortB[b].at(2) << endl;
                 }
                 cout << endl;
-            }
-            else if(mysterySorter == 2){
-                cout << "MysterySortC: " << endl;
-                for(int b = 0; b < EXPERIMENT_SIZE + 1; b++){
-                    cout << "TEST[" << b + 1 << "]:" << endl;
-                    cout << "\tBest Case: " << mystSortC[b].at(0) << endl;
-                    cout << "\tWorst Case: " << mystSortC[b].at(1) << endl;
-                    cout << "\tAverage Case: " << mystSortC[b].at(2) << endl;
-                }
-                cout << endl;
-
-            }
-            else if(mysterySorter == 3){
-                cout << "MysterySortD: " << endl;
-                for(int b = 0; b < EXPERIMENT_SIZE + 1; b++){
-                    cout << "TEST[" << b + 1 << "]:" << endl;
-                    cout << "\tBest Case: " << mystSortD[b].at(0) << endl;
-                    cout << "\tWorst Case: " << mystSortD[b].at(1) << endl;
-                    cout << "\tAverage Case: " << mystSortD[b].at(2) << endl;
-                }
-                cout << endl;
-
-            }
-            else if(mysterySorter == 4){
-                cout << "MysterySortE: " << endl;
-                for(int b = 0; b < EXPERIMENT_SIZE + 1; b++){
-                    cout << "TEST[" << b + 1 << "]:" << endl;
-                    cout << "\tBest Case: " << mystSortE[b].at(0) << endl;
-                    cout << "\tWorst Case: " << mystSortE[b].at(1) << endl;
-                    cout << "\tAverage Case: " << mystSortE[b].at(2) << endl;
-                }
-                cout << endl;
-
             }
 
         }
@@ -453,9 +350,10 @@ class DSSorter{
             int averageVectorSize = theAverage[i].size();
 
             for(int j = 0; j < averageVectorSize; j++){
-                cout << "TEST[" << j+1 << "]:" << endl;
-                cout << "\tBest Case: " << theBest[i].at(0) << endl;
-                cout << "\tAverage Case: " << theAverage[i].at(j) << endl;
+                cout << "TEST[" << j + 1 << "]:" << endl;
+                cout << "\tBest Case: " << theBest[j].at(0) << endl;
+                cout << "\tWorst Case: " << theWorst[j].at(0) << endl;
+                cout << "\tAverage Case: " << theAverage[j].at(i) << endl;
             }
             cout << endl;
         }
