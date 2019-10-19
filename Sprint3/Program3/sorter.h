@@ -78,10 +78,24 @@ class MysterySorterB : public Sorter<T> {
 
 template <typename T>
 class MysterySorterC : public Sorter<T> {
+    private:
+    void swap(int *xp, int *yp){
+        int temp = *xp;
+        *xp = *yp;
+        *yp = temp;
+    }
+
     public:
         virtual void sort() {   // Bubble Sort (optimized)
         // http://www.algolist.net/Algorithms/Sorting/Bubble_sort
+        int i, j,vectorSize = this->data.size();
+            for (i = 0; i < vectorSize-1; i++)
 
+            // Last i elements are already in place
+            for (j = 0; j < vectorSize-i-1; j++)
+                if (this->data[j] > this->data[j+1])
+                    swap(&this->data[j], &this->data[j+1]);
+        /*
             bool swapped = true;
             int j = 0, vectorSize = this->data.size(),tmp;
             while (swapped) {
@@ -96,6 +110,7 @@ class MysterySorterC : public Sorter<T> {
                     }
                 }
             }
+            */
             /*
             std::cout << "Mystery Sorter C" << std::endl;
             for(int i = 0; i < vectorSize; i++){
