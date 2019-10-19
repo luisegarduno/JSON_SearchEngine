@@ -132,7 +132,7 @@ class MysterySorterD : public Sorter<T> {
         }
 
         int partition(int left, int right){
-            int pivot = this->data[right];
+            int pivot = this->data[0];
             int i = (left - 1);
             for(int j = left; j < right; j++){
                 if(this->data[j] <= pivot){
