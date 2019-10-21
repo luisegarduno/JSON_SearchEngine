@@ -46,12 +46,6 @@ class DSSorter{
         std::vector<double> theAverage[EXPERIMENT_SIZE];    // containts average run times for each case
         std::vector<DSString> solver_Mystery[EXPERIMENT_SIZE];  // contains final answers
 
-        map<DSString*, double> data_set1;                   // map is created to hold key and value
-        map<DSString*, double> data_set2;
-        map<DSString*, double> data_set3;
-        map<DSString*, double> data_set4;
-        map<DSString*, double> data_set5;
-
     public:
 
         DSSorter(){
@@ -312,58 +306,6 @@ class DSSorter{
             }
         }
 
-        DSString* getMysterySort(int sorterNumber){                 // prints out the MysteryCase Sorter
-            DSString* letter;                                       // create DSString with pointer
-
-            switch(sorterNumber) {
-                case 0:
-                    letter = new DSString("MysterySortA");          // allocate to HEAP
-                    return letter;
-                case 1:
-                    letter = new DSString("MysterySortB");
-                    return letter;
-                case 2:
-                    letter = new DSString("MysterySortC");
-                    return letter;
-                case 3:
-                    letter = new DSString("MysterySortD");
-                    return letter;
-                case 4:
-                    letter = new DSString("MysterySortE");
-                    return letter;
-            default:                                        // if 0 > sorterNumber or sorterNumber >= 5
-                letter = new DSString("ERROR");
-                return letter;
-            }
-
-            delete letter;                  // deallocate from HEAP when scope is left
-        }
-
-        void fillMaps(){
-
-            for(int testCase = 0; testCase < EXPERIMENT_SIZE; testCase++){
-                for(int mysterySort = 0; mysterySort < EXPERIMENT_SIZE; mysterySort++){
-                    if(testCase == 0){
-                        data_set1.emplace(getMysterySort(mysterySort),theBest[mysterySort].at(testCase));
-                    }
-                    if(testCase == 1){
-                        data_set2.emplace(getMysterySort(mysterySort),theBest[mysterySort].at(testCase));
-                    }
-                    if(testCase == 2){
-                        data_set3.emplace(getMysterySort(mysterySort),theBest[mysterySort].at(testCase));
-                    }
-                    if(testCase == 3){
-                        data_set4.emplace(getMysterySort(mysterySort),theBest[mysterySort].at(testCase));
-                    }
-                    if(testCase == 4){
-                        data_set5.emplace(getMysterySort(mysterySort),theBest[mysterySort].at(testCase));
-                    }
-                }
-            }
-
-
-        }
-
         void printAllResults(){
             for(int testCase = 0; testCase < EXPERIMENT_SIZE; testCase++){                      // Prints all MysterySorts for each data sets
                 cout << "DataSet[" << testCase + 1 << "]: " << endl;
@@ -379,15 +321,12 @@ class DSSorter{
         }
 
         void mysteryAnalyzer(){
-            map<DSString,int> attempt;
-            attempt.emplace(DSString("Howdy"),3);
-            //cout << "HERE: " << data_set1.at(getMysterySort(0)) << endl;
 
-            //if(data_set5.at(getMysterySort(0)) < data_set5.at(getMysterySort(1))){
-                /*if(data_set5.at(getMysterySort(0)) < data_set5.at(getMysterySort(2))){
-                    if(data_set5.at(getMysterySort(0)) < data_set5.at(getMysterySort(3))){
+            if(theBest[5].at(0) < theBest[5].at(1)){
+                if(theBest[5].at(0) < theBest[5].at(2)){
+                    if(theBest[5].at(0) < theBest[5].at(3)){
 
-                        if(data_set5.at(getMysterySort(0)) < data_set5.at(getMysterySort(4))){      // using biggest data set, if it has the smallest run time
+                        if(theBest[5].at(0) < theBest[5].at(4)){      // using biggest data set, if it has the smallest run time
                             solver_Mystery[0].push_back(DSString("MergeSort"));
                             solver_Mystery[4].push_back(DSString("QuickSort"));
                         }
@@ -397,7 +336,7 @@ class DSSorter{
                         }
                     }
 
-                    if(data_set5.at(getMysterySort(3)) < data_set5.at(getMysterySort(4))){
+                    if(theBest[5].at(3) < theBest[5].at(4)){
                         solver_Mystery[3].push_back(DSString("MergeSort"));
                         solver_Mystery[4].push_back(DSString("QuickSort"));
                     }
@@ -406,9 +345,9 @@ class DSSorter{
                         solver_Mystery[4].push_back(DSString("MergeSort"));
                     }
 
-                }*/
+                }
 
-            //}
+            }
 
 
         }
