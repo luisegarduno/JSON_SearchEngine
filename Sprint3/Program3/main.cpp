@@ -16,7 +16,7 @@ int main(){
 
     sortData->printAllResults();        // prints best,worst & average case for each dataSet
 
-    //sortData->mysteryAnalyzer();
+    sortData->mysteryAnalyzer();
 
     delete sortData;
 
