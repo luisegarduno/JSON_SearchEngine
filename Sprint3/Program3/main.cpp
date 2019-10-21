@@ -9,11 +9,11 @@ int main(){
 
     DSSorter<int> * sortData = new DSSorter<int>();
 
-    sortData->test1();                      // Sort Vector size 10
-    sortData->test2();                      // Sort Vector size 100
-    sortData->test3();                      // Sort Vector size 500
-    sortData->test4();                      // Sort Vector size 1k
-    sortData->test5();                      // Sort Vector size 5k
+    sortData->dataSet1();                      // Sort Vector size 10
+    sortData->dataSet2();                      // Sort Vector size 100
+    sortData->dataSet3();                      // Sort Vector size 500
+    sortData->dataSet4();                      // Sort Vector size 1k
+    sortData->dataSet5();                      // Sort Vector size 5k
 
     sortData->printAllResults();
 
