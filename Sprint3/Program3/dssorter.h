@@ -330,6 +330,10 @@ class DSSorter{
         }
 
         void fillMaps(){
+            DSString letterA("MysterySorterA");
+            data_set1.emplace(letterA,theBest[0].at(0));
+
+            /*
             for(int testCase = 0; testCase < EXPERIMENT_SIZE; testCase++){
                 for(int mysterySort = 0; mysterySort < EXPERIMENT_SIZE; mysterySort++){
                     if(testCase == 0){
@@ -347,8 +351,11 @@ class DSSorter{
                     if(testCase == 4){
                         data_set5.emplace(getMysterySort(mysterySort),theBest[mysterySort].at(testCase));
                     }
+                    else{
+                    }
                 }
             }
+            */
         }
 
         void printAllResults(){
@@ -357,6 +364,8 @@ class DSSorter{
 
                 for(int mysterySort = 0; mysterySort < EXPERIMENT_SIZE; mysterySort++){
                     getMystery(mysterySort);
+
+
                     cout << "\tBest Case: " << theBest[mysterySort].at(testCase);
                     cout << "\tWorst Case: " << theWorst[mysterySort].at(testCase);
                     cout << "\tAverage Case: " << theAverage[mysterySort].at(testCase) << endl;
