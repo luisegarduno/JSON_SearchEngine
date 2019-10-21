@@ -45,7 +45,7 @@ class DSSorter{
         std::vector<double> theWorst[EXPERIMENT_SIZE];      // contains worst run times for each case
         std::vector<double> theAverage[EXPERIMENT_SIZE];    // containts average run times for each case
 
-        map<DSString, double> data_set1;
+        map<DSString*, double> data_set1;
         map<DSString, double> data_set2;
         map<DSString, double> data_set3;
         map<DSString, double> data_set4;
@@ -330,8 +330,10 @@ class DSSorter{
         }
 
         void fillMaps(){
-            DSString letterA("MysterySorterA");
+            DSString * letterA = new DSString("MysterySorterA");
             data_set1.emplace(letterA,theBest[0].at(0));
+
+            delete letterA;
 
             /*
             for(int testCase = 0; testCase < EXPERIMENT_SIZE; testCase++){
