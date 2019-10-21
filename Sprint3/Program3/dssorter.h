@@ -321,9 +321,12 @@ class DSSorter{
         }
 
         void mysteryAnalyzer(){
+            cout << "in here" << endl;
 
             if(theBest[5].at(0) < theBest[5].at(1)){
+                cout << "in here 1" << endl;
                 if(theBest[5].at(0) < theBest[5].at(2)){
+                    cout << "in here 2" << endl;
                     if(theBest[5].at(0) < theBest[5].at(3)){
 
                         if(theBest[5].at(0) < theBest[5].at(4)){      // using biggest data set, if it has the smallest run time
@@ -348,7 +351,9 @@ class DSSorter{
                 }
 
             }
-
+            cout << "out here" << endl;
+            cout << "MysterySortD is " << solver_Mystery[3].at(0) << endl;
+            cout << "MysterySortE is " << solver_Mystery[4].at(0) << endl;
 
         }
 
