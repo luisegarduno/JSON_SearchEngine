@@ -15,7 +15,7 @@ int main(){
     sortData->dataSet4();                      // Sort Vector size 1k
     sortData->dataSet5();                      // Sort Vector size 5k
 
-    sortData->printAllResults();
+    sortData->printAllResults();                // prints best,worst & average case for each dataSet
 
     delete sortData;
 
