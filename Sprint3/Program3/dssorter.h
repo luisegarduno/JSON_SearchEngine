@@ -44,7 +44,7 @@ class DSSorter{
         std::vector<double> theBest[EXPERIMENT_SIZE];       // contains best run times for each case
         std::vector<double> theWorst[EXPERIMENT_SIZE];      // contains worst run times for each case
         std::vector<double> theAverage[EXPERIMENT_SIZE];    // containts average run times for each case
-        std::vector<DSString> solver_Mystery[EXPERIMENT_SIZE];  // contains final answers
+        //std::vector<DSString> solver_Mystery[EXPERIMENT_SIZE];  // contains final answers
 
     public:
 
@@ -323,7 +323,7 @@ class DSSorter{
         void mysteryAnalyzer(){
             cout << "in here" << endl;
 
-            if(theBest[5].at(0) < theBest[5].at(1)){
+            /*if(theBest[5].at(0) < theBest[5].at(1)){
                 cout << "in here 1" << endl;
                 if(theBest[5].at(0) < theBest[5].at(2)){
                     cout << "in here 2" << endl;
@@ -350,10 +350,10 @@ class DSSorter{
 
                 }
 
-            }
+            }*/
             cout << "out here" << endl;
-            cout << "MysterySortD is " << solver_Mystery[3].at(0) << endl;
-            cout << "MysterySortE is " << solver_Mystery[4].at(0) << endl;
+            //cout << "MysterySortD is " << solver_Mystery[3].at(0) << endl;
+            //cout << "MysterySortE is " << solver_Mystery[4].at(0) << endl;
 
         }
 
