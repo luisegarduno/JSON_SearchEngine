@@ -322,31 +322,25 @@ class DSSorter{
         void mysteryAnalyzer(){
 
             std::vector<DSString> solver_Mystery[EXPERIMENT_SIZE];  // contains final answers
-            cout << "in here" << endl;
             cout << theBest[0].at(4) << " < " << theBest[1].at(4) << endl;
             if(theBest[0].at(4) < theBest[1].at(4)){
-                cout << "in here 1" << endl;
                 if(theBest[0].at(4) < theBest[2].at(4)){
-                    cout << "in here 2" << endl;
                     if(theBest[0].at(4) < theBest[3].at(4)){
-                        cout << "in here 3" << endl;
 
                         if(theBest[0].at(4) < theBest[4].at(4)){      // using biggest data set, if it has the smallest run time
-                            cout << "in here 4.1" << endl;
-                            //solver_Mystery[0].push_back(DSString("MergeSort"));
-                            //solver_Mystery[4].push_back(DSString("QuickSort"));
+                            solver_Mystery[0].push_back(DSString("MergeSort"));
+                            solver_Mystery[4].push_back(DSString("QuickSort"));
                         }
                         else{
                             cout << "in here 4.2" << endl;
                             if(theBest[3].at(4) < theBest[4].at(4)){
-                                cout << "in here 4" << endl;
-                                //solver_Mystery[3].push_back(DSString("MergeSort"));
-                                //solver_Mystery[4].push_back(DSString("QuickSort"));
+                                solver_Mystery[3].push_back(DSString("MergeSort"));
+                                solver_Mystery[4].push_back(DSString("QuickSort"));
                             }
                             else{
                                 cout << "in here 5" << endl;
-                                //solver_Mystery[3].push_back(DSString("QuickSort"));
-                                //solver_Mystery[4].push_back(DSString("MergeSort"));
+                                solver_Mystery[3].push_back(DSString("QuickSort"));
+                                solver_Mystery[4].push_back(DSString("MergeSort"));
                             }
                         }
                     }
