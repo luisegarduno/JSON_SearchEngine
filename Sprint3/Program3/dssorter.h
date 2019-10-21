@@ -321,38 +321,35 @@ class DSSorter{
 
         void mysteryAnalyzer(){
 
-            std::vector<DSString> solver_Mystery[EXPERIMENT_SIZE];  // contains final answers
-            cout << theBest[0].at(4) << " < " << theBest[1].at(4) << endl;
+            //std::vector<DSString> solver_Mystery[EXPERIMENT_SIZE];  // contains final answers
+
             if(theBest[0].at(4) < theBest[1].at(4)){
                 if(theBest[0].at(4) < theBest[2].at(4)){
                     if(theBest[0].at(4) < theBest[3].at(4)){
 
                         if(theBest[0].at(4) < theBest[4].at(4)){      // using biggest data set, if it has the smallest run time
-                            solver_Mystery[0].push_back(DSString("MergeSort"));
-                            solver_Mystery[4].push_back(DSString("QuickSort"));
+                            //solver_Mystery[0].push_back(DSString("MergeSort"));
+                            //solver_Mystery[4].push_back(DSString("QuickSort"));
                         }
                         else{
-                            cout << "in here 4.2" << endl;
                             if(theBest[3].at(4) < theBest[4].at(4)){
-                                solver_Mystery[3].push_back(DSString("MergeSort"));
-                                solver_Mystery[4].push_back(DSString("QuickSort"));
+                                cout << "MysterySortD is MergeSort." << endl;
+                                cout << "MysterySortE is QuickSort." << endl;
+                                //solver_Mystery[3].push_back(DSString("MergeSort"));
+                                //solver_Mystery[4].push_back(DSString("QuickSort"));
                             }
                             else{
-                                cout << "in here 5" << endl;
-                                solver_Mystery[0].push_back(DSString("Howdy"));
-                                solver_Mystery[1].push_back(DSString("Howdy"));
-                                solver_Mystery[2].push_back(DSString("HOwdy"));
-                                solver_Mystery[3].push_back(DSString("QuickSort"));
-                                solver_Mystery[4].push_back(DSString("MergeSort"));
+                                cout << "MysterySortD is QuickSort." << endl;
+                                cout << "MysterySortE is MergeSort." << endl;
+                                //solver_Mystery[3].push_back(DSString("QuickSort"));
+                                //solver_Mystery[4].push_back(DSString("MergeSort"));
                             }
                         }
                     }
 
                 }
-                cout << "now leaving " << endl;
 
             }
-            cout << "out here" << endl;
 
             //cout << "MysterySortD is " << solver_Mystery[3].at(0) << endl;
             //cout << "MysterySortE is " << solver_Mystery[4].at(0) << endl;
