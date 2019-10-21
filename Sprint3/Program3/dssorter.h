@@ -46,10 +46,10 @@ class DSSorter{
         std::vector<double> theAverage[EXPERIMENT_SIZE];    // containts average run times for each case
 
         map<DSString*, double> data_set1;
-        map<DSString, double> data_set2;
-        map<DSString, double> data_set3;
-        map<DSString, double> data_set4;
-        map<DSString, double> data_set5;
+        map<DSString*, double> data_set2;
+        map<DSString*, double> data_set3;
+        map<DSString*, double> data_set4;
+        map<DSString*, double> data_set5;
 
     public:
 
@@ -311,31 +311,34 @@ class DSSorter{
             }
         }
 
-        DSString getMysterySort(int sorterNumber){                 // prints out the MysteryCase Sorter
+        DSString* getMysterySort(int sorterNumber){                 // prints out the MysteryCase Sorter
+            DSString* letter;
             switch(sorterNumber) {
                 case 0:
-                    return DSString("MysterySortA");
+                    letter = new DSString("MysterySortA");
+                    return letter;
                 case 1:
-                    return DSString("MysterySortB");
+                    letter = new DSString("MysterySortB");
+                    return letter;
                 case 2:
-                    return DSString("MysterySortC");
+                    letter = new DSString("MysterySortC");
+                    return letter;
                 case 3:
-                    return DSString("MysterySortD");
+                    letter = new DSString("MysterySortD");
+                    return letter;
                 case 4:
-                    return DSString("MysterySortE");
+                    letter = new DSString("MysterySortE");
+                    return letter;
             default:                                        // if 0 > sorterNumber or sorterNumber >= 5
-                cout << "Invalid sort case...";
-                return DSString("ERROR");
+                letter = new DSString("ERROR");
+                return letter;
             }
+
+            delete letter;
         }
 
         void fillMaps(){
-            DSString * letterA = new DSString("MysterySorterA");
-            data_set1.emplace(letterA,theBest[0].at(0));
 
-            delete letterA;
-
-            /*
             for(int testCase = 0; testCase < EXPERIMENT_SIZE; testCase++){
                 for(int mysterySort = 0; mysterySort < EXPERIMENT_SIZE; mysterySort++){
                     if(testCase == 0){
@@ -357,7 +360,6 @@ class DSSorter{
                     }
                 }
             }
-            */
         }
 
         void printAllResults(){
