@@ -339,6 +339,9 @@ class DSSorter{
                             }
                             else{
                                 cout << "in here 5" << endl;
+                                solver_Mystery[0].push_back(DSString("Howdy"));
+                                solver_Mystery[1].push_back(DSString("Howdy"));
+                                solver_Mystery[2].push_back(DSString("HOwdy"));
                                 solver_Mystery[3].push_back(DSString("QuickSort"));
                                 solver_Mystery[4].push_back(DSString("MergeSort"));
                             }
@@ -350,6 +353,7 @@ class DSSorter{
 
             }
             cout << "out here" << endl;
+
             //cout << "MysterySortD is " << solver_Mystery[3].at(0) << endl;
             //cout << "MysterySortE is " << solver_Mystery[4].at(0) << endl;
 
