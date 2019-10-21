@@ -321,31 +321,33 @@ class DSSorter{
 
         void mysteryAnalyzer(){
 
-            //std::vector<DSString> solver_Mystery[EXPERIMENT_SIZE];  // contains final answers
-
             if(theBest[0].at(4) < theBest[1].at(4)){            // A < B
+                if((theBest[1].at(4) > theBest[2].at(4)) && (theBest[1].at(4) > theBest[3].at(4)) && (theBest[1].at(4) > theBest[4].at(4))){
+                    cout << "MysterySortB is BubbleSort." << endl;
+                }
                 if(theBest[0].at(4) < theBest[2].at(4)){            // A < C
+                    if((theBest[2].at(4) > theBest[3].at(4)) && (theBest[1].at(4) > theBest[4].at(4))){
+                        cout << "MysterySortC is BubbleSort." << endl;
+                    }
 
                     if(theBest[0].at(4) < theBest[3].at(4)){            // A < D
+                        if((theBest[3].at(4) > theBest[4].at(4))){
+                            cout << "MysterySortD is BubbleSort." << endl;
+                        }
 
                         if(theBest[0].at(4) < theBest[4].at(4)){      // using biggest data set, if it has the smallest run time
                             cout << "MysterySortA is MergeSort." << endl;
                             cout << "MysterySortE is QuickSort." << endl;
-                            //solver_Mystery[0].push_back(DSString("MergeSort"));
-                            //solver_Mystery[4].push_back(DSString("QuickSort"));
                         }
                         else{
                             if(theBest[3].at(4) < theBest[4].at(4)){    // D < E
+
                                 cout << "MysterySortD is MergeSort." << endl;
                                 cout << "MysterySortE is QuickSort." << endl;
-                                //solver_Mystery[3].push_back(DSString("MergeSort"));
-                                //solver_Mystery[4].push_back(DSString("QuickSort"));
                             }
                             else{                                       // E < D
                                 cout << "MysterySortD is QuickSort." << endl;
                                 cout << "MysterySortE is MergeSort." << endl;
-                                //solver_Mystery[3].push_back(DSString("QuickSort"));
-                                //solver_Mystery[4].push_back(DSString("MergeSort"));
                             }
                         }
                     }
@@ -366,6 +368,9 @@ class DSSorter{
             }
             else{
                 if(theBest[1].at(4) < theBest[2].at(4)){        // if B < C
+                    if((theBest[2].at(4) > theBest[3].at(4)) && (theBest[2].at(4) > theBest[4].at(4))){
+                        cout << "MysterySortC is BubbleSort." << endl;
+                    }
                     if(theBest[1].at(4) < theBest[3].at(4)){        // if B < D
 
                         if(theBest[1].at(4) < theBest[4].at(4)){        // if B < E
@@ -404,13 +409,6 @@ class DSSorter{
                 }
             }
 
-
-            //cout << "MysterySortD is " << solver_Mystery[3].at(0) << endl;
-            //cout << "MysterySortE is " << solver_Mystery[4].at(0) << endl;
-
-        }
-
-        void solveMystery(){
 
         }
 };
