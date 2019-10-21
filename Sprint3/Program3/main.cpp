@@ -1,6 +1,5 @@
 #include <vector>
 #include <iostream>
-#include "dsstring.h"
 #include "dssorter.h"
 
 using namespace std;
@@ -16,6 +15,7 @@ int main(){
     sortData->dataSet5();                      // Sort Vector size 5k
 
     sortData->printAllResults();                // prints best,worst & average case for each dataSet
+    sortData->fillMaps();
 
     delete sortData;
 

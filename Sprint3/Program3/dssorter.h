@@ -5,6 +5,7 @@
 #include <chrono>
 #include <iostream>
 #include <stdlib.h>
+#include <map>
 #include "dsstring.h"
 #include "sorter.h"
 
@@ -12,6 +13,7 @@
 
 using std::cout;
 using std::endl;
+using std::map;
 using std::chrono::high_resolution_clock;
 
 class Timer{
@@ -36,14 +38,21 @@ template <typename T>
 class DSSorter{
 
     private:
-        std::vector<T> data;
+        std::vector<T> data;                                // holds data for each dataSet
         size_t experimentNumber;
-        Sorter<T>* experiment[EXPERIMENT_SIZE];
-        std::vector<double> theBest[EXPERIMENT_SIZE];
-        std::vector<double> theWorst[EXPERIMENT_SIZE];
-        std::vector<double> theAverage[EXPERIMENT_SIZE];
+        Sorter<T>* experiment[EXPERIMENT_SIZE];             // pointer to each MysterySorter
+        std::vector<double> theBest[EXPERIMENT_SIZE];       // contains best run times for each case
+        std::vector<double> theWorst[EXPERIMENT_SIZE];      // contains worst run times for each case
+        std::vector<double> theAverage[EXPERIMENT_SIZE];    // containts average run times for each case
+
+        map<DSString, double> data_set1;
+        map<DSString, double> data_set2;
+        map<DSString, double> data_set3;
+        map<DSString, double> data_set4;
+        map<DSString, double> data_set5;
 
     public:
+
         DSSorter(){
             experiment[0] = new MysterySorterA<T>;
             experiment[1] = new MysterySorterB<T>;
@@ -53,7 +62,7 @@ class DSSorter{
 
             for(int p = 0; p < EXPERIMENT_SIZE; p++){
                 theBest[p].push_back(100000000.00001);          // declare a VERY large number the best case (so it's easily replaced)
-                theWorst[p].push_back(0.00001);                   // declare a small number the worst case (so it's easily replaced)
+                theWorst[p].push_back(0.00001);                 // declare a small number the worst case (so it's easily replaced)
             }
         }
 
@@ -102,13 +111,13 @@ class DSSorter{
         void dataSet2(){
             experimentNumber = 1;
 
-            for(int i = 0; i < 100; i++){                        // adds 100 random values to data vector
+            for(int i = 0; i < 100; i++){                       // adds 100 random values to data vector
                data.push_back(rand() % 100);
             }
 
             for(int p = 0; p < EXPERIMENT_SIZE; p++){
-                theBest[p].push_back(1000000000.000000);          // declare a VERY large number the best case (so it's easily replaced)
-                theWorst[p].push_back(0.00001);                   // declare a small number the worst case (so it's easily replaced)
+                theBest[p].push_back(1000000000.000000);        // declare a VERY large number the best case (so it's easily replaced)
+                theWorst[p].push_back(0.00001);                 // declare a small number the worst case (so it's easily replaced)
             }
 
             Timer theTime;
@@ -143,12 +152,12 @@ class DSSorter{
         void dataSet3(){
             experimentNumber = 2;
 
-            for(int i = 0; i < 500; i++){                        // adds 1k random values to data vector
-               data.push_back(rand() % 500);                     // adds values between 1 - 1000
+            for(int i = 0; i < 500; i++){                       // adds 500 random values to data vector
+               data.push_back(rand() % 500);                    // adds values between 1 - 500
             }
 
             for(int p = 0; p < EXPERIMENT_SIZE; p++){
-                theBest[p].push_back(1000000000.000000);          // declare a VERY large number the best case (so it's easily replaced)
+                theBest[p].push_back(1000000000.000000);        // declare a VERY large number the best case (so it's easily replaced)
                 theWorst[p].push_back(0.00001);                 // declare a small number the worst case (so it's easily replaced)
             }
 
@@ -184,12 +193,12 @@ class DSSorter{
         void dataSet4(){
             experimentNumber = 3;
 
-            for(int i = 0; i < 1000; i++){                            // generate 5k random variables to add to data vector
-               data.push_back(rand() % 1000);                         // numbers between 1 - 1000
+            for(int i = 0; i < 1000; i++){                      // generate 1k random variables to add to data vector
+               data.push_back(rand() % 1000);                   // numbers between 1 - 1000
             }
 
             for(int p = 0; p < EXPERIMENT_SIZE; p++){
-                theBest[p].push_back(1000000000.000000);          // declare a VERY large number the best case (so it's easily replaced)
+                theBest[p].push_back(1000000000.000000);        // declare a VERY large number the best case (so it's easily replaced)
                 theWorst[p].push_back(0.00001);                 // declare a small number the worst case (so it's easily replaced)
             }
 
@@ -225,13 +234,13 @@ class DSSorter{
         void dataSet5(){
             experimentNumber = 4;
 
-            for(int i = 0; i < 5000; i++){              // Get 10k random values
+            for(int i = 0; i < 5000; i++){              // Get 5k random values
                data.push_back(rand() % 1000);           // between 1 - 1000
             }
 
             for(int p = 0; p < EXPERIMENT_SIZE; p++){
-                theBest[p].push_back(1000000000.000000);          // declare a VERY large number the best case (so it's easily replaced)
-                theWorst[p].push_back(0.00001);                   // declare a small number the worst case (so it's easily replaced)
+                theBest[p].push_back(1000000000.000000);        // declare a VERY large number the best case (so it's easily replaced)
+                theWorst[p].push_back(0.00001);                 // declare a small number the worst case (so it's easily replaced)
             }
 
             Timer theTime;
@@ -297,8 +306,48 @@ class DSSorter{
                 case 4:
                     cout << "\tMysterySortE:";
                     break;
-            default:
+            default:                                        // if 0 > sorterNumber or sorterNumber >= 5
                 cout << "Invalid sort case...";
+            }
+        }
+
+        DSString getMysterySort(int sorterNumber){                 // prints out the MysteryCase Sorter
+            switch(sorterNumber) {
+                case 0:
+                    return DSString("MysterySortA");
+                case 1:
+                    return DSString("MysterySortB");
+                case 2:
+                    return DSString("MysterySortC");
+                case 3:
+                    return DSString("MysterySortD");
+                case 4:
+                    return DSString("MysterySortE");
+            default:                                        // if 0 > sorterNumber or sorterNumber >= 5
+                cout << "Invalid sort case...";
+                return DSString("ERROR");
+            }
+        }
+
+        void fillMaps(){
+            for(int testCase = 0; testCase < EXPERIMENT_SIZE; testCase++){
+                for(int mysterySort = 0; mysterySort < EXPERIMENT_SIZE; mysterySort++){
+                    if(testCase == 0){
+                        data_set1.emplace(getMysterySort(mysterySort),theBest[mysterySort].at(testCase));
+                    }
+                    if(testCase == 1){
+                        data_set2.emplace(getMysterySort(mysterySort),theBest[mysterySort].at(testCase));
+                    }
+                    if(testCase == 2){
+                        data_set3.emplace(getMysterySort(mysterySort),theBest[mysterySort].at(testCase));
+                    }
+                    if(testCase == 3){
+                        data_set4.emplace(getMysterySort(mysterySort),theBest[mysterySort].at(testCase));
+                    }
+                    if(testCase == 4){
+                        data_set5.emplace(getMysterySort(mysterySort),theBest[mysterySort].at(testCase));
+                    }
+                }
             }
         }
 
@@ -314,6 +363,15 @@ class DSSorter{
                 }
                 cout << endl;
             }
+        }
+
+        void mysteryAnalyzer(){
+
+
+        }
+
+        void solveMystery(){
+
         }
 };
 
