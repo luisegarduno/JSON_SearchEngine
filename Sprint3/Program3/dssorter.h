@@ -379,6 +379,14 @@ class DSSorter{
                         }
                         else{
                             if(theBest[3].at(4) < theBest[4].at(4)){    // if D < E
+                                if(theBest[0].at(0) < theBest[1].at(0)){
+                                    cout << "MysterySortA is InsertionSort." << endl;
+                                    cout << "MysterySortB is SelectionSort." << endl;
+                                }
+                                else{
+                                    cout << "MysterySortA is SelectionSort." << endl;
+                                    cout << "MysterySortB is InsertionSort." << endl;
+                                }
                                 cout << "MysterySortD is MergeSort." << endl;
                                 cout << "MysterySortE is QuickSort." << endl;
                             }
