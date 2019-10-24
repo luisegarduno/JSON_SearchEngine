@@ -23,17 +23,14 @@ int runCatchTests(int argc, char* argv[]){
 
 int main(int argc, char * argv[]){
     try {
-            if(argc != 4 && argc != 1){                              // if argument counter != 6,
+            if(argc != 4 && argc != 1){                 // if argument counter != 4 or 1,
                 throw missingFilesException{};          // throw custom exception
             }
+            else if(TEST && argc == 1){
+                return runCatchTests(argc, argv);
+            }
             else {
-                if(TEST && argc == 1){
-                    return runCatchTests(argc, argv);
-                }
-                else{
 
-
-                }
             }
         }
 

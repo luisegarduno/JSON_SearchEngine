@@ -20,8 +20,6 @@ class DSVector{
         int getSize();                  // returns size of vector
         int getCapacity();              // returns vector capacity
 
-        void quickSort();
-        void quickSort(int,int);
         void clearVector();             // used to remove all the elements of the vector container
         void printVector();
         void swap(DSVector&);           // used to swap the contents between 2 vectors
@@ -190,62 +188,6 @@ T& DSVector<T>::operator=(T& v2){
     }
 
     return *this;
-}
-
-template <typename T>
-void DSVector<T>::quickSort(int LHS, int RHS){
-    if(LHS >= RHS){
-        return;
-    }
-
-    int first = LHS;
-    int last = RHS;
-    int pivot = (LHS + RHS) / 2;
-
-    while(LHS <= RHS){
-        while(this->data[LHS] < this->data[pivot]){
-            LHS++;
-        }
-        while(this->data[RHS] > this->data[pivot]){
-            RHS--;
-        }
-        if(LHS <= RHS){
-            int temp = LHS;
-            LHS = RHS;
-            RHS = temp;
-            LHS++;
-            RHS--;
-        }
-    }
-    quickSort(first,LHS - 1);
-    quickSort(LHS,last);
-}
-
-template <typename T>
-void DSVector<T>::quickSort(){
-    isSorted = true;
-    int LHS = 0;
-    int RHS = sizeOfDSVector - 1;
-    int first = LHS;
-    int last = RHS;
-    int pivot = (LHS + RHS) / 2;
-    while(LHS <= RHS){
-        while(this->data[LHS] < this->data[pivot]){
-            LHS++;
-        }
-        while(this->data[RHS] > this->data[pivot]){
-            RHS--;
-        }
-        if(LHS <= RHS){
-            int temp = LHS;
-            LHS = RHS;
-            RHS = temp;
-            LHS++;
-            RHS--;
-        }
-    }
-    quickSort(first,LHS - 1);
-    quickSort(LHS, last);
 }
 
 template <typename T>
