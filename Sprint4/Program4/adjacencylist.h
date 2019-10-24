@@ -1,0 +1,4 @@
+#ifndef ADJACENCYLIST_H
+#define ADJACENCYLIST_H
+
+#endif // ADJACENCYLIST_H
