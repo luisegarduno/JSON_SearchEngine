@@ -2,6 +2,10 @@
 #define DSNODE_H
 
 //#include "dslinkedlist.h"
+#include <iostream>
+
+using std::cout;
+using std::endl;
 
 template<class T>
 class DSNode{
