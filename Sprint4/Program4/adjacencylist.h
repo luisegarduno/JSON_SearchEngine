@@ -6,17 +6,17 @@
 template <typename T>
 class AdjacencyList{
     private:
-        //DSLinkedList< DSLinkedList<T> > adjacency_list;
+        DSLinkedList< DSLinkedList<T> > adjacency_list;
 
     public:
-        //DSLinkedList& checkOuter(T);
-        //bool checkInner(T, const DSLinkedList&);
+        DSLinkedList<T>& checkOuter(T);
+       bool checkInner(T, const DSLinkedList<T>&);
         void add(T,T);
 };
-/*
+
 template<typename T>
-void AdjacencyList<T>::add(T data1, data2){
-    DSLinkedList aList = checkOuter(data1);
+void AdjacencyList<T>::add(T data1, T data2){
+    DSLinkedList<T> aList = checkOuter(data1);
 
     if(aList != nullptr){
         bool dataExists = checkInner(data2);
@@ -26,9 +26,10 @@ void AdjacencyList<T>::add(T data1, data2){
         }
 
         else {
-            DSLinkedList newLinkedList();
-            newLinkedList.push(data);
+            DSLinkedList<T> newLinkedList;
+            //newLinkedList.push();
         }
+    }
 }
 
 template<typename T>
@@ -37,10 +38,9 @@ DSLinkedList<T>& AdjacencyList<T>::checkOuter(T data1){
 }
 
 template<typename T>
-bool AdjacencyList<T>::checkInner(T data1, const DSLinkedList& adjList){
+bool AdjacencyList<T>::checkInner(T data1, const DSLinkedList<T>& adjList){
 
 }
-*/
 
 
 #endif // ADJACENCYLIST_H

@@ -14,6 +14,7 @@ class DSLinkedList{
 
     public:
         DSLinkedList();
+        DSLinkedList(const DSLinkedList<T>&);
         void append();
         void removeAt(int);
         void print();
@@ -25,6 +26,36 @@ DSLinkedList<T>::DSLinkedList(){
     head = nullptr;
     tail = nullptr;
     size = 0;
+}
+
+template<typename T>
+DSLinkedList<T>::DSLinkedList(const DSLinkedList<T>& originalLinkedList){
+    DSNode<T>* aCurrent = 0;
+    DSNode<T>* aNext = 0;
+
+    if(originalLinkedList.head == 0){
+        head = 0;
+    }
+
+    else{
+        head = new DSNode<T>;
+        head->previous = originalLinkedList.head->previous;
+        head->data = originalLinkedList->data;
+
+        aCurrent = head;
+        aNext = originalLinkedList.head;
+
+        while(aNext){
+            aCurrent->next = new DSNode<T>;
+            aCurrent = aCurrent->next;
+            aCurrent->previous = aNext->data;
+
+            aNext = aNext->next;
+        }
+
+        aCurrent->next = 0;
+
+    }
 }
 
 template<typename T>
