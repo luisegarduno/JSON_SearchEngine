@@ -7,6 +7,7 @@
 template<typename T>
 class DSStack{
     private:
+        T data;
         DSVector<T> vec;
 
     public:

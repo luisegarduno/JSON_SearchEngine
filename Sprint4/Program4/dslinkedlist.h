@@ -18,6 +18,9 @@ class DSLinkedList{
         void append();
         void removeAt(int);
         void print();
+        void clear();
+
+        ~DSLinkedList();
 
 };
 
@@ -133,6 +136,21 @@ void DSLinkedList<T>::remove(DSNode<T>* currentNode){
         tail = previousNode;
     }
 
+}
+
+template<typename T>
+void DSLinkedList<T>::clear(){
+    DSNode<T>* c = head;
+    while(c != nullptr){
+        c = c->next;
+        delete head;
+        head = c;
+    }
+}
+
+template<typename T>
+DSLinkedList<T>::~DSLinkedList<T>(){
+    clear();
 }
 
 #endif // DSLINKEDLIST_H
