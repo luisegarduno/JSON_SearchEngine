@@ -1,12 +1,17 @@
 #ifndef DSLINKEDLIST_H
 #define DSLINKEDLIST_H
 
+#include <iostream>
 #include "dsnode.h"
+#include "dsstack.h"
+
 
 template<typename T>
 class DSLinkedList{
     DSNode<T> * head;
     DSNode<T> * tail;
+    DSNode<T> * current;
+
     int size;
 
     private:
@@ -15,10 +20,14 @@ class DSLinkedList{
     public:
         DSLinkedList();
         DSLinkedList(const DSLinkedList<T>&);
-        void append();
+        void append(T);
         void removeAt(int);
         void print();
         void clear();
+
+        T& newIterator();
+        T& next();
+        bool hasNext();
 
         ~DSLinkedList();
 
@@ -28,6 +37,7 @@ template<typename T>
 DSLinkedList<T>::DSLinkedList(){
     head = nullptr;
     tail = nullptr;
+    current = nullptr;
     size = 0;
 }
 
@@ -62,8 +72,8 @@ DSLinkedList<T>::DSLinkedList(const DSLinkedList<T>& originalLinkedList){
 }
 
 template<typename T>
-void DSLinkedList<T>::append(){
-    DSNode<T>* newNode = newNode();
+void DSLinkedList<T>::append(T x){
+    DSNode<T>* newNode = new DSNode<T>(x);
 
     if(head == nullptr){
         head = newNode;
@@ -71,10 +81,38 @@ void DSLinkedList<T>::append(){
     }
     else{
         tail->next = newNode;
-        newNode->prev = tail;
+        newNode->previous = tail;
         tail = newNode;
     }
     size++;
+}
+
+template<typename T>
+T& DSLinkedList<T>::newIterator(){          // sets new head of LinkedList
+    this->current = this->head;
+    return this->current->data;
+}
+
+template<typename T>
+T& DSLinkedList<T>::next(){                 // points to the next node in the LinkedList
+    this->current = this->current->next;
+    return this->current->data;
+}
+
+template<typename T>
+bool DSLinkedList<T>::hasNext(){
+    if(this->current->next == nullptr || this->current == nullptr){
+        DSLinkedList<T> myList = DSLinkedList<T>();
+
+        int value = myList.newIterator();
+
+        for(int i = 0; i < myList.size; i++){
+            cout << value << endl;
+            value = myList.next();
+        }
+        return true;
+    }
+    return false;
 }
 
 template<typename T>
@@ -83,15 +121,15 @@ void DSLinkedList<T>::removeAt(int index){
         std::cout << "\nNothing here" << index << std::endl << std::endl;
     }
     else {
-        DSNode<T>* current = head;
+        DSNode<T>* aCurrent = head;
         int count = 0;
 
         while (count != index) {
-          current = current->next;
+          aCurrent = aCurrent->next;
           count++;
         }
 
-        remove(current);
+        remove(aCurrent);
 
         size--;
       }
@@ -104,13 +142,13 @@ void DSLinkedList<T>::print(){
     }
 
     else{
-        DSNode<T>* current = head;
+        DSNode<T>* aCurrent = head;
         int count = 0;
         cout << endl;
 
-        while(current != nullptr){
-            cout << "Num: " << ++count << endl;
-            current = current->next;
+        while(aCurrent != nullptr){
+            cout << "Node[" << ++count << ", " << aCurrent->data << endl;
+            aCurrent = aCurrent->next;
         }
     }
 }

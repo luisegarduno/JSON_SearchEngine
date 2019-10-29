@@ -12,9 +12,9 @@ class DSNode{
     template<class U> friend class DSLinkedList;
 
     private:
-        T data;
         DSNode<T>* next;
         DSNode<T>* previous;
+        T data;
 
     public:
         DSNode();

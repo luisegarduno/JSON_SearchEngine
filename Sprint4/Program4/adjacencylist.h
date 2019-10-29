@@ -1,6 +1,7 @@
 #ifndef ADJACENCYLIST_H
 #define ADJACENCYLIST_H
 
+#include <iostream>
 #include "dslinkedlist.h"
 
 template <typename T>
