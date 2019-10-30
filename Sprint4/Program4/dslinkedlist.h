@@ -27,6 +27,7 @@ class DSLinkedList{
 
         T& newIterator();
         T& next();
+        T getAt(T);
         bool hasNext();
 
         ~DSLinkedList();
@@ -147,7 +148,7 @@ void DSLinkedList<T>::print(){
         cout << endl;
 
         while(aCurrent != nullptr){
-            cout << "Node[" << ++count << ", " << aCurrent->data << endl;
+            cout << "Node[" << ++count << "]: " << aCurrent->data << endl;
             aCurrent = aCurrent->next;
         }
     }
@@ -174,6 +175,26 @@ void DSLinkedList<T>::remove(DSNode<T>* currentNode){
         tail = previousNode;
     }
 
+}
+
+template<typename T>
+T DSLinkedList<T>::getAt(T x){
+    if(head == nullptr){
+        return -1;
+    }
+
+
+    else{
+        DSNode<T>* aCurrent = head;
+
+        for(int i = 0; i < x; i++){
+            aCurrent = aCurrent->next;
+        }
+
+        if(aCurrent->data == x){
+            return aCurrent->data;
+        }
+    }
 }
 
 template<typename T>

@@ -2,6 +2,8 @@
 #include "catch.hpp"
 #include "dsvector.h"
 #include "dsstring.cpp"
+#include "dsstack.h"
+#include "dslinkedlist.h"
 
 TEST_CASE("DSString class", "[DSString]"){
 
@@ -190,6 +192,47 @@ TEST_CASE( "DSVector class 2", "<int>") {
         REQUIRE( v1.getSize() == 10 );
         REQUIRE( v1.getCapacity() >= 10 );
     }
+
+}
+
+TEST_CASE("Doubly Linked List", "DSLinkedLists<T>"){
+    DSLinkedList<int> newList;
+
+    newList.append(2);
+    newList.append(4);
+    newList.append(6);
+    newList.append(8);
+    newList.append(10);
+    newList.append(12);
+
+    SECTION("Get at Index member function"){
+        REQUIRE(newList.getAt(0) == 2);
+        REQUIRE(newList.getAt(1) == 4);
+        REQUIRE(newList.getAt(2) == 6);
+        REQUIRE(newList.getAt(3) == 8);
+        REQUIRE(newList.getAt(4) == 10);
+        REQUIRE(newList.getAt(5) == 12);
+
+    }
+
+    SECTION("Remove a node at a specific index"){
+        newList.removeAt(1);            // remove(1) = 4, so (1) now equals == 6
+        REQUIRE(newList.getAt(1) == 6);
+        newList.removeAt(0);            // remove(0) = 2, so (0) now equals == 6
+        REQUIRE(newList.getAt(0) == 6);
+        newList.removeAt(2);            // remove(2) = 10, so (2) now equals == 12
+        REQUIRE(newList.getAt(2) == 12);
+        newList.append(8);              // append 8 to end
+        REQUIRE(newList.getAt(3) == 8);
+        newList.removeAt(3);            // remove 8 from linkedlist
+        newList.append(-1);             // append a negative number
+        REQUIRE(newList.getAt(3) == -1);
+        REQUIRE_FALSE(newList.getAt(3) == 0);
+
+    }
+}
+
+TEST_CASE("DSStack"){
 
 }
 
