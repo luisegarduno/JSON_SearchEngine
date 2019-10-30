@@ -1,8 +1,8 @@
 #include <cstring>
 #include "catch.hpp"
+#include "dsstack.h"
 #include "dsvector.h"
 #include "dsstring.cpp"
-#include "dsstack.h"
 #include "dslinkedlist.h"
 
 TEST_CASE("DSString class", "[DSString]"){
@@ -232,7 +232,41 @@ TEST_CASE("Doubly Linked List", "DSLinkedLists<T>"){
     }
 }
 
-TEST_CASE("DSStack"){
+TEST_CASE("DSStack", "DSStack<int>"){
+    DSStack<int> newVector;
+
+    newVector.push(2);
+    newVector.push(4);
+    newVector.push(6);
+    newVector.push(8);
+    newVector.push(10);
+    newVector.push(12);
+
+    SECTION("Empty Checker2"){
+        REQUIRE(newVector.isEmpty() == false);
+    }
+
+    SECTION("Peek and pop"){
+        REQUIRE(newVector.peek() == 12);
+        REQUIRE(newVector.pop() == 12);
+
+        REQUIRE(newVector.peek() == 10);
+        REQUIRE(newVector.pop() == 10);
+
+        REQUIRE(newVector.pop() == 8);
+        REQUIRE(newVector.peek() == 6);
+
+        REQUIRE(newVector.pop() == 6);
+        REQUIRE(newVector.pop() == 4);
+
+        REQUIRE(newVector.peek() == 2);
+        REQUIRE(newVector.pop() == 2);
+
+        SECTION("Empty Checker3"){
+            REQUIRE(newVector.isEmpty() == true);
+        }
+    }
+
 
 }
 

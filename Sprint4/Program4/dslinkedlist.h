@@ -191,9 +191,7 @@ T DSLinkedList<T>::getAt(T x){
             aCurrent = aCurrent->next;
         }
 
-        if(aCurrent->data == x){
-            return aCurrent->data;
-        }
+        return aCurrent->data;
     }
 }
 

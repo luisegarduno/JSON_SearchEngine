@@ -19,7 +19,7 @@ class DSStack{
 
 template<typename T>
 DSStack<T>::DSStack(){
-
+    data = DSVector<T>();
 }
 
 template<typename T>
@@ -41,7 +41,7 @@ T& DSStack<T>::peek(){                      // returns tail of data vector
 
 template<typename T>
 bool DSStack<T>::isEmpty(){
-    return ( (data.getSize() = 0) ? true : false);
+    return ( (this->data.getSize() == 0) ? true : false);
 }
 
 #endif // DSSTACK_H

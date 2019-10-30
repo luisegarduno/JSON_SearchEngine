@@ -26,22 +26,18 @@ class DSNode{
 
 template<class T>
 DSNode<T>::DSNode() : next(nullptr), previous(nullptr){
-
 }
 
 template<class T>
 DSNode<T>::DSNode(T aValue) : next(nullptr), previous(nullptr), data(aValue){
-
 }
 
 template<class T>
 DSNode<T>::DSNode(const DSNode<T>& data2) : next(nullptr), previous(nullptr), data(data2.data){
-
 }
 
 template<class T>
 DSNode<T>::~DSNode<T>(){
-
 }
 
 #endif // DSNODE_H
