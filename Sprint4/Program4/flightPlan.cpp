@@ -31,10 +31,7 @@ int main(int argc, char * argv[]){
                 return runCatchTests(argc, argv);
             }
             else {
-                DSLinkedList<int> newLinkedList;
-                newLinkedList.append(10);
 
-                newLinkedList.print();
             }
         }
 

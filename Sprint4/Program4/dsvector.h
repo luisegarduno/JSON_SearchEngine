@@ -75,8 +75,18 @@ DSVector<T>::DSVector(const DSVector<T>& originalDSVector){
 
 template <typename T>
 void DSVector<T>::reSize(){
+    int aCapacity = this->capacity * 2;
 
-    capacity *= 2;                                      // doubles the capacity
+    T* temp = this->data;
+    this->data = new T[aCapacity];
+
+    for(int i = 0; i < this->sizeOfDSVector; i++){
+        this->data[i] = temp[i];
+    }
+
+    delete [] temp;
+    this->capacity = aCapacity;
+    /*capacity *= 2;                                      // doubles the capacity
     T * temp = new T[capacity];                         // create temp data array to copy elements
 
     for(int i = 0;i < sizeOfDSVector;i++) {
@@ -84,6 +94,7 @@ void DSVector<T>::reSize(){
     }
     delete [] this->data;                               // delete the memory allocated
     this->data = temp;
+    */
 }
 
 template <typename T>
@@ -303,7 +314,9 @@ void DSVector<T>::printVector(){
 
 template <typename T>
 DSVector<T>::~DSVector(){
-    delete [] this->data;                                       // deallocate memory from heap
+    if(this->data != nullptr){
+        delete [] this->data;                                       // deallocate memory from heap
+    }
 }
 
 #endif

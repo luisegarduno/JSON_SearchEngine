@@ -5,7 +5,6 @@
 #include "dsnode.h"
 #include "dsstack.h"
 
-
 template<typename T>
 class DSLinkedList{
     DSNode<T> * head;
@@ -31,7 +30,6 @@ class DSLinkedList{
         bool hasNext();
 
         ~DSLinkedList();
-
 };
 
 template<typename T>
@@ -68,7 +66,6 @@ DSLinkedList<T>::DSLinkedList(const DSLinkedList<T>& originalLinkedList){
         }
 
         aCurrent->next = 0;
-
     }
 }
 
@@ -76,7 +73,7 @@ template<typename T>
 void DSLinkedList<T>::append(T x){
     DSNode<T>* newNode = new DSNode<T>(x);
 
-    if(head == nullptr){
+    if(head == nullptr || size == 0){
         head = newNode;
         tail = newNode;
     }
@@ -86,6 +83,8 @@ void DSLinkedList<T>::append(T x){
         tail = newNode;
     }
     size++;
+
+
 }
 
 template<typename T>
@@ -159,20 +158,23 @@ void DSLinkedList<T>::remove(DSNode<T>* currentNode){
     DSNode<T>* nextNode = currentNode->next;
     DSNode<T>* previousNode = currentNode->previous;
 
-    if(nextNode != nullptr){
-        nextNode->previous = previousNode;
-    }
+    if(currentNode != nullptr){
+        if(nextNode != nullptr){
+            nextNode->previous = previousNode;
+        }
 
-    if(previousNode != nullptr){
-        previousNode->next = nextNode;
-    }
+        if(previousNode != nullptr){
+            previousNode->next = nextNode;
+        }
 
-    if(currentNode == head){
-        head = nextNode;
-    }
+        if(currentNode == head){
+            head = nextNode;
+        }
 
-    if(currentNode == tail){
-        tail = previousNode;
+        if(currentNode == tail){
+            tail = previousNode;
+        }
+        delete currentNode;
     }
 
 }
@@ -182,8 +184,6 @@ T DSLinkedList<T>::getAt(T x){
     if(head == nullptr){
         return -1;
     }
-
-
     else{
         DSNode<T>* aCurrent = head;
 

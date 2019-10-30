@@ -228,7 +228,16 @@ TEST_CASE("Doubly Linked List", "DSLinkedLists<T>"){
         newList.append(-1);             // append a negative number
         REQUIRE(newList.getAt(3) == -1);
         REQUIRE_FALSE(newList.getAt(3) == 0);
+    }
 
+
+    SECTION("Custom Iterator"){
+        REQUIRE(newList.newIterator() == 2);
+        REQUIRE(newList.next() == 4);
+
+        newList.removeAt(0);
+        REQUIRE(newList.newIterator() == 4);
+        REQUIRE(newList.next() == 6);
     }
 }
 
