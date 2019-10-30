@@ -212,7 +212,6 @@ TEST_CASE("Doubly Linked List", "DSLinkedLists<T>"){
         REQUIRE(newList.getAt(3) == 8);
         REQUIRE(newList.getAt(4) == 10);
         REQUIRE(newList.getAt(5) == 12);
-
     }
 
     SECTION("Remove a node at a specific index"){

@@ -19,19 +19,19 @@ class DSStack{
 
 template<typename T>
 DSStack<T>::DSStack(){
-    this->aData = DSVector<T>();
+    this->aData = DSVector<T>();            // initializes DSVector<T>
 }
 
 template<typename T>
 T DSStack<T>::pop(){
     T data1 = this->peek();                 // stores tail in temp data1
-    aData.popBack();                         // deletes tail from data vector
+    aData.popBack();                        // deletes tail from data vector
     return data1;                           // returns stored data1
 }
 
 template<typename T>
 void DSStack<T>::push(T x){
-    aData.pushBack(x);
+    aData.pushBack(x);                      // pushes element onto DSVector
 }
 
 template<typename T>
@@ -40,7 +40,7 @@ T& DSStack<T>::peek(){                      // returns tail of data vector
 }
 
 template<typename T>
-bool DSStack<T>::isEmpty(){
+bool DSStack<T>::isEmpty(){                 // checks to see if DSVector is empty
     return ( (this->aData.getSize() == 0) ? true : false);
 }
 

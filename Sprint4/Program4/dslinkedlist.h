@@ -11,33 +11,33 @@ class DSLinkedList{
     DSNode<T> * tail;
     DSNode<T> * current;
 
-    int size;
+    int size;                           // Size of Linked List
 
     private:
-        void remove(DSNode<T>*);
+        void remove(DSNode<T>*);        // Remove node
 
     public:
         DSLinkedList();
         DSLinkedList(const DSLinkedList<T>&);
-        void append(T);
-        void removeAt(int);
-        void print();
-        void clear();
+        void append(T);                 // add node to Linked List
+        void removeAt(int);             // remove specific index value (passed in parameter)
+        void print();                   // print all values in Linked List
+        void clear();                   // Clears the Linked List, also used to destruct memory from heap
 
-        T& newIterator();
+        T& newIterator();               // Custom iterator functions
         T& next();
-        T getAt(T);
+        T getAt(T);                     // returns element at specific index
         bool hasNext();
 
         ~DSLinkedList();
 };
 
 template<typename T>
-DSLinkedList<T>::DSLinkedList(){
+DSLinkedList<T>::DSLinkedList(){        // Default constructor
     head = nullptr;
     tail = nullptr;
     current = nullptr;
-    size = 0;
+    size = 0;                           // Size of DSLinkedList is initially 0
 }
 
 template<typename T>
@@ -45,8 +45,8 @@ DSLinkedList<T>::DSLinkedList(const DSLinkedList<T>& originalLinkedList){
     DSNode<T>* aCurrent = 0;
     DSNode<T>* aNext = 0;
 
-    if(originalLinkedList.head == 0){
-        head = 0;
+    if(originalLinkedList.head == 0){           // if original Linked List is empty
+        head = 0;                               // head is = to 0
     }
 
     else{
@@ -54,11 +54,11 @@ DSLinkedList<T>::DSLinkedList(const DSLinkedList<T>& originalLinkedList){
         head->previous = originalLinkedList.head->previous;
         head->data = originalLinkedList->data;
 
-        aCurrent = head;
+        aCurrent = head;                        // begin at head
         aNext = originalLinkedList.head;
 
         while(aNext){
-            aCurrent->next = new DSNode<T>;
+            aCurrent->next = new DSNode<T>;     // set next node = to new Node
             aCurrent = aCurrent->next;
             aCurrent->previous = aNext->data;
 
@@ -73,16 +73,16 @@ template<typename T>
 void DSLinkedList<T>::append(T x){
     DSNode<T>* newNode = new DSNode<T>(x);
 
-    if(head == nullptr || size == 0){
-        head = newNode;
+    if(head == nullptr || size == 0){           // if Linked List is empty
+        head = newNode;                         // declare new node as the head and tail
         tail = newNode;
     }
     else{
-        tail->next = newNode;
-        newNode->previous = tail;
-        tail = newNode;
+        tail->next = newNode;                   // if linked list contains node already, set the node after the tail = to new node(previously nullptr)
+        newNode->previous = tail;               // at the end, the previous node prior to declaring new node, is the tail
+        tail = newNode;                         // declare new node as the tail
     }
-    size++;
+    size++;                                     // increment Linked List Size
 
 
 }
@@ -108,7 +108,7 @@ bool DSLinkedList<T>::hasNext(){
 
         for(int i = 0; i < myList.size; i++){
             cout << value << endl;
-            value = myList.next();
+            value = myList.next();              // adds values to linked list
         }
         return true;
     }
@@ -117,21 +117,21 @@ bool DSLinkedList<T>::hasNext(){
 
 template<typename T>
 void DSLinkedList<T>::removeAt(int index){
-    if (index >= size) {
+    if (index >= size) {                        // if index is greater than Linked List Size
         std::cout << "\nNothing here" << index << std::endl << std::endl;
     }
     else {
-        DSNode<T>* aCurrent = head;
-        int count = 0;
+        DSNode<T>* aCurrent = head;             // set the head = to temp Current node
+        int count = 0;                          // counter
 
         while (count != index) {
-          aCurrent = aCurrent->next;
-          count++;
+          aCurrent = aCurrent->next;            // set the current node = to the next node
+          count++;                              // increment counter until index is reached
         }
 
         remove(aCurrent);
 
-        size--;
+        size--;                                 // decrement Linked List size
       }
 }
 
@@ -146,7 +146,7 @@ void DSLinkedList<T>::print(){
         int count = 0;
         cout << endl;
 
-        while(aCurrent != nullptr){
+        while(aCurrent != nullptr){                 // cycles & prints all values in linked list
             cout << "Node[" << ++count << "]: " << aCurrent->data << endl;
             aCurrent = aCurrent->next;
         }
@@ -158,7 +158,7 @@ void DSLinkedList<T>::remove(DSNode<T>* currentNode){
     DSNode<T>* nextNode = currentNode->next;
     DSNode<T>* previousNode = currentNode->previous;
 
-    if(currentNode != nullptr){
+    if(currentNode != nullptr){                     // checks to see if passed node is empty
         if(nextNode != nullptr){
             nextNode->previous = previousNode;
         }
@@ -168,10 +168,10 @@ void DSLinkedList<T>::remove(DSNode<T>* currentNode){
         }
 
         if(currentNode == head){
-            head = nextNode;
+            head = nextNode;                        // deletes head and new head is declared
         }
 
-        if(currentNode == tail){
+        if(currentNode == tail){                    // deletes tail
             tail = previousNode;
         }
         delete currentNode;
@@ -185,13 +185,13 @@ T DSLinkedList<T>::getAt(T x){
         return -1;
     }
     else{
-        DSNode<T>* aCurrent = head;
+        DSNode<T>* aCurrent = head;         // begin at head
 
         for(int i = 0; i < x; i++){
-            aCurrent = aCurrent->next;
+            aCurrent = aCurrent->next;      // cycle through Linked List
         }
 
-        return aCurrent->data;
+        return aCurrent->data;              // return element from linked list (specified in parameter
     }
 }
 
@@ -207,7 +207,7 @@ void DSLinkedList<T>::clear(){
 
 template<typename T>
 DSLinkedList<T>::~DSLinkedList<T>(){
-    clear();
+    clear();                                // call the clear member function to deconstruct elements from HEAP
 }
 
 #endif // DSLINKEDLIST_H
