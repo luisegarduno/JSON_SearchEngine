@@ -19,7 +19,7 @@ class DSLinkedList{
     public:
         DSLinkedList();
         DSLinkedList(const DSLinkedList<T>&);
-        DSLinkedList& operator=(const DSLinkedList<T>&) const;
+        T& operator=(const T&) ;
         void append(T);                 // add node to Linked List
         void removeAt(int);             // remove specific index value (passed in parameter)
         void popLastNode();
@@ -29,7 +29,6 @@ class DSLinkedList{
         T& newIterator();               // Custom iterator functions
         T& next();
         T getAt(T);                     // returns element at specific index
-        //T& operator=(T&);
 
         int getListSize();
         bool hasNext();
@@ -75,7 +74,7 @@ DSLinkedList<T>::DSLinkedList(const DSLinkedList<T>& originalLinkedList){
 }
 
 template<class T>
-DSLinkedList<T>& DSLinkedList<T>::operator=(const DSLinkedList<T>& v2LinkedList) const{
+T& DSLinkedList<T>::operator=(const T& v2LinkedList) {
     if(v2LinkedList != this){
         DSNode<T>* tempNode = head;
 
@@ -87,7 +86,7 @@ DSLinkedList<T>& DSLinkedList<T>::operator=(const DSLinkedList<T>& v2LinkedList)
 
         tempNode = v2LinkedList.head;
 
-        while(tempNode){
+        while(tempNode != nullptr){
             append(tempNode);
             tempNode = tempNode->next;
         }
@@ -110,7 +109,6 @@ void DSLinkedList<T>::append(T x){
         tail = newNode;                         // declare new node as the tail
     }
     size++;                                     // increment Linked List Size
-
 
 }
 
@@ -212,13 +210,9 @@ void DSLinkedList<T>::remove(DSNode<T>* currentNode){
 
 template<class T>
 void DSLinkedList<T>::popLastNode(){
-    DSNode<T>* nextNode = tail->next;
-    DSNode<T>* previousNode = tail->previous;
+    remove(tail);
 
-    delete tail;
-    tail = previousNode;
-    tail->next = nextNode;
-
+    size--;
 }
 
 template<class T>

@@ -263,6 +263,7 @@ TEST_CASE("DSStack", "DSStack<int>"){
         REQUIRE(newVector.peek() == 12);
         REQUIRE(newVector.pop() == 12);
 
+
         REQUIRE(newVector.peek() == 10);
         REQUIRE(newVector.pop() == 10);
 
@@ -279,8 +280,6 @@ TEST_CASE("DSStack", "DSStack<int>"){
             REQUIRE(newVector.isEmpty() == true);
         }
     }
-
-
 }
 
 
