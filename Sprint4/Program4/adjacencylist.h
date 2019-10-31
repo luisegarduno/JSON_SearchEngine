@@ -10,9 +10,9 @@ class AdjacencyList{
         DSLinkedList< DSLinkedList<T> > adjacency_list;
 
     public:
-        DSLinkedList<T>& checkOuter(T);
-       bool checkInner(T, const DSLinkedList<T>&);
         void add(T,T);
+        DSLinkedList<T>& checkOuter(T);
+        bool checkInner(T, const DSLinkedList<T>&);
 };
 
 template<typename T>
@@ -28,7 +28,7 @@ void AdjacencyList<T>::add(T data1, T data2){
 
         else {
             DSLinkedList<T> newLinkedList;
-            //newLinkedList.push();
+            newLinkedList.push(data1);
         }
     }
 }

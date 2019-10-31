@@ -19,6 +19,7 @@ class DSLinkedList{
     public:
         DSLinkedList();
         DSLinkedList(const DSLinkedList<T>&);
+        DSLinkedList& operator=(const DSLinkedList<T>&);
         void append(T);                 // add node to Linked List
         void removeAt(int);             // remove specific index value (passed in parameter)
         void print();                   // print all values in Linked List
@@ -27,6 +28,7 @@ class DSLinkedList{
         T& newIterator();               // Custom iterator functions
         T& next();
         T getAt(T);                     // returns element at specific index
+        //T& operator=(T&);
         bool hasNext();
 
         ~DSLinkedList();
@@ -67,6 +69,28 @@ DSLinkedList<T>::DSLinkedList(const DSLinkedList<T>& originalLinkedList){
 
         aCurrent->next = 0;
     }
+}
+
+template<typename T>
+DSLinkedList<T>& DSLinkedList<T>::operator=(const DSLinkedList<T>& v2LinkedList){
+    if(v2LinkedList != this){
+        DSNode<T>* tempNode = head;
+
+        while(tempNode->next){
+            head = head->next;
+            delete tempNode;
+            tempNode = head;
+        }
+
+        tempNode = v2LinkedList.head;
+
+        while(tempNode){
+            append(tempNode);
+            tempNode = tempNode->next;
+        }
+    }
+
+    return *this;
 }
 
 template<typename T>

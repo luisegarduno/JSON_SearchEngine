@@ -1,13 +1,15 @@
-#ifndef DSSTACK_H
-#define DSSTACK_H
-
 #include <iostream>
 #include "dsvector.h"
+//#include "dslinkedlist.h"
+
+#ifndef DSSTACK_H
+#define DSSTACK_H
 
 template<typename T>
 class DSStack{
     private:
         DSVector<T> aData;
+        // DSLinkedList<T> aData;
 
     public:
         DSStack();
@@ -20,6 +22,7 @@ class DSStack{
 template<typename T>
 DSStack<T>::DSStack(){
     this->aData = DSVector<T>();            // initializes DSVector<T>
+    //this->aData = DSLinkedList();
 }
 
 template<typename T>
