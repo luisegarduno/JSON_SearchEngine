@@ -5,7 +5,7 @@
 #include "dsnode.h"
 #include "dsstack.h"
 
-template<typename T>
+template<class T>
 class DSLinkedList{
     DSNode<T> * head;
     DSNode<T> * tail;
@@ -19,7 +19,7 @@ class DSLinkedList{
     public:
         DSLinkedList();
         DSLinkedList(const DSLinkedList<T>&);
-        DSLinkedList& operator=(const DSLinkedList<T>&);
+        DSLinkedList& operator=(const DSLinkedList<T>&) const;
         void append(T);                 // add node to Linked List
         void removeAt(int);             // remove specific index value (passed in parameter)
         void popLastNode();
@@ -30,12 +30,14 @@ class DSLinkedList{
         T& next();
         T getAt(T);                     // returns element at specific index
         //T& operator=(T&);
+
+        int getListSize();
         bool hasNext();
 
         ~DSLinkedList();
 };
 
-template<typename T>
+template<class T>
 DSLinkedList<T>::DSLinkedList(){        // Default constructor
     head = nullptr;
     tail = nullptr;
@@ -43,7 +45,7 @@ DSLinkedList<T>::DSLinkedList(){        // Default constructor
     size = 0;                           // Size of DSLinkedList is initially 0
 }
 
-template<typename T>
+template<class T>
 DSLinkedList<T>::DSLinkedList(const DSLinkedList<T>& originalLinkedList){
     DSNode<T>* aCurrent = originalLinkedList.head;
     DSNode<T>* aNext = nullptr;
@@ -72,8 +74,8 @@ DSLinkedList<T>::DSLinkedList(const DSLinkedList<T>& originalLinkedList){
     }
 }
 
-template<typename T>
-DSLinkedList<T>& DSLinkedList<T>::operator=(const DSLinkedList<T>& v2LinkedList){
+template<class T>
+DSLinkedList<T>& DSLinkedList<T>::operator=(const DSLinkedList<T>& v2LinkedList) const{
     if(v2LinkedList != this){
         DSNode<T>* tempNode = head;
 
@@ -94,7 +96,7 @@ DSLinkedList<T>& DSLinkedList<T>::operator=(const DSLinkedList<T>& v2LinkedList)
     return *this;
 }
 
-template<typename T>
+template<class T>
 void DSLinkedList<T>::append(T x){
     DSNode<T>* newNode = new DSNode<T>(x);
 
@@ -112,19 +114,24 @@ void DSLinkedList<T>::append(T x){
 
 }
 
-template<typename T>
+template<class T>
 T& DSLinkedList<T>::newIterator(){          // sets new head of LinkedList
     this->current = this->head;
     return this->current->data;
 }
 
-template<typename T>
+template<class T>
 T& DSLinkedList<T>::next(){                 // points to the next node in the LinkedList
     this->current = this->current->next;
     return this->current->data;
 }
 
-template<typename T>
+template<class T>
+int DSLinkedList<T>::getListSize(){
+    return size;
+}
+
+template<class T>
 bool DSLinkedList<T>::hasNext(){
     if(this->current->next == nullptr || this->current == nullptr){
         DSLinkedList<T> myList = DSLinkedList<T>();
@@ -140,7 +147,7 @@ bool DSLinkedList<T>::hasNext(){
     return false;
 }
 
-template<typename T>
+template<class T>
 void DSLinkedList<T>::removeAt(int index){
     if (index >= size) {                        // if index is greater than Linked List Size
         std::cout << "\nNothing here" << index << std::endl << std::endl;
@@ -160,7 +167,7 @@ void DSLinkedList<T>::removeAt(int index){
       }
 }
 
-template<typename T>
+template<class T>
 void DSLinkedList<T>::print(){
     if(head == nullptr){
         cout << "Nothing Available" << endl;
@@ -177,7 +184,7 @@ void DSLinkedList<T>::print(){
     }
 }
 
-template<typename T>
+template<class T>
 void DSLinkedList<T>::remove(DSNode<T>* currentNode){
     DSNode<T>* nextNode = currentNode->next;
     DSNode<T>* previousNode = currentNode->previous;
@@ -203,7 +210,7 @@ void DSLinkedList<T>::remove(DSNode<T>* currentNode){
 
 }
 
-template<typename T>
+template<class T>
 void DSLinkedList<T>::popLastNode(){
     DSNode<T>* nextNode = tail->next;
     DSNode<T>* previousNode = tail->previous;
@@ -214,7 +221,7 @@ void DSLinkedList<T>::popLastNode(){
 
 }
 
-template<typename T>
+template<class T>
 T DSLinkedList<T>::getAt(T x){
     if(head == nullptr){
         return -1;
@@ -230,7 +237,7 @@ T DSLinkedList<T>::getAt(T x){
     }
 }
 
-template<typename T>
+template<class T>
 void DSLinkedList<T>::clear(){
     DSNode<T>* c = head;
     while(c != nullptr){
@@ -240,7 +247,7 @@ void DSLinkedList<T>::clear(){
     }
 }
 
-template<typename T>
+template<class T>
 DSLinkedList<T>::~DSLinkedList<T>(){
     clear();                                // call the clear member function to deconstruct elements from HEAP
 }
