@@ -227,6 +227,11 @@ TEST_CASE("Doubly Linked List", "DSLinkedLists<T>"){
         newList.append(-1);             // append a negative number
         REQUIRE(newList.getAt(3) == -1);
         REQUIRE_FALSE(newList.getAt(3) == 0);
+
+        SECTION("pop last node from Doubly Linked List"){
+            newList.popLastNode(); // no memory leaks
+            //newList.print();
+        }
     }
 
 

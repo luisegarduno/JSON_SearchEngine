@@ -34,12 +34,17 @@ DSString& DSString::operator=(const char* originalChar){                    // r
 }
 
 DSString& DSString::operator=(const DSString& originalString){              // returns DSString& = originalString
-    char * tempData = this->data;
-    this->data = new char[strlen(originalString.data) + 1];
-    strcpy(this->data,originalString.data);                                 // copies originalString.data to this->data
+    if(this != &originalString){
+        if(data != nullptr){
+            delete [] data;
+            data = nullptr;
+        }
 
-    delete [] tempData;
-    return *this;                                                           // return DSString by reference
+        this->data = new char[strlen(originalString.data) + 1];
+        data[strlen(originalString.data)] = '\0';
+        strcpy(this->data,originalString.data);
+    }
+    return * this;
 }
 
 DSString DSString::operator+(const DSString& originalString){

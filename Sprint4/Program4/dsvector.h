@@ -80,7 +80,7 @@ void DSVector<T>::reSize(){
     T* temp = this->data;
     this->data = new T[aCapacity];
 
-    for(int i = 0; i < this->sizeOfDSVector; i++){
+    for(int i = 0; i < sizeOfDSVector; i++){
         this->data[i] = temp[i];
     }
 

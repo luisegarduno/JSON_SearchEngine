@@ -22,6 +22,7 @@ class DSLinkedList{
         DSLinkedList& operator=(const DSLinkedList<T>&);
         void append(T);                 // add node to Linked List
         void removeAt(int);             // remove specific index value (passed in parameter)
+        void popLastNode();
         void print();                   // print all values in Linked List
         void clear();                   // Clears the Linked List, also used to destruct memory from heap
 
@@ -44,11 +45,11 @@ DSLinkedList<T>::DSLinkedList(){        // Default constructor
 
 template<typename T>
 DSLinkedList<T>::DSLinkedList(const DSLinkedList<T>& originalLinkedList){
-    DSNode<T>* aCurrent = 0;
-    DSNode<T>* aNext = 0;
+    DSNode<T>* aCurrent = originalLinkedList.head;
+    DSNode<T>* aNext = nullptr;
 
-    if(originalLinkedList.head == 0){           // if original Linked List is empty
-        head = 0;                               // head is = to 0
+    if(originalLinkedList.head == nullptr){           // if original Linked List is empty
+        head = nullptr;                               // head is = to 0
     }
 
     else{
@@ -59,7 +60,7 @@ DSLinkedList<T>::DSLinkedList(const DSLinkedList<T>& originalLinkedList){
         aCurrent = head;                        // begin at head
         aNext = originalLinkedList.head;
 
-        while(aNext){
+        while(aNext != nullptr){
             aCurrent->next = new DSNode<T>;     // set next node = to new Node
             aCurrent = aCurrent->next;
             aCurrent->previous = aNext->data;
@@ -67,7 +68,7 @@ DSLinkedList<T>::DSLinkedList(const DSLinkedList<T>& originalLinkedList){
             aNext = aNext->next;
         }
 
-        aCurrent->next = 0;
+        aCurrent->next = nullptr;
     }
 }
 
@@ -168,7 +169,6 @@ void DSLinkedList<T>::print(){
     else{
         DSNode<T>* aCurrent = head;
         int count = 0;
-        cout << endl;
 
         while(aCurrent != nullptr){                 // cycles & prints all values in linked list
             cout << "Node[" << ++count << "]: " << aCurrent->data << endl;
@@ -200,6 +200,17 @@ void DSLinkedList<T>::remove(DSNode<T>* currentNode){
         }
         delete currentNode;
     }
+
+}
+
+template<typename T>
+void DSLinkedList<T>::popLastNode(){
+    DSNode<T>* nextNode = tail->next;
+    DSNode<T>* previousNode = tail->previous;
+
+    delete tail;
+    tail = previousNode;
+    tail->next = nextNode;
 
 }
 
