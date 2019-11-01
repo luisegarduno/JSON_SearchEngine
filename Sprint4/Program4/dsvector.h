@@ -15,7 +15,7 @@ class DSVector{
     public:
         DSVector();                     // default constructor
         DSVector(int);
-        DSVector(const DSVector&);             // copy constructor
+        DSVector(const DSVector&);      // copy constructor
 
         int getSize();                  // returns size of vector
         int getCapacity();              // returns vector capacity

@@ -19,19 +19,22 @@ class DSLinkedList{
     public:
         DSLinkedList();
         DSLinkedList(const DSLinkedList<T>&);
-        T& operator=(const T&) ;
+
+        void print();                   // print all values in Linked List
+        void clear();                   // Clears the Linked List, also used to destruct memory from heap
         void append(T);                 // add node to Linked List
         void removeAt(int);             // remove specific index value (passed in parameter)
         void popLastNode();
-        void print();                   // print all values in Linked List
-        void clear();                   // Clears the Linked List, also used to destruct memory from heap
 
-        T& newIterator();               // Custom iterator functions
-        T& next();
         T getAt(T);                     // returns element at specific index
+        T& next();
+        T& newIterator();               // Custom iterator functions
+        T& operator=(const T&);
 
-        int getListSize();
+
         bool hasNext();
+        bool exists();
+        int getListSize();
 
         ~DSLinkedList();
 };
@@ -240,6 +243,17 @@ void DSLinkedList<T>::clear(){
         head = c;
     }
 }
+
+template<class T>
+bool DSLinkedList<T>::exists(){
+    if(head == nullptr){
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
 
 template<class T>
 DSLinkedList<T>::~DSLinkedList<T>(){

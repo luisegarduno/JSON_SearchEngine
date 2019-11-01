@@ -2,8 +2,8 @@
 #include <iostream>
 #include "catch.hpp"
 #include "dsstring.h"
-#include "dsvector.h"
 #include "dslinkedlist.h"
+#include "adjacencylist.h"
 
 #define TEST true
 
@@ -31,7 +31,8 @@ int main(int argc, char * argv[]){
                 return runCatchTests(argc, argv);
             }
             else {
-
+                AdjacencyList<DSString> newList;
+                //newList.add(DSString("Dallas"), DSString("Austin"));
             }
         }
 
