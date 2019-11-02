@@ -10,11 +10,13 @@ DSString::DSString(const char* originalChar){                               // '
 }
 
 DSString::DSString(const DSString& originaldsString){                       // Copy constructor, DSString parameter is a const,
-    char * tempoData = this->data;
-    this->data = new char[strlen(originaldsString.data) + 1];               // that goes by another name (&)
-    strcpy(this->data,originaldsString.data);
+    if(this->data != nullptr){
+        char * tempoData = this->data;
+        this->data = new char[strlen(originaldsString.data) + 1];               // that goes by another name (&)
+        strcpy(this->data,originaldsString.data);
 
-    delete [] tempoData;
+        delete [] tempoData;
+    }
 }
 
 DSString::~DSString(){                                                      // destructor
@@ -24,14 +26,14 @@ DSString::~DSString(){                                                      // d
 }
 
 DSString& DSString::operator=(const char* originalChar){                    // returns DSString& = originalChar
-    if(this->data != nullptr){
-        char * tempData = this->data;
 
-        this->data = new char[strlen(originalChar) + 1];
-        strcpy(this->data,originalChar);                                        // copies originalChar to this->data
+    char * tempData = this->data;
 
-        delete [] tempData;
-    }
+    this->data = new char[strlen(originalChar) + 1];
+    strcpy(this->data,originalChar);                                        // copies originalChar to this->data
+
+    delete [] tempData;
+
     return *this;                                                           // *this returns a reference to the object
 }
 

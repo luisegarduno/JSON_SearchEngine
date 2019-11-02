@@ -61,16 +61,16 @@ void AdjacencyList<U>::add(U originCity, U destinationCity){
 template<typename U>
 DSLinkedList<U>& AdjacencyList<U>::checkOuter(U city){             // check list of origination cities
     if(adjacency_list.getListSize() == 0 && adjacency_list.head == nullptr){
-        return *this;
+        return adjacency_list.newIterator();
     }
     else {
-        DSLinkedList<U> tempCurrent = adjacency_list;
+        U temp = adjacency_list;
 
-        while(tempCurrent != nullptr || tempCurrent != city){
-            tempCurrent = tempCurrent.next();
+        while(temp != nullptr || temp != city){
+            temp = temp->next();
         }
 
-        return tempCurrent;
+        return temp;
     }
 }
 

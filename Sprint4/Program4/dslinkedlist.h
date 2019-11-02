@@ -22,6 +22,7 @@ class DSLinkedList{
 
     public:
         DSLinkedList();
+        DSLinkedList(T);
         DSLinkedList(const DSLinkedList<T>&);
 
         void print();                   // print all values in Linked List
@@ -33,7 +34,7 @@ class DSLinkedList{
         T getAt(T);                     // returns element at specific index
         T& next();
         T& newIterator();               // Custom iterator functions
-        T& operator=(const T&);
+        DSLinkedList<T>& operator=(DSLinkedList<T>&);
 
         bool exists();
         bool hasNext();
@@ -52,6 +53,12 @@ DSLinkedList<T>::DSLinkedList(){        // Default constructor
     tail = nullptr;
     current = nullptr;
     size = 0;                           // Size of DSLinkedList is initially 0
+
+}
+
+template<class T>
+DSLinkedList<T>::DSLinkedList(T atemp){
+    //current = atemp;
 }
 
 template<class T>
@@ -66,7 +73,7 @@ DSLinkedList<T>::DSLinkedList(const DSLinkedList<T>& originalLinkedList){
     else{
         head = new DSNode<T>;
         head->previous = originalLinkedList.head->previous;
-        head->data = originalLinkedList->data;
+        head->data = originalLinkedList.head->data;
 
         aCurrent = head;                        // begin at head
         aNext = originalLinkedList.head;
@@ -74,7 +81,7 @@ DSLinkedList<T>::DSLinkedList(const DSLinkedList<T>& originalLinkedList){
         while(aNext != nullptr){
             aCurrent->next = new DSNode<T>;     // set next node = to new Node
             aCurrent = aCurrent->next;
-            aCurrent->previous = aNext->data;
+            aCurrent->previous->data = aNext->data;
 
             aNext = aNext->next;
         }
@@ -84,7 +91,7 @@ DSLinkedList<T>::DSLinkedList(const DSLinkedList<T>& originalLinkedList){
 }
 
 template<class T>
-T& DSLinkedList<T>::operator=(const T& v2LinkedList) {
+DSLinkedList<T>& DSLinkedList<T>::operator=(DSLinkedList<T>& v2LinkedList) {
     if(v2LinkedList != this){
         DSNode<T>* tempNode = head;
 
