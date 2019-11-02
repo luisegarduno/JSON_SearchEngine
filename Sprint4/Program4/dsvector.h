@@ -48,7 +48,7 @@ template <typename T>
 DSVector<T>::DSVector(){                                // Default constructor
     capacity = 5;                                       // initial capacity size
     sizeOfDSVector = 0;
-    this->data = new T[capacity];                             // allocate memory for data
+    this->data = new T[capacity];                       // allocate memory for data
     aResize = false;
 }
 
@@ -75,18 +75,7 @@ DSVector<T>::DSVector(const DSVector<T>& originalDSVector){
 
 template <typename T>
 void DSVector<T>::reSize(){
-    int aCapacity = this->capacity * 2;
-
-    T* temp = this->data;
-    this->data = new T[aCapacity];
-
-    for(int i = 0; i < sizeOfDSVector; i++){
-        this->data[i] = temp[i];
-    }
-
-    delete [] temp;
-    this->capacity = aCapacity;
-    /*capacity *= 2;                                      // doubles the capacity
+    capacity *= 2;                                      // doubles the capacity
     T * temp = new T[capacity];                         // create temp data array to copy elements
 
     for(int i = 0;i < sizeOfDSVector;i++) {
@@ -94,7 +83,7 @@ void DSVector<T>::reSize(){
     }
     delete [] this->data;                               // delete the memory allocated
     this->data = temp;
-    */
+
 }
 
 template <typename T>
@@ -166,19 +155,18 @@ void DSVector<T>::clearVector(){                        // used to remove all th
 
 template <typename T>
 void DSVector<T>::assign(size_t newX,const DSVector<T>& assignElement){    // assigns new value to the vector elements by replacing old ones
-    delete [] this->data;                                      // delete data from HEAP
+    delete [] this->data;               // delete data from HEAP
 
     if(newX >= size_t(capacity)){
         capacity = newX;
         sizeOfDSVector = newX;
     }
+
     if(newX < size_t(sizeOfDSVector)){
         sizeOfDSVector = newX;
     }
-                            // assign capacity, size, data
 
-    //sizeOfDSVector = newX;
-    this->data = new T[capacity];
+    this->data = new T[capacity];       // assign capacity, size, data
 
     for(int i = 0; i < sizeOfDSVector; i++){
         this->data[i] = assignElement.data[i];
@@ -189,7 +177,7 @@ template <typename T>
 T& DSVector<T>::operator=(T& v2){
     if(this != nullptr){
         delete [] data;
-        this->capacity = v2.getCapacity();                 // declare capacity = parameters capacity
+        this->capacity = v2.getCapacity();           // declare capacity = parameters capacity
         sizeOfDSVector = v2.getSize();               // declare sizeOfDsVector = parameters size
         this->data = new T[capacity];                // dynamically allocate data
 
@@ -203,7 +191,7 @@ T& DSVector<T>::operator=(T& v2){
 
 template <typename T>
 DSVector<T> DSVector<T>::operator+(const DSVector<T>& aDSVector) const{
-    DSVector<T> tempVector;                                // create the vector we will be returning
+    DSVector<T> tempVector;                             // create the vector we will be returning
     tempVector.sizeOfDSVector = getSize() + aDSVector.getSize();
     tempVector.capacity = tempVector.getSize();
 
@@ -315,7 +303,7 @@ void DSVector<T>::printVector(){
 template <typename T>
 DSVector<T>::~DSVector(){
     if(this->data != nullptr){
-        delete [] this->data;                                       // deallocate memory from heap
+        delete [] this->data;                                   // deallocate memory from heap
     }
 }
 

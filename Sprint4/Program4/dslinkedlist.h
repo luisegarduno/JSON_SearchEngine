@@ -2,11 +2,15 @@
 #define DSLINKEDLIST_H
 
 #include <iostream>
+#include "dsstring.h"
 #include "dsnode.h"
 #include "dsstack.h"
 
 template<class T>
 class DSLinkedList{
+
+    template<class U> friend class AdjacencyList;
+
     DSNode<T> * head;
     DSNode<T> * tail;
     DSNode<T> * current;
@@ -31,10 +35,13 @@ class DSLinkedList{
         T& newIterator();               // Custom iterator functions
         T& operator=(const T&);
 
-
-        bool hasNext();
         bool exists();
+        bool hasNext();
+        bool operator!=(const DSLinkedList<T>&);
         int getListSize();
+
+
+
 
         ~DSLinkedList();
 };
@@ -242,6 +249,25 @@ void DSLinkedList<T>::clear(){
         delete head;
         head = c;
     }
+}
+
+
+template<class T>
+bool DSLinkedList<T>::operator!=(const DSLinkedList<T>& aLinkedList){
+    if(this->head != aLinkedList.head){
+        return true;
+    }
+    if(this->tail != aLinkedList.tail){
+        return true;
+    }
+    if(this->getListSize() != aLinkedList.getListSize()){
+        return true;
+    }
+    if(this->current != aLinkedList.current){
+        return true;
+    }
+    return false;
+
 }
 
 template<class T>

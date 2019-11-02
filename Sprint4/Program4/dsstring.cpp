@@ -24,12 +24,14 @@ DSString::~DSString(){                                                      // d
 }
 
 DSString& DSString::operator=(const char* originalChar){                    // returns DSString& = originalChar
-    char * tempData = this->data;
+    if(this->data != nullptr){
+        char * tempData = this->data;
 
-    this->data = new char[strlen(originalChar) + 1];
-    strcpy(this->data,originalChar);                                        // copies originalChar to this->data
+        this->data = new char[strlen(originalChar) + 1];
+        strcpy(this->data,originalChar);                                        // copies originalChar to this->data
 
-    delete [] tempData;
+        delete [] tempData;
+    }
     return *this;                                                           // *this returns a reference to the object
 }
 
