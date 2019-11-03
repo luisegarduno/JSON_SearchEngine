@@ -242,6 +242,10 @@ TEST_CASE("Doubly Linked List", "DSLinkedLists<T>"){
         newList.removeAt(0);
         REQUIRE(newList.newIterator() == 4);
         REQUIRE(newList.next() == 6);
+        REQUIRE(newList.next() == 8);
+
+        newList.newIterator() = newList.next();
+        REQUIRE(newList.newIterator() == 10);
     }
 }
 

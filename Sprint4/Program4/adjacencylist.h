@@ -30,47 +30,50 @@ void AdjacencyList<U>::add(U originCity, U destinationCity){
     DSLinkedList<U> bList = checkOuter(destinationCity);
 
     if(aList != nullptr){                                           // if aList isn't empty
-        bool dataExists = checkInner(destinationCity);              // Check if flight
+        bool dataExists = checkInner(destinationCity,aList);              // Check if flight
 
         if(!dataExists){
-            aList.push(destinationCity);                            // add destination to Origin Node (originCity)
-        }
-    }
-
-    if(bList != nullptr){
-        bool dataExists = checkInner(originCity);                   // Check if flight exists
-
-        if(!dataExists){
-            bList.push(originCity);                                 // add Origin Node (originCity) to new Origin Node (destinationCity)
+            aList.append(destinationCity);                            // add destination to Origin Node (originCity)
         }
     }
 
     else if(aList == nullptr){
         DSLinkedList<U> newLinkedListA;                              // Declare head/Origination city of newLinkedList
-        newLinkedListA.push(originCity);                             // add this LinkedList to adjacencyList
+        newLinkedListA.append(originCity);                             // add this LinkedList to adjacencyList
         adjacency_list.append(newLinkedListA);
+    }
+
+    else if(bList != nullptr){
+        bool dataExists = checkInner(originCity,bList);                   // Check if flight exists
+
+        if(!dataExists){
+            bList.append(originCity);                                 // add Origin Node (originCity) to new Origin Node (destinationCity)
+        }
     }
 
     else if(bList == nullptr){
         DSLinkedList<U> newLinkedListB;                              // Declare head/Origination city of newLinkedList
-        newLinkedListB.push(destinationCity);                        // add this LinkedList to adjacencyList
+        newLinkedListB.append(destinationCity);                        // add this LinkedList to adjacencyList
         adjacency_list.append(newLinkedListB);
     }
 }
 
 template<typename U>
 DSLinkedList<U>& AdjacencyList<U>::checkOuter(U city){             // check list of origination cities
-    if(adjacency_list.getListSize() == 0 && adjacency_list.head == nullptr){
+    adjacency_list.newIterator();
+
+    if(adjacency_list.getListSize() == 0 && adjacency_list.hasNext() == true){
         return adjacency_list.newIterator();
     }
     else {
-        U temp = adjacency_list;
 
-        while(temp != nullptr || temp != city){
-            temp = temp->next();
+        DSLinkedList<U> temp = adjacency_list.newIterator();
+
+        while(temp.hasNext() != false || temp.newIterator() != city){
+            temp.newIterator() = temp.next();
         }
 
-        return temp;
+        return adjacency_list.newIterator();
     }
 }
 
@@ -78,13 +81,13 @@ template<typename U>
 bool AdjacencyList<U>::checkInner(U city, const DSLinkedList<U>& aList){
     DSLinkedList<U> temp = aList->head;
 
-    while(temp != nullptr || temp != city){
-        temp = temp->next;
+    while(temp.hasNext() != false || temp.newIterator() != city){
+        temp.newIterator() = temp.next();
     }
-    if(temp == nullptr){
+    if(temp.hasNext() == true){
         return false;
     }
-    else if(temp != nullptr && temp == city){
+    else if(temp.hasNext() != false && temp.newIterator() == city){
         return true;
     }
 

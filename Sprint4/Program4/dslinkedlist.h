@@ -34,13 +34,12 @@ class DSLinkedList{
         T getAt(T);                     // returns element at specific index
         T& next();
         T& newIterator();               // Custom iterator functions
-        DSLinkedList<T>& operator=(DSLinkedList<T>&);
+        DSLinkedList<T>& operator=(const DSLinkedList<T>&);
 
         bool exists();
         bool hasNext();
-        bool operator!=(const DSLinkedList<T>&);
-        int getListSize();
-
+        bool operator!=(const DSLinkedList<T>&) const;
+        int getListSize() const;
 
 
 
@@ -53,12 +52,12 @@ DSLinkedList<T>::DSLinkedList(){        // Default constructor
     tail = nullptr;
     current = nullptr;
     size = 0;                           // Size of DSLinkedList is initially 0
-
 }
 
 template<class T>
-DSLinkedList<T>::DSLinkedList(T atemp){
-    //current = atemp;
+DSLinkedList<T>::DSLinkedList(T aVal){
+    head = new DSNode<T>(aVal);
+    size++;
 }
 
 template<class T>
@@ -76,12 +75,12 @@ DSLinkedList<T>::DSLinkedList(const DSLinkedList<T>& originalLinkedList){
         head->data = originalLinkedList.head->data;
 
         aCurrent = head;                        // begin at head
-        aNext = originalLinkedList.head;
+        aNext = originalLinkedList.head->next;
 
         while(aNext != nullptr){
             aCurrent->next = new DSNode<T>;     // set next node = to new Node
             aCurrent = aCurrent->next;
-            aCurrent->previous->data = aNext->data;
+            aCurrent->data = aNext->data;
 
             aNext = aNext->next;
         }
@@ -91,21 +90,32 @@ DSLinkedList<T>::DSLinkedList(const DSLinkedList<T>& originalLinkedList){
 }
 
 template<class T>
-DSLinkedList<T>& DSLinkedList<T>::operator=(DSLinkedList<T>& v2LinkedList) {
-    if(v2LinkedList != this){
-        DSNode<T>* tempNode = head;
+DSLinkedList<T>& DSLinkedList<T>::operator=(const DSLinkedList<T>& v2LinkedList) {
+    if(this != &v2LinkedList){
+        size = v2LinkedList.size;
 
-        while(tempNode->next){
-            head = head->next;
-            delete tempNode;
-            tempNode = head;
+        if(v2LinkedList.size == 0){
+            head = nullptr;
         }
 
-        tempNode = v2LinkedList.head;
+        else {
+            size = v2LinkedList.size;
+            this->clear();
 
-        while(tempNode != nullptr){
-            append(tempNode);
-            tempNode = tempNode->next;
+            DSNode<T>* orig;
+            DSNode<T>* lastptr;
+            orig = v2LinkedList.head;
+            lastptr = new DSNode<T>(orig->data);
+
+            head = lastptr;
+            DSNode<T>* temp;
+
+            while(orig != nullptr){
+                temp = new DSNode<T>(orig->data);
+                lastptr->next = temp;
+                lastptr = lastptr->next;
+                orig = orig->next;
+            }
         }
     }
 
@@ -142,20 +152,19 @@ T& DSLinkedList<T>::next(){                 // points to the next node in the Li
 }
 
 template<class T>
-int DSLinkedList<T>::getListSize(){
+int DSLinkedList<T>::getListSize() const{
     return size;
 }
 
 template<class T>
 bool DSLinkedList<T>::hasNext(){
     if(this->current->next == nullptr || this->current == nullptr){
-        DSLinkedList<T> myList = DSLinkedList<T>();
+        DSLinkedList<T> temp = DSLinkedList<T>();
 
-        int value = myList.newIterator();
+        auto a = temp.newIterator();
 
-        for(int i = 0; i < myList.size; i++){
-            cout << value << endl;
-            value = myList.next();              // adds values to linked list
+        for(int i = 0; i < this->size; i++){
+            a = temp.next();              // adds values to linked list
         }
         return true;
     }
@@ -260,19 +269,32 @@ void DSLinkedList<T>::clear(){
 
 
 template<class T>
-bool DSLinkedList<T>::operator!=(const DSLinkedList<T>& aLinkedList){
+bool DSLinkedList<T>::operator!=(const DSLinkedList<T>& aLinkedList)const {
     if(this->head != aLinkedList.head){
         return true;
     }
     if(this->tail != aLinkedList.tail){
         return true;
     }
-    if(this->getListSize() != aLinkedList.getListSize()){
+
+    if(size != aLinkedList.size){
         return true;
     }
+    if(head != nullptr){
+        DSNode<T>* c = head;
+        for(int i = 0; i < size; i++){
+            if(c == nullptr){
+                return false;
+            }
+            c = c->next;
+        }
+        return true;
+    }
+
     if(this->current != aLinkedList.current){
         return true;
     }
+
     return false;
 
 }

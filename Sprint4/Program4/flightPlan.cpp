@@ -31,14 +31,14 @@ int main(int argc, char * argv[]){
                 return runCatchTests(argc, argv);
             }
             else {
-                AdjacencyList<DSLinkedList<int>> newList;
+                AdjacencyList<int> newList;
 
-                DSLinkedList<int> one;
-                one.append(1);
-                DSLinkedList<int> two;
-                two.append(2);
+                //DSLinkedList<int> one;
+                //one.append(1);
+                //DSLinkedList<int> two;
+                //two.append(2);
 
-                //newList.add(one, two);
+                //newList.add(1, 2);
 
             }
         }
