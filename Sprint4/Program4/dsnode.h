@@ -2,6 +2,7 @@
 #define DSNODE_H
 
 #include <iostream>
+#include <dsstring.h>
 
 using std::cout;
 using std::endl;

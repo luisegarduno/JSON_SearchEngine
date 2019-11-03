@@ -2,6 +2,7 @@
 #define DSSTACK_H
 
 #include <iostream>
+#include "dsstring.h"
 
 template<class T>
 class DSLinkedList;

@@ -33,25 +33,8 @@ int main(int argc, char * argv[]){
             else {
                 AdjacencyList<int> newList;
 
-                DSLinkedList<int> one;
-                one.append(1);
-                one.append(2);
-                one.append(3);
-
-                DSLinkedList<int> two;
-                two = one;
-
-                one.print();
-                cout << endl;
-                two.print();
-
-                //DSLinkedList<int> one;
-                //one.append(1);
-                //DSLinkedList<int> two;
-                //two.append(2);
-
-                //newList.add(1, 2);
-
+                newList.add(1, 2);
+                //newList.add(1, 3);
             }
         }
 

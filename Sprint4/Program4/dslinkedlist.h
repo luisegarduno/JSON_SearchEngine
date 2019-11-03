@@ -157,16 +157,13 @@ int DSLinkedList<T>::getListSize() const{
 
 template<class T>
 bool DSLinkedList<T>::hasNext(){
-    if(this->current->next == nullptr || this->current == nullptr){
+    if(this->current == nullptr){
         DSLinkedList<T> temp = DSLinkedList<T>();
+        temp.newIterator();
 
-        auto a = temp.newIterator();
-
-        for(int i = 0; i < this->size; i++){
-            a = temp.next();              // adds values to linked list
-        }
         return true;
     }
+
     return false;
 }
 
