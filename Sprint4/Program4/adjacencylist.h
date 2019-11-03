@@ -90,7 +90,6 @@ bool AdjacencyList<U>::checkInner(U city, const DSLinkedList<U>& aList){
     else if(temp.hasNext() != false && temp.newIterator() == city){
         return true;
     }
-
 }
 
 

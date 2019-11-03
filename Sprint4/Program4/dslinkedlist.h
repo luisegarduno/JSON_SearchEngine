@@ -92,29 +92,28 @@ DSLinkedList<T>::DSLinkedList(const DSLinkedList<T>& originalLinkedList){
 template<class T>
 DSLinkedList<T>& DSLinkedList<T>::operator=(const DSLinkedList<T>& v2LinkedList) {
     if(this != &v2LinkedList){
-        size = v2LinkedList.size;
 
         if(v2LinkedList.size == 0){
             head = nullptr;
         }
 
         else {
-            size = v2LinkedList.size;
             this->clear();
 
-            DSNode<T>* orig;
-            DSNode<T>* lastptr;
-            orig = v2LinkedList.head;
-            lastptr = new DSNode<T>(orig->data);
+            DSNode<T>* newHead;
+            DSNode<T>* newTail;
 
-            head = lastptr;
+            newHead = v2LinkedList.head;
+            newTail = new DSNode<T>(newHead->data);
+
+            head = newHead;
             DSNode<T>* temp;
 
-            while(orig != nullptr){
-                temp = new DSNode<T>(orig->data);
-                lastptr->next = temp;
-                lastptr = lastptr->next;
-                orig = orig->next;
+            while(newHead != nullptr){
+                temp = new DSNode<T>(newHead->data);
+                newTail->next = temp;
+                newTail = newTail->next;
+                newHead = newHead->next;
             }
         }
     }
