@@ -196,7 +196,7 @@ void DSLinkedList<T>::print(){
         int count = 0;
 
         while(aCurrent != nullptr){                 // cycles & prints all values in linked list
-            cout << "Node[" << ++count << "]: " << aCurrent->data << endl;
+            cout << "OriginNode[" << ++count << "]: " << aCurrent->data << endl;
             aCurrent = aCurrent->next;
         }
     }
