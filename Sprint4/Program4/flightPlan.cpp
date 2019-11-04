@@ -34,7 +34,7 @@ int main(int argc, char * argv[]){
                 AdjacencyList<int> newList;
 
                 newList.add(1, 2);
-                //newList.add(1, 3);
+                newList.add(4,3);
             }
         }
 

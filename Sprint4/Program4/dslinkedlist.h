@@ -47,46 +47,46 @@ class DSLinkedList{
 };
 
 template<class T>
-DSLinkedList<T>::DSLinkedList(){        // Default constructor
-    head = nullptr;
-    tail = nullptr;
-    current = nullptr;
-    size = 0;                           // Size of DSLinkedList is initially 0
+DSLinkedList<T>::DSLinkedList(): head(nullptr), tail(nullptr), current(nullptr), size(0){        // Default constructor
 }
 
 template<class T>
-DSLinkedList<T>::DSLinkedList(T aVal){
-    head = new DSNode<T>(aVal);
+DSLinkedList<T>::DSLinkedList(T x){
+    head = new DSNode<T>(x);
     size++;
 }
 
 template<class T>
 DSLinkedList<T>::DSLinkedList(const DSLinkedList<T>& originalLinkedList){
-    DSNode<T>* aCurrent = originalLinkedList.head;
-    DSNode<T>* aNext = nullptr;
+
 
     if(originalLinkedList.head == nullptr){           // if original Linked List is empty
-        head = nullptr;                               // head is = to 0
-    }
-
-    else{
-        head = new DSNode<T>;
-        head->previous = originalLinkedList.head->previous;
-        head->data = originalLinkedList.head->data;
-
-        aCurrent = head;                        // begin at head
-        aNext = originalLinkedList.head->next;
-
-        while(aNext != nullptr){
-            aCurrent->next = new DSNode<T>;     // set next node = to new Node
-            aCurrent = aCurrent->next;
-            aCurrent->data = aNext->data;
-
-            aNext = aNext->next;
+            head = tail = nullptr;                    // head is = to nullptr
         }
 
-        aCurrent->next = nullptr;
-    }
+        else{
+            DSNode<T>* aCurrent = originalLinkedList.head;
+            head = tail = nullptr;
+            auto count = 0;
+
+            while(aCurrent != nullptr){
+                DSNode<T>* newNode = new DSNode<T>();
+                newNode->previous = nullptr;
+                newNode->next = nullptr;
+                newNode->data = aCurrent->data;
+
+                if(count == 0){
+                    head = tail = newNode;
+                }
+                else {
+                    tail->next = newNode;
+                    newNode->previous = tail;
+                    tail = tail->next;
+                }
+                ++count;
+                aCurrent = aCurrent->next;
+            }
+         }
 }
 
 template<class T>
@@ -139,15 +139,11 @@ void DSLinkedList<T>::append(T x){
 }
 
 template<class T>
-T& DSLinkedList<T>::newIterator(){          // sets new head of LinkedList
-    if(this->head != nullptr){
-        this->current = this->head;             // set's the current Nodeptr to the head of LinkedList
-        return this->current->data;                   // return current Node
+T& DSLinkedList<T>::newIterator(){
+    if(current){
+        current = head;         // set's the current Nodeptr to the head of LinkedList
     }
-    else{
-        this->current = nullptr;
-        return this->current->data;
-    }
+    return current->data;             // return current node data
 }
 
 template<class T>
@@ -157,20 +153,16 @@ T& DSLinkedList<T>::getNext(){                 // points to the next node in the
 }
 
 template<class T>
-int DSLinkedList<T>::getListSize() const{
-    return size;
+bool DSLinkedList<T>::hasNext(){
+    if(this->current == nullptr || this->current->next == nullptr){
+        return false;
+    }
+    return true;
 }
 
 template<class T>
-bool DSLinkedList<T>::hasNext(){
-    if(this->current == nullptr || this->current->next == nullptr){
-        //DSLinkedList<T> temp = DSLinkedList<T>();
-        //temp.newIterator();
-
-        return false;
-    }
-
-    return true;
+int DSLinkedList<T>::getListSize() const{
+    return size;
 }
 
 template<class T>
@@ -278,6 +270,9 @@ bool DSLinkedList<T>::operator!=(const DSLinkedList<T>& aLinkedList)const {
     if(this->tail != aLinkedList.tail){
         return true;
     }
+    if(this->current != aLinkedList.current){
+        return true;
+    }
 
     if(size != aLinkedList.size){
         return true;
@@ -294,6 +289,9 @@ bool DSLinkedList<T>::operator!=(const DSLinkedList<T>& aLinkedList)const {
     }
 
     if(this->current != aLinkedList.current){
+        return true;
+    }
+    if(this->current->data != aLinkedList.current->data){
         return true;
     }
 

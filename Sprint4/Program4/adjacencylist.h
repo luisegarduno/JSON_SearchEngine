@@ -14,12 +14,16 @@ class AdjacencyList{
     public:
         AdjacencyList();
         void add(U,U);
-        DSLinkedList<U> checkOuter(U);
+        DSLinkedList<U>& checkOuter(U);
         bool checkInner(U, const DSLinkedList<U>&);
 };
 
 template<typename U>
 AdjacencyList<U>::AdjacencyList(){
+    //adjacency_list = DSLinkedList<U>();
+    adjacency_list.head = nullptr;
+    adjacency_list.tail = nullptr;
+    adjacency_list.current = nullptr;
 }
 
 template<typename U>
@@ -28,7 +32,6 @@ void AdjacencyList<U>::add(U originCity, U destinationCity){
     DSLinkedList<U> bList = checkOuter(destinationCity);
 
     if(aList.head != nullptr){                                           // if aList isn't empty
-        cout << "in bool" << endl;
         bool dataExists = checkInner(destinationCity,aList);              // Check if flight
 
         if(!dataExists){
@@ -37,7 +40,6 @@ void AdjacencyList<U>::add(U originCity, U destinationCity){
     }
 
     else if(aList.head == nullptr){
-        cout << "in here" << endl;
         DSLinkedList<U> newLinkedListA;                              // Declare head/Origination city of newLinkedList
         newLinkedListA.append(originCity);                             // add this LinkedList to adjacencyList
         adjacency_list.append(newLinkedListA);
@@ -52,7 +54,6 @@ void AdjacencyList<U>::add(U originCity, U destinationCity){
     }
 
     else if(bList.head == nullptr){
-        cout << "in here" << endl;
         DSLinkedList<U> newLinkedListB;                              // Declare head/Origination city of newLinkedList
         newLinkedListB.append(destinationCity);                        // add this LinkedList to adjacencyList
         adjacency_list.append(newLinkedListB);
@@ -60,8 +61,9 @@ void AdjacencyList<U>::add(U originCity, U destinationCity){
 }
 
 template<typename U>
-DSLinkedList<U> AdjacencyList<U>::checkOuter(U city){             // check list of origination cities
-    DSLinkedList<U> newCityLinkedList = DSLinkedList<U>();
+DSLinkedList<U>& AdjacencyList<U>::checkOuter(U city){             // check list of origination cities
+
+    static DSLinkedList<U> newCityLinkedList = DSLinkedList<U>();
 
     if(adjacency_list.size == 0 && adjacency_list.hasNext() == false){
         return newCityLinkedList;
@@ -79,7 +81,7 @@ DSLinkedList<U> AdjacencyList<U>::checkOuter(U city){             // check list 
         }
 
         else {
-            adjacency_list.newIterator();
+            newCityLinkedList = adjacency_list.newIterator();
             return newCityLinkedList;
         }
     }
@@ -88,7 +90,7 @@ DSLinkedList<U> AdjacencyList<U>::checkOuter(U city){             // check list 
 template<typename U>
 bool AdjacencyList<U>::checkInner(U city, const DSLinkedList<U>& aList){
     cout << "in here" << endl;
-    DSLinkedList<U> temp = aList;
+    auto temp = aList;
     cout << "passed temp" << endl;
     temp.newIterator();
     cout << "created new" << endl;
