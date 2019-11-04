@@ -32,7 +32,7 @@ class DSLinkedList{
         void popLastNode();
 
         T getAt(T);                     // returns element at specific index
-        T& next();
+        T& getNext();
         T& newIterator();               // Custom iterator functions
         DSLinkedList<T>& operator=(const DSLinkedList<T>&);
 
@@ -140,12 +140,18 @@ void DSLinkedList<T>::append(T x){
 
 template<class T>
 T& DSLinkedList<T>::newIterator(){          // sets new head of LinkedList
-    this->current = this->head;
-    return this->current->data;
+    if(this->head != nullptr){
+        this->current = this->head;             // set's the current Nodeptr to the head of LinkedList
+        return this->current->data;                   // return current Node
+    }
+    else{
+        this->current = nullptr;
+        return this->current->data;
+    }
 }
 
 template<class T>
-T& DSLinkedList<T>::next(){                 // points to the next node in the LinkedList
+T& DSLinkedList<T>::getNext(){                 // points to the next node in the LinkedList
     this->current = this->current->next;
     return this->current->data;
 }
@@ -157,14 +163,14 @@ int DSLinkedList<T>::getListSize() const{
 
 template<class T>
 bool DSLinkedList<T>::hasNext(){
-    if(this->current == nullptr){
-        DSLinkedList<T> temp = DSLinkedList<T>();
-        temp.newIterator();
+    if(this->current == nullptr || this->current->next == nullptr){
+        //DSLinkedList<T> temp = DSLinkedList<T>();
+        //temp.newIterator();
 
-        return true;
+        return false;
     }
 
-    return false;
+    return true;
 }
 
 template<class T>

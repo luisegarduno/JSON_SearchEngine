@@ -5,7 +5,7 @@
 #include "dslinkedlist.h"
 #include "adjacencylist.h"
 
-#define TEST true
+#define TEST false
 
 using namespace std;
 
