@@ -28,6 +28,7 @@ void AdjacencyList<U>::add(U originCity, U destinationCity){
     DSLinkedList<U> bList = checkOuter(destinationCity);
 
     if(aList.head != nullptr){                                           // if aList isn't empty
+        cout << "in bool" << endl;
         bool dataExists = checkInner(destinationCity,aList);              // Check if flight
 
         if(!dataExists){
@@ -36,12 +37,13 @@ void AdjacencyList<U>::add(U originCity, U destinationCity){
     }
 
     else if(aList.head == nullptr){
+        cout << "in here" << endl;
         DSLinkedList<U> newLinkedListA;                              // Declare head/Origination city of newLinkedList
         newLinkedListA.append(originCity);                             // add this LinkedList to adjacencyList
         adjacency_list.append(newLinkedListA);
     }
 
-    else if(bList.head != nullptr){
+    if(bList.head != nullptr){
         bool dataExists = checkInner(originCity,bList);                   // Check if flight exists
 
         if(!dataExists){
@@ -50,6 +52,7 @@ void AdjacencyList<U>::add(U originCity, U destinationCity){
     }
 
     else if(bList.head == nullptr){
+        cout << "in here" << endl;
         DSLinkedList<U> newLinkedListB;                              // Declare head/Origination city of newLinkedList
         newLinkedListB.append(destinationCity);                        // add this LinkedList to adjacencyList
         adjacency_list.append(newLinkedListB);
@@ -84,20 +87,25 @@ DSLinkedList<U> AdjacencyList<U>::checkOuter(U city){             // check list 
 
 template<typename U>
 bool AdjacencyList<U>::checkInner(U city, const DSLinkedList<U>& aList){
-
+    cout << "in here" << endl;
     DSLinkedList<U> temp = aList;
+    cout << "passed temp" << endl;
     temp.newIterator();
+    cout << "created new" << endl;
 
     while(temp.hasNext() != false || temp.newIterator() != city){
         temp.newIterator() = temp.getNext();
     }
     if(temp.hasNext() == true){
+        cout << "returning" << endl;
         return false;
     }
     else if(temp.hasNext() != false && temp.newIterator() == city){
+        cout << "returning" << endl;
         return true;
     }
     else {
+        cout << "returning" <<endl;
         return true;
     }
 }
