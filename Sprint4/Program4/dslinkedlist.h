@@ -151,11 +151,7 @@ void DSLinkedList<T>::resetIterator(){
 
 template<class T>
 T& DSLinkedList<T>::getIterator(){
-    if(iterator == nullptr){
-        cout << "in here" << endl;
-        iterator = head;
-    }
-    cout << "returning" << endl;
+
     return this->iterator->data;             // return iterator node data
 }
 
@@ -175,6 +171,8 @@ void DSLinkedList<T>::iterateForward(){
 template<class T>
 bool DSLinkedList<T>::iteratorIsValid(){
     if(this->iterator == nullptr || this->iterator->next == nullptr){
+        //cout << "current iterator is NOT valid, setting current pointer = head pointer" << endl;
+        resetIterator();
         return false;
     }
     return true;
@@ -191,15 +189,15 @@ void DSLinkedList<T>::removeAt(int index){
         std::cout << "\nNothing here" << index << std::endl << std::endl;
     }
     else {
-        DSNode<T>* aCurrent = head;             // set the head = to temp Current node
+        iterator = head;                        // set the head = to temp Current node
         int count = 0;                          // counter
 
         while (count != index) {
-          aCurrent = aCurrent->next;            // set the iterator node = to the next node
+          iterator = iterator->next;            // set the iterator node = to the next node
           count++;                              // increment counter until index is reached
         }
 
-        remove(aCurrent);
+        remove(iterator);
 
         size--;                                 // decrement Linked List size
       }
@@ -245,6 +243,8 @@ void DSLinkedList<T>::remove(DSNode<T>* iteratorNode){
         }
         delete iteratorNode;
     }
+
+    resetIterator();
 
 }
 

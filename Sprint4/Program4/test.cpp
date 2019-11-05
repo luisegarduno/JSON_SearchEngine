@@ -245,16 +245,26 @@ TEST_CASE("Doubly Linked List", "DSLinkedLists<T>"){
         REQUIRE(newList.getIterator() == 4);
 
         newList.removeAt(1);
-        newList.print();
-        int val = newList.getIterator();
-        cout << val << endl;
-        //REQUIRE(newList.getIterator() == 4);
+        REQUIRE(newList.getIterator() == 2);
 
-        //REQUIRE(newList.getNextIterator() == 6);
-        //REQUIRE(newList.getNextIterator() == 8);
+        REQUIRE(newList.getNextIterator() == 6);
+        REQUIRE(newList.getIterator() == 6);
 
-        //newList.getIterator() = newList.getNextIterator();
-        //REQUIRE(newList.getIterator() == 10);
+        REQUIRE(newList.getNextIterator() == 8);
+        REQUIRE(newList.getIterator() == 8);
+
+
+        newList.iterateForward();
+        REQUIRE(newList.getIterator() == 10);
+
+        newList.iterateForward();
+        REQUIRE(newList.getIterator() == 12);
+
+        newList.iterateForward();
+        REQUIRE(newList.iteratorIsValid() == false);
+
+        newList.removeAt(0);
+        REQUIRE(newList.getIterator() == 6);
     }
 }
 
