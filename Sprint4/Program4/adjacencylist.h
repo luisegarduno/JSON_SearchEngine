@@ -7,37 +7,41 @@
 #include "dslinkedlist.h"
 
 
-template <typename U>
+template <class U>
 class AdjacencyList{
     private:
         DSLinkedList< DSLinkedList<U> > adjacency_list;
 
     public:
         AdjacencyList();
-        void add(U,U);
-        DSLinkedList<U>& checkOuter(U);
+        void add(U,U,double,double,U);
+        DSLinkedList<U>& checkOuter(U,U);
         bool checkInner(U, const DSLinkedList<U>&);
 };
 
-template<typename U>
+template<class U>
 AdjacencyList<U>::AdjacencyList(){
-    //adjacency_list = DSLinkedList<U>();
+
 }
 
-template<typename U>
-void AdjacencyList<U>::add(U originCity, U destinationCity){
-    DSLinkedList<U> aList = checkOuter(originCity);             // Check list of orgination cities
+template<class U>
+void AdjacencyList<U>::add(U originCity, U destinationCity, double cost, double time, U airline){
+    DSLinkedList<U> aList = checkOuter(originCity, airline);             // Check list of orgination cities
 
     if(aList.head != nullptr){                                  // if aList isn't empty
         bool dataExists = checkInner(destinationCity,aList);    // Check if flight
 
         if(!dataExists){
             aList.append(destinationCity);                      // add destination to Origin Node (originCity)
+
+            aList = checkOuter(destinationCity,airline);
+
         }
     }
 
     else{
-        DSLinkedList<U> newLinkedListA;
+        DSLinkedList<DSLinkedList<U>> newLinkedListA;
+        newLinkedListA.append(aList);
         newLinkedListA.append(originCity);                      // add this LinkedList to adjacencyList
         bool dataExists = checkInner(destinationCity,newLinkedListA);
 
@@ -49,8 +53,8 @@ void AdjacencyList<U>::add(U originCity, U destinationCity){
     }
 }
 
-template<typename U>
-DSLinkedList<U>& AdjacencyList<U>::checkOuter(U city){          // check list of origination cities
+template<class U>
+DSLinkedList<U>& AdjacencyList<U>::checkOuter(U city, U airline){          // check list of origination cities
     adjacency_list.resetIterator();
 
     static DSLinkedList<U> newCityLinkedList = DSLinkedList<U>();
@@ -76,7 +80,7 @@ DSLinkedList<U>& AdjacencyList<U>::checkOuter(U city){          // check list of
     }
 }
 
-template<typename U>
+template<class U>
 bool AdjacencyList<U>::checkInner(U city, const DSLinkedList<U>& aList){
     auto temp = aList;
     temp.resetIterator();

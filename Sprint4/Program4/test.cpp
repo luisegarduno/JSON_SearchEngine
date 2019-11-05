@@ -5,6 +5,7 @@
 #include "dsvector.h"
 #include "dsstring.cpp"
 #include "dslinkedlist.h"
+#include "adjacencylist.h"
 
 TEST_CASE("DSString class", "[DSString]"){
 
@@ -266,6 +267,17 @@ TEST_CASE("Doubly Linked List", "DSLinkedLists<T>"){
         newList.removeAt(0);
         REQUIRE(newList.getIterator() == 6);
     }
+}
+
+TEST_CASE("Adjacency List Class"){
+    AdjacencyList<DSString> newList;
+    DSString dallas = "Dallas";
+    DSString austin = "Austin";
+    DSString chicago = "Chicago";
+
+
+
+
 }
 
 

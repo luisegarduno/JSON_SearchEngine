@@ -31,11 +31,9 @@ int main(int argc, char * argv[]){
                 return runCatchTests(argc, argv);
             }
             else {
-                AdjacencyList<int> newList;
+                AdjacencyList<DSString> newList;
 
-                newList.add(1, 2);
-                //newList.add(4, 3);
-                //newList.add(1,5);
+                //newList.add(1, 2);
             }
         }
 
