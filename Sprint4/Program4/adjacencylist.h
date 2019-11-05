@@ -28,7 +28,6 @@ void AdjacencyList<U>::add(U originCity, U destinationCity){
     DSLinkedList<U> aList = checkOuter(originCity);             // Check list of orgination cities
 
     if(aList.head != nullptr){                                  // if aList isn't empty
-        cout << "if" << endl;
         bool dataExists = checkInner(destinationCity,aList);    // Check if flight
 
         if(!dataExists){
@@ -37,41 +36,40 @@ void AdjacencyList<U>::add(U originCity, U destinationCity){
     }
 
     else if(aList.head == nullptr){
-        cout << "else if" << endl;
-        DSLinkedList<U> newLinkedListA(originCity);
-        //newLinkedListA.append(originCity);                      // add this LinkedList to adjacencyList
-        newLinkedListA.append(destinationCity);
-        newLinkedListA.print();
+        DSLinkedList<U> newLinkedListA;
+        newLinkedListA.append(originCity);                      // add this LinkedList to adjacencyList
+        bool dataExists = checkInner(destinationCity,newLinkedListA);
+
+        if(!dataExists){
+            newLinkedListA.append(destinationCity);
+        }
+
         adjacency_list.append(newLinkedListA);
     }
-    cout << "Origin List" << endl;
-    aList.print();
-    cout << endl;
 }
 
 template<typename U>
 DSLinkedList<U>& AdjacencyList<U>::checkOuter(U city){          // check list of origination cities
+    adjacency_list.resetIterator();
 
     static DSLinkedList<U> newCityLinkedList = DSLinkedList<U>();
 
-    if(adjacency_list.size == 0 && adjacency_list.hasNext() == false){
-        //newCityLinkedList.append(city);
+    if(adjacency_list.size == 0 && adjacency_list.iteratorIsValid() == false){
         return newCityLinkedList;
     }
 
     else {
-        while(adjacency_list.hasNext() != false || adjacency_list.newIterator() != city){
-            adjacency_list.newIterator() = adjacency_list.getNext();
+        while(adjacency_list.iteratorIsValid() != false || adjacency_list.getIterator() != city){
+            adjacency_list.iterateForward();
         }
 
-        if(adjacency_list.hasNext() == false && adjacency_list.newIterator() != city){
+        if(adjacency_list.iteratorIsValid() == false && adjacency_list.getIterator() != city){
             newCityLinkedList.append(city);
-            adjacency_list.getNext() = newCityLinkedList;
             return newCityLinkedList;
         }
 
         else {
-            newCityLinkedList = adjacency_list.newIterator();
+            newCityLinkedList = adjacency_list.getIterator();
             return newCityLinkedList;
         }
     }
@@ -80,14 +78,15 @@ DSLinkedList<U>& AdjacencyList<U>::checkOuter(U city){          // check list of
 template<typename U>
 bool AdjacencyList<U>::checkInner(U city, const DSLinkedList<U>& aList){
     auto temp = aList;
+    temp.resetIterator();
 
     bool aFlag = false;
-    while(temp.hasNext()){
-        if(temp.newIterator() == city){
+    while(temp.iteratorIsValid()){
+        if(temp.getIterator() == city){
             aFlag = true;
         }
         else{
-            temp.newIterator() = temp.getNext();
+            temp.iterateForward();
         }
     }
 

@@ -237,16 +237,16 @@ TEST_CASE("Doubly Linked List", "DSLinkedLists<T>"){
 
 
     SECTION("Custom Iterator"){
-        REQUIRE(newList.newIterator() == 2);
-        REQUIRE(newList.getNext() == 4);
+        REQUIRE(newList.getIterator() == 2);
+        REQUIRE(newList.getNextIterator() == 4);
 
         newList.removeAt(0);
-        REQUIRE(newList.newIterator() == 4);
-        REQUIRE(newList.getNext() == 6);
-        REQUIRE(newList.getNext() == 8);
+        REQUIRE(newList.getIterator() == 4);
+        REQUIRE(newList.getNextIterator() == 6);
+        REQUIRE(newList.getNextIterator() == 8);
 
-        newList.newIterator() = newList.getNext();
-        REQUIRE(newList.newIterator() == 10);
+        newList.getIterator() = newList.getNextIterator();
+        REQUIRE(newList.getIterator() == 10);
     }
 }
 

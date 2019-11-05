@@ -13,7 +13,7 @@ class DSLinkedList{
 
     DSNode<T> * head;
     DSNode<T> * tail;
-    DSNode<T> * current;
+    DSNode<T> * iterator;
 
     int size;                           // Size of Linked List
 
@@ -32,29 +32,32 @@ class DSLinkedList{
         void popLastNode();
 
         T getAt(T);                     // returns element at specific index
-        T& getNext();
-        T& newIterator();               // Custom iterator functions
         DSLinkedList<T>& operator=(const DSLinkedList<T>&);
 
         bool exists();
-        bool hasNext();
         bool operator!=(const DSLinkedList<T>&) const;
         int getListSize() const;
 
 
+        // Custom Iterator
+
+
+        T& getIterator();               // Custom iterator functions
+        T& getNextIterator();
+        void resetIterator();
+        void iterateForward();
+        bool iteratorIsValid();
 
         ~DSLinkedList();
 };
 
 template<class T>
-DSLinkedList<T>::DSLinkedList(): head(nullptr), tail(nullptr), current(nullptr), size(0){        // Default constructor
+DSLinkedList<T>::DSLinkedList(): head(nullptr), tail(nullptr), iterator(nullptr), size(0){        // Default constructor
 }
 
 template<class T>
 DSLinkedList<T>::DSLinkedList(T x) {
     head = new DSNode<T>(x);
-    tail = new DSNode<T>(x);
-    current = new DSNode<T>(x);
     size++;
 
 }
@@ -96,8 +99,8 @@ template<class T>
 DSLinkedList<T>& DSLinkedList<T>::operator=(const DSLinkedList<T>& v2LinkedList) {
     if(this != &v2LinkedList){
 
-        if(v2LinkedList.size == 0){
-            head = nullptr;
+        if(v2LinkedList.head == nullptr){
+            head = tail = nullptr;
         }
 
         else {
@@ -107,7 +110,7 @@ DSLinkedList<T>& DSLinkedList<T>::operator=(const DSLinkedList<T>& v2LinkedList)
             DSNode<T>* newTail;
 
             newHead = v2LinkedList.head;
-            newTail = new DSNode<T>(newHead->data);
+            newTail = v2LinkedList.tail;
 
             head = newHead;
             DSNode<T>* temp;
@@ -142,22 +145,31 @@ void DSLinkedList<T>::append(T x){
 }
 
 template<class T>
-T& DSLinkedList<T>::newIterator(){
-    if(current){
-        current = head;         // set's the current Nodeptr to the head of LinkedList
+void DSLinkedList<T>::resetIterator(){
+    this->iterator = this->head;                // set's the iterator Nodeptr to the head of LinkedList
+}
+
+template<class T>
+T& DSLinkedList<T>::getIterator(){
+    return this->iterator->data;             // return iterator node data
+}
+
+template<class T>
+T& DSLinkedList<T>::getNextIterator(){                 // points to the next node in the LinkedList
+    this->iterator = this->iterator->next;
+    return this->iterator->data;
+}
+
+template<class T>
+void DSLinkedList<T>::iterateForward(){
+    if(this->iterator != nullptr || this->iterator->next != nullptr){
+        this->iterator = this->iterator->next;
     }
-    return current->data;             // return current node data
 }
 
 template<class T>
-T& DSLinkedList<T>::getNext(){                 // points to the next node in the LinkedList
-    this->current = this->current->next;
-    return this->current->data;
-}
-
-template<class T>
-bool DSLinkedList<T>::hasNext(){
-    if(this->current == nullptr || this->current->next == nullptr){
+bool DSLinkedList<T>::iteratorIsValid(){
+    if(this->iterator == nullptr || this->iterator->next == nullptr){
         return false;
     }
     return true;
@@ -178,7 +190,7 @@ void DSLinkedList<T>::removeAt(int index){
         int count = 0;                          // counter
 
         while (count != index) {
-          aCurrent = aCurrent->next;            // set the current node = to the next node
+          aCurrent = aCurrent->next;            // set the iterator node = to the next node
           count++;                              // increment counter until index is reached
         }
 
@@ -206,11 +218,11 @@ void DSLinkedList<T>::print(){
 }
 
 template<class T>
-void DSLinkedList<T>::remove(DSNode<T>* currentNode){
-    DSNode<T>* nextNode = currentNode->next;
-    DSNode<T>* previousNode = currentNode->previous;
+void DSLinkedList<T>::remove(DSNode<T>* iteratorNode){
+    DSNode<T>* nextNode = iteratorNode->next;
+    DSNode<T>* previousNode = iteratorNode->previous;
 
-    if(currentNode != nullptr){                     // checks to see if passed node is empty
+    if(iteratorNode != nullptr){                     // checks to see if passed node is empty
         if(nextNode != nullptr){
             nextNode->previous = previousNode;
         }
@@ -219,14 +231,14 @@ void DSLinkedList<T>::remove(DSNode<T>* currentNode){
             previousNode->next = nextNode;
         }
 
-        if(currentNode == head){
+        if(iteratorNode == head){
             head = nextNode;                        // deletes head and new head is declared
         }
 
-        if(currentNode == tail){                    // deletes tail
+        if(iteratorNode == tail){                    // deletes tail
             tail = previousNode;
         }
-        delete currentNode;
+        delete iteratorNode;
     }
 
 }
@@ -273,7 +285,7 @@ bool DSLinkedList<T>::operator!=(const DSLinkedList<T>& aLinkedList)const {
     if(this->tail != aLinkedList.tail){
         return true;
     }
-    if(this->current != aLinkedList.current){
+    if(this->iterator != aLinkedList.iterator){
         return true;
     }
 
@@ -291,10 +303,10 @@ bool DSLinkedList<T>::operator!=(const DSLinkedList<T>& aLinkedList)const {
         return true;
     }
 
-    if(this->current != aLinkedList.current){
+    if(this->iterator != aLinkedList.iterator){
         return true;
     }
-    if(this->current->data != aLinkedList.current->data){
+    if(this->iterator->data != aLinkedList.iterator->data){
         return true;
     }
 
