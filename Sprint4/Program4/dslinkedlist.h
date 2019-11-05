@@ -151,6 +151,11 @@ void DSLinkedList<T>::resetIterator(){
 
 template<class T>
 T& DSLinkedList<T>::getIterator(){
+    if(iterator == nullptr){
+        cout << "in here" << endl;
+        iterator = head;
+    }
+    cout << "returning" << endl;
     return this->iterator->data;             // return iterator node data
 }
 

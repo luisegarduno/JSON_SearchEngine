@@ -2,9 +2,10 @@
 #define ADJACENCYLISU_H
 
 #include <iostream>
+#include "dsstack.h"
 #include "dsstring.h"
 #include "dslinkedlist.h"
-#include "dsstack.h"
+
 
 template <typename U>
 class AdjacencyList{
@@ -20,7 +21,7 @@ class AdjacencyList{
 
 template<typename U>
 AdjacencyList<U>::AdjacencyList(){
-    adjacency_list = DSLinkedList<U>();
+    //adjacency_list = DSLinkedList<U>();
 }
 
 template<typename U>
@@ -35,7 +36,7 @@ void AdjacencyList<U>::add(U originCity, U destinationCity){
         }
     }
 
-    else if(aList.head == nullptr){
+    else{
         DSLinkedList<U> newLinkedListA;
         newLinkedListA.append(originCity);                      // add this LinkedList to adjacencyList
         bool dataExists = checkInner(destinationCity,newLinkedListA);
