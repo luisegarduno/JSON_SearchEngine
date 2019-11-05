@@ -4,6 +4,7 @@
 #include <iostream>
 #include "dsstack.h"
 #include "dsstring.h"
+#include "flightdata.h"
 #include "dslinkedlist.h"
 
 
@@ -25,7 +26,7 @@ AdjacencyList<U>::AdjacencyList(){
 }
 
 template<class U>
-void AdjacencyList<U>::add(U originCity, U destinationCity, double cost, double time, U airline){
+void AdjacencyList<U>::add(U newFlightData){
     DSLinkedList<DSNode<U>>
     DSLinkedList<U> aList = checkOuter(originCity, airline);             // Check list of orgination cities
 

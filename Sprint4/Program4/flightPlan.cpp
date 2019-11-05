@@ -2,6 +2,7 @@
 #include <iostream>
 #include "catch.hpp"
 #include "dsstring.h"
+#include "flightdata.h"
 #include "dslinkedlist.h"
 #include "adjacencylist.h"
 
@@ -31,7 +32,6 @@ int main(int argc, char * argv[]){
                 return runCatchTests(argc, argv);
             }
             else {
-                AdjacencyList<DSString> newList;
 
                 DSString dallas = "Dallas";
                 DSString austin = "Austin";
@@ -39,7 +39,10 @@ int main(int argc, char * argv[]){
                 double time = 68.2;
                 DSString airline = "American";
 
-                newList.add(dallas, austin, cost, time, airline);
+                FlightData newFlightData(dallas,austin,cost,time,airline);
+
+                AdjacencyList<FlightData> newList;
+
             }
         }
 
