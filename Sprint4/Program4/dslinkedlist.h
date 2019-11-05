@@ -51,9 +51,12 @@ DSLinkedList<T>::DSLinkedList(): head(nullptr), tail(nullptr), current(nullptr),
 }
 
 template<class T>
-DSLinkedList<T>::DSLinkedList(T x){
+DSLinkedList<T>::DSLinkedList(T x) {
     head = new DSNode<T>(x);
+    tail = new DSNode<T>(x);
+    current = new DSNode<T>(x);
     size++;
+
 }
 
 template<class T>
