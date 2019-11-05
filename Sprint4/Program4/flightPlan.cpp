@@ -33,7 +33,13 @@ int main(int argc, char * argv[]){
             else {
                 AdjacencyList<DSString> newList;
 
-                //newList.add(1, 2);
+                DSString dallas = "Dallas";
+                DSString austin = "Austin";
+                double cost = 15.99;
+                double time = 68.2;
+                DSString airline = "American";
+
+                newList.add(dallas, austin, cost, time, airline);
             }
         }
 

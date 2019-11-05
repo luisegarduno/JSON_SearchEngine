@@ -6,6 +6,7 @@ CONFIG -= qt
 SOURCES += \
         dsstring.cpp \
         flightPlan.cpp \
+        flightdata.cpp \
         test.cpp
 
 HEADERS += \
@@ -15,4 +16,5 @@ HEADERS += \
     dsnode.h \
     dsstack.h \
     dsstring.h \
-    dsvector.h
+    dsvector.h \
+    flightdata.h

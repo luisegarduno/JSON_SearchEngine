@@ -26,12 +26,14 @@ AdjacencyList<U>::AdjacencyList(){
 
 template<class U>
 void AdjacencyList<U>::add(U originCity, U destinationCity, double cost, double time, U airline){
+    DSLinkedList<DSNode<U>>
     DSLinkedList<U> aList = checkOuter(originCity, airline);             // Check list of orgination cities
 
     if(aList.head != nullptr){                                  // if aList isn't empty
         bool dataExists = checkInner(destinationCity,aList);    // Check if flight
 
         if(!dataExists){
+            DSNode<U> flightNodeInformation;
             aList.append(destinationCity);                      // add destination to Origin Node (originCity)
 
             aList = checkOuter(destinationCity,airline);
@@ -60,7 +62,7 @@ DSLinkedList<U>& AdjacencyList<U>::checkOuter(U city, U airline){          // ch
     static DSLinkedList<U> newCityLinkedList = DSLinkedList<U>();
 
     if(adjacency_list.size == 0 && adjacency_list.iteratorIsValid() == false){
-        return newCityLinkedList;
+        return adjacency_list.head;
     }
 
     else {
