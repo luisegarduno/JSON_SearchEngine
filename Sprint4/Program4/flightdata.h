@@ -16,6 +16,7 @@ class FlightData{
     public:
         FlightData();
         FlightData(DSString, DSString, double, double, DSString);
+        FlightData flightDataReversed();
 
         // create getter functions for each of the Flight Data paramter
 

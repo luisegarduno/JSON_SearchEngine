@@ -26,28 +26,31 @@ AdjacencyList<U>::AdjacencyList(){
 
 template<class U>
 void AdjacencyList<U>::add(U newFlightData){
-    DSLinkedList<U> aList = checkOuter(newFlightData.origin, newFlightData.airline);             // Check list of orgination cities
+    U dataReverse = newFlightData.flightDataReversed();
+
+    DSLinkedList<U> aList = checkOuter(newFlightData.getOrigin(), newFlightData.getAirline());             // Check list of orgination cities
 
     if(adjacency_list.head != nullptr){                                  // if aList isn't empty
-        bool dataExists = checkInner(newFlightData.destination,aList);    // Check if flight
+        bool dataExists = checkInner(newFlightData.getDestination(),aList);    // Check if flight
 
         if(!dataExists){
-            DSNode<U> flightNodeInformation;
-            aList.append(newFlightData.destination);                      // add destination to Origin Node (originCity)
+            //DSNode<U> flightNodeInformation;
+            aList.append(newFlightData);                      // add destination to Origin Node (originCity)
 
-            aList = checkOuter(newFlightData.destination,newFlightData.airline);
+            aList = checkOuter(newFlightData.getDestination(),newFlightData.getAirline());
 
         }
     }
 
     else{
-        DSLinkedList<U> newLinkedList = DSLinkedList<U>();
+
+        DSLinkedList<U> newLinkedList;
         newLinkedList.append(newFlightData);
         adjacency_list.append(newLinkedList);                      // add this LinkedList to adjacencyList
-        bool dataExists = checkInner(newFlightData.destination,newLinkedList);
+        bool dataExists = checkInner(newFlightData.getDestination(),newLinkedList);
 
         if(!dataExists){
-            newLinkedList.append(newFlightData.destination);
+            newLinkedList.append(newFlightData);
         }
 
         adjacency_list.append(newLinkedList);
@@ -60,12 +63,14 @@ DSLinkedList<U>& AdjacencyList<U>::checkOuter(DSString originData, DSString airl
 
     static DSLinkedList<U> newCityLinkedList = DSLinkedList<U>();
 
+
     if(adjacency_list.size == 0 && adjacency_list.iteratorIsValid() == false){
-        return adjacency_list.head;
+        return adjacency_list.getIterator();
     }
 
     else {
-        while(adjacency_list.iteratorIsValid() != false || (adjacency_list.getIterator() != originData)){
+        while(adjacency_list.iteratorIsValid() != false || (adjacency_list.getIterator().head != originData)){
+            cout << adjacency_list.getIterator().head << endl;
             adjacency_list.iterateForward();
         }
 
@@ -82,8 +87,9 @@ DSLinkedList<U>& AdjacencyList<U>::checkOuter(DSString originData, DSString airl
 }
 
 template<class U>
-bool AdjacencyList<U>::checkInner(DSString city, const DSLinkedList<U>& aList){
-    auto temp = aList;
+bool AdjacencyList<U>::checkInner(DSString city, const DSLinkedList<U>& flightList){
+    auto temp = flightList;
+
     temp.resetIterator();
 
     bool aFlag = false;
@@ -95,6 +101,13 @@ bool AdjacencyList<U>::checkInner(DSString city, const DSLinkedList<U>& aList){
             temp.iterateForward();
         }
     }
+
+    auto temp2 = flightList.iterator;
+    auto temp3 = temp2.getOrigin();
+
+
+
+
 
     return (aFlag) ? true : false;
 }

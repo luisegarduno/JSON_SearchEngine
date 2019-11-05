@@ -8,6 +8,24 @@ FlightData::FlightData(DSString originData, DSString destinationData, double cos
     : origin(originData), destination(destinationData), cost(costData), time(timeData), airline(airlineData) {
 }
 
+FlightData FlightData::flightDataReversed(){
+
+
+    DSString newOrigin = getDestination();
+    DSString newDestination = getOrigin();
+    double newCost = getCost();
+    double newTime = getTime();
+    DSString newAirline = getAirline();
+
+    FlightData flightReversed(newOrigin,newDestination,newCost,newTime,newAirline);
+
+
+
+    return flightReversed;
+
+
+}
+
 // returns name of Origin City
 DSString FlightData::getOrigin(){
     return origin;

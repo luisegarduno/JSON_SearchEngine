@@ -39,9 +39,13 @@ int main(int argc, char * argv[]){
                 double time = 68.2;
                 DSString airline = "American";
 
+                //cout << "here 1" << endl;
                 FlightData newFlightData(dallas,austin,cost,time,airline);
 
+                //cout << "out flightData" << endl;
+
                 AdjacencyList<FlightData> newList;
+                newList.add(newFlightData);
 
             }
         }
