@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "dsstring.h"
+#include "dsnode.h"
 
 
 class FlightData{
@@ -18,7 +19,14 @@ class FlightData{
         FlightData(DSString, DSString, double, double, DSString);
         FlightData flightDataReversed();
 
-        // create getter functions for each of the Flight Data paramter
+        // create setter & getter functions for each of the Flight Data paramter
+
+
+        void setOrigin(DSString);
+        void setDestination(DSString);
+        void setCost(double);
+        void setTime(double);
+        void setAirline(DSString);
 
         DSString getOrigin();
         DSString getDestination();

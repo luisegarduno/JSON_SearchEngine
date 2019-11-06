@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "dsstring.h"
+#include "adjacencylist.h"
 #include "dsnode.h"
 #include "dsstack.h"
 

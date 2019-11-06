@@ -10,7 +10,6 @@ FlightData::FlightData(DSString originData, DSString destinationData, double cos
 
 FlightData FlightData::flightDataReversed(){
 
-
     DSString newOrigin = getDestination();
     DSString newDestination = getOrigin();
     double newCost = getCost();
@@ -19,11 +18,32 @@ FlightData FlightData::flightDataReversed(){
 
     FlightData flightReversed(newOrigin,newDestination,newCost,newTime,newAirline);
 
-
-
     return flightReversed;
+}
 
+// Declares Origin
+void FlightData::setOrigin(DSString newOrigin){
+    this->origin = newOrigin;
+}
 
+// Declares Destination
+void FlightData::setDestination(DSString newDestination){
+    this->destination = newDestination;
+}
+
+// Declares cost of flight
+void FlightData::setCost(double newCost){
+   this->cost = newCost;
+}
+
+// Declares length of flight
+void FlightData::setTime(double newTime){
+    this->time = newTime;
+}
+
+// Declares Airline
+void FlightData::setAirline(DSString newAirline){
+    this->airline = newAirline;
 }
 
 // returns name of Origin City

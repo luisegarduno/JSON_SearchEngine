@@ -2,6 +2,7 @@
 #define ADJACENCYLISU_H
 
 #include <iostream>
+#include "dsnode.h"
 #include "dsstack.h"
 #include "dsstring.h"
 #include "flightdata.h"
@@ -16,7 +17,7 @@ class AdjacencyList{
     public:
         AdjacencyList();
         void add(U);
-        DSLinkedList<U>& checkOuter(DSString,DSString);
+        DSLinkedList<U> checkOuter(DSString,DSString);
         bool checkInner(DSString, const DSLinkedList<U>&);
 };
 
@@ -49,41 +50,41 @@ void AdjacencyList<U>::add(U newFlightData){
 }
 
 template<class U>
-DSLinkedList<U>& AdjacencyList<U>::checkOuter(DSString originCity, DSString airlineData){          // check list of origination cities
+DSLinkedList<U> AdjacencyList<U>::checkOuter(DSString originCity, DSString airlineData){          // check list of origination cities
     adjacency_list.resetIterator();
     DSNode< DSLinkedList<U> >* currentLinkedList = adjacency_list.head;
 
 
 
-    if(currentLinkedList->size == 0 && currentLinkedList->iteratorIsValid() == false){
-        return currentLinkedList->getIterator();
+    if(adjacency_list.size == 0 && adjacency_list.iteratorIsValid() == false){
+        return currentLinkedList->data;
     }
 
     else {
-        while(currentLinkedList->iteratorIsValid() != false){
+        while(currentLinkedList != nullptr){
             if(currentLinkedList->data.head->data.getOrigin() == originCity){
                 if(currentLinkedList->data.head->data.getAirline() == airlineData){
                     break;
                 }
             }
-            currentLinkedList->iterateForward();
+            currentLinkedList = currentLinkedList->next;
         }
-        return this->currentLinkedList;
+        return currentLinkedList;
     }
 }
 
 template<class U>
-bool AdjacencyList<U>::checkInner(DSString destinationCity, const DSLinkedList<U>& flightList){
+bool AdjacencyList<U>::checkInner(DSString destinationCity, const DSLinkedList<U>& aFlightList){
 
-    DSLinkedList<U>* tempIterator = flightList.head;
+    auto tempIterator = aFlightList;
 
     bool aFlag = false;
-    while(tempIterator->iteratorIsValid() != false){
-        if(tempIterator->head->data == destinationCity){
+    while(tempIterator.iteratorIsValid() != false){
+        if(tempIterator.getIterator().getDestination() == destinationCity){
             aFlag = true;
             break;
         }
-            tempIterator->iterateForward();
+            tempIterator.iterateForward();
     }
     return (aFlag) ? true : false;
 }

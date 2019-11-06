@@ -2,7 +2,6 @@
 #define DSNODE_H
 
 #include <iostream>
-#include <dsstring.h>
 
 using std::cout;
 using std::endl;
@@ -11,6 +10,8 @@ template<class T>
 class DSNode{
     // make DSLinkedList a friend of DSNode, this grants DSLinkedList access to private members
     template<class U> friend class DSLinkedList;
+    template<class V> friend class Adjacency;
+    friend class FlightPlanner;
 
     private:
         DSNode<T>* next;
