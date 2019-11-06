@@ -43,7 +43,6 @@ void AdjacencyList<U>::add(U newFlightData){
         newLinkedList.append(newFlightData);
         adjacency_list.append(newLinkedList);                      // add this LinkedList to adjacencyList
     }
-
 }
 
 template<class U>
@@ -71,7 +70,7 @@ DSLinkedList<U> AdjacencyList<U>::checkOuter(DSString originCity, DSString airli
 template<class U>
 bool AdjacencyList<U>::checkInner(DSString airlineComp,DSString destinationCity, const DSLinkedList<U>& aFlightList){
     auto tempIterator = aFlightList;
-    tempIterator.resetIterator();
+    //tempIterator.resetIterator();
 
     while(tempIterator.iteratorIsValid() != false){
         if(tempIterator.getIterator().getDestination() == destinationCity){

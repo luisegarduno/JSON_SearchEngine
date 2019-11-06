@@ -128,20 +128,21 @@ DSLinkedList<T>& DSLinkedList<T>::operator=(const DSLinkedList<T>& v2LinkedList)
 
 template<class T>
 void DSLinkedList<T>::append(T x){
-    DSNode<T>* current = head;
+    //DSNode<T>* current = head;
+    DSNode<T>* newNode = new DSNode<T>(x);
 
     if(head == nullptr){           // if Linked List is empty
         head = new DSNode<T>(x);                         // declare new node as the head and tail
         tail = head;
     }
     else{
-        while(current->next != nullptr){
+        /*while(current->next != nullptr){
             current = current->next;
         }
-        current->next = new DSNode<T>(x);
-        //tail->next = newNode;                   // if linked list contains node already, set the node after the tail = to new node(previously nullptr)
-        //newNode->previous = tail;               // at the end, the previous node prior to declaring new node, is the tail
-        //tail = newNode;                         // declare new node as the tail
+        //current->next = new DSNode<T>(x);*/
+        tail->next = newNode;                   // if linked list contains node already, set the node after the tail = to new node(previously nullptr)
+        newNode->previous = tail;               // at the end, the previous node prior to declaring new node, is the tail
+        tail = newNode;                         // declare new node as the tail
     }
     size++;                                     // increment Linked List Size
 
@@ -173,7 +174,7 @@ void DSLinkedList<T>::iterateForward(){
 
 template<class T>
 bool DSLinkedList<T>::iteratorIsValid(){
-    if(iterator){
+    if(iterator->data == nullptr){
         return true;
     }
     else{
@@ -193,15 +194,15 @@ void DSLinkedList<T>::removeAt(int index){
         std::cout << "\nNothing here" << index << std::endl << std::endl;
     }
     else {
-        iterator = head;                        // set the head = to temp Current node
+        DSNode<T>* temp = head;                        // set the head = to temp Current node
         int count = 0;                          // counter
 
         while (count != index) {
-          iterator = iterator->next;            // set the iterator node = to the next node
+          temp = temp->next;            // set the iterator node = to the next node
           count++;                              // increment counter until index is reached
         }
 
-        remove(iterator);
+        remove(temp);
 
         size--;                                 // decrement Linked List size
       }

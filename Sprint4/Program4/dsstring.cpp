@@ -161,7 +161,7 @@ char& DSString::operator[](const int indexSize){
 }
 
 int DSString::size(){                                                       // return by value
-    return length;
+    return int(strlen(this->data));
 }
 
 /*  Parameter a represents the starting position

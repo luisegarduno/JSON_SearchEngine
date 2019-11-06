@@ -217,6 +217,8 @@ TEST_CASE("Doubly Linked List", "DSLinkedLists<T>"){
     }
 
     SECTION("Remove a node at a specific index"){
+        //newList.removeAt(0);
+        REQUIRE(newList.getAt(0) == 2);
         newList.removeAt(1);            // remove(1) = 4, so (1) now equals == 6
         REQUIRE(newList.getAt(1) == 6);
         newList.removeAt(0);            // remove(0) = 2, so (0) now equals == 6
@@ -298,7 +300,8 @@ TEST_CASE("Adjacency List Class"){
     newList.add(flight5);
     newList.add(flight5.flightDataReversed());
 
-    newList.printAdjacencyList();
+    //newList.printAdjacencyList();
+
 
 }
 
