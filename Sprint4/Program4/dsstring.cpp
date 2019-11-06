@@ -1,7 +1,9 @@
 #include "dsstring.h"
 
 DSString::DSString(){
-    this->data = nullptr;
+    this->data = new char[1];                                               // make data array index = to 1
+    data[0] = '\0';                                                          // initialize index 0 to be the nullptr
+    length = 0;
 }
 
 DSString::DSString(const char* originalChar){                               // 'originalChar' is a constant, can not change
@@ -10,13 +12,11 @@ DSString::DSString(const char* originalChar){                               // '
 }
 
 DSString::DSString(const DSString& originaldsString){                       // Copy constructor, DSString parameter is a const,
-    if(this->data != nullptr){
-        char * tempoData = this->data;
-        this->data = new char[strlen(originaldsString.data) + 1];               // that goes by another name (&)
-        strcpy(this->data,originaldsString.data);
 
-        delete [] tempoData;
-    }
+        size_t newSize = strlen(originaldsString.data);
+        this->data = new char[newSize + 1];               // that goes by another name (&)
+        strcpy(this->data,originaldsString.data);
+        length = originaldsString.length;
 }
 
 DSString::~DSString(){                                                      // destructor
@@ -44,11 +44,10 @@ DSString& DSString::operator=(const DSString& originalString){              // r
             data = nullptr;
         }
 
-        this->data = new char[strlen(originalString.data) + 1];
-        data[strlen(originalString.data)] = '\0';
+        this->data = new char[originalString.length + 1];
         strcpy(this->data,originalString.data);
     }
-    return * this;
+    return *this;
 }
 
 DSString DSString::operator+(const DSString& originalString){
@@ -162,7 +161,7 @@ char& DSString::operator[](const int indexSize){
 }
 
 int DSString::size(){                                                       // return by value
-    return int(strlen(this->data));
+    return length;
 }
 
 /*  Parameter a represents the starting position
