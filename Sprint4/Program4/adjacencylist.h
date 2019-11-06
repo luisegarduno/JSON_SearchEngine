@@ -55,7 +55,8 @@ DSLinkedList<U> AdjacencyList<U>::checkOuter(DSString originCity, DSString airli
 
 
     if(adjacency_list.size == 0 && adjacency_list.iteratorIsValid() == false){
-        return currentLinkedList->data.head->data;
+        DSLinkedList<U> temp = DSLinkedList<U>();
+        return temp;
     }
 
     else {

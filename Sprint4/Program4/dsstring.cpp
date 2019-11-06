@@ -44,7 +44,7 @@ DSString& DSString::operator=(const DSString& originalString){              // r
             data = nullptr;
         }
 
-        this->data = new char[originalString.length + 1];
+        this->data = new char[strlen(originalString.data) + 1];
         strcpy(this->data,originalString.data);
     }
     return *this;
