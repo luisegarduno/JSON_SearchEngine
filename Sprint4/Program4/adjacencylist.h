@@ -3,8 +3,6 @@
 
 #include <iostream>
 #include "dsnode.h"
-#include "dsstack.h"
-#include "dsstring.h"
 #include "flightdata.h"
 #include "dslinkedlist.h"
 
@@ -28,6 +26,7 @@ AdjacencyList<U>::AdjacencyList(){
 template<class U>
 void AdjacencyList<U>::add(U newFlightData){
     U flightReverse = newFlightData.flightDataReversed();
+
     DSLinkedList<U> aList = checkOuter(newFlightData.getOrigin(), newFlightData.getAirline());             // Check list of orgination cities
 
     if(aList.head != nullptr){                                  // if adjacencyList.head isn't empty
@@ -36,9 +35,6 @@ void AdjacencyList<U>::add(U newFlightData){
 
         if(!dataExists){
             aList.append(newFlightData);                      // add destination to Origin Node (originCity)
-
-
-
         }
     }
 
@@ -52,12 +48,14 @@ void AdjacencyList<U>::add(U newFlightData){
 template<class U>
 DSLinkedList<U> AdjacencyList<U>::checkOuter(DSString originCity, DSString airlineData){          // check list of origination cities
     adjacency_list.resetIterator();
+
+
     DSNode< DSLinkedList<U> >* currentLinkedList = adjacency_list.head;
 
 
 
     if(adjacency_list.size == 0 && adjacency_list.iteratorIsValid() == false){
-        return currentLinkedList->data;
+        return currentLinkedList->data.head->data;
     }
 
     else {
@@ -69,7 +67,7 @@ DSLinkedList<U> AdjacencyList<U>::checkOuter(DSString originCity, DSString airli
             }
             currentLinkedList = currentLinkedList->next;
         }
-        return currentLinkedList;
+        return currentLinkedList->data.head->data;
     }
 }
 

@@ -2,7 +2,9 @@
 #define DSSTACK_H
 
 #include <iostream>
-#include "dsstring.h"
+#include "dsnode.h"
+#include "dslinkedlist.h"
+#include "adjacencylist.h"
 
 template<class T>
 class DSLinkedList;
@@ -26,7 +28,6 @@ class DSStack : DSLinkedList<T>{
 
 template<class T>
 DSStack<T>::DSStack(){
-    //this->aData = DSLinkedList<T>();            // initializes DSLinkedList<T>
 }
 
 template<class T>

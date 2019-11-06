@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include "dsstring.h"
-#include "dsnode.h"
 
 
 class FlightData{
