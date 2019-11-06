@@ -174,11 +174,12 @@ void DSLinkedList<T>::iterateForward(){
 
 template<class T>
 bool DSLinkedList<T>::iteratorIsValid(){
-    if(iterator->data == nullptr){
+    if(this->iterator != nullptr){
         return true;
     }
     else{
-        resetIterator();
+        //this->iterator = this->iterator->previous;
+        //resetIterator();
         return false;
     }
 }

@@ -271,7 +271,7 @@ TEST_CASE("Doubly Linked List", "DSLinkedLists<T>"){
     }
 }
 
-TEST_CASE("Adjacency List Class"){
+TEST_CASE("Adjacency List Class", "DSLinkedList< DSLinkedList<type> >"){
     DSString dallas = "Dallas";
     DSString austin = "Austin";
     DSString chicago = "Chicago";
@@ -281,6 +281,15 @@ TEST_CASE("Adjacency List Class"){
     DSString spirit = "Sprit";
     DSString american = "American";
     DSString united = "United";
+
+    SECTION("FlightData class"){
+        FlightData newTest(dallas,chicago,100,50,spirit);
+        REQUIRE(newTest.getCost() == 100.0);
+        REQUIRE(newTest.getTime() == 50.0);
+        REQUIRE(newTest.getOrigin() == dallas);
+        REQUIRE(newTest.getDestination() == chicago);
+        REQUIRE(newTest.getAirline() == spirit);
+    }
 
     FlightData flight1(dallas,austin,98.0,47.0,spirit);
     FlightData flight2(dallas,austin,98.0,59.0,american);
@@ -299,6 +308,7 @@ TEST_CASE("Adjacency List Class"){
     newList.add(flight4.flightDataReversed());
     newList.add(flight5);
     newList.add(flight5.flightDataReversed());
+
 
     //newList.printAdjacencyList();
 

@@ -70,9 +70,9 @@ DSLinkedList<U> AdjacencyList<U>::checkOuter(DSString originCity, DSString airli
 template<class U>
 bool AdjacencyList<U>::checkInner(DSString airlineComp,DSString destinationCity, const DSLinkedList<U>& aFlightList){
     auto tempIterator = aFlightList;
-    //tempIterator.resetIterator();
+    tempIterator.resetIterator();
 
-    while(tempIterator.iteratorIsValid() != false){
+    while(tempIterator.iteratorIsValid()){
         if(tempIterator.getIterator().getDestination() == destinationCity){
             if(tempIterator.getIterator().getAirline() == airlineComp){
                 return true;
