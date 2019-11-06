@@ -128,16 +128,20 @@ DSLinkedList<T>& DSLinkedList<T>::operator=(const DSLinkedList<T>& v2LinkedList)
 
 template<class T>
 void DSLinkedList<T>::append(T x){
-    DSNode<T>* newNode = new DSNode<T>(x);
+    DSNode<T>* current = head;
 
-    if(head == nullptr || size == 0){           // if Linked List is empty
-        head = newNode;                         // declare new node as the head and tail
-        tail = newNode;
+    if(head == nullptr){           // if Linked List is empty
+        head = new DSNode<T>(x);                         // declare new node as the head and tail
+        tail = head;
     }
     else{
-        tail->next = newNode;                   // if linked list contains node already, set the node after the tail = to new node(previously nullptr)
-        newNode->previous = tail;               // at the end, the previous node prior to declaring new node, is the tail
-        tail = newNode;                         // declare new node as the tail
+        while(current->next != nullptr){
+            current = current->next;
+        }
+        current->next = new DSNode<T>(x);
+        //tail->next = newNode;                   // if linked list contains node already, set the node after the tail = to new node(previously nullptr)
+        //newNode->previous = tail;               // at the end, the previous node prior to declaring new node, is the tail
+        //tail = newNode;                         // declare new node as the tail
     }
     size++;                                     // increment Linked List Size
 
@@ -169,12 +173,13 @@ void DSLinkedList<T>::iterateForward(){
 
 template<class T>
 bool DSLinkedList<T>::iteratorIsValid(){
-    if(this->iterator == nullptr || this->iterator->next == nullptr){
-        //cout << "current iterator is NOT valid, setting current pointer = head pointer" << endl;
+    if(iterator){
+        return true;
+    }
+    else{
         resetIterator();
         return false;
     }
-    return true;
 }
 
 template<class T>
@@ -210,12 +215,15 @@ void DSLinkedList<T>::print(){
 
     else{
         DSNode<T>* aCurrent = head;
-        int count = 0;
 
         while(aCurrent != nullptr){                 // cycles & prints all values in linked list
-            cout << "OriginNode[" << ++count << "]: " << aCurrent->data << endl;
+            cout << aCurrent->data.getDestination() << " (" << aCurrent->data.getAirline() << ") ";
             aCurrent = aCurrent->next;
+            if(aCurrent != nullptr){
+                cout << "--> ";
+            }
         }
+        cout << endl;
     }
 }
 
