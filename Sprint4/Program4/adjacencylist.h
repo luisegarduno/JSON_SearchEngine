@@ -67,12 +67,12 @@ DSLinkedList<U>& AdjacencyList<U>::checkOuter(DSString originCity, DSString airl
 }
 
 template<class U>
-DSLinkedList<U> AdjacencyList<U>::getAllOrigins(DSString originCity){          // check list of origination cities
+DSLinkedList<U> AdjacencyList<U>::getAllOrigins(DSString aCity){          // check list of origination cities
 
     DSNode< DSLinkedList<U> >* currentLinkedList = adjacency_list.head;
 
     while(currentLinkedList != nullptr){
-        if(currentLinkedList->data.head->data.getOrigin() == originCity){
+        if(currentLinkedList->data.head->data.getOrigin() == aCity){
             return currentLinkedList->data;
 
         }

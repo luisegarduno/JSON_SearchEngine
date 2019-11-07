@@ -9,6 +9,7 @@ template<class T>
 class DSLinkedList{
 
     template<class U> friend class AdjacencyList;
+    friend class FlightPlanner;
 
     DSNode<T> * head;
     DSNode<T> * tail;

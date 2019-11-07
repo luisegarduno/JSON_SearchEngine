@@ -114,15 +114,44 @@ void FlightPlanner::requestedRoutes(){
 
 }
 
-// using nodePtr = DSNode<DSLinkedList<FlightData>*
+
+// REMEMBER LIFO, LAST IN, FIRST OUT ---> SO the 'TOP' will be the LAST IN,
+// and since we want the last item that was added to the stack to be the
+// FIRST OUT, the TOP will always be the head of the stack
+// using nodePtr = DSNode<   DSLinkedList<FlightData>*  >
 // using customStackIterator = DSStack<nodePtr>
-/*
 DSVector<FlightPlanner::customStackIterator> FlightPlanner::findRoutes(RequestRoute requestedRoute){
-    DSVector<FlightPlanner::customStackIterator> currentStackInVector;
+    nodePtr currentNodeOnStack;
+    customStackIterator currentStack;
+    DSStack< DSLinkedList<FlightData> > routeOnStack; // create a stack containing routes
+    DSVector<customStackIterator> currentStackInVector;
 
-    DSStack< DSLinkedList<FlightData> > routeOnStack;
     routeOnStack.push(flightPaths.getAllOrigins(requestedRoute.getRequestedOrigin()));
+    currentNodeOnStack = routeOnStack.topValue().head;
 
-    customStackIterator currentStack = routeOnStack;
+    bool stackIsNotEmpty = true;
+    while(stackIsNotEmpty == true){
+
+
+        // ********************Adding LinkedList to DSStack *********************//
+        if(currentNodeOnStack != nullptr){
+            currentStack.push(currentNodeOnStack);  // push every node onto the stack
+            routeOnStack.push(flightPaths.getAllOrigins(currentNodeOnStack->data.getDestination()));
+            cout << routeOnStack.peek().head->data.getOrigin() << endl;
+            currentNodeOnStack = routeOnStack.topValue().head; //
+
+
+            currentNodeOnStack = currentNodeOnStack->next;
+
+            if(currentNodeOnStack == nullptr){
+                stackIsNotEmpty = false; // temp, will remove as progression is made
+                break;
+            }
+        }
+        // *********************************************************************//
+
+    }
+
+    return currentStackInVector;
+
 }
-*/
