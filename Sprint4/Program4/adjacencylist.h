@@ -107,14 +107,17 @@ bool AdjacencyList<U>::checkInner(DSString airlineComp,DSString destinationCity,
 template<class U>
 void AdjacencyList<U>::printAdjacencyList(){
     DSNode< DSLinkedList<U> >* currentLinkedList = adjacency_list.head;
-
+    cout << "-----------------ADJACENCY LIST----------------------" << endl;
     while(currentLinkedList != nullptr){
        cout << currentLinkedList->data.head->data.getOrigin() << " --> ";
        currentLinkedList->data.print();
-       cout << "   |"<< endl;
-       cout << "   V" << endl;
        currentLinkedList = currentLinkedList->next;
+       if(currentLinkedList != nullptr){
+           cout << "   |"<< endl;
+           cout << "   V" << endl;
+       }
     }
+    cout << "-----------------------------------------------------" << endl;
 }
 
 

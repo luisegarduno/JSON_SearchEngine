@@ -31,7 +31,7 @@ void FlightPlanner::addFlightsData(){
 
     char * buffer = new char[100];
 
-
+    cout << "-----------------FLIGHT FILE LIST----------------------" << endl;
     for(int i = 0; i < numberOfFlights; i++){
         for(int j = 0; j < 5; j++){
             if(j == 0){

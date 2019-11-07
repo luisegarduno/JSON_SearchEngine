@@ -17,7 +17,7 @@ class DSStack : DSLinkedList<T>{
 
     private:
         DSLinkedList<T> aData;
-        T* top;
+        T top;
         int stackSize;
 
     public:
@@ -27,22 +27,23 @@ class DSStack : DSLinkedList<T>{
         void push(T);
         bool isEmpty();
 
-        const T& topValue() const;
-        int length() const;
-        void clearStack();
-        ~DSStack();
+        T topValue();
+        int sizeOfStack() const;
 };
 
 template<class T>
-DSStack<T>::DSStack(){
-    top = nullptr;
-    stackSize = 0;
+DSStack<T>::DSStack(): stackSize(0){
 }
 
 template<class T>
 T DSStack<T>::pop(){
     T data1 = this->peek();                     // stores tail in temp data1
     aData.popLastNode();                        // deletes tail from data list
+
+    if(aData.getAt(0) != 0){
+        top = aData.getAt(0);
+    }
+
     stackSize--;
     return data1;                               // returns stored data1
 }
@@ -50,6 +51,7 @@ T DSStack<T>::pop(){
 template<class T>
 void DSStack<T>::push(T x){
     aData.append(x);                            // pushes element onto DSLinkedList
+    top = x;
     stackSize++;
 }
 
@@ -59,12 +61,12 @@ T DSStack<T>::peek(){                           // returns tail of data linked l
 }
 
 template<class T>
-const T& DSStack<T>::topValue() const{
-    return top->data;
+T DSStack<T>::topValue(){
+    return top;
 }
 
 template<class T>
-int DSStack<T>::length() const{
+int DSStack<T>::sizeOfStack() const{
     return stackSize;
 }
 
@@ -73,19 +75,5 @@ bool DSStack<T>::isEmpty(){                 // checks to see if DSLinkedList is 
     return ( (this->aData.getListSize() == 0) ? true : false);
 }
 
-template<class T>
-void DSStack<T>::clearStack(){
-    while(top != nullptr){
-        T* temp = top;
-        top = top->next;
-        delete temp;
-    }
-    stackSize = 0;
-}
-
-template<class T>
-DSStack<T>::~DSStack(){
-    clearStack();
-}
 
 #endif // DSSTACK_H
