@@ -17,6 +17,7 @@ class AdjacencyList{
         void add(U);
         void printAdjacencyList();
         DSLinkedList<U> checkOuter(DSString,DSString);
+        DSLinkedList<U> getAllOrigins(DSString);
         bool checkInner(DSString,DSString, const DSLinkedList<U>&);
 };
 
@@ -66,6 +67,28 @@ DSLinkedList<U> AdjacencyList<U>::checkOuter(DSString originCity, DSString airli
 
     return currentLinkedList->data;
 }
+
+template<class U>
+DSLinkedList<U> AdjacencyList<U>::getAllOrigins(DSString originCity){          // check list of origination cities
+
+    DSNode< DSLinkedList<U> >* currentLinkedList = adjacency_list.head;
+
+    while(currentLinkedList != nullptr){
+        if(currentLinkedList->data.head->data.getOrigin() == originCity){
+            return currentLinkedList->data;
+
+        }
+        currentLinkedList = currentLinkedList->next;
+    }
+
+    if(currentLinkedList == nullptr){
+        DSLinkedList<U> temp;
+        return temp;
+    }
+
+    return currentLinkedList->data;
+}
+
 
 template<class U>
 bool AdjacencyList<U>::checkInner(DSString airlineComp,DSString destinationCity, const DSLinkedList<U>& aFlightList){

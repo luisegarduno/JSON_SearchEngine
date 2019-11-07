@@ -1,4 +1,5 @@
 #include "flightplanner.h"
+#include "requestroute.h"
 
 using std::getline;
 
@@ -71,8 +72,53 @@ void FlightPlanner::addFlightsData(){
     delete [] buffer;
 }
 
-
-
 void FlightPlanner::requestedRoutes(){
+    streamPathsToCalculate.open(flightDataFile.c_str());
 
+    if(!streamPathsToCalculate.is_open()){
+        cout << "Paths To Calculate File is not open. Please check command line input" << endl;
+        exit(-1);
+    }
+
+    int numberOfRequested;
+    streamPathsToCalculate >> numberOfRequested;
+
+    char temp[100];
+    streamFlightData.getline(temp,100);
+
+    DSString theOrigin(""),theDestination(""),sortType("");
+    char * buffer = new char[100];
+
+    for(int i = 0; i < numberOfRequested; i++){
+        for(int j = 0; j < 3; j++){
+            if(j == 0){
+                streamFlightData.getline(buffer,100,'|');
+                theOrigin = buffer;
+                cout << "Origin: " << theOrigin << endl;
+            }
+
+            if(j == 1){
+                streamFlightData.getline(buffer,100,'|');
+                theDestination = buffer;
+                cout << "Destination: " << theDestination << endl;
+            }
+
+            if(j == 2){
+                streamFlightData.getline(buffer,100);
+                sortType = buffer;
+                cout << "Sort Flights by: " << sortType << endl;
+            }
+        }
+        RequestRoute newRoute(theOrigin,theDestination,sortType);
+    }
+
+}
+
+DSVector<FlightPlanner::customStackIterator> FlightPlanner::findRoutes(RequestRoute requestedRoute){
+    DSVector<FlightPlanner::customStackIterator> currentStackInVector;
+
+    DSStack< DSLinkedList<FlightData> > routeOnStack;
+    routeOnStack.push(flightPaths.getAllOrigins(requestedRoute.getRequestedOrigin()));
+
+    customStackIterator currentStack = routeOnStack.peek().head;
 }
