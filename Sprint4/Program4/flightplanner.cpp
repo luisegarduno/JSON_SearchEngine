@@ -114,6 +114,7 @@ void FlightPlanner::requestedRoutes(){
 
 }
 
+/*
 DSVector<FlightPlanner::customStackIterator> FlightPlanner::findRoutes(RequestRoute requestedRoute){
     DSVector<FlightPlanner::customStackIterator> currentStackInVector;
 
@@ -122,3 +123,4 @@ DSVector<FlightPlanner::customStackIterator> FlightPlanner::findRoutes(RequestRo
 
     customStackIterator currentStack = routeOnStack.peek().head;
 }
+*/

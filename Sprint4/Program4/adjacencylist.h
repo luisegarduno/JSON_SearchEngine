@@ -16,7 +16,7 @@ class AdjacencyList{
         AdjacencyList();
         void add(U);
         void printAdjacencyList();
-        DSLinkedList<U> checkOuter(DSString,DSString);
+        DSLinkedList<U>& checkOuter(DSString,DSString);
         DSLinkedList<U> getAllOrigins(DSString);
         bool checkInner(DSString,DSString, const DSLinkedList<U>&);
 };
@@ -27,15 +27,15 @@ AdjacencyList<U>::AdjacencyList(){
 
 template<class U>
 void AdjacencyList<U>::add(U newFlightData){
-    DSLinkedList<U> aList = checkOuter(newFlightData.getOrigin(), newFlightData.getAirline());             // Check list of orgination cities
+    DSLinkedList<U>& aList = checkOuter(newFlightData.getOrigin(), newFlightData.getAirline());             // Check list of orgination cities
 
-    if(adjacency_list.head != nullptr){                                  // if adjacencyList.head isn't empty
+    if(&aList != nullptr){                                  // if adjacencyList.head isn't empty
 
-        bool dataExists = checkInner(newFlightData.getAirline(),newFlightData.getDestination(),aList);    // Check if flight
+        bool dataExists = checkInner(newFlightData.getAirline(),newFlightData.getDestination(),*&aList);    // Check if flight
 
         if(!dataExists){
             aList.append(newFlightData);                      // add destination to Origin Node (originCity)
-            adjacency_list.append(aList);
+            //adjacency_list.append(aList);
         }
     }
 
@@ -47,7 +47,7 @@ void AdjacencyList<U>::add(U newFlightData){
 }
 
 template<class U>
-DSLinkedList<U> AdjacencyList<U>::checkOuter(DSString originCity, DSString airlineData){          // check list of origination cities
+DSLinkedList<U>& AdjacencyList<U>::checkOuter(DSString originCity, DSString airlineData){          // check list of origination cities
 
     DSNode< DSLinkedList<U> >* currentLinkedList = adjacency_list.head;
 
@@ -61,7 +61,7 @@ DSLinkedList<U> AdjacencyList<U>::checkOuter(DSString originCity, DSString airli
     }
 
     if(currentLinkedList == nullptr){
-        DSLinkedList<U> temp;
+        DSLinkedList<U> temp = DSLinkedList<U>();
         return temp;
     }
 
