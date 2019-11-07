@@ -7,6 +7,7 @@ SOURCES += \
         dsstring.cpp \
         flightPlan.cpp \
         flightdata.cpp \
+        flightplanner.cpp \
         test.cpp
 
 HEADERS += \
@@ -17,4 +18,5 @@ HEADERS += \
     dsstack.h \
     dsstring.h \
     dsvector.h \
-    flightdata.h
+    flightdata.h \
+    flightplanner.h

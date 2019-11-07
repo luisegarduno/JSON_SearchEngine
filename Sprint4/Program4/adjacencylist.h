@@ -28,7 +28,7 @@ template<class U>
 void AdjacencyList<U>::add(U newFlightData){
     DSLinkedList<U> aList = checkOuter(newFlightData.getOrigin(), newFlightData.getAirline());             // Check list of orgination cities
 
-    if(aList.head != nullptr){                                  // if adjacencyList.head isn't empty
+    if(adjacency_list.head != nullptr){                                  // if adjacencyList.head isn't empty
 
         bool dataExists = checkInner(newFlightData.getAirline(),newFlightData.getDestination(),aList);    // Check if flight
 
@@ -86,7 +86,6 @@ bool AdjacencyList<U>::checkInner(DSString airlineComp,DSString destinationCity,
 template<class U>
 void AdjacencyList<U>::printAdjacencyList(){
     DSNode< DSLinkedList<U> >* currentLinkedList = adjacency_list.head;
-
 
     while(currentLinkedList != nullptr){
        cout << currentLinkedList->data.head->data.getOrigin() << " --> ";

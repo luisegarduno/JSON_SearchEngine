@@ -309,10 +309,6 @@ TEST_CASE("Adjacency List Class", "DSLinkedList< DSLinkedList<type> >"){
     newList.add(flight5);
     newList.add(flight5.flightDataReversed());
 
-
-    //newList.printAdjacencyList();
-
-
 }
 
 

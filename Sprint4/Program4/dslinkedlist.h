@@ -33,7 +33,6 @@ class DSLinkedList{
         T getAt(T);                     // returns element at specific index
         DSLinkedList<T>& operator=(const DSLinkedList<T>&);
 
-        bool exists();
         bool operator!=(const DSLinkedList<T>&) const;
         int getListSize() const;
 
@@ -128,18 +127,13 @@ DSLinkedList<T>& DSLinkedList<T>::operator=(const DSLinkedList<T>& v2LinkedList)
 
 template<class T>
 void DSLinkedList<T>::append(T x){
-    //DSNode<T>* current = head;
     DSNode<T>* newNode = new DSNode<T>(x);
 
     if(head == nullptr){           // if Linked List is empty
-        head = new DSNode<T>(x);                         // declare new node as the head and tail
-        tail = head;
+        head = newNode;                         // declare new node as the head and tail
+        tail = newNode;
     }
     else{
-        /*while(current->next != nullptr){
-            current = current->next;
-        }
-        //current->next = new DSNode<T>(x);*/
         tail->next = newNode;                   // if linked list contains node already, set the node after the tail = to new node(previously nullptr)
         newNode->previous = tail;               // at the end, the previous node prior to declaring new node, is the tail
         tail = newNode;                         // declare new node as the tail
@@ -178,8 +172,6 @@ bool DSLinkedList<T>::iteratorIsValid(){
         return true;
     }
     else{
-        //this->iterator = this->iterator->previous;
-        //resetIterator();
         return false;
     }
 }
@@ -326,16 +318,6 @@ bool DSLinkedList<T>::operator!=(const DSLinkedList<T>& aLinkedList)const {
 
     return false;
 
-}
-
-template<class T>
-bool DSLinkedList<T>::exists(){
-    if(head == nullptr){
-        return false;
-    }
-    else {
-        return true;
-    }
 }
 
 
