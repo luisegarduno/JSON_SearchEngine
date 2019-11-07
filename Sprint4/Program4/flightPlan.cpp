@@ -32,6 +32,7 @@ int main(int argc, char * argv[]){
             else {
                 FlightPlanner flight;
                 flight.setFileNames(argv);
+                flight.addFlightsData();
             }
         }
 
