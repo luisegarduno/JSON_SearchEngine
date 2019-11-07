@@ -198,7 +198,7 @@ TEST_CASE( "DSVector class 2", "<int>") {
 }
 
 TEST_CASE("Doubly Linked List", "DSLinkedLists<T>"){
-    DSLinkedList<int> newList;
+    DSLinkedList<int> newList = DSLinkedList<int>();
 
     newList.append(2);
     newList.append(4);
@@ -297,7 +297,7 @@ TEST_CASE("Adjacency List Class", "DSLinkedList< DSLinkedList<type> >"){
     FlightData flight4(dallas,houston,101.0,51.0,spirit);
     FlightData flight5(austin,chicago,144.0,192.0,american);
 
-    AdjacencyList<FlightData> newList;
+    AdjacencyList<FlightData> newList = AdjacencyList<FlightData>();
     newList.add(flight1);
     newList.add(flight1.flightDataReversed());
     newList.add(flight2);

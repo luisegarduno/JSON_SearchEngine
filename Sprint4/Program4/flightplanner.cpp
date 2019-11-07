@@ -114,6 +114,8 @@ void FlightPlanner::requestedRoutes(){
 
 }
 
+// using nodePtr = DSNode<DSLinkedList<FlightData>*
+// using customStackIterator = DSStack<nodePtr>
 /*
 DSVector<FlightPlanner::customStackIterator> FlightPlanner::findRoutes(RequestRoute requestedRoute){
     DSVector<FlightPlanner::customStackIterator> currentStackInVector;
@@ -121,6 +123,6 @@ DSVector<FlightPlanner::customStackIterator> FlightPlanner::findRoutes(RequestRo
     DSStack< DSLinkedList<FlightData> > routeOnStack;
     routeOnStack.push(flightPaths.getAllOrigins(requestedRoute.getRequestedOrigin()));
 
-    customStackIterator currentStack = routeOnStack.peek().head;
+    customStackIterator currentStack = routeOnStack;
 }
 */

@@ -11,6 +11,7 @@ class DSNode{
     // make DSLinkedList a friend of DSNode, this grants DSLinkedList access to private members
     template<class U> friend class DSLinkedList;
     template<class V> friend class AdjacencyList;
+    template<class X> friend class DSStack;
     friend class FlightPlanner;
 
     private:

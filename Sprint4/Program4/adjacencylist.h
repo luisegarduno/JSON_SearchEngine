@@ -6,7 +6,6 @@
 #include "flightdata.h"
 #include "dslinkedlist.h"
 
-
 template <class U>
 class AdjacencyList{
     private:
@@ -27,15 +26,14 @@ AdjacencyList<U>::AdjacencyList(){
 
 template<class U>
 void AdjacencyList<U>::add(U newFlightData){
-    DSLinkedList<U>& aList = checkOuter(newFlightData.getOrigin(), newFlightData.getAirline());             // Check list of orgination cities
+    DSLinkedList<U>* aList = &checkOuter(newFlightData.getOrigin(), newFlightData.getAirline());             // Check list of orgination cities
 
-    if(&aList != nullptr){                                  // if adjacencyList.head isn't empty
+    if(aList != nullptr){                                  // if adjacencyList.head isn't empty
 
-        bool dataExists = checkInner(newFlightData.getAirline(),newFlightData.getDestination(),*&aList);    // Check if flight
+        bool dataExists = checkInner(newFlightData.getAirline(),newFlightData.getDestination(),*aList);    // Check if flight
 
         if(!dataExists){
-            aList.append(newFlightData);                      // add destination to Origin Node (originCity)
-            //adjacency_list.append(aList);
+            aList->append(newFlightData);                      // add destination to Origin Node (originCity)
         }
     }
 
@@ -61,8 +59,8 @@ DSLinkedList<U>& AdjacencyList<U>::checkOuter(DSString originCity, DSString airl
     }
 
     if(currentLinkedList == nullptr){
-        DSLinkedList<U> temp = DSLinkedList<U>();
-        return temp;
+        DSLinkedList<U>* temp = nullptr;
+        return *temp;
     }
 
     return currentLinkedList->data;
