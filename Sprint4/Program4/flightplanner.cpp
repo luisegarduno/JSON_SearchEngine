@@ -4,7 +4,6 @@
 using std::getline;
 
 FlightPlanner::FlightPlanner(){
-
 }
 
 void FlightPlanner::setFileNames(char * argv[]){
@@ -110,6 +109,7 @@ void FlightPlanner::requestedRoutes(){
             }
         }
         RequestRoute newRoute(theOrigin,theDestination,sortType);
+        DSVector<FlightPlanner::customStackIterator> findAllRoutes = findRoutes(newRoute);
     }
 
 }
@@ -133,11 +133,12 @@ DSVector<FlightPlanner::customStackIterator> FlightPlanner::findRoutes(RequestRo
     while(stackIsNotEmpty == true){
 
 
+
         // ********************Adding LinkedList to DSStack *********************//
         if(currentNodeOnStack != nullptr){
             currentStack.push(currentNodeOnStack);  // push every node onto the stack
             routeOnStack.push(flightPaths.getAllOrigins(currentNodeOnStack->data.getDestination()));
-            cout << routeOnStack.peek().head->data.getOrigin() << endl;
+            flightPaths.getAllOrigins(currentNodeOnStack->data.getOrigin()).print();
             currentNodeOnStack = routeOnStack.topValue().head; //
 
 
@@ -154,4 +155,19 @@ DSVector<FlightPlanner::customStackIterator> FlightPlanner::findRoutes(RequestRo
 
     return currentStackInVector;
 
+}
+
+bool FlightPlanner::checkStack(DSString aCity,DSString aAirline,customStackIterator current){
+    nodePtr top;
+
+    for(int counter = 0; counter < current.sizeOfStack(); counter++){
+        top = current.pop();
+
+        if(top->getData().getOrigin() == aCity || top->getData().getDestination() == aCity){
+            if(top->getData().getAirline() == aAirline){
+                return true;
+            }
+        }
+    }
+    return false;
 }
