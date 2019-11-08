@@ -1,7 +1,5 @@
 #include "flightplanner.h"
 
-using std::getline;
-
 FlightPlanner::FlightPlanner(){         // Default Constructor
 }
 
@@ -112,7 +110,8 @@ void FlightPlanner::requestedRoutes(){
         }
         RequestRoute newRoute(theOrigin,theDestination,sortType);
         DSVector<FlightPlanner::customStackIterator> findAllRoutes = findRoutes(newRoute);
-        DSVector<FlightData> allFlightRoutes = getRouteFromStack(findAllRoutes);
+        DSVector<Route> allFlightRoutes = getRouteFromStack(findAllRoutes);
+        allFlightRoutes.printVector();
     }
 
 }
@@ -190,7 +189,7 @@ DSVector<FlightPlanner::customStackIterator> FlightPlanner::findRoutes(RequestRo
                     currentNodeOnStack = currentNodeOnStack->next;
                 }
 
-                if(currentNodeOnStack){
+                if(stackIsNotEmpty == false){
                     break;
                 }
             }
@@ -217,16 +216,23 @@ bool FlightPlanner::checkStack(DSString aCity,DSString aAirline,customStackItera
     return false;
 }
 
-DSVector<FlightData> FlightPlanner::getRouteFromStack(DSVector<customStackIterator> routeOnStackVector){
+DSVector<Route> FlightPlanner::getRouteFromStack(DSVector<customStackIterator> routeOnStackVector){
     DSStack<FlightData> routeOnStack;
-    DSVector<FlightData> listOfRoutes;
+    DSVector<Route> routeOnVector;
 
     for(int counter = 0; counter < routeOnStackVector.getSize(); counter++){
         while(!routeOnStackVector.isEmpty()){
             DSNode<FlightData>* currentFlightPtr = routeOnStackVector.elementIndex(counter).pop();
             routeOnStack.push(currentFlightPtr->data);
         }
+
+        Route newRoute;
+        newRoute.addRoute(routeOnStack);
+
+        routeOnVector.pushBack(newRoute);
     }
+
+    return routeOnVector;
 }
 
 

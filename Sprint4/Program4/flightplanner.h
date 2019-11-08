@@ -14,6 +14,7 @@
 
 using std::fstream;
 using std::ifstream;
+using std::getline;
 
 class FlightPlanner{
 
@@ -37,9 +38,8 @@ class FlightPlanner{
         void requestedRoutes();
 
         DSVector<customStackIterator> findRoutes(RequestRoute);
+        DSVector<Route> getRouteFromStack(DSVector<customStackIterator>);
         bool checkStack(DSString,DSString,DSStack< DSNode<FlightData> *>);
-
-        DSVector<FlightData> getRouteFromStack(DSVector<customStackIterator>);
 };
 
 #endif // FLIGHTPLANNER_H
