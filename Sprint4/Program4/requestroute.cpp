@@ -1,8 +1,6 @@
 #include "requestroute.h"
 
-RequestRoute::RequestRoute()
-{
-
+RequestRoute::RequestRoute(){
 }
 
 RequestRoute::RequestRoute(DSString theOrigin,DSString theDestination,DSString theType){

@@ -17,11 +17,8 @@ class FlightData{
         FlightData();
         FlightData(DSString, DSString, double, double, DSString);
         FlightData flightDataReversed();
-        FlightData(const FlightData&);
-        FlightData& operator=(const FlightData&);
 
         // create setter & getter functions for each of the Flight Data paramter
-
 
         void setOrigin(DSString);
         void setDestination(DSString);

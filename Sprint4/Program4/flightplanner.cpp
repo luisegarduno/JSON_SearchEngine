@@ -137,13 +137,13 @@ DSVector<FlightPlanner::customStackIterator> FlightPlanner::findRoutes(RequestRo
         if(currentNodeOnStack != nullptr){
             currentStack.push(currentNodeOnStack);  // push every node onto the stack
             routeOnStack.push(flightPaths.getAllOrigins(currentNodeOnStack->data.getDestination()));
-            currentNodeOnStack = routeOnStack.topValue().head; //
+            currentNodeOnStack = routeOnStack.topValue().head;
 
-
-            currentNodeOnStack = currentNodeOnStack->next;
-
-            if(currentNodeOnStack == nullptr){
-                stackIsNotEmpty = false; // temp, will remove as progression is made
+            if(currentNodeOnStack == nullptr &&
+                    checkStack(currentNodeOnStack->getData().getDestination(),
+                               currentNodeOnStack->getData().getAirline(),
+                               currentStack)){ // if City w/ a specific has already been added, skip
+                currentNodeOnStack = currentNodeOnStack->next;
                 break;
             }
         }
