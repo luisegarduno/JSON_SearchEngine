@@ -1,6 +1,7 @@
 #ifndef FLIGHTPLANNER_H
 #define FLIGHTPLANNER_H
 
+#include "route.h"
 #include <fstream>
 #include <iostream>
 #include "dsstack.h"
@@ -37,6 +38,8 @@ class FlightPlanner{
 
         DSVector<customStackIterator> findRoutes(RequestRoute);
         bool checkStack(DSString,DSString,DSStack< DSNode<FlightData> *>);
+
+        DSVector<FlightData> getRouteFromStack(DSVector<customStackIterator>);
 };
 
 #endif // FLIGHTPLANNER_H

@@ -9,6 +9,7 @@ SOURCES += \
         flightdata.cpp \
         flightplanner.cpp \
         requestroute.cpp \
+        route.cpp \
         test.cpp
 
 HEADERS += \
@@ -21,4 +22,5 @@ HEADERS += \
     dsvector.h \
     flightdata.h \
     flightplanner.h \
-    requestroute.h
+    requestroute.h \
+    route.h

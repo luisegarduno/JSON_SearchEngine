@@ -14,7 +14,6 @@ void FlightPlanner::setFileNames(char * argv[]){
 }
 
 
-// This add
 void FlightPlanner::addFlightsData(){
     streamFlightData.open(flightDataFile.c_str());
 
@@ -113,16 +112,18 @@ void FlightPlanner::requestedRoutes(){
         }
         RequestRoute newRoute(theOrigin,theDestination,sortType);
         DSVector<FlightPlanner::customStackIterator> findAllRoutes = findRoutes(newRoute);
+        DSVector<FlightData> allFlightRoutes = getRouteFromStack(findAllRoutes);
     }
 
 }
 
 
+
 // REMEMBER LIFO, LAST IN, FIRST OUT ---> SO the 'TOP' will be the LAST IN,
 // Thus we make the last item appended be declared as the head
 // USING nodePtr = DSNode<FlightData>*;             USING customStackIterator = DSStack<nodePtr>;
-DSVector<FlightPlanner::customStackIterator> FlightPlanner::findRoutes(RequestRoute requestedRoute){
-    nodePtr currentNodeOnStack = nullptr;
+DSVector<FlightPlanner::customStackIterator> FlightPlanner::findRoutes(RequestRoute requestedRoute){ // TO SEE HIGH LEVEL STEPS FOR ITERATIVE BACKTRACKING
+    nodePtr currentNodeOnStack = nullptr;                                                            // GO TO LINE
     customStackIterator currentStack;
     DSStack< DSLinkedList<FlightData> > routeOnStack; // create a stack containing routes
     DSVector<customStackIterator> currentStackInVector;
@@ -194,7 +195,6 @@ DSVector<FlightPlanner::customStackIterator> FlightPlanner::findRoutes(RequestRo
                 }
             }
         }
-
     }
     return currentStackInVector;
 }
@@ -214,8 +214,59 @@ bool FlightPlanner::checkStack(DSString aCity,DSString aAirline,customStackItera
             }
         }
     }
-
-
     return false;
 }
+
+DSVector<FlightData> FlightPlanner::getRouteFromStack(DSVector<customStackIterator> routeOnStackVector){
+    DSStack<FlightData> routeOnStack;
+    DSVector<FlightData> listOfRoutes;
+
+    for(int counter = 0; counter < routeOnStackVector.getSize(); counter++){
+        while(!routeOnStackVector.isEmpty()){
+            DSNode<FlightData>* currentFlightPtr = routeOnStackVector.elementIndex(counter).pop();
+            routeOnStack.push(currentFlightPtr->data);
+        }
+    }
+}
+
+
+/*
+1. Push source to DSStack
+
+2. while(stackIsNotEmpty)
+
+    3. if(top == destination)
+            |
+            --> if TRUE: Store path & pop
+            |
+            --> if FALSE: step thru iterators of top:
+                     |
+                     --> if iterator == nullptr
+                     |          |
+                     |          --> if TRUE: pop top & reset Iterator
+                     |          |
+                     |          --> if FALSE: continue
+                     |
+                     |
+                     --> if city on stack
+                                |
+                                --> if TRUE: continue
+                                |
+                                --> if FALSE: push city, Go to step #3
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
