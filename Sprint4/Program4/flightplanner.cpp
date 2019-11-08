@@ -1,5 +1,4 @@
 #include "flightplanner.h"
-#include "requestroute.h"
 
 using std::getline;
 
@@ -118,8 +117,8 @@ void FlightPlanner::requestedRoutes(){
 // REMEMBER LIFO, LAST IN, FIRST OUT ---> SO the 'TOP' will be the LAST IN,
 // and since we want the last item that was added to the stack to be the
 // FIRST OUT, the TOP will always be the head of the stack
-// using nodePtr = DSNode<   DSLinkedList<FlightData>*  >
-// using customStackIterator = DSStack<nodePtr>
+// using nodePtr = DSNode<FlightData>*;
+// using customStackIterator = DSStack<nodePtr>;
 DSVector<FlightPlanner::customStackIterator> FlightPlanner::findRoutes(RequestRoute requestedRoute){
     nodePtr currentNodeOnStack;
     customStackIterator currentStack;
@@ -138,7 +137,6 @@ DSVector<FlightPlanner::customStackIterator> FlightPlanner::findRoutes(RequestRo
         if(currentNodeOnStack != nullptr){
             currentStack.push(currentNodeOnStack);  // push every node onto the stack
             routeOnStack.push(flightPaths.getAllOrigins(currentNodeOnStack->data.getDestination()));
-            flightPaths.getAllOrigins(currentNodeOnStack->data.getOrigin()).print();
             currentNodeOnStack = routeOnStack.topValue().head; //
 
 
@@ -157,17 +155,23 @@ DSVector<FlightPlanner::customStackIterator> FlightPlanner::findRoutes(RequestRo
 
 }
 
-bool FlightPlanner::checkStack(DSString aCity,DSString aAirline,customStackIterator current){
-    nodePtr top;
+bool FlightPlanner::checkStack(DSString aCity,DSString aAirline,customStackIterator aCurrent){
+    nodePtr theTop = nullptr;
 
-    for(int counter = 0; counter < current.sizeOfStack(); counter++){
-        top = current.pop();
+    int stackSize = aCurrent.sizeOfStack();
 
-        if(top->getData().getOrigin() == aCity || top->getData().getDestination() == aCity){
-            if(top->getData().getAirline() == aAirline){
+
+    for(int counter = 0; counter < stackSize; counter++){
+        theTop = aCurrent.pop();
+
+        if(theTop->getData().getOrigin() == aCity || theTop->getData().getDestination() == aCity){
+            if(theTop->getData().getAirline() == aAirline){
                 return true;
             }
         }
     }
+
+
     return false;
 }
+

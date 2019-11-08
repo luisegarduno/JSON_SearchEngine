@@ -8,8 +8,9 @@
 template<class T>
 class DSLinkedList{
 
-    template<class U> friend class AdjacencyList;
     friend class FlightPlanner;
+    template<class V> friend class DSStack;
+    template<class U> friend class AdjacencyList;
 
     DSNode<T> * head;
     DSNode<T> * tail;
@@ -37,9 +38,7 @@ class DSLinkedList{
         bool operator!=(const DSLinkedList<T>&) const;
         int getListSize() const;
 
-
         // Custom Iterator
-
 
         T& getIterator();               // Custom iterator functions
         T& getNextIterator();

@@ -36,7 +36,7 @@ class FlightPlanner{
         void requestedRoutes();
 
         DSVector<customStackIterator> findRoutes(RequestRoute);
-        bool checkStack(DSString,DSString,customStackIterator);
+        bool checkStack(DSString,DSString,DSStack< DSNode<FlightData> *>);
 };
 
 #endif // FLIGHTPLANNER_H

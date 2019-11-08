@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "dsnode.h"
+#include "flightdata.h"
 #include "dslinkedlist.h"
 #include "adjacencylist.h"
 
@@ -28,7 +29,7 @@ class DSStack : DSLinkedList<T>{
         bool isEmpty();
 
         T topValue();
-        int sizeOfStack() const;
+        int sizeOfStack();
 };
 
 template<class T>
@@ -37,14 +38,16 @@ DSStack<T>::DSStack(): stackSize(0){
 
 template<class T>
 T DSStack<T>::pop(){
-    T data1 = this->peek();                     // stores tail in temp data1
-    aData.popLastNode();                        // deletes tail from data list
+    T data1;                     // stores tail in temp data1
+    if(!isEmpty()){
+        aData.popLastNode();                        // deletes tail from data list
 
-    if(aData.getAt(0) != 0){
-        top = aData.getAt(0);
+        if(aData.head != 0){
+            top = aData.head->data;
+        }
+
+        stackSize--;
     }
-
-    stackSize--;
     return data1;                               // returns stored data1
 }
 
@@ -66,7 +69,7 @@ T DSStack<T>::topValue(){
 }
 
 template<class T>
-int DSStack<T>::sizeOfStack() const{
+int DSStack<T>::sizeOfStack(){
     return stackSize;
 }
 

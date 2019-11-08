@@ -29,7 +29,6 @@ class DSNode{
         T getData();
 
         ~DSNode();
-
 };
 
 template<class T>

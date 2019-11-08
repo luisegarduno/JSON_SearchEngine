@@ -21,6 +21,18 @@ FlightData FlightData::flightDataReversed(){
     return flightReversed;
 }
 
+FlightData::FlightData(const FlightData& original){
+    *this = original;
+}
+
+FlightData& FlightData::operator=(const FlightData& original){
+    setOrigin(original.origin);
+    setDestination(original.destination);
+    setCost(original.cost);
+    setTime(original.time);
+    setAirline(original.airline);
+}
+
 // Declares Origin
 void FlightData::setOrigin(DSString newOrigin){
     this->origin = newOrigin;
@@ -71,3 +83,4 @@ double FlightData::getTime(){
 DSString FlightData::getAirline(){
     return airline;
 }
+
