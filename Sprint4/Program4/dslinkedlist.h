@@ -269,18 +269,13 @@ T DSLinkedList<T>::popFirstNode(){
 
 template<class T>
 T DSLinkedList<T>::getAt(int x){
-    if(head == nullptr){
-        exit;
-    }
-    else{
-        DSNode<T>* aCurrent = head;         // begin at head
+    DSNode<T>* aCurrent = head;         // begin at head
 
-        for(int i = 0; i < x; i++){
-            aCurrent = aCurrent->next;      // cycle through Linked List
-        }
-
-        return aCurrent->data;              // return element from linked list (specified in parameter
+    for(int i = 0; i < x; i++){
+        aCurrent = aCurrent->next;      // cycle through Linked List
     }
+
+    return aCurrent->data;              // return element from linked list (specified in parameter
 }
 
 template<class T>

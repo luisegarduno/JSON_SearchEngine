@@ -16,7 +16,7 @@ DSString::DSString(const DSString& originaldsString){                       // C
         size_t newSize = strlen(originaldsString.data);
         this->data = new char[newSize + 1];               // that goes by another name (&)
         strcpy(this->data,originaldsString.data);
-        length = originaldsString.length;
+        length = newSize;
 }
 
 DSString::~DSString(){                                                      // destructor

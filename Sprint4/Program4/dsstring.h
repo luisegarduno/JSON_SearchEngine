@@ -14,7 +14,7 @@ class DSString{
 
     private:
         char * data;
-        int length;
+        size_t length;
 
     public:
         DSString();                                 // Default constructor
