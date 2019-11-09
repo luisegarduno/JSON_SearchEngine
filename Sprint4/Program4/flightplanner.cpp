@@ -60,8 +60,9 @@ void FlightPlanner::addFlightsData(){
             }
         }
         FlightData newFlight(theOrigin,theDestination,theCost,theTime,theAirline);
+        FlightData reversedFlight(theDestination,theOrigin,theCost,theTime,theAirline);
         flightPaths.add(newFlight);
-        flightPaths.add(newFlight.flightDataReversed());
+        flightPaths.add(reversedFlight);
         cout << endl;
     }
 
@@ -110,9 +111,9 @@ void FlightPlanner::requestedRoutes(){
         }
         RequestRoute newRoute(theOrigin,theDestination,sortType);
         DSVector<FlightPlanner::customStackIterator> findAllRoutes = findRoutes(newRoute);
-        cout << "HERE3" << endl;
         DSVector<Route> allFlightRoutes = getRouteFromStack(findAllRoutes);
-        cout << "HERE4" << endl;
+        cout << endl;
+
     }
 
     streamPathsToCalculate.close();
@@ -132,81 +133,89 @@ DSVector<FlightPlanner::customStackIterator> FlightPlanner::findRoutes(RequestRo
 
 
     routeOnStack.push(flightPaths.getAllOrigins(requestedRoute.getRequestedOrigin()));
+    routeOnStack.topValue().print();
+    //routeOnStack.topValue().resetIterator();
+
     currentNodeOnStack = routeOnStack.topValue().head;
 
 
+
     bool stackIsNotEmpty = true;
-    while(stackIsNotEmpty == true){
-        // ***************End of Current LinkedList********************************
-        if(currentNodeOnStack == nullptr){
-            while(currentNodeOnStack == nullptr){
-                routeOnStack.pop();
-
-                if(routeOnStack.isEmpty()){
-                    stackIsNotEmpty = false;
-                    break;
-                }
-
-                currentNodeOnStack = currentStack.pop();
-                currentNodeOnStack = currentNodeOnStack->next;
-
-                while(currentNodeOnStack != nullptr &&
-                        checkStack(currentNodeOnStack->getData().getDestination(),
-                                   currentStack)){ // if City w/ a specific has already been added, skip
-                    currentNodeOnStack = currentNodeOnStack->next;
-                }
-
-                if(stackIsNotEmpty == false){
-                    break;
-                }
-            }
-        }
-
-        // **********************ROUTE FOUND***********************************
+    while(!routeOnStack.isEmpty()){
+        // **********************TOP IS DESTINATION***********************************
         // If Node located on stack contains getDestination that's the same as the requested Destination
-        if(currentNodeOnStack->data.getDestination() == requestedRoute.getRequestedDestination()){
+        if(routeOnStack.topValue().getIterator().getDestination() == requestedRoute.getRequestedDestination()){
+            cout << "destination == requestedDestination" << endl;
             currentStack.push(currentNodeOnStack);
             currentStackInVector.pushBack(currentStack);
 
             currentStack.pop();
             currentNodeOnStack = currentNodeOnStack->next;
+            routeOnStack.topValue().print();
 
-            while(currentNodeOnStack != nullptr &&
-                    checkStack(currentNodeOnStack->getData().getDestination(),
-                               currentStack)){ // if City w/ a specific has already been added, skip
+            while(currentNodeOnStack != nullptr && checkStack(currentNodeOnStack->data,currentStack)){ // if City w/ a specific has already been added, skip
                 currentNodeOnStack = currentNodeOnStack->next;
             }
+
         }
         // **********************************************************************
 
-        // ********************Adding LinkedList to DSStack *********************//
-        if(currentNodeOnStack != nullptr){
-            currentStack.push(currentNodeOnStack);  // push every node onto the stack
-            routeOnStack.push(flightPaths.getAllOrigins(currentNodeOnStack->data.getDestination()));
-            currentNodeOnStack = routeOnStack.topValue().head;
 
-            while(currentNodeOnStack != nullptr &&
-                    checkStack(currentNodeOnStack->getData().getDestination(),
-                               currentStack)){ // if City w/ a specific has already been added, skip
-                currentNodeOnStack = currentNodeOnStack->next;
+        else{
+            // ***************End of Current LinkedList********************************
+            if(!routeOnStack.topValue().iteratorIsValid()){     // iterator is null
+                cout << "Iterator is Null" << endl;
+                while(currentNodeOnStack == nullptr){
+                    routeOnStack.topValue().popFirstNode();
+                    routeOnStack.topValue().resetIterator();
+                    if(routeOnStack.isEmpty())
+                        break;
+
+                    currentNodeOnStack = currentStack.pop();
+                    currentNodeOnStack = currentNodeOnStack->next;
+                    routeOnStack.topValue().print();
+
+                    while(currentNodeOnStack != nullptr && checkStack(currentNodeOnStack->data,currentStack)){ // if City w/ a specific has already been added, skip
+                        currentNodeOnStack = currentNodeOnStack->next;
+                    }
+
+                    if(routeOnStack.isEmpty()){
+                        cout << "stackIsNotEmpty == false" << endl;
+                        break;
+                    }
+
+                }
+            }
+
+            // ********************Adding LinkedList to DSStack *********************//
+            if(routeOnStack.topValue().iteratorIsValid()){                  // is city on stack
+                cout << "currentNodeOnStack != nulltpr" << endl;
+                currentStack.push(currentNodeOnStack);  // push every node onto the stack
+                routeOnStack.push(flightPaths.getAllOrigins(currentNodeOnStack->data.getDestination()));
+                currentNodeOnStack = routeOnStack.topValue().head;
+
+                routeOnStack.topValue().print();
+                while(currentNodeOnStack != nullptr && checkStack(currentNodeOnStack->data,currentStack)){ // if City w/ a specific has already been added, skip
+                    currentNodeOnStack = currentNodeOnStack->next;
+
+                }
 
             }
+            // *********************************************************************//
         }
-        // *********************************************************************//
+
     }
     return currentStackInVector;
 }
 
-bool FlightPlanner::checkStack(DSString aCity,customStackIterator aCurrent){
+bool FlightPlanner::checkStack(FlightData& thisData,customStackIterator aCurrent){
     nodePtr theTop = nullptr;
 
     while(!aCurrent.isEmpty()){
         theTop = aCurrent.pop();
 
-        if(theTop->getData().getOrigin() == aCity || theTop->getData().getDestination() == aCity){
-            //if(theTop->getData().getAirline() == aAirline){
+        if(thisData.getDestination() == theTop->data.getDestination() && thisData.getAirline() == theTop->data.getAirline()){
                 return true;
-            //}
         }
     }
     return false;

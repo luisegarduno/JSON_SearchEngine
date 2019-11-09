@@ -17,7 +17,7 @@ class FlightData{
         FlightData();
         FlightData& operator=(const FlightData&);
         FlightData(const FlightData&);
-        FlightData(DSString, DSString, double, double, DSString);
+        FlightData(DSString&, DSString&, double, double, DSString&);
         FlightData flightDataReversed();
 
         // create setter & getter functions for each of the Flight Data paramter
@@ -28,11 +28,11 @@ class FlightData{
         void setTime(double);
         void setAirline(DSString);
 
-        DSString getOrigin();
-        DSString getDestination();
-        double getCost();
-        double getTime();
-        DSString getAirline();
+        DSString& getOrigin();
+        DSString& getDestination();
+        double& getCost();
+        double& getTime();
+        DSString& getAirline();
 };
 
 #endif // FLIGHTDATA_H

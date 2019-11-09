@@ -5,6 +5,15 @@
 #include "dsnode.h"
 #include "flightdata.h"
 
+class OUT_OF_BOUNDS{
+    public:
+        const char * what() {
+            return "OUT OF BOUNDS";
+        }
+};
+
+
+
 template<class T>
 class DSLinkedList{
 
@@ -269,13 +278,18 @@ T DSLinkedList<T>::popFirstNode(){
 
 template<class T>
 T DSLinkedList<T>::getAt(int x){
-    DSNode<T>* aCurrent = head;         // begin at head
+    try {
+        DSNode<T>* aCurrent = head;         // begin at head
 
-    for(int i = 0; i < x; i++){
-        aCurrent = aCurrent->next;      // cycle through Linked List
+        for(int i = 0; i < x; i++){
+            aCurrent = aCurrent->next;      // cycle through Linked List
+        }
+
+        return aCurrent->data;              // return element from linked list (specified in parameter
+    } catch (OUT_OF_BOUNDS) {
+        throw OUT_OF_BOUNDS();
     }
 
-    return aCurrent->data;              // return element from linked list (specified in parameter
 }
 
 template<class T>

@@ -46,13 +46,16 @@ T DSStack<T>::pop(){
 template<class T>
 void DSStack<T>::push(T x){
     aData.append(x);                            // pushes element onto DSLinkedList
-    //top = x;
     stackSize++;
 }
 
 template<class T>
 T DSStack<T>::peek(){                           // returns tail of data linked list
-    return this->aData.getAt(this->aData.getListSize() - 1);
+    try {
+        return this->aData.getAt(this->aData.getListSize() - 1);
+    } catch (OUT_OF_BOUNDS) {
+        throw OUT_OF_BOUNDS();
+    }
 }
 
 template<class T>
@@ -72,7 +75,7 @@ size_t DSStack<T>::sizeOfStack(){
 
 template<class T>
 bool DSStack<T>::isEmpty(){                 // checks to see if DSLinkedList is empty
-    return ( (this->aData.getListSize() == 0) ? true : false);
+    return ( (this->aData.head == nullptr) ? true : false);
 }
 
 

@@ -69,9 +69,14 @@ DSLinkedList<U>& AdjacencyList<U>::checkOuter(DSString originCity, DSString airl
 template<class U>
 DSLinkedList<U> AdjacencyList<U>::getAllOrigins(DSString aCity){          // check list of origination cities
     DSNode< DSLinkedList<U> >* currentLinkedList = adjacency_list.head;
+    DSLinkedList<U> flightOrigin = DSLinkedList<U>();
 
     while(currentLinkedList != nullptr){
         if(currentLinkedList->data.head->data.getOrigin() == aCity){
+            flightOrigin.append(*&currentLinkedList->data.head->data);
+
+            //cout << "\t\tOrigin: " << currentLinkedList->data.head->data.getOrigin();
+            //cout << "\t\tAirline: " << currentLinkedList->data.head->data.getAirline() << endl;
             return currentLinkedList->data;
 
         }

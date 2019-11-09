@@ -18,16 +18,24 @@ FlightData::FlightData(const FlightData& original){
 }
 
 // FlightData is passed with origin,destination,cost,time, & airline to set FlightData Object variables
-FlightData::FlightData(DSString originData, DSString destinationData, double costData, double timeData, DSString airlineData)
+FlightData::FlightData(DSString& originData, DSString& destinationData, double costData, double timeData, DSString& airlineData)
     : origin(originData), destination(destinationData), cost(costData), time(timeData), airline(airlineData) {
 }
 
 FlightData FlightData::flightDataReversed(){
-
+    setOrigin(destination);
     DSString newOrigin = getDestination();
+
+    setDestination(origin);
     DSString newDestination = getOrigin();
+
+    setCost(cost);
     double newCost = getCost();
+
+    setTime(time);
     double newTime = getTime();
+
+    setAirline(airline);
     DSString newAirline = getAirline();
 
     FlightData flightReversed(newOrigin,newDestination,newCost,newTime,newAirline);
@@ -61,28 +69,28 @@ void FlightData::setAirline(DSString newAirline){
 }
 
 // returns name of Origin City
-DSString FlightData::getOrigin(){
+DSString& FlightData::getOrigin(){
     return origin;
 }
 
 // returns name of Destination City
-DSString FlightData::getDestination(){
+DSString& FlightData::getDestination(){
     return destination;
 }
 
 // returns cost of flight
-double FlightData::getCost(){
+double& FlightData::getCost(){
     return cost;
 }
 
 
 // returns length of flight (in minutes)
-double FlightData::getTime(){
+double& FlightData::getTime(){
     return time;
 }
 
 // returns name of airline
-DSString FlightData::getAirline(){
+DSString& FlightData::getAirline(){
     return airline;
 }
 
