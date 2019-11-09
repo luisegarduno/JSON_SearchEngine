@@ -3,6 +3,20 @@
 FlightData::FlightData() : origin(""), destination(""), cost(0.0), time(0.0), airline("") {
 }
 
+FlightData& FlightData::operator=(const FlightData & original){
+    setOrigin(original.origin);
+    setDestination(original.destination);
+    setCost(original.cost);
+    setTime(original.time);
+    setAirline(original.airline);
+    return *this;
+}
+
+
+FlightData::FlightData(const FlightData& original){
+    *this = original;
+}
+
 // FlightData is passed with origin,destination,cost,time, & airline to set FlightData Object variables
 FlightData::FlightData(DSString originData, DSString destinationData, double costData, double timeData, DSString airlineData)
     : origin(originData), destination(destinationData), cost(costData), time(timeData), airline(airlineData) {

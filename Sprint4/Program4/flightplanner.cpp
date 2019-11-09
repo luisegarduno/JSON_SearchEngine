@@ -72,7 +72,7 @@ void FlightPlanner::addFlightsData(){
 }
 
 void FlightPlanner::requestedRoutes(){
-    streamPathsToCalculate.open(flightDataFile.c_str());
+    streamPathsToCalculate.open(pathsToCalculateFile.c_str());
 
     if(!streamPathsToCalculate.is_open()){
         cout << "Paths To Calculate File is not open. Please check command line input" << endl;
@@ -83,7 +83,7 @@ void FlightPlanner::requestedRoutes(){
     streamPathsToCalculate >> numberOfRequested;
 
     char temp[100];
-    streamFlightData.getline(temp,100);
+    streamPathsToCalculate.getline(temp,100);
 
     DSString theOrigin(""),theDestination(""),sortType("");
     char * buffer = new char[100];
@@ -91,29 +91,32 @@ void FlightPlanner::requestedRoutes(){
     for(int i = 0; i < numberOfRequested; i++){
         for(int j = 0; j < 3; j++){
             if(j == 0){
-                streamFlightData.getline(buffer,100,'|');
+                streamPathsToCalculate.getline(buffer,100,'|');
                 theOrigin = buffer;
                 cout << "Origin: " << theOrigin << endl;
             }
 
             if(j == 1){
-                streamFlightData.getline(buffer,100,'|');
+                streamPathsToCalculate.getline(buffer,100,'|');
                 theDestination = buffer;
                 cout << "Destination: " << theDestination << endl;
             }
 
             if(j == 2){
-                streamFlightData.getline(buffer,100);
+                streamPathsToCalculate.getline(buffer,100);
                 sortType = buffer;
                 cout << "Sort Flights by: " << sortType << endl;
             }
         }
         RequestRoute newRoute(theOrigin,theDestination,sortType);
         DSVector<FlightPlanner::customStackIterator> findAllRoutes = findRoutes(newRoute);
+        cout << "HERE3" << endl;
         DSVector<Route> allFlightRoutes = getRouteFromStack(findAllRoutes);
-        allFlightRoutes.printVector();
+        cout << "HERE4" << endl;
     }
 
+    streamPathsToCalculate.close();
+    delete [] buffer;
 }
 
 
@@ -127,9 +130,9 @@ DSVector<FlightPlanner::customStackIterator> FlightPlanner::findRoutes(RequestRo
     DSStack< DSLinkedList<FlightData> > routeOnStack; // create a stack containing routes
     DSVector<customStackIterator> currentStackInVector;
 
+
     routeOnStack.push(flightPaths.getAllOrigins(requestedRoute.getRequestedOrigin()));
     currentNodeOnStack = routeOnStack.topValue().head;
-
     bool stackIsNotEmpty = true;
     while(stackIsNotEmpty == true){
 
@@ -201,10 +204,10 @@ DSVector<FlightPlanner::customStackIterator> FlightPlanner::findRoutes(RequestRo
 bool FlightPlanner::checkStack(DSString aCity,DSString aAirline,customStackIterator aCurrent){
     nodePtr theTop = nullptr;
 
-    int stackSize = aCurrent.sizeOfStack();
+    size_t stackSize = aCurrent.sizeOfStack();
 
 
-    for(int counter = 0; counter < stackSize; counter++){
+    for(size_t counter = 0; counter < stackSize; counter++){
         theTop = aCurrent.pop();
 
         if(theTop->getData().getOrigin() == aCity || theTop->getData().getDestination() == aCity){
@@ -226,8 +229,10 @@ DSVector<Route> FlightPlanner::getRouteFromStack(DSVector<customStackIterator> r
             routeOnStack.push(currentFlightPtr->data);
         }
 
-        Route newRoute;
+        Route newRoute = Route();
         newRoute.addRoute(routeOnStack);
+        newRoute.print();
+
 
         routeOnVector.pushBack(newRoute);
     }

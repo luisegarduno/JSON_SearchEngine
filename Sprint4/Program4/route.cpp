@@ -27,13 +27,16 @@ Route& Route::addRoute(DSStack<FlightData>& currentStack){
         }
 
         return *this;
-
-
     }
 
     else{
         return *this;
     }
+}
+
+void Route::print(){
+    int vec = sizeof (citiesInRoutes);
+    cout << "HERE: " << vec << endl;
 }
 
 

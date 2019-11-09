@@ -15,6 +15,8 @@ class FlightData{
 
     public:
         FlightData();
+        FlightData& operator=(const FlightData&);
+        FlightData(const FlightData&);
         FlightData(DSString, DSString, double, double, DSString);
         FlightData flightDataReversed();
 

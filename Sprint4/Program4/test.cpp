@@ -270,7 +270,7 @@ TEST_CASE("Doubly Linked List", "DSLinkedLists<T>"){
         REQUIRE(newList.getIterator() == 6);
     }
 }
-
+/*
 TEST_CASE("Adjacency List Class", "DSLinkedList< DSLinkedList<type> >"){
     DSString dallas = "Dallas";
     DSString austin = "Austin";
@@ -349,6 +349,7 @@ TEST_CASE("DSStack", "DSStack<int>"){
         }
     }
 }
+*/
 
 
 

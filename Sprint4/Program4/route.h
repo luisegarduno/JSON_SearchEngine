@@ -24,6 +24,8 @@ class Route{
         double getFinalTime();          // getters
         double getFinalCost();
 
+        void print();
+
 };
 
 #endif // ROUTE_H

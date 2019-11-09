@@ -32,13 +32,17 @@ class DSLinkedList{
         void removeAt(int);             // remove specific index value (passed in parameter)
         void popLastNode();
 
-        T getAt(T);                     // returns element at specific index
+        T getAt(int);                     // returns element at specific index
+        T popFirstNode();
         DSLinkedList<T>& operator=(const DSLinkedList<T>&);
 
         bool operator!=(const DSLinkedList<T>&) const;
         int getListSize() const;
 
+        T& getHead();
+        T& getTail();
         // Custom Iterator
+
 
         T& getIterator();               // Custom iterator functions
         T& getNextIterator();
@@ -257,9 +261,16 @@ void DSLinkedList<T>::popLastNode(){
 }
 
 template<class T>
-T DSLinkedList<T>::getAt(T x){
+T DSLinkedList<T>::popFirstNode(){
+    T temp = head->data;
+    head = head->next;
+    return temp;
+}
+
+template<class T>
+T DSLinkedList<T>::getAt(int x){
     if(head == nullptr){
-        return -1;
+        exit;
     }
     else{
         DSNode<T>* aCurrent = head;         // begin at head
@@ -270,6 +281,16 @@ T DSLinkedList<T>::getAt(T x){
 
         return aCurrent->data;              // return element from linked list (specified in parameter
     }
+}
+
+template<class T>
+T& DSLinkedList<T>::getHead(){
+    return head->data;
+}
+
+template<class T>
+T& DSLinkedList<T>::getTail(){
+    return tail->data;
 }
 
 template<class T>

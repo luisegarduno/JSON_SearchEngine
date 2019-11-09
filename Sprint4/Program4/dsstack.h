@@ -5,7 +5,6 @@
 #include "dsnode.h"
 #include "flightdata.h"
 #include "dslinkedlist.h"
-#include "adjacencylist.h"
 
 template<class T>
 class DSLinkedList;
@@ -19,7 +18,7 @@ class DSStack : DSLinkedList<T>{
     private:
         DSLinkedList<T> aData;
         T top;
-        int stackSize;
+        size_t stackSize;
 
     public:
         DSStack();
@@ -29,7 +28,8 @@ class DSStack : DSLinkedList<T>{
         bool isEmpty();
 
         T topValue();
-        int sizeOfStack();
+        size_t sizeOfStack();
+        DSLinkedList<T>& getDataLL();
 };
 
 template<class T>
@@ -38,23 +38,15 @@ DSStack<T>::DSStack(): stackSize(0){
 
 template<class T>
 T DSStack<T>::pop(){
-    T data1;                     // stores tail in temp data1
-    if(!isEmpty()){
-        aData.popLastNode();                        // deletes tail from data list
-
-        if(aData.head != 0){
-            top = aData.head->data;
-        }
-
-        stackSize--;
-    }
+    T data1 = this->peek();
+    aData.popLastNode();
     return data1;                               // returns stored data1
 }
 
 template<class T>
 void DSStack<T>::push(T x){
     aData.append(x);                            // pushes element onto DSLinkedList
-    top = x;
+    //top = x;
     stackSize++;
 }
 
@@ -65,11 +57,16 @@ T DSStack<T>::peek(){                           // returns tail of data linked l
 
 template<class T>
 T DSStack<T>::topValue(){
-    return top;
+    return aData.getHead();
 }
 
 template<class T>
-int DSStack<T>::sizeOfStack(){
+DSLinkedList<T>& DSStack<T>::getDataLL(){
+    return aData;
+}
+
+template<class T>
+size_t DSStack<T>::sizeOfStack(){
     return stackSize;
 }
 
@@ -77,6 +74,7 @@ template<class T>
 bool DSStack<T>::isEmpty(){                 // checks to see if DSLinkedList is empty
     return ( (this->aData.getListSize() == 0) ? true : false);
 }
+
 
 
 #endif // DSSTACK_H
