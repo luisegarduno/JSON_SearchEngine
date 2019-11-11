@@ -2,9 +2,15 @@
 #define ROUTE_H
 
 #include <iostream>
+#include <iomanip>
+#include <fstream>
 #include "dsstack.h"
 #include "dsvector.h"
 #include "flightdata.h"
+
+using std::fixed;
+using std::ofstream;
+using std::setprecision;
 
 class Route{
     private:
@@ -17,12 +23,16 @@ class Route{
         Route();
 
         Route& addRoute(DSStack<FlightData>&);
+        void addAllCities(DSString);
+        void addAllAirlines(DSString);
 
-        void addTimeLayover();    // setters
-        void addCostMisc();
+        void setFinalCost(double);      // setters
+        void setFinalTime(double);
 
         double getFinalTime();          // getters
         double getFinalCost();
+
+        void printToFile(int,ofstream&);
 
 };
 

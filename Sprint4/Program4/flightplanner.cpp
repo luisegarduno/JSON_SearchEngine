@@ -101,8 +101,9 @@ void FlightPlanner::requestedRoutes(){
         }
         RequestRoute newRoute(theOrigin,theDestination,sortType);
         DSVector<iterator> findAllRoutes = findRoutes(newRoute);
-        cout << "found all routes" << endl;
         DSVector<Route> allFlightRoutes = getRouteFromStack(findAllRoutes);
+        allFlightRoutes = routeSorter(allFlightRoutes,sortType);
+        outputRouteToFile(allFlightRoutes,newRoute);
 
     }
 
@@ -122,7 +123,6 @@ DSVector<FlightPlanner::iterator> FlightPlanner::findRoutes(RequestRoute request
 
     routeOnStack.push(flightPaths.getAllOrigins(requestedRoute.getRequestedOrigin()));
     nodePtr currentNodeOnStack =  routeOnStack.topValue().head;
-
 
     do{
         if(currentNodeOnStack == nullptr){
@@ -177,7 +177,6 @@ DSVector<FlightPlanner::iterator> FlightPlanner::findRoutes(RequestRoute request
 
 
     }while(true);
-    cout << "LEAVING" << endl;
     return currentStackInVector;
 }
 
@@ -199,18 +198,48 @@ DSVector<Route> FlightPlanner::getRouteFromStack(DSVector<iterator> routeOnStack
 
     for(int counter = 0; counter < routeOnStackVector.getSize(); counter++){
         while(!routeOnStackVector.isEmpty()){
-            DSNode<FlightData>* currentFlightPtr = routeOnStackVector.elementIndex(counter).pop();
+            DSNode<FlightData>* currentFlightPtr = routeOnStackVector[counter].pop();
             routeOnStack.push(currentFlightPtr->data);
         }
 
-        Route newRoute = Route();
-        newRoute.addRoute(routeOnStack);
+        Route flightRoute;
+        double totalTime = 0.0;
+        double totalCost = 0.0;
 
+        FlightData newFlightPlan = routeOnStack.pop();
 
-        routeOnVector.pushBack(newRoute);
+        flightRoute.addAllCities(newFlightPlan.getOrigin());
+        flightRoute.addAllAirlines(newFlightPlan.getAirline());
+
+        flightRoute.addAllCities(newFlightPlan.getDestination());
+        flightRoute.addAllAirlines(newFlightPlan.getAirline());
+
+        totalCost += newFlightPlan.getCost();
+        totalTime += newFlightPlan.getTime();
+
+        while(!routeOnStack.isEmpty()){
+            newFlightPlan = routeOnStack.pop();
+            flightRoute.addAllCities(newFlightPlan.getDestination());
+            flightRoute.addAllAirlines(newFlightPlan.getAirline());
+            totalCost += newFlightPlan.getCost();
+            totalTime += newFlightPlan.getTime();
+        }
+
+        flightRoute.setFinalCost(totalCost);
+        flightRoute.setFinalTime(totalTime);
+
+        routeOnVector.pushBack(flightRoute);
     }
 
     return routeOnVector;
+}
+
+DSVector<Route> FlightPlanner::routeSorter(DSVector<Route>, DSString){
+
+}
+
+void FlightPlanner::outputRouteToFile(DSVector<Route>, RequestRoute){
+    cout << "cout " << endl;
 }
 
 

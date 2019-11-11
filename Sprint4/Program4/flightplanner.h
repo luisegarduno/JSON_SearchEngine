@@ -35,6 +35,8 @@ class FlightPlanner{
         DSVector<iterator> findRoutes(RequestRoute);
         bool checkStack(iterator,DSString);
         DSVector<Route> getRouteFromStack(DSVector<iterator>);
+        DSVector<Route> routeSorter(DSVector<Route>, DSString);
+        void outputRouteToFile(DSVector<Route>, RequestRoute);
 
     public:
         FlightPlanner();

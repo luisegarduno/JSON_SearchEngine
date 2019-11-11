@@ -3,42 +3,12 @@
 Route::Route() : finalCost(0.0), finalTime(0.0){
 }
 
-Route& Route::addRoute(DSStack<FlightData>& currentStack){
-    FlightData newFlight;
-
-    if(!currentStack.isEmpty()){
-        newFlight = currentStack.pop();
-
-        this->citiesInRoutes.pushBack(newFlight.getOrigin());
-        this->cityAirline.pushBack(newFlight.getOrigin());
-
-        this->citiesInRoutes.pushBack(newFlight.getDestination());
-        this->cityAirline.pushBack(newFlight.getDestination());
-
-        finalCost += newFlight.getCost();
-        finalTime += newFlight.getTime();
-
-        while(!currentStack.isEmpty()){
-            newFlight = currentStack.pop();
-            this->citiesInRoutes.pushBack(newFlight.getDestination());
-            this->cityAirline.pushBack(newFlight.getAirline());
-            finalCost += newFlight.getCost();
-            finalTime += newFlight.getTime();
-        }
-
-        return *this;
-    }
-
-    else{
-        return *this;
-    }
+void Route::addAllCities(DSString aCity){
+    citiesInRoutes.pushBack(aCity);
 }
 
-void Route::addTimeLayover(){
-    finalTime += 43.00;
-}
-void Route::addCostMisc(){
-    finalCost += 19.00;
+void Route::addAllAirlines(DSString aAirline){
+    cityAirline.pushBack(aAirline);
 }
 
 double Route::getFinalTime(){
@@ -47,4 +17,38 @@ double Route::getFinalTime(){
 
 double Route::getFinalCost(){
     return finalCost;
+}
+
+void Route::setFinalCost(double totalCost){
+    if(totalCost > 0)
+        finalCost = totalCost;
+    else{
+        cout << "Error: Cost" << endl;
+    }
+}
+
+void Route::setFinalTime(double finalFlightTime){
+    if(finalFlightTime > 0)
+        finalTime = finalFlightTime;
+    else{
+        cout << "Error: Time" << endl;
+    }
+}
+
+
+void Route::printToFile(int pathNumber, ofstream&outFile){
+    outFile << "Path " << pathNumber << ": ";
+
+    for(int i = 0; i < citiesInRoutes.getSize()-1; i++){
+        if(i == 0){
+            outFile << citiesInRoutes[i] << " -> ";
+        }
+        else{
+            outFile << citiesInRoutes[i] << "("  << cityAirline[i - 1] << ") -> ";
+        }
+    }
+
+    outFile << citiesInRoutes[citiesInRoutes.getSize()-1] << "(" << cityAirline[cityAirline.getSize() - 1]<<  "). Time: " << fixed << setprecision(0)
+         << finalTime << " Cost: " << fixed << setprecision(2) << finalCost << "\n";
+
 }
