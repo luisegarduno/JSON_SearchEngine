@@ -236,7 +236,7 @@ DSVector<Route> FlightPlanner::getRouteFromStack(DSVector<iterator> routeOnStack
 
 DSVector<Route> FlightPlanner::routeSorter(DSVector<Route> graphVector, DSString requestedSort){
     DSVector<Route> flightRouteVect;
-        if(requestedSort == "T"){
+        if(requestedSort == DSString("T")){
             int smallestIndex;
             for(int counter = 0; counter  < graphVector.getSize() - 1; counter++){
                 smallestIndex = counter;
@@ -253,7 +253,7 @@ DSVector<Route> FlightPlanner::routeSorter(DSVector<Route> graphVector, DSString
             }
         }
 
-        else if(requestedSort == "C"){
+        else if(requestedSort == DSString("C")){
             int smallestIndex;
             for(int counter = 0; counter < graphVector.getSize() - 1; counter++){
                 smallestIndex = counter;
@@ -279,11 +279,11 @@ DSVector<Route> FlightPlanner::routeSorter(DSVector<Route> graphVector, DSString
 void FlightPlanner::outputRouteToFile(DSVector<Route> graphVector, RequestRoute finalRoutes){
 
     streamOutputFile << "Flight " << flightNumber << ": " << finalRoutes.getRequestedOrigin() << ", " << finalRoutes.getRequestedDestination();
-    if(finalRoutes.getRequestedSort() == "C"){
+    if(finalRoutes.getRequestedSort() == DSString("C")){
         streamOutputFile << " (Cost)\n" << endl;
     }
 
-    else if(finalRoutes.getRequestedSort() == "T"){
+    else if(finalRoutes.getRequestedSort() == DSString("T")){
         streamOutputFile << " (Time)\n" << endl;
     }
 
@@ -297,8 +297,6 @@ void FlightPlanner::outputRouteToFile(DSVector<Route> graphVector, RequestRoute 
     streamOutputFile << "\n";
 
     flightNumber++;
-
-
 }
 
 void FlightPlanner::openOutputFile(){
@@ -312,9 +310,6 @@ void FlightPlanner::openOutputFile(){
 void FlightPlanner::closeOutputFile(){
     streamOutputFile.close();
 }
-
-
-
 
 /*
 1. Push source to DSStack

@@ -36,19 +36,19 @@ void Route::setFinalTime(double finalFlightTime){
 }
 
 
-void Route::printToFile(int pathNumber, ofstream&outFile){
-    outFile << "Path " << pathNumber << ": ";
+void Route::printToFile(int pathNumber, ofstream& outputFile){
+    outputFile << "Path " << pathNumber << ": ";
 
-    for(int i = 0; i < citiesInRoutes.getSize()-1; i++){
+    for(int i = 0; i < citiesInRoutes.getSize() - 1; i++){
         if(i == 0){
-            outFile << citiesInRoutes[i] << " -> ";
+            outputFile << citiesInRoutes[i] << " -> ";
         }
         else{
-            outFile << citiesInRoutes[i] << "("  << cityAirline[i - 1] << ") -> ";
+            outputFile << citiesInRoutes[i] << "("  << cityAirline[i - 1] << ") -> ";
         }
     }
 
-    outFile << citiesInRoutes[citiesInRoutes.getSize()-1] << "(" << cityAirline[cityAirline.getSize() - 1]<<  "). Time: " << fixed << setprecision(0)
+    outputFile << citiesInRoutes[citiesInRoutes.getSize()-1] << "(" << cityAirline[cityAirline.getSize() - 1]<<  "). Time: " << fixed << setprecision(0)
          << finalTime << " Cost: " << fixed << setprecision(2) << finalCost << "\n";
 
 }
