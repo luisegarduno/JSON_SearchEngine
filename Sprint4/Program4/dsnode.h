@@ -26,7 +26,7 @@ class DSNode{
         DSNode(const DSNode<T>&,DSNode<T>*,DSNode<T>*);
 
         void setData(T x);
-        T getData();
+        T& getData();
 
         ~DSNode();
 };
@@ -54,8 +54,8 @@ void DSNode<T>::setData(T x){
 }
 
 template<class T>
-T DSNode<T>::getData(){
-    return data;
+T& DSNode<T>::getData(){
+    return this->data;
 }
 
 

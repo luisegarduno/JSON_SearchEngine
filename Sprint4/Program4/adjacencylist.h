@@ -67,28 +67,31 @@ DSLinkedList<U>& AdjacencyList<U>::checkOuter(DSString originCity, DSString airl
 }
 
 template<class U>
-DSLinkedList<U> AdjacencyList<U>::getAllOrigins(DSString aCity){          // check list of origination cities
+DSLinkedList<U> AdjacencyList<U>::getAllOrigins(DSString cityName){          // check list of origination cities
     DSNode< DSLinkedList<U> >* currentLinkedList = adjacency_list.head;
     DSLinkedList<U> flightOrigin = DSLinkedList<U>();
-
-    while(currentLinkedList != nullptr){
-        if(currentLinkedList->data.head->data.getOrigin() == aCity){
-            flightOrigin.append(*&currentLinkedList->data.head->data);
-
-            //cout << "\t\tOrigin: " << currentLinkedList->data.head->data.getOrigin();
-            //cout << "\t\tAirline: " << currentLinkedList->data.head->data.getAirline() << endl;
-            return currentLinkedList->data;
-
-        }
-        currentLinkedList = currentLinkedList->next;
-    }
+    currentLinkedList->getData().resetIterator();
 
     if(currentLinkedList == nullptr){
         DSLinkedList<U> temp;
         return temp;
     }
 
-    return currentLinkedList->data;
+    while(currentLinkedList != nullptr){
+        currentLinkedList->getData().resetIterator();
+        while(currentLinkedList->getData().iteratorIsValid()){
+            if(currentLinkedList->getData().getIterator().getOrigin() == cityName){
+                //cout << "-->CITY: " << currentLinkedList->data.getIterator().getOrigin() << "\t\tAIRLINE: " << currentLinkedList->data.getIterator().getAirline() << endl;
+                flightOrigin.append(currentLinkedList->getData().getIterator());
+                break;
+            }
+            currentLinkedList->getData().iterateForward();
+        }
+
+        currentLinkedList = currentLinkedList->next;
+    }
+
+    return flightOrigin;
 }
 
 

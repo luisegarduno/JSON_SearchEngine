@@ -153,7 +153,7 @@ DSVector<FlightPlanner::customStackIterator> FlightPlanner::findRoutes(RequestRo
             currentNodeOnStack = currentNodeOnStack->next;
             routeOnStack.topValue().print();
 
-            while(currentNodeOnStack != nullptr && checkStack(currentNodeOnStack->data,currentStack)){ // if City w/ a specific has already been added, skip
+            while(currentNodeOnStack != nullptr && checkStack(currentNodeOnStack->getData(),currentStack)){ // if City w/ a specific has already been added, skip
                 currentNodeOnStack = currentNodeOnStack->next;
             }
 
@@ -175,7 +175,7 @@ DSVector<FlightPlanner::customStackIterator> FlightPlanner::findRoutes(RequestRo
                     currentNodeOnStack = currentNodeOnStack->next;
                     routeOnStack.topValue().print();
 
-                    while(currentNodeOnStack != nullptr && checkStack(currentNodeOnStack->data,currentStack)){ // if City w/ a specific has already been added, skip
+                    while(currentNodeOnStack != nullptr && checkStack(currentNodeOnStack->getData(),currentStack)){ // if City w/ a specific has already been added, skip
                         currentNodeOnStack = currentNodeOnStack->next;
                     }
 
@@ -191,11 +191,11 @@ DSVector<FlightPlanner::customStackIterator> FlightPlanner::findRoutes(RequestRo
             if(routeOnStack.topValue().iteratorIsValid()){                  // is city on stack
                 cout << "currentNodeOnStack != nulltpr" << endl;
                 currentStack.push(currentNodeOnStack);  // push every node onto the stack
-                routeOnStack.push(flightPaths.getAllOrigins(currentNodeOnStack->data.getDestination()));
+                routeOnStack.push(flightPaths.getAllOrigins(currentNodeOnStack->getData().getDestination()));
                 currentNodeOnStack = routeOnStack.topValue().head;
 
                 routeOnStack.topValue().print();
-                while(currentNodeOnStack != nullptr && checkStack(currentNodeOnStack->data,currentStack)){ // if City w/ a specific has already been added, skip
+                while(currentNodeOnStack != nullptr && checkStack(currentNodeOnStack->getData(),currentStack)){ // if City w/ a specific has already been added, skip
                     currentNodeOnStack = currentNodeOnStack->next;
 
                 }

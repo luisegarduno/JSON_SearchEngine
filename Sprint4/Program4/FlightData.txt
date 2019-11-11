@@ -1,6 +1,18 @@
-5
-Dallas|Austin|98|47|Spirit
-Dallas|Austin|98|59|American
-Austin|Houston|95|39|United
-Dallas|Houston|101|51|Spirit
-Austin|Chicago|144|192|American
+17
+ATL|SEA|425|332|Delta
+ATL|LAS|81|272|Frontier Airlines
+ATL|LAS|315|268|Delta
+LAX|SFO|130|85|United
+LAX|SFO|130|85|Alaska Airlines
+LAX|SFO|130|88|Delta
+DFW|SEA|180|261|Spirit Airlines
+DFW|SEA|186|268|American Airlines
+DFW|SEA|195|290|Alaska Airlines
+DFW|LAS|57|175|American Airlines
+DFW|LAS|63|176|Spirit Airlines
+DFW|LAS|94|170|Sun Country Airlines
+DEN|LAS|42|137|Frontier Airlines
+DEN|LAS|95|115|Spirit Airlines
+DEN|LAS|194|116|United
+LAS|MCO|168|263|Frontier Airlines
+LAS|MCO|195|263|Spirit Airlines
