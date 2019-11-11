@@ -33,8 +33,11 @@ int main(int argc, char * argv[]){
                 FlightPlanner flight;
                 flight.setFileNames(argv);
                 flight.addFlightsData();
+
+                flight.openOutputFile();
                 flight.requestedRoutes();
-                cout << "OUTTT" << endl;
+
+                flight.closeOutputFile();
             }
         }
 

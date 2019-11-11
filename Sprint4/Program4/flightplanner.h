@@ -14,6 +14,7 @@
 
 using std::fstream;
 using std::ifstream;
+using std::ofstream;
 using std::getline;
 
 class FlightPlanner{
@@ -30,6 +31,7 @@ class FlightPlanner{
 
         ifstream streamFlightData;
         ifstream streamPathsToCalculate;
+        ofstream streamOutputFile;
 
         int flightNumber;
         DSVector<iterator> findRoutes(RequestRoute);
@@ -43,6 +45,9 @@ class FlightPlanner{
         void addFlightsData();
         void setFileNames(char* argv[]);
         void requestedRoutes();
+
+        void openOutputFile();
+        void closeOutputFile();
 };
 
 #endif // FLIGHTPLANNER_H

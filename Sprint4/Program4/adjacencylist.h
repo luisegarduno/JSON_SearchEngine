@@ -95,9 +95,6 @@ DSLinkedList<U> AdjacencyList<U>::getAllOrigins(DSString aCity){
         currentLinkedList = currentLinkedList->next;
     }
 
-    flightOrigin.print();
-    cout << "------------" << endl;
-
     return flightOrigin;
 }
 

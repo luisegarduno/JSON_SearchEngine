@@ -31,7 +31,6 @@ void FlightPlanner::addFlightsData(){
 
     char * buffer = new char[100];
 
-    cout << "-----------------FLIGHT FILE LIST----------------------" << endl;
     for(int i = 0; i < numberOfFlights; i++){
         for(int j = 0; j < 5; j++){
             if(j == 0){
@@ -177,6 +176,7 @@ DSVector<FlightPlanner::iterator> FlightPlanner::findRoutes(RequestRoute request
 
 
     }while(true);
+
     return currentStackInVector;
 }
 
@@ -234,13 +234,86 @@ DSVector<Route> FlightPlanner::getRouteFromStack(DSVector<iterator> routeOnStack
     return routeOnVector;
 }
 
-DSVector<Route> FlightPlanner::routeSorter(DSVector<Route>, DSString){
+DSVector<Route> FlightPlanner::routeSorter(DSVector<Route> graphVector, DSString requestedSort){
+    DSVector<Route> flightRouteVect;
+        if(requestedSort == "T"){
+            int smallestIndex;
+            for(int counter = 0; counter  < graphVector.getSize() - 1; counter++){
+                smallestIndex = counter;
+                for(int j = counter + 1; j < graphVector.getSize(); j++){
+                    if(graphVector[j].getFinalTime() < graphVector[smallestIndex].getFinalTime()){
+                        smallestIndex = j;
+                    }
+                }
+                if(smallestIndex != counter){
+                    Route temp = graphVector[counter];
+                    graphVector[counter] = graphVector[smallestIndex];
+                    graphVector[smallestIndex] = temp;
+                }
+            }
+        }
+
+        else if(requestedSort == "C"){
+            int smallestIndex;
+            for(int counter = 0; counter < graphVector.getSize() - 1; counter++){
+                smallestIndex = counter;
+                for(int j = counter + 1; j < graphVector.getSize(); j++){
+                    if(graphVector[j].getFinalCost() < graphVector[smallestIndex].getFinalCost())
+                        smallestIndex = j;
+                }
+                if(smallestIndex != counter){
+                    Route temp = graphVector[counter];
+                    graphVector[counter] = graphVector[smallestIndex];
+                    graphVector[smallestIndex] = temp;
+                }
+            }
+        }
+
+        for(int i = 0; i < 3 && i < graphVector.getSize(); i++){
+            flightRouteVect.pushBack(graphVector[i]);
+        }
+
+        return flightRouteVect;
+}
+
+void FlightPlanner::outputRouteToFile(DSVector<Route> graphVector, RequestRoute finalRoutes){
+
+    streamOutputFile << "Flight " << flightNumber << ": " << finalRoutes.getRequestedOrigin() << ", " << finalRoutes.getRequestedDestination();
+    if(finalRoutes.getRequestedSort() == "C"){
+        streamOutputFile << " (Cost)\n" << endl;
+    }
+
+    else if(finalRoutes.getRequestedSort() == "T"){
+        streamOutputFile << " (Time)\n" << endl;
+    }
+
+    for(int counter = 0; counter < graphVector.getSize(); counter++){
+            graphVector[counter].printToFile(counter + 1, streamOutputFile);
+    }
+
+    if(graphVector.getSize() == 0){
+        streamOutputFile << "No routes found.\n";
+    }
+    streamOutputFile << "\n";
+
+    flightNumber++;
+
 
 }
 
-void FlightPlanner::outputRouteToFile(DSVector<Route>, RequestRoute){
-    cout << "cout " << endl;
+void FlightPlanner::openOutputFile(){
+    streamOutputFile.open(flightEfficiencyFile.c_str());
+    if(!streamOutputFile.is_open()){
+        cout << "Paths To Calculate File is not open. Please check command line input" << endl;
+        exit(-1);
+    }
 }
+
+void FlightPlanner::closeOutputFile(){
+    streamOutputFile.close();
+}
+
+
 
 
 /*
