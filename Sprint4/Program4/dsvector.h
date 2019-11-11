@@ -41,7 +41,7 @@ class DSVector{
 
         T& elementIndex(int);
 
-        //~DSVector();
+        ~DSVector();
 };
 
 template <typename T>
@@ -299,13 +299,13 @@ void DSVector<T>::printVector(){
         }
     }
 }
-/*
+
 template <typename T>
 DSVector<T>::~DSVector(){
     if(this->data != nullptr){
         delete [] this->data;                                   // deallocate memory from heap
     }
 }
-*/
+
 
 #endif

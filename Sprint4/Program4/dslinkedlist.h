@@ -60,7 +60,7 @@ class DSLinkedList{
         void iterateForward();
         bool iteratorIsValid();
 
-        ~DSLinkedList();
+        //~DSLinkedList();
 };
 
 template<class T>
@@ -356,11 +356,12 @@ bool DSLinkedList<T>::operator!=(const DSLinkedList<T>& aLinkedList)const {
 }
 */
 
-
+/*
 template<class T>
 DSLinkedList<T>::~DSLinkedList<T>(){
     clear();                                // call the clear member function to deconstruct elements from HEAP
 }
+*/
 
 
 #endif // DSLINKEDLIST_H
