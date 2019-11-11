@@ -13,13 +13,14 @@ class RequestRoute{
     public:
         RequestRoute();
         RequestRoute(DSString,DSString,DSString);
-        DSString getRequestedOrigin();
-        DSString getRequestedDestination();
-        DSString getRequestedSort();
 
         void setRequestedOrigin(DSString);
         void setRequestedDestination(DSString);
         void setRequestedSort(DSString);
+
+        DSString getRequestedOrigin();
+        DSString getRequestedDestination();
+        DSString getRequestedSort();
 };
 
 #endif // REQUESTROUTE_H

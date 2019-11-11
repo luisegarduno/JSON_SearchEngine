@@ -70,46 +70,43 @@ template<class T>
 DSLinkedList<T>::DSLinkedList(T x) {
     head = new DSNode<T>(x);
     size++;
-
 }
 
 template<class T>
 DSLinkedList<T>::DSLinkedList(const DSLinkedList<T>& originalLinkedList){
 
-
     if(originalLinkedList.head == nullptr){           // if original Linked List is empty
             head = tail = nullptr;                    // head is = to nullptr
-        }
+    }
 
-        else{
-            DSNode<T>* aCurrent = originalLinkedList.head;
-            head = tail = nullptr;
-            auto count = 0;
+    else{
+        DSNode<T>* aCurrent = originalLinkedList.head;
+        head = tail = nullptr;
+        auto count = 0;
 
-            while(aCurrent != nullptr){
-                DSNode<T>* newNode = new DSNode<T>();
-                newNode->previous = nullptr;
-                newNode->next = nullptr;
-                newNode->data = aCurrent->data;
+        while(aCurrent != nullptr){
+            DSNode<T>* newNode = new DSNode<T>();
+            newNode->previous = nullptr;
+            newNode->next = nullptr;
+            newNode->data = aCurrent->data;
 
-                if(count == 0){
-                    head = tail = newNode;
-                }
-                else {
-                    tail->next = newNode;
-                    newNode->previous = tail;
-                    tail = tail->next;
-                }
-                ++count;
-                aCurrent = aCurrent->next;
+            if(count == 0){
+                head = tail = newNode;
             }
-         }
+            else {
+                tail->next = newNode;
+                newNode->previous = tail;
+                tail = tail->next;
+            }
+            ++count;
+            aCurrent = aCurrent->next;
+        }
+     }
 }
 
 template<class T>
 DSLinkedList<T>& DSLinkedList<T>::operator=(const DSLinkedList<T>& v2LinkedList) {
     if(this != &v2LinkedList){
-
         if(v2LinkedList.head == nullptr){
             head = tail = nullptr;
         }
@@ -162,7 +159,6 @@ void DSLinkedList<T>::resetIterator(){
 
 template<class T>
 T& DSLinkedList<T>::getIterator(){
-
     return this->iterator->data;             // return iterator node data
 }
 
@@ -289,7 +285,6 @@ T DSLinkedList<T>::getAt(int x){
     } catch (OUT_OF_BOUNDS) {
         throw OUT_OF_BOUNDS();
     }
-
 }
 
 template<class T>
@@ -311,7 +306,6 @@ void DSLinkedList<T>::clear(){
         head = c;
     }
 }
-
 
 template<class T>
 bool DSLinkedList<T>::operator!=(const DSLinkedList<T>& aLinkedList)const {

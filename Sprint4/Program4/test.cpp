@@ -299,15 +299,6 @@ TEST_CASE("Adjacency List Class", "DSLinkedList< DSLinkedList<type> >"){
 
     AdjacencyList<FlightData> newList = AdjacencyList<FlightData>();
     newList.add(flight1);
-    newList.add(flight1.flightDataReversed());
-    newList.add(flight2);
-    newList.add(flight2.flightDataReversed());
-    newList.add(flight3);
-    newList.add(flight3.flightDataReversed());
-    newList.add(flight4);
-    newList.add(flight4.flightDataReversed());
-    newList.add(flight5);
-    newList.add(flight5.flightDataReversed());
 
 }
 

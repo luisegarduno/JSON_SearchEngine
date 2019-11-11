@@ -22,24 +22,24 @@ class FlightPlanner{
         AdjacencyList<FlightData> flightPaths;
 
         DSString flightDataFile;
-        DSString flightEfficiencyFile;
         DSString pathsToCalculateFile;
+        DSString flightEfficiencyFile;
 
         ifstream streamFlightData;
         ifstream streamPathsToCalculate;
 
     public:
         using nodePtr = DSNode<FlightData>*;
-        using customStackIterator = DSStack<nodePtr>;
+        using iterator = DSStack<nodePtr>;
 
         FlightPlanner();
         void addFlightsData();
         void setFileNames(char* argv[]);
         void requestedRoutes();
 
-        DSVector<customStackIterator> findRoutes(RequestRoute);
-        DSVector<Route> getRouteFromStack(DSVector<customStackIterator>);
-        bool checkStack(FlightData&,customStackIterator);
+        DSVector<iterator> findRoutes(RequestRoute);
+        DSVector<Route> getRouteFromStack(DSVector<iterator>);
+        bool checkStack(FlightData&,iterator);
 };
 
 #endif // FLIGHTPLANNER_H

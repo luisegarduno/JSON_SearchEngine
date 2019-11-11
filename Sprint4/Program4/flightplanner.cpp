@@ -66,8 +66,6 @@ void FlightPlanner::addFlightsData(){
         cout << endl;
     }
 
-    flightPaths.printAdjacencyList();
-
     streamFlightData.close();
     delete [] buffer;
 }
@@ -110,7 +108,7 @@ void FlightPlanner::requestedRoutes(){
             }
         }
         RequestRoute newRoute(theOrigin,theDestination,sortType);
-        DSVector<FlightPlanner::customStackIterator> findAllRoutes = findRoutes(newRoute);
+        DSVector<FlightPlanner::iterator> findAllRoutes = findRoutes(newRoute);
         DSVector<Route> allFlightRoutes = getRouteFromStack(findAllRoutes);
         cout << endl;
 
@@ -125,35 +123,32 @@ void FlightPlanner::requestedRoutes(){
 // REMEMBER LIFO, LAST IN, FIRST OUT ---> SO the 'TOP' will be the LAST IN,
 // Thus we make the last item appended be declared as the head
 // USING nodePtr = DSNode<FlightData>*;             USING customStackIterator = DSStack<nodePtr>;
-DSVector<FlightPlanner::customStackIterator> FlightPlanner::findRoutes(RequestRoute requestedRoute){ // TO SEE HIGH LEVEL STEPS FOR ITERATIVE BACKTRACKING
+DSVector<FlightPlanner::iterator> FlightPlanner::findRoutes(RequestRoute requestedRoute){ // TO SEE HIGH LEVEL STEPS FOR ITERATIVE BACKTRACKING
     nodePtr currentNodeOnStack = nullptr;                                                            // GO TO LINE
-    customStackIterator currentStack;
+    iterator currentIterator;
     DSStack< DSLinkedList<FlightData> > routeOnStack; // create a stack containing routes
-    DSVector<customStackIterator> currentStackInVector;
+    DSVector<iterator> currentStackInVector;
 
 
     routeOnStack.push(flightPaths.getAllOrigins(requestedRoute.getRequestedOrigin()));
-    routeOnStack.topValue().print();
-    //routeOnStack.topValue().resetIterator();
+    routeOnStack.topValue().resetIterator();
 
     currentNodeOnStack = routeOnStack.topValue().head;
 
 
-
-    bool stackIsNotEmpty = true;
     while(!routeOnStack.isEmpty()){
         // **********************TOP IS DESTINATION***********************************
         // If Node located on stack contains getDestination that's the same as the requested Destination
         if(routeOnStack.topValue().getIterator().getDestination() == requestedRoute.getRequestedDestination()){
-            cout << "destination == requestedDestination" << endl;
-            currentStack.push(currentNodeOnStack);
-            currentStackInVector.pushBack(currentStack);
 
-            currentStack.pop();
+            currentIterator.push(currentNodeOnStack);
+            currentStackInVector.pushBack(currentIterator);
+
+            currentIterator.pop();
             currentNodeOnStack = currentNodeOnStack->next;
-            routeOnStack.topValue().print();
 
-            while(currentNodeOnStack != nullptr && checkStack(currentNodeOnStack->getData(),currentStack)){ // if City w/ a specific has already been added, skip
+            while(currentNodeOnStack != nullptr && checkStack(currentNodeOnStack->getData(),currentIterator)){ // if City w/ a specific has already been added, skip
+
                 currentNodeOnStack = currentNodeOnStack->next;
             }
 
@@ -163,24 +158,24 @@ DSVector<FlightPlanner::customStackIterator> FlightPlanner::findRoutes(RequestRo
 
         else{
             // ***************End of Current LinkedList********************************
-            if(!routeOnStack.topValue().iteratorIsValid()){     // iterator is null
+            if(currentNodeOnStack == nullptr){     // iterator is null
                 cout << "Iterator is Null" << endl;
                 while(currentNodeOnStack == nullptr){
-                    routeOnStack.topValue().popFirstNode();
+                    routeOnStack.pop();
                     routeOnStack.topValue().resetIterator();
-                    if(routeOnStack.isEmpty())
+
+                    if(routeOnStack.isEmpty()){
                         break;
+                    }
 
-                    currentNodeOnStack = currentStack.pop();
+                    currentNodeOnStack = currentIterator.pop();
                     currentNodeOnStack = currentNodeOnStack->next;
-                    routeOnStack.topValue().print();
 
-                    while(currentNodeOnStack != nullptr && checkStack(currentNodeOnStack->getData(),currentStack)){ // if City w/ a specific has already been added, skip
+                    while(currentNodeOnStack != nullptr && checkStack(currentNodeOnStack->getData(),currentIterator)){ // if City w/ a specific has already been added, skip
                         currentNodeOnStack = currentNodeOnStack->next;
                     }
 
                     if(routeOnStack.isEmpty()){
-                        cout << "stackIsNotEmpty == false" << endl;
                         break;
                     }
 
@@ -188,14 +183,15 @@ DSVector<FlightPlanner::customStackIterator> FlightPlanner::findRoutes(RequestRo
             }
 
             // ********************Adding LinkedList to DSStack *********************//
-            if(routeOnStack.topValue().iteratorIsValid()){                  // is city on stack
+            if(currentNodeOnStack != nullptr){                  // is city on stack
                 cout << "currentNodeOnStack != nulltpr" << endl;
-                currentStack.push(currentNodeOnStack);  // push every node onto the stack
+                currentIterator.push(currentNodeOnStack);  // push every node onto the stack
                 routeOnStack.push(flightPaths.getAllOrigins(currentNodeOnStack->getData().getDestination()));
+                routeOnStack.topValue().resetIterator();
                 currentNodeOnStack = routeOnStack.topValue().head;
 
-                routeOnStack.topValue().print();
-                while(currentNodeOnStack != nullptr && checkStack(currentNodeOnStack->getData(),currentStack)){ // if City w/ a specific has already been added, skip
+                while(currentNodeOnStack != nullptr && checkStack(currentNodeOnStack->getData(),currentIterator)){ // if City w/ a specific has already been added, skip
+                    routeOnStack.topValue().getNextIterator();
                     currentNodeOnStack = currentNodeOnStack->next;
 
                 }
@@ -208,20 +204,20 @@ DSVector<FlightPlanner::customStackIterator> FlightPlanner::findRoutes(RequestRo
     return currentStackInVector;
 }
 
-bool FlightPlanner::checkStack(FlightData& thisData,customStackIterator aCurrent){
+bool FlightPlanner::checkStack(FlightData& thisData,iterator currentStack){
     nodePtr theTop = nullptr;
 
-    while(!aCurrent.isEmpty()){
-        theTop = aCurrent.pop();
+    while(!currentStack.isEmpty()){
+        theTop = currentStack.pop();
 
-        if(thisData.getDestination() == theTop->data.getDestination() && thisData.getAirline() == theTop->data.getAirline()){
+        if(thisData.getDestination() == theTop->getData().getDestination() || thisData.getDestination() == theTop->getData().getOrigin()){
                 return true;
         }
     }
     return false;
 }
 
-DSVector<Route> FlightPlanner::getRouteFromStack(DSVector<customStackIterator> routeOnStackVector){
+DSVector<Route> FlightPlanner::getRouteFromStack(DSVector<iterator> routeOnStackVector){
     DSStack<FlightData> routeOnStack;
     DSVector<Route> routeOnVector;
 

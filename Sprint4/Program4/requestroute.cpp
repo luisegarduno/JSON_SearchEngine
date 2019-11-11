@@ -9,6 +9,24 @@ RequestRoute::RequestRoute(DSString theOrigin,DSString theDestination,DSString t
     setRequestedSort(theType);
 }
 
+void RequestRoute::setRequestedOrigin(DSString requestedOrigin){
+    this->requestedOrigin = requestedOrigin;
+}
+
+
+void RequestRoute::setRequestedDestination(DSString requestedDestination){
+    this->requestedDestination = requestedDestination;
+}
+
+
+void RequestRoute::setRequestedSort(DSString requestedSort){
+    if(requestedSort == DSString("T") || requestedSort == DSString("C")){
+        this->requestedSort = requestedSort;
+    }
+    else{
+        cout << "Invalid Sort" << endl;
+    }
+}
 
 DSString RequestRoute::getRequestedOrigin(){
    return requestedOrigin;
@@ -24,21 +42,4 @@ DSString RequestRoute::getRequestedSort(){
 }
 
 
-void RequestRoute::setRequestedOrigin(DSString requestedOrigin){
-    this->requestedOrigin = requestedOrigin;
-}
 
-
-void RequestRoute::setRequestedDestination(DSString requestedDestination){
-    this->requestedDestination = requestedDestination;
-}
-
-
-void RequestRoute::setRequestedSort(DSString requestedSort){
-    if(requestedSort == "T" || requestedSort == "t"){
-        this->requestedSort = requestedSort;
-    }
-    else if(requestedSort == "S" || requestedSort == "s"){
-        this->requestedSort = requestedSort;
-    }
-}
