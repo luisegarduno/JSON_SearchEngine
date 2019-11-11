@@ -43,6 +43,7 @@ class DSLinkedList{
 
         T getAt(int);                     // returns element at specific index
         T popFirstNode();
+        void pushToFront(T);
         DSLinkedList<T>& operator=(const DSLinkedList<T>&);
 
         bool operator!=(const DSLinkedList<T>&) const;
@@ -255,7 +256,6 @@ void DSLinkedList<T>::remove(DSNode<T>* iteratorNode){
     }
 
     resetIterator();
-
 }
 
 template<class T>
@@ -270,6 +270,14 @@ T DSLinkedList<T>::popFirstNode(){
     T temp = head->data;
     head = head->next;
     return temp;
+}
+
+template<class T>
+void DSLinkedList<T>::pushToFront(T x){
+    DSNode<T>* newNode = new DSNode<T>;
+    newNode->data = x;
+    newNode->next = head;
+    head = newNode;
 }
 
 template<class T>

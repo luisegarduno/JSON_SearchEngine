@@ -16,7 +16,7 @@ template<class T>
 class DSStack : DSLinkedList<T>{
 
     private:
-        DSLinkedList<T> aData;
+        DSLinkedList<T> stackData;
         T top;
         size_t stackSize;
 
@@ -38,21 +38,28 @@ DSStack<T>::DSStack(): stackSize(0){
 
 template<class T>
 T DSStack<T>::pop(){
-    T data1 = this->peek();
-    aData.popLastNode();
-    return data1;                               // returns stored data1
+    T returnValue;
+    if(!isEmpty()) {
+        returnValue = stackData.popFirstNode();
+        if(stackData.head != 0){
+            top = stackData.head->getData();
+        }
+        return returnValue;
+    }                             // returns stored data1
+    return returnValue;
 }
 
 template<class T>
 void DSStack<T>::push(T x){
-    aData.append(x);                            // pushes element onto DSLinkedList
+    stackData.pushToFront(x);
+    top = x;                           // pushes element onto DSLinkedList
     stackSize++;
 }
 
 template<class T>
 T DSStack<T>::peek(){                           // returns tail of data linked list
     try {
-        return this->aData.getAt(this->aData.getListSize() - 1);
+        return this->stackData.getAt(this->stackData.getListSize() - 1);
     } catch (OUT_OF_BOUNDS) {
         throw OUT_OF_BOUNDS();
     }
@@ -60,12 +67,12 @@ T DSStack<T>::peek(){                           // returns tail of data linked l
 
 template<class T>
 T DSStack<T>::topValue(){
-    return aData.getHead();
+    return stackData.getHead();
 }
 
 template<class T>
 DSLinkedList<T>& DSStack<T>::getDataLL(){
-    return aData;
+    return stackData;
 }
 
 template<class T>
@@ -75,7 +82,7 @@ size_t DSStack<T>::sizeOfStack(){
 
 template<class T>
 bool DSStack<T>::isEmpty(){                 // checks to see if DSLinkedList is empty
-    return ( (this->aData.head == nullptr) ? true : false);
+    return ( (this->stackData.head == nullptr) ? true : false);
 }
 
 
