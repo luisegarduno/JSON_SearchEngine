@@ -277,14 +277,13 @@ DSVector<Route> FlightPlanner::routeSorter(DSVector<Route> graphVector, DSString
 }
 
 void FlightPlanner::outputRouteToFile(DSVector<Route> graphVector, RequestRoute finalRoutes){
-
     streamOutputFile << "Flight " << flightNumber << ": " << finalRoutes.getRequestedOrigin() << ", " << finalRoutes.getRequestedDestination();
     if(finalRoutes.getRequestedSort() == DSString("C")){
-        streamOutputFile << " (Cost)\n" << endl;
+        streamOutputFile << " (Cost)\n";
     }
 
     else if(finalRoutes.getRequestedSort() == DSString("T")){
-        streamOutputFile << " (Time)\n" << endl;
+        streamOutputFile << " (Time)\n";
     }
 
     for(int counter = 0; counter < graphVector.getSize(); counter++){
