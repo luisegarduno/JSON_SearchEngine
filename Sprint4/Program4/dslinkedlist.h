@@ -44,9 +44,9 @@ class DSLinkedList{
         T getAt(int);                     // returns element at specific index
         T popFirstNode();
         void pushToFront(T);
-        DSLinkedList<T>& operator=(const DSLinkedList<T>&);
+        //DSLinkedList<T>& operator=(const DSLinkedList<T>&);
 
-        bool operator!=(const DSLinkedList<T>&) const;
+        //bool operator!=(const DSLinkedList<T>&) const;
         int getListSize() const;
 
         T& getHead();
@@ -105,6 +105,7 @@ DSLinkedList<T>::DSLinkedList(const DSLinkedList<T>& originalLinkedList){
      }
 }
 
+/*
 template<class T>
 DSLinkedList<T>& DSLinkedList<T>::operator=(const DSLinkedList<T>& v2LinkedList) {
     if(this != &v2LinkedList){
@@ -135,6 +136,7 @@ DSLinkedList<T>& DSLinkedList<T>::operator=(const DSLinkedList<T>& v2LinkedList)
 
     return *this;
 }
+*/
 
 template<class T>
 void DSLinkedList<T>::append(T x){
@@ -315,6 +317,7 @@ void DSLinkedList<T>::clear(){
     }
 }
 
+/*
 template<class T>
 bool DSLinkedList<T>::operator!=(const DSLinkedList<T>& aLinkedList)const {
     if(this->head != aLinkedList.head){
@@ -351,11 +354,13 @@ bool DSLinkedList<T>::operator!=(const DSLinkedList<T>& aLinkedList)const {
     return false;
 
 }
+*/
 
 
 template<class T>
 DSLinkedList<T>::~DSLinkedList<T>(){
     clear();                                // call the clear member function to deconstruct elements from HEAP
 }
+
 
 #endif // DSLINKEDLIST_H

@@ -61,7 +61,6 @@ void FlightPlanner::addFlightsData(){
         FlightData reversedFlight(theDestination,theOrigin,theCost,theTime,theAirline);
         flightPaths.add(reversedFlight);
     }
-
     streamFlightData.close();
     delete [] buffer;
 }
@@ -102,6 +101,7 @@ void FlightPlanner::requestedRoutes(){
         }
         RequestRoute newRoute(theOrigin,theDestination,sortType);
         DSVector<iterator> findAllRoutes = findRoutes(newRoute);
+        cout << "found all routes" << endl;
         DSVector<Route> allFlightRoutes = getRouteFromStack(findAllRoutes);
 
     }
@@ -138,7 +138,7 @@ DSVector<FlightPlanner::iterator> FlightPlanner::findRoutes(RequestRoute request
 
                 currentNodeOnStack = currentIterator.pop();
                 currentNodeOnStack = currentNodeOnStack->next;
-                while(currentNodeOnStack != nullptr && checkStack(currentNodeOnStack->data,currentIterator)){
+                while(currentNodeOnStack != nullptr && checkStack(currentIterator,currentNodeOnStack->data.getDestination())){
                     currentNodeOnStack = currentNodeOnStack->next;
                 }
             }
@@ -156,7 +156,7 @@ DSVector<FlightPlanner::iterator> FlightPlanner::findRoutes(RequestRoute request
 
             currentIterator.pop();
             currentNodeOnStack = currentNodeOnStack->next;
-            while(currentNodeOnStack != nullptr && checkStack(currentNodeOnStack->data,currentIterator)){
+            while(currentNodeOnStack != nullptr && checkStack(currentIterator,currentNodeOnStack->data.getDestination())){
                 currentNodeOnStack = currentNodeOnStack->next;
             }
         }
@@ -169,7 +169,7 @@ DSVector<FlightPlanner::iterator> FlightPlanner::findRoutes(RequestRoute request
             routeOnStack.push(flightPaths.getAllOrigins(currentNodeOnStack->data.getDestination()));
             currentNodeOnStack = routeOnStack.topValue().head;
 
-            while(currentNodeOnStack != nullptr && checkStack(currentNodeOnStack->data,currentIterator)){
+            while(currentNodeOnStack != nullptr && checkStack(currentIterator,currentNodeOnStack->data.getDestination())){
                 currentNodeOnStack = currentNodeOnStack->next;
             }
         }
@@ -177,19 +177,17 @@ DSVector<FlightPlanner::iterator> FlightPlanner::findRoutes(RequestRoute request
 
 
     }while(true);
-    cout << "leaving" << endl;
+    cout << "LEAVING" << endl;
     return currentStackInVector;
 }
 
-bool FlightPlanner::checkStack(FlightData& thisData,iterator currentStack){
-    nodePtr theTop = nullptr;
-    DSString aCity = thisData.getDestination();
+bool FlightPlanner::checkStack(iterator currentStack, DSString aCity){
+    nodePtr top = nullptr;
 
     while(!currentStack.isEmpty()){
-        theTop = currentStack.pop();
-
-        if(aCity == theTop->getData().getOrigin() || aCity == theTop->getData().getDestination()){
-                return true;
+        top = currentStack.pop();
+        if(top->data.getOrigin() == aCity || top->data.getDestination() == aCity){
+            return true;
         }
     }
     return false;

@@ -41,7 +41,7 @@ class DSVector{
 
         T& elementIndex(int);
 
-        ~DSVector();
+        //~DSVector();
 };
 
 template <typename T>
@@ -277,9 +277,9 @@ bool DSVector<T>::isEmpty() const{
 
 template <typename T>
 T& DSVector<T>::operator[](const int indexLocation){
-    if(indexLocation < 0 || indexLocation > capacity - 1){      // if statement to check location exists
-        return -1;
-    }
+    //if(indexLocation < 0 || indexLocation > capacity - 1){      // if statement to check location exists
+        //return -1;
+    //}
     return *(this->data + indexLocation);                       // return element from DSVector
 }
 
@@ -299,12 +299,13 @@ void DSVector<T>::printVector(){
         }
     }
 }
-
+/*
 template <typename T>
 DSVector<T>::~DSVector(){
     if(this->data != nullptr){
         delete [] this->data;                                   // deallocate memory from heap
     }
 }
+*/
 
 #endif

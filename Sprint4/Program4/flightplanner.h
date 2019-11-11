@@ -32,17 +32,15 @@ class FlightPlanner{
         ifstream streamPathsToCalculate;
 
         int flightNumber;
-
-        bool checkStack(FlightData&,iterator);
+        DSVector<iterator> findRoutes(RequestRoute);
+        bool checkStack(iterator,DSString);
+        DSVector<Route> getRouteFromStack(DSVector<iterator>);
 
     public:
         FlightPlanner();
         void addFlightsData();
         void setFileNames(char* argv[]);
         void requestedRoutes();
-
-        DSVector<iterator> findRoutes(RequestRoute);
-        DSVector<Route> getRouteFromStack(DSVector<iterator>);
 };
 
 #endif // FLIGHTPLANNER_H
