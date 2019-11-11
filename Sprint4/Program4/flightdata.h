@@ -4,7 +4,6 @@
 #include <iostream>
 #include "dsstring.h"
 
-
 class FlightData{
     private:
         DSString origin;
@@ -15,8 +14,8 @@ class FlightData{
 
     public:
         FlightData();
-        FlightData& operator=(const FlightData&);
         FlightData(const FlightData&);
+        FlightData& operator=(const FlightData&);
         FlightData(DSString, DSString, double, double, DSString);
 
         // create setter & getter functions for each of the Flight Data paramter

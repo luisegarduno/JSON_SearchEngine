@@ -34,12 +34,6 @@ Route& Route::addRoute(DSStack<FlightData>& currentStack){
     }
 }
 
-void Route::print(){
-    int vec = sizeof (citiesInRoutes);
-    cout << "HERE: " << vec << endl;
-}
-
-
 void Route::addTimeLayover(){
     finalTime += 43.00;
 }

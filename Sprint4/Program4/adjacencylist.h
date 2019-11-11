@@ -14,10 +14,13 @@ class AdjacencyList{
     public:
         AdjacencyList();
         void add(U);
-        void printAdjacencyList();
+
         DSLinkedList<U>& checkOuter(DSString,DSString);
-        DSLinkedList<U> getAllOrigins(DSString);
         bool checkInner(DSString,DSString, const DSLinkedList<U>&);
+
+        DSLinkedList<U> getAllOrigins(DSString);
+
+        void printAdjacencyList();
 };
 
 template<class U>
@@ -67,12 +70,12 @@ DSLinkedList<U>& AdjacencyList<U>::checkOuter(DSString originCity, DSString airl
 }
 
 template<class U>
-DSLinkedList<U> AdjacencyList<U>::getAllOrigins(DSString cityName){          // check list of origination cities
-    DSNode< DSLinkedList<U> >* currentLinkedList = adjacency_list.head;
-    DSLinkedList<U> flightOrigin = DSLinkedList<U>();
-    currentLinkedList->getData().resetIterator();
+DSLinkedList<U> AdjacencyList<U>::getAllOrigins(DSString aCity){
+   DSNode< DSLinkedList<U> >* currentLinkedList = adjacency_list.head;
+   DSLinkedList<U> flightOrigin = DSLinkedList<U>();
+   currentLinkedList->getData().resetIterator();
 
-    if(currentLinkedList == nullptr){
+   if(currentLinkedList == nullptr){
         DSLinkedList<U> temp;
         return temp;
     }
@@ -80,16 +83,20 @@ DSLinkedList<U> AdjacencyList<U>::getAllOrigins(DSString cityName){          // 
     while(currentLinkedList != nullptr){
         currentLinkedList->getData().resetIterator();
         while(currentLinkedList->getData().iteratorIsValid()){
-            if(currentLinkedList->getData().getIterator().getOrigin() == cityName){
+            if(currentLinkedList->getData().getIterator().getOrigin() == aCity){
                 //cout << "-->CITY: " << currentLinkedList->data.getIterator().getOrigin() << "\t\tAIRLINE: " << currentLinkedList->data.getIterator().getAirline() << endl;
                 flightOrigin.append(currentLinkedList->getData().getIterator());
                 break;
             }
+
             currentLinkedList->getData().iterateForward();
         }
 
         currentLinkedList = currentLinkedList->next;
     }
+
+    flightOrigin.print();
+    cout << "------------" << endl;
 
     return flightOrigin;
 }
@@ -126,6 +133,5 @@ void AdjacencyList<U>::printAdjacencyList(){
     }
     cout << "-----------------------------------------------------" << endl;
 }
-
 
 #endif // ADJACENCYLISU_H

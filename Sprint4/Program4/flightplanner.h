@@ -18,6 +18,9 @@ using std::getline;
 
 class FlightPlanner{
 
+    using nodePtr = DSNode<FlightData>*;
+    using iterator = DSStack<nodePtr>;
+
     private:
         AdjacencyList<FlightData> flightPaths;
 
@@ -28,10 +31,11 @@ class FlightPlanner{
         ifstream streamFlightData;
         ifstream streamPathsToCalculate;
 
-    public:
-        using nodePtr = DSNode<FlightData>*;
-        using iterator = DSStack<nodePtr>;
+        int flightNumber;
 
+        bool checkStack(FlightData&,iterator);
+
+    public:
         FlightPlanner();
         void addFlightsData();
         void setFileNames(char* argv[]);
@@ -39,7 +43,6 @@ class FlightPlanner{
 
         DSVector<iterator> findRoutes(RequestRoute);
         DSVector<Route> getRouteFromStack(DSVector<iterator>);
-        bool checkStack(FlightData&,iterator);
 };
 
 #endif // FLIGHTPLANNER_H

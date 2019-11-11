@@ -1,6 +1,6 @@
 #include "flightdata.h"
 
-FlightData::FlightData() : origin(""), destination(""), cost(0.0), time(0.0), airline("") {
+FlightData::FlightData() : origin(""), destination(""), cost(1.0), time(1.0), airline("") {
 }
 
 // FlightData is passed with origin,destination,cost,time, & airline to set FlightData Object variables
@@ -47,7 +47,6 @@ DSString FlightData::getDestination(){
 double FlightData::getCost(){
     return cost;
 }
-
 
 // returns length of flight (in minutes)
 double FlightData::getTime(){

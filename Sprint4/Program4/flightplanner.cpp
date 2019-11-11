@@ -1,6 +1,6 @@
 #include "flightplanner.h"
 
-FlightPlanner::FlightPlanner(){         // Default Constructor
+FlightPlanner::FlightPlanner() : flightNumber(1){         // Default Constructor
 }
 
 // The names of the of the command line arguments are used to create &
@@ -21,12 +21,13 @@ void FlightPlanner::addFlightsData(){
     }
 
     int numberOfFlights;
-    double theCost = 0.0,theTime = 0.0;
-    DSString theOrigin(""),theDestination(""),theAirline("");
     streamFlightData >> numberOfFlights;
 
     char temp[100];
     streamFlightData.getline(temp,100);
+
+    double theCost = 0.0,theTime = 0.0;
+    DSString theOrigin(""),theDestination(""),theAirline("");
 
     char * buffer = new char[100];
 
@@ -36,34 +37,29 @@ void FlightPlanner::addFlightsData(){
             if(j == 0){
                 streamFlightData.getline(buffer,100,'|');
                 theOrigin = buffer;
-                cout << "Origin: " << theOrigin << endl;
             }
             if(j == 1){
                 streamFlightData.getline(buffer,100,'|');
                 theDestination = buffer;
-                cout << "Destination: " << theDestination << endl;
             }
             if(j == 2){
                 streamFlightData >> theCost;
                 streamFlightData.getline(buffer,100,'|');
-                cout << "Cost: " << theCost << endl;
             }
             if(j == 3){
                 streamFlightData >> theTime;
                 streamFlightData.getline(buffer,100,'|');
-                cout << "Time: " << theTime << endl;
             }
             if(j == 4){
                 streamFlightData.getline(buffer,100);
                 theAirline = buffer;
-                cout << "Airline: " << theAirline << endl;
             }
         }
         FlightData newFlight(theOrigin,theDestination,theCost,theTime,theAirline);
-        FlightData reversedFlight(theDestination,theOrigin,theCost,theTime,theAirline);
         flightPaths.add(newFlight);
+
+        FlightData reversedFlight(theDestination,theOrigin,theCost,theTime,theAirline);
         flightPaths.add(reversedFlight);
-        cout << endl;
     }
 
     streamFlightData.close();
@@ -92,25 +88,21 @@ void FlightPlanner::requestedRoutes(){
             if(j == 0){
                 streamPathsToCalculate.getline(buffer,100,'|');
                 theOrigin = buffer;
-                cout << "Origin: " << theOrigin << endl;
             }
 
             if(j == 1){
                 streamPathsToCalculate.getline(buffer,100,'|');
                 theDestination = buffer;
-                cout << "Destination: " << theDestination << endl;
             }
 
             if(j == 2){
                 streamPathsToCalculate.getline(buffer,100);
                 sortType = buffer;
-                cout << "Sort Flights by: " << sortType << endl;
             }
         }
         RequestRoute newRoute(theOrigin,theDestination,sortType);
-        DSVector<FlightPlanner::iterator> findAllRoutes = findRoutes(newRoute);
+        DSVector<iterator> findAllRoutes = findRoutes(newRoute);
         DSVector<Route> allFlightRoutes = getRouteFromStack(findAllRoutes);
-        cout << endl;
 
     }
 
@@ -124,11 +116,9 @@ void FlightPlanner::requestedRoutes(){
 // Thus we make the last item appended be declared as the head
 // USING nodePtr = DSNode<FlightData>*;             USING customStackIterator = DSStack<nodePtr>;
 DSVector<FlightPlanner::iterator> FlightPlanner::findRoutes(RequestRoute requestedRoute){ // TO SEE HIGH LEVEL STEPS FOR ITERATIVE BACKTRACKING
-                                                                // GO TO LINE
-    iterator currentIterator;
+    iterator currentIterator;                                                               // GO TO LINE
     DSStack< DSLinkedList<FlightData> > routeOnStack; // create a stack containing routes
     DSVector<iterator> currentStackInVector;
-
 
     routeOnStack.push(flightPaths.getAllOrigins(requestedRoute.getRequestedOrigin()));
     nodePtr currentNodeOnStack =  routeOnStack.topValue().head;
@@ -193,11 +183,12 @@ DSVector<FlightPlanner::iterator> FlightPlanner::findRoutes(RequestRoute request
 
 bool FlightPlanner::checkStack(FlightData& thisData,iterator currentStack){
     nodePtr theTop = nullptr;
+    DSString aCity = thisData.getDestination();
 
     while(!currentStack.isEmpty()){
         theTop = currentStack.pop();
 
-        if(thisData.getDestination() == theTop->getData().getDestination() || thisData.getDestination() == theTop->getData().getOrigin()){
+        if(aCity == theTop->getData().getOrigin() || aCity == theTop->getData().getDestination()){
                 return true;
         }
     }
@@ -216,7 +207,6 @@ DSVector<Route> FlightPlanner::getRouteFromStack(DSVector<iterator> routeOnStack
 
         Route newRoute = Route();
         newRoute.addRoute(routeOnStack);
-        newRoute.print();
 
 
         routeOnVector.pushBack(newRoute);

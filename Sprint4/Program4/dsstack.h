@@ -6,15 +6,11 @@
 #include "flightdata.h"
 #include "dslinkedlist.h"
 
-template<class T>
-class DSLinkedList;
-
 using std::cout;
 using std::endl;
 
 template<class T>
-class DSStack : DSLinkedList<T>{
-
+class DSStack{
     private:
         DSLinkedList<T> stackData;
         T top;
@@ -29,7 +25,6 @@ class DSStack : DSLinkedList<T>{
 
         T topValue();
         size_t sizeOfStack();
-        DSLinkedList<T>& getDataLL();
 };
 
 template<class T>
@@ -67,12 +62,7 @@ T DSStack<T>::peek(){                           // returns tail of data linked l
 
 template<class T>
 T DSStack<T>::topValue(){
-    return stackData.getHead();
-}
-
-template<class T>
-DSLinkedList<T>& DSStack<T>::getDataLL(){
-    return stackData;
+    return top;
 }
 
 template<class T>
@@ -84,7 +74,5 @@ template<class T>
 bool DSStack<T>::isEmpty(){                 // checks to see if DSLinkedList is empty
     return ( (this->stackData.head == nullptr) ? true : false);
 }
-
-
 
 #endif // DSSTACK_H

@@ -58,7 +58,6 @@ T& DSNode<T>::getData(){
     return this->data;
 }
 
-
 template<class T>
 DSNode<T>::~DSNode<T>(){
 }
