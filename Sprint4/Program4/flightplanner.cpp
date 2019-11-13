@@ -102,6 +102,7 @@ void FlightPlanner::requestedRoutes(){
         DSVector<iterator> findAllRoutes = findRoutes(newRoute);
         DSVector<Route> allFlightRoutes = getRouteFromStack(findAllRoutes);
         allFlightRoutes = routeSorter(allFlightRoutes,sortType);
+        cout << "headed to outputfile" << endl;
         outputRouteToFile(allFlightRoutes,newRoute);
 
     }
@@ -197,7 +198,8 @@ DSVector<Route> FlightPlanner::getRouteFromStack(DSVector<iterator> routeOnStack
     DSVector<Route> routeOnVector;
 
     for(int counter = 0; counter < routeOnStackVector.getSize(); counter++){
-        while(!routeOnStackVector.isEmpty()){
+
+        while(!routeOnStackVector[counter].isEmpty()){
             DSNode<FlightData>* currentFlightPtr = routeOnStackVector[counter].pop();
             routeOnStack.push(currentFlightPtr->data);
         }
@@ -258,8 +260,9 @@ DSVector<Route> FlightPlanner::routeSorter(DSVector<Route> graphVector, DSString
             for(int counter = 0; counter < graphVector.getSize() - 1; counter++){
                 smallestIndex = counter;
                 for(int j = counter + 1; j < graphVector.getSize(); j++){
-                    if(graphVector[j].getFinalCost() < graphVector[smallestIndex].getFinalCost())
+                    if(graphVector[j].getFinalCost() < graphVector[smallestIndex].getFinalCost()){
                         smallestIndex = j;
+                    }
                 }
                 if(smallestIndex != counter){
                     Route temp = graphVector[counter];
@@ -268,11 +271,9 @@ DSVector<Route> FlightPlanner::routeSorter(DSVector<Route> graphVector, DSString
                 }
             }
         }
-
         for(int i = 0; i < 3 && i < graphVector.getSize(); i++){
             flightRouteVect.pushBack(graphVector[i]);
         }
-
         return flightRouteVect;
 }
 

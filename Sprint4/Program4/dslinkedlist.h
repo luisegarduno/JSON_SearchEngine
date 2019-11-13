@@ -44,7 +44,7 @@ class DSLinkedList{
         T getAt(int);                     // returns element at specific index
         T popFirstNode();
         void pushToFront(T);
-        //DSLinkedList<T>& operator=(const DSLinkedList<T>&);
+        DSLinkedList<T>& operator=(const DSLinkedList<T>&);
 
         //bool operator!=(const DSLinkedList<T>&) const;
         int getListSize() const;
@@ -105,7 +105,7 @@ DSLinkedList<T>::DSLinkedList(const DSLinkedList<T>& originalLinkedList){
      }
 }
 
-/*
+
 template<class T>
 DSLinkedList<T>& DSLinkedList<T>::operator=(const DSLinkedList<T>& v2LinkedList) {
     if(this != &v2LinkedList){
@@ -136,7 +136,7 @@ DSLinkedList<T>& DSLinkedList<T>::operator=(const DSLinkedList<T>& v2LinkedList)
 
     return *this;
 }
-*/
+
 
 
 template<class T>
