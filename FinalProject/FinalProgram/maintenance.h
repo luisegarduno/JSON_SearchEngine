@@ -23,17 +23,24 @@ class Maintenance : public QDialog{
     Q_OBJECT
 
     public:
+        // Explicit Constructor
         explicit Maintenance(QWidget *parent = nullptr);
+
+        // Maintenance Class Destructor
         ~Maintenance();
 
-private slots:
-    void on_MainMenu_Button_clicked();
+    private slots:
+        // Closes "Maintenance" windows and returns to "Mode" (Main Menu)
+        void on_MainMenu_Button_clicked();
 
-    void on_ClearFile_Button_clicked();
+        // Clears contents in AVL Tree & Hash Table, also ~possibly~ deletes index file
+        void on_ClearFile_Button_clicked();
 
-    void on_AddFolder_Button_clicked();
+        // Open up local file directory, and User is able to select Folder Directory Path
+        void on_AddFolder_Button_clicked();
 
-private:
+    private:
+        // Maintenance UI Pointer
         Ui::Maintenance *ui;
 };
 

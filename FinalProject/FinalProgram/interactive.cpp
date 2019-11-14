@@ -6,6 +6,7 @@ Interactive::Interactive(QWidget *parent) : QDialog(parent), ui(new Ui::Interact
 }
 
 void Interactive::on_MainMenu_Button_clicked(){
+    // Closes current windows
     this->close();
 }
 

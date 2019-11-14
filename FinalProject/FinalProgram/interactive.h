@@ -2,6 +2,7 @@
 #define INTERACTIVE_H
 
 #include <QDialog>
+#include <iostream>
 
 namespace Ui {
     class Interactive;
@@ -11,13 +12,18 @@ class Interactive : public QDialog{
     Q_OBJECT
 
     public:
+        // Explicit Constructor
         explicit Interactive(QWidget *parent = nullptr);
+
+        // Interactive Class Destructor
         ~Interactive();
 
-private slots:
-    void on_MainMenu_Button_clicked();
+    private slots:
+        // Closes "Interactive" windows and returns to "Mode" (Main Menu)
+        void on_MainMenu_Button_clicked();
 
-private:
+    private:
+        // Interactive UI Pointer
         Ui::Interactive *ui;
 };
 
