@@ -40,14 +40,15 @@ void Maintenance::on_AddFolder_Button_clicked(){
     string fileName = file_name.toStdString();
 
     // A vector is created containing every path name for each file in folder
-    vector<string> allFileLocations = getFileLocations(fileName);
+    allFileLocations = setFileLocations(fileName);
 
     for(size_t i = 0; i < allFileLocations.size(); i++){
         cout << allFileLocations[i] << endl;
     }
+
 }
 
-vector<string> Maintenance::getFileLocations(string fileName){
+vector<string> Maintenance::setFileLocations(string fileName){
     vector<string> allFileLocations;
 
     filesystem::directory_iterator end;
@@ -62,6 +63,10 @@ vector<string> Maintenance::getFileLocations(string fileName){
         allFileLocations.push_back(pathToString);
     }
 
+    return allFileLocations;
+}
+
+vector<string> Maintenance::getFileLocations(){
     return allFileLocations;
 }
 

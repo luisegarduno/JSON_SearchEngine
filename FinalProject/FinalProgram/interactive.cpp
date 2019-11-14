@@ -12,40 +12,21 @@ void Interactive::on_MainMenu_Button_clicked(){
 
 
 void Interactive::on_Search_Button_clicked(){
-    if(ui->AVLTree_Button->isChecked()){
-        // Open window containing inputted text & "AVL Tree" as window title
-        QString qString_searchQuery = ui->SearchQuery_Line->text();
-        QMessageBox::information(this,"Let's Search : AVL Tree", qString_searchQuery);
-
-        // QString is converted and saved as string, the each word is added to a vector
-        string searchQuery = qString_searchQuery.toStdString();
-        vector<string> listOfWords = getWords(searchQuery);
-
-    }
-
-    else if(ui->HashTable_Button->isChecked()){
-        // Open window containing inputted text & "Hash Table" as window title
-        QString qString_searchQuery = ui->SearchQuery_Line->text();
-        QMessageBox::information(this,"Let's Search : Hash Table", qString_searchQuery);
-
-        string searchQuery = qString_searchQuery.toStdString();
-        vector<string> listOfWords = getWords(searchQuery);
-
-    }
+    newQuery = new SearchQuery(this);
+    newQuery->show();
 }
 
-vector<string> Interactive::getWords(string aString){
-    string tempString;
-    stringstream splitString(aString);
-    vector<string> words;
+void Interactive::on_IndexMethod_Button_clicked(){
+    indexMethod = new IndexInterface(this);
+    indexMethod->show();
+}
 
-    while(getline(splitString,tempString,' ')){
-        words.push_back(tempString);
-    }
-
-    return words;
+void Interactive::on_Statistics_clicked(){
+    newStatistics = new Statistics(this);
+    newStatistics->show();
 }
 
 Interactive::~Interactive(){
     delete ui;
 }
+

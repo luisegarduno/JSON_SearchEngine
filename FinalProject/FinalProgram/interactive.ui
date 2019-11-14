@@ -6,20 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>620</height>
+    <width>500</width>
+    <height>300</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>800</width>
-    <height>620</height>
+    <width>500</width>
+    <height>300</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>800</width>
-    <height>690</height>
+    <width>500</width>
+    <height>300</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -28,8 +28,8 @@
   <widget class="QLabel" name="Interactive_Label">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>10</y>
+     <x>120</x>
+     <y>20</y>
      <width>350</width>
      <height>80</height>
     </rect>
@@ -55,13 +55,13 @@
     <string>Interactive Mode</string>
    </property>
   </widget>
-  <widget class="QGroupBox" name="IndexMethod_Box">
+  <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>110</y>
-     <width>480</width>
-     <height>190</height>
+     <x>75</x>
+     <y>125</y>
+     <width>351</width>
+     <height>150</height>
     </rect>
    </property>
    <property name="font">
@@ -70,236 +70,157 @@
     </font>
    </property>
    <property name="title">
-    <string>Index Method</string>
+    <string>Select Option: </string>
    </property>
-   <widget class="QWidget" name="horizontalLayoutWidget">
+   <widget class="QWidget" name="verticalLayoutWidget_2">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>30</y>
-      <width>461</width>
-      <height>151</height>
+      <width>331</width>
+      <height>111</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <layout class="QVBoxLayout" name="verticalLayout_10">
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <layout class="QVBoxLayout" name="verticalLayout_11">
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_3">
-         <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-          <widget class="QLabel" name="IndexMethod_Label">
-           <property name="font">
-            <font>
-             <pointsize>16</pointsize>
-            </font>
-           </property>
-           <property name="text">
-            <string>How would you like to store your Index?</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-           </property>
-           <property name="wordWrap">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_4">
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout_2">
+        <layout class="QHBoxLayout" name="horizontalLayout_13">
          <item>
-          <layout class="QVBoxLayout" name="verticalLayout_3">
-           <item>
-            <layout class="QVBoxLayout" name="verticalLayout_5">
-             <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-              <widget class="QRadioButton" name="AVLTree_Button">
-               <property name="minimumSize">
-                <size>
-                 <width>120</width>
-                 <height>29</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>120</width>
-                 <height>29</height>
-                </size>
-               </property>
-               <property name="font">
-                <font>
-                 <pointsize>15</pointsize>
-                </font>
-               </property>
-               <property name="text">
-                <string>AVL Tree   </string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QVBoxLayout" name="verticalLayout_4">
-             <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-              <widget class="QRadioButton" name="HashTable_Button">
-               <property name="minimumSize">
-                <size>
-                 <width>124</width>
-                 <height>29</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>124</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="font">
-                <font>
-                 <pointsize>15</pointsize>
-                </font>
-               </property>
-               <property name="text">
-                <string>Hash Table</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
+          <layout class="QHBoxLayout" name="horizontalLayout_15">
+           <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+            <widget class="QPushButton" name="IndexMethod_Button">
+             <property name="minimumSize">
+              <size>
+               <width>150</width>
+               <height>35</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>150</width>
+               <height>35</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>15</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>Index Method</string>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
-        </layout>
-       </item>
-      </layout>
-     </item>
-    </layout>
-   </widget>
-  </widget>
-  <widget class="QGroupBox" name="SearchBox">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>330</y>
-     <width>740</width>
-     <height>261</height>
-    </rect>
-   </property>
-   <property name="minimumSize">
-    <size>
-     <width>740</width>
-     <height>250</height>
-    </size>
-   </property>
-   <property name="maximumSize">
-    <size>
-     <width>740</width>
-     <height>330</height>
-    </size>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>15</pointsize>
-    </font>
-   </property>
-   <property name="title">
-    <string>Search</string>
-   </property>
-   <widget class="QWidget" name="verticalLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>30</y>
-      <width>721</width>
-      <height>161</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <layout class="QVBoxLayout" name="verticalLayout_6">
-       <item alignment="Qt::AlignHCenter|Qt::AlignBottom">
-        <widget class="QLabel" name="SearchQuery_Label">
-         <property name="text">
-          <string>Please enter a properly formatted Boolean Query :</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_5">
-       <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-        <widget class="QLineEdit" name="SearchQuery_Line">
-         <property name="minimumSize">
-          <size>
-           <width>625</width>
-           <height>0</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="horizontalLayoutWidget_6">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>190</y>
-      <width>721</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_6">
-     <item>
-      <layout class="QVBoxLayout" name="verticalLayout_7">
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_7">
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_10">
-           <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+          <layout class="QHBoxLayout" name="horizontalLayout_14">
+           <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
             <widget class="QPushButton" name="Search_Button">
              <property name="minimumSize">
               <size>
-               <width>130</width>
+               <width>150</width>
+               <height>35</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>150</width>
                <height>35</height>
               </size>
              </property>
              <property name="font">
               <font>
-               <pointsize>12</pointsize>
+               <pointsize>15</pointsize>
               </font>
              </property>
              <property name="text">
-              <string>Let's Search!</string>
+              <string>Search</string>
              </property>
             </widget>
            </item>
           </layout>
          </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_12">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_14">
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_9">
-           <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-            <widget class="QPushButton" name="MainMenu_Button">
-             <property name="minimumSize">
-              <size>
-               <width>130</width>
-               <height>35</height>
-              </size>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>12</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>Main Menu</string>
-             </property>
-            </widget>
+          <layout class="QVBoxLayout" name="verticalLayout_18">
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_20">
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_17">
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_19">
+                 <item alignment="Qt::AlignRight|Qt::AlignTop">
+                  <widget class="QPushButton" name="Statistics">
+                   <property name="minimumSize">
+                    <size>
+                     <width>100</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>100</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Statistics</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_20"/>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_18">
+                 <item alignment="Qt::AlignLeft|Qt::AlignTop">
+                  <widget class="QPushButton" name="MainMenu_Button">
+                   <property name="minimumSize">
+                    <size>
+                     <width>100</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>100</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Main Menu</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_19"/>
            </item>
           </layout>
          </item>

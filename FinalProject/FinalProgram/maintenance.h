@@ -30,6 +30,7 @@ class Maintenance : public QDialog{
     public:
         // Explicit Constructor
         explicit Maintenance(QWidget *parent = nullptr);
+        vector<string> getFileLocations();
 
         // Maintenance Class Destructor
         ~Maintenance();
@@ -44,12 +45,15 @@ class Maintenance : public QDialog{
         // Open up local file directory, and User is able to select Folder Directory Path
         void on_AddFolder_Button_clicked();
 
-        // iterates through folder and converts each directory path into a string
-        vector<string> getFileLocations(string);
-
     private:
         // Maintenance UI Pointer
         Ui::Maintenance *ui;
+
+        vector<string> allFileLocations;
+
+        // iterates through folder and converts each directory path into a string
+        vector<string> setFileLocations(string);
+
 };
 
 #endif // MAINTENANCE_H
