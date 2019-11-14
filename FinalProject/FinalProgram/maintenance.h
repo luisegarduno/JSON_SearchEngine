@@ -3,23 +3,22 @@
 
 #include <QDir>
 #include <string>
+#include <vector>
 #include <QDebug>
 #include <QDialog>
 #include <QString>
 #include <iostream>
-#include <filesystem>
+#include <experimental/filesystem>
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QMessageBox>
 
-namespace fs = std::filesystem;
+namespace filesystem = std::experimental::filesystem;
 
-namespace filesystem{
-}
-
-using std::string;
 using std::cout;
 using std::endl;
+using std::vector;
+using std::string;
 
 namespace Ui {
     class Maintenance;
@@ -44,6 +43,9 @@ class Maintenance : public QDialog{
 
         // Open up local file directory, and User is able to select Folder Directory Path
         void on_AddFolder_Button_clicked();
+
+        // iterates through folder and converts each directory path into a string
+        vector<string> getFileLocations(string);
 
     private:
         // Maintenance UI Pointer

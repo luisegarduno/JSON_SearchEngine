@@ -35,8 +35,34 @@ void Maintenance::on_AddFolder_Button_clicked(){
     // Information window is displayed containing selected folder
     QMessageBox::information(this, "File Selected", file_name);
 
+
     // QString is converted and saved as a standard string
     string fileName = file_name.toStdString();
+
+    // A vector is created containing every path name for each file in folder
+    vector<string> allFileLocations = getFileLocations(fileName);
+
+    for(size_t i = 0; i < allFileLocations.size(); i++){
+        cout << allFileLocations[i] << endl;
+    }
+}
+
+vector<string> Maintenance::getFileLocations(string fileName){
+    vector<string> allFileLocations;
+
+    filesystem::directory_iterator end;
+    for(filesystem::directory_iterator theIterator(fileName) ; theIterator!= end; ++theIterator){
+        // directory iterator is first converted to a path
+        filesystem::path dirToPath = *theIterator;
+
+        // path is then converted to a string
+        string pathToString = dirToPath.string();
+
+        // string is then appended to vector
+        allFileLocations.push_back(pathToString);
+    }
+
+    return allFileLocations;
 }
 
 Maintenance::~Maintenance(){
