@@ -7,9 +7,15 @@
 #include <QDialog>
 #include <QString>
 #include <iostream>
+#include <filesystem>
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QMessageBox>
+
+namespace fs = std::filesystem;
+
+namespace filesystem{
+}
 
 using std::string;
 using std::cout;
