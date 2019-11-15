@@ -29,21 +29,30 @@ void Maintenance::on_ClearFile_Button_clicked(){
 }
 
 void Maintenance::on_AddFolder_Button_clicked(){
+    QString file_name;
     // Opens local file directory, user is able to navigate to select desired folder
-    QString file_name = QFileDialog::getExistingDirectory(this, "Open Folder", QDir::homePath());
+    file_name = QFileDialog::getExistingDirectory(this, "Open Folder", QDir::homePath());
 
-    // Information window is displayed containing selected folder
-    QMessageBox::information(this, "File Selected", file_name);
+    // If no file was selected, display warning message
+    if(file_name == ""){
+        QString noFile = "Nothing was selected!\n";
+        QString tryAgain = "Please select valid path to a folder";
+        QMessageBox::warning(this,"Error", noFile + tryAgain);
+    }
+    else{
+        // Information window is displayed containing selected folder
+        QMessageBox::information(this, "File Selected", file_name);
 
 
-    // QString is converted and saved as a standard string
-    string fileName = file_name.toStdString();
+        // QString is converted and saved as a standard string
+        string fileName = file_name.toStdString();
 
-    // A vector is created containing every path name for each file in folder
-    allFileLocations = setFileLocations(fileName);
+        // A vector is created containing every path name for each file in folder
+        allFileLocations = setFileLocations(fileName);
 
-    for(size_t i = 0; i < allFileLocations.size(); i++){
-        cout << allFileLocations[i] << endl;
+        for(size_t i = 0; i < allFileLocations.size(); i++){
+            cout << allFileLocations[i] << endl;
+        }
     }
 
 }

@@ -18,29 +18,23 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    indexinterface.cpp \
     interactive.cpp \
     main.cpp \
     maintenance.cpp \
     mode.cpp \
-    searchquery.cpp \
-    statistics.cpp
+    searchquery.cpp
 
 HEADERS += \
-    indexinterface.h \
     interactive.h \
     maintenance.h \
     mode.h \
-    searchquery.h \
-    statistics.h
+    searchquery.h
 
 FORMS += \
     indexinterface.ui \
-    interactive.ui \
     maintenance.ui \
     mode.ui \
-    searchquery.ui \
-    statistics.ui
+    searchquery.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

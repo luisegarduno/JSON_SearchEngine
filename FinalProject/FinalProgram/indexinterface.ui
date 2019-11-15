@@ -6,17 +6,29 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>604</width>
-    <height>315</height>
+    <width>580</width>
+    <height>375</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>580</width>
+    <height>375</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>580</width>
+    <height>375</height>
+   </size>
+  </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Let's Search : Index - Method Selection</string>
   </property>
   <widget class="QGroupBox" name="IndexMethod_Box">
    <property name="geometry">
     <rect>
-     <x>80</x>
+     <x>50</x>
      <y>50</y>
      <width>480</width>
      <height>190</height>
@@ -77,7 +89,7 @@
              <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
               <widget class="QCheckBox" name="checkBox">
                <property name="text">
-                <string>AVL Tree</string>
+                <string> AVL Tree   </string>
                </property>
               </widget>
              </item>
@@ -88,7 +100,7 @@
              <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
               <widget class="QCheckBox" name="checkBox_2">
                <property name="text">
-                <string>Hash Table</string>
+                <string> Hash Table</string>
                </property>
               </widget>
              </item>
@@ -102,6 +114,78 @@
      </item>
     </layout>
    </widget>
+  </widget>
+  <widget class="QWidget" name="verticalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>240</y>
+     <width>481</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_7">
+        <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+         <widget class="QPushButton" name="pushButton">
+          <property name="minimumSize">
+           <size>
+            <width>120</width>
+            <height>29</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>120</width>
+            <height>29</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Load Index</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_6">
+        <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+         <widget class="QPushButton" name="MainMenu_Button">
+          <property name="minimumSize">
+           <size>
+            <width>120</width>
+            <height>29</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>102</width>
+            <height>29</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Main Menu</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources/>

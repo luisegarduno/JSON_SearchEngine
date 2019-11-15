@@ -6,8 +6,8 @@ SearchQuery::SearchQuery(QWidget *parent) : QDialog(parent), ui(new Ui::SearchQu
 }
 
 void SearchQuery::on_Search_Button_clicked(){
-    /*
-    if(ui->AVLTree_Button->isChecked()){
+
+    if(getIndexMethod() == "AVL Tree"){
         // Open window containing inputted text & "AVL Tree" as window title
         QString qString_searchQuery = ui->SearchQuery_Line->text();
         QMessageBox::information(this,"Let's Search : AVL Tree", qString_searchQuery);
@@ -18,7 +18,7 @@ void SearchQuery::on_Search_Button_clicked(){
 
     }
 
-    else if(ui->HashTable_Button->isChecked()){
+    else if(getIndexMethod() == "Hash Table"){
         // Open window containing inputted text & "Hash Table" as window title
         QString qString_searchQuery = ui->SearchQuery_Line->text();
         QMessageBox::information(this,"Let's Search : Hash Table", qString_searchQuery);
@@ -27,8 +27,8 @@ void SearchQuery::on_Search_Button_clicked(){
         vector<string> listOfWords = getWords(searchQuery);
 
     }
-    */
 }
+
 
 vector<string> SearchQuery::getWords(string aString){
     string tempString;
@@ -40,6 +40,18 @@ vector<string> SearchQuery::getWords(string aString){
     }
 
     return words;
+}
+
+void SearchQuery::setIndexMethod(string indexMethod){
+    this->indexMethod = indexMethod;
+}
+
+string SearchQuery::getIndexMethod(){
+    return indexMethod;
+}
+
+void SearchQuery::on_MainMenu_Button_clicked(){
+    this->close();
 }
 
 SearchQuery::~SearchQuery(){

@@ -8,10 +8,10 @@
 #include <QDialog>
 #include <QString>
 #include <iostream>
-#include <experimental/filesystem>
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <experimental/filesystem>
 
 namespace filesystem = std::experimental::filesystem;
 
@@ -49,6 +49,7 @@ class Maintenance : public QDialog{
         // Maintenance UI Pointer
         Ui::Maintenance *ui;
 
+        // vector containing allFileLocations as string types
         vector<string> allFileLocations;
 
         // iterates through folder and converts each directory path into a string

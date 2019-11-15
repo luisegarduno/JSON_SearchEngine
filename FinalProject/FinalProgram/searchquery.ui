@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Let's Search : Search</string>
   </property>
   <widget class="QGroupBox" name="SearchBox">
    <property name="geometry">

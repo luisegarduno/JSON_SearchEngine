@@ -6,6 +6,7 @@
 #include <sstream>
 #include <QDialog>
 #include <iostream>
+#include <QCheckBox>
 #include <QMessageBox>
 
 using std::cout;
@@ -22,17 +23,31 @@ class SearchQuery : public QDialog {
 
     public:
         explicit SearchQuery(QWidget *parent = nullptr);
+
+        // Declare's IndexMethod using parameter
+        void setIndexMethod(string);
+
+        // returns IndexMethod of type string
+        string getIndexMethod();
+
+        // SearchQuery destructor
         ~SearchQuery();
 
-private slots:
-    void on_Search_Button_clicked();
+    private slots:
+        void on_Search_Button_clicked();
 
-private:
+        // Closes SearchQuery window and returned to Main Menu
+        void on_MainMenu_Button_clicked();
+
+    private:
+        Ui::SearchQuery *ui;
+
+        // contains which indexMethod was selected as type string
+        string indexMethod;
+
         // String is split into individual words, pushed into vector
         // once done, that vector is then returned.
         vector<string> getWords(string);
-
-        Ui::SearchQuery *ui;
 };
 
 #endif // SEARCHQUERY_H
