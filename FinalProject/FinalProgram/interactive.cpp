@@ -35,7 +35,6 @@ void Interactive::on_Search_Button_clicked(){
         QMessageBox::warning(this,"Invalid", "Index Method has not been selected yet",QMessageBox::Ok);
     }
 
-
 }
 
 void Interactive::on_IndexMethod_Button_clicked(){

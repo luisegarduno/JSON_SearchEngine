@@ -15,7 +15,6 @@ void SearchQuery::on_Search_Button_clicked(){
         // QString is converted and saved as string, the each word is added to a vector
         string searchQuery = qString_searchQuery.toStdString();
         vector<string> listOfWords = getWords(searchQuery);
-
     }
 
     else if(getIndexMethod() == "Hash Table"){
@@ -25,7 +24,6 @@ void SearchQuery::on_Search_Button_clicked(){
 
         string searchQuery = qString_searchQuery.toStdString();
         vector<string> listOfWords = getWords(searchQuery);
-
     }
 }
 

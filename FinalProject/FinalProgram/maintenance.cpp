@@ -31,7 +31,8 @@ void Maintenance::on_ClearFile_Button_clicked(){
 void Maintenance::on_AddFolder_Button_clicked(){
     QString file_name;
     // Opens local file directory, user is able to navigate to select desired folder
-    file_name = QFileDialog::getExistingDirectory(this, "Open Folder", QDir::homePath());
+    //file_name = QFileDialog::getExistingDirectory(this, "Open Folder", QDir::homePath());
+    file_name = QFileDialog::getExistingDirectory(this,"Open Folder","/home/student/Desktop/MyProjects/CSE2341-F19-Luis-Garduno/FinalProject/build-FinalProgram-Desktop_Qt_5_10_0_GCC_64bit-Debug/");
 
     // If no file was selected, display warning message
     if(file_name == ""){
@@ -43,18 +44,12 @@ void Maintenance::on_AddFolder_Button_clicked(){
         // Information window is displayed containing selected folder
         QMessageBox::information(this, "File Selected", file_name);
 
-
         // QString is converted and saved as a standard string
         string fileName = file_name.toStdString();
 
         // A vector is created containing every path name for each file in folder
         allFileLocations = setFileLocations(fileName);
-
-        for(size_t i = 0; i < allFileLocations.size(); i++){
-            cout << allFileLocations[i] << endl;
-        }
     }
-
 }
 
 vector<string> Maintenance::setFileLocations(string fileName){
@@ -65,20 +60,34 @@ vector<string> Maintenance::setFileLocations(string fileName){
         // directory iterator is first converted to a path
         filesystem::path dirToPath = *theIterator;
 
-        // path is then converted to a string
+        // path directory is converted to a string
         string pathToString = dirToPath.string();
 
-        // string is then appended to vector
+        // string is appended to end of vector
         allFileLocations.push_back(pathToString);
+
+        // string is parsed to filename, and added to vector
+        setFileNames(pathToString);
     }
 
     return allFileLocations;
+}
+
+void Maintenance::setFileNames(string fileName){
+    fileName.erase(0,137);
+
+    fileNamesOnly.push_back(fileName);
+}
+
+vector<string> Maintenance::getFileNamesOnly(){
+    return fileNamesOnly;
 }
 
 vector<string> Maintenance::getFileLocations(){
     return allFileLocations;
 }
 
+// Destructor
 Maintenance::~Maintenance(){
     delete ui;
 }

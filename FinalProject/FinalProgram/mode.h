@@ -1,6 +1,7 @@
 #ifndef MODE_H
 #define MODE_H
 
+#include <vector>
 #include <iostream>
 #include <QMainWindow>
 #include "maintenance.h"
@@ -8,6 +9,10 @@
 
 using std::cout;
 using std::endl;
+using std::vector;
+using std::string;
+
+//static vector<string> aVector;
 
 QT_BEGIN_NAMESPACE
     namespace Ui{ class Mode; }
@@ -17,6 +22,8 @@ class Mode : public QMainWindow{
     Q_OBJECT
 
     public:
+        friend class Maintenance;
+
         // Constructor
         Mode(QWidget *parent = nullptr);
 
@@ -36,6 +43,10 @@ class Mode : public QMainWindow{
 
         // Maintenance Object Pointer
         Maintenance * maintenanceMode;
+
+        // vectors containing paths & file names
+        vector<string> opinionLocations;
+        vector<string> fileNames;
 
         // Interactive Object Pointer
         Interactive * interactiveMode;

@@ -30,20 +30,24 @@ class Maintenance : public QDialog{
     public:
         // Explicit Constructor
         explicit Maintenance(QWidget *parent = nullptr);
+
+        // Vectors containing all strings
         vector<string> getFileLocations();
+        vector<string> getFileNamesOnly();
 
         // Maintenance Class Destructor
         ~Maintenance();
 
     private slots:
-        // Closes "Maintenance" windows and returns to "Mode" (Main Menu)
-        void on_MainMenu_Button_clicked();
 
         // Clears contents in AVL Tree & Hash Table, also ~possibly~ deletes index file
         void on_ClearFile_Button_clicked();
 
         // Open up local file directory, and User is able to select Folder Directory Path
         void on_AddFolder_Button_clicked();
+
+        // Closes "Maintenance" windows and returns to "Mode" (Main Menu)
+        void on_MainMenu_Button_clicked();
 
     private:
         // Maintenance UI Pointer
@@ -52,8 +56,14 @@ class Maintenance : public QDialog{
         // vector containing allFileLocations as string types
         vector<string> allFileLocations;
 
+        // vector containing the name of the files
+        vector<string> fileNamesOnly;
+
         // iterates through folder and converts each directory path into a string
         vector<string> setFileLocations(string);
+
+        // erases the file path to only leave the file name.Then pushed to vector
+        void setFileNames(string);
 
 };
 
