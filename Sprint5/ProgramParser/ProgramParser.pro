@@ -8,6 +8,5 @@ SOURCES += \
         parser.cpp
 
 HEADERS += \
-    AVLNode.h \
     AVLTree.h \
     parser.h
