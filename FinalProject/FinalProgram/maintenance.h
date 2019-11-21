@@ -35,6 +35,8 @@ class Maintenance : public QDialog{
         vector<string> getFileLocations();
         vector<string> getFileNamesOnly();
 
+        size_t getSizeOfFolder();
+
         // Maintenance Class Destructor
         ~Maintenance();
 
@@ -52,6 +54,8 @@ class Maintenance : public QDialog{
     private:
         // Maintenance UI Pointer
         Ui::Maintenance *ui;
+
+        size_t totalFilesInFolder;
 
         // vector containing allFileLocations as string types
         vector<string> allFileLocations;

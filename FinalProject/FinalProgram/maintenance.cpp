@@ -68,6 +68,7 @@ vector<string> Maintenance::setFileLocations(string fileName){
 
         // string is parsed to filename, and added to vector
         setFileNames(pathToString);
+        totalFilesInFolder++;
     }
 
     return allFileLocations;
@@ -79,12 +80,23 @@ void Maintenance::setFileNames(string fileName){
     fileNamesOnly.push_back(fileName);
 }
 
+// returns vector of strings containing file locations
 vector<string> Maintenance::getFileNamesOnly(){
     return fileNamesOnly;
 }
 
+// returns vector of strings containing file locations
 vector<string> Maintenance::getFileLocations(){
     return allFileLocations;
+}
+
+size_t Maintenance::getSizeOfFolder(){
+
+    if(totalFilesInFolder > 0){
+        return totalFilesInFolder;
+    }
+
+    return 0;
 }
 
 // Destructor
