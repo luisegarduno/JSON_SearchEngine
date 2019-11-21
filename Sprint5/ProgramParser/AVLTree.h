@@ -58,7 +58,6 @@ class AVLTree{
         }
 
         bool contains(const T& x, AvlNode* t) const;
-        //bool contains(const T& x, AvlNode* t) const;
 
         void makeEmpty(AvlNode*& t);
         void printTree(AvlNode* t) const;
@@ -219,26 +218,6 @@ bool AVLTree<T>::contains(const T& x, AvlNode* t) const{
     }
 }
 
-/*
-template<typename T>    // NONRECURSIVE VERSION
-bool AVLTree<T>::contains(const T& x, AvlNode* t) const{
-    while(t != nullptr)
-        if(x < t->element){
-            t = t->left;
-        }
-
-        else if(t->element < x){
-            t = t->right;
-        }
-
-        else{
-            return true;    // Match
-        }
-
-    return false;   // No match
-}
-*/
-
 template<typename T>
 void AVLTree<T>::makeEmpty(AvlNode*& t){
     if(t != nullptr){
@@ -268,6 +247,9 @@ int AVLTree<T>::max(int lhs, int rhs) const{
     return lhs > rhs ? lhs : rhs;
 }
 
+/* Rotate binary tree node with left child.
+   For AVL trees, this is a single rotation for case 1.
+   Update heights, then set new root.                */
 template<typename T>
 void AVLTree<T>::rotateWithLeftChild(AvlNode*& k2){
     AvlNode *k1 = k2->left;
@@ -281,6 +263,9 @@ void AVLTree<T>::rotateWithLeftChild(AvlNode*& k2){
     k2 = k1;
 }
 
+/* Rotate binary tree node with right child.
+   For AVL trees, this is a single rotation for case 1.
+   Update heights, then set new root.                */
 template<typename T>
 void AVLTree<T>::rotateWithRightChild(AvlNode*& k1){
     AvlNode *k2 = k1->right;
@@ -294,12 +279,20 @@ void AVLTree<T>::rotateWithRightChild(AvlNode*& k1){
     k1 = k2;
 }
 
+/* Double rotate binary tree node: first right child.
+   with its right child; then node k3 with new left child.
+   For AVL trees, this is a double rotation for case 2.
+   Update heights, then set new root.                  */
 template<typename T>
 void AVLTree<T>::doubleWithLeftChild(AvlNode*& k3){
     rotateWithRightChild(k3->left);
     rotateWithLeftChild(k3);
 }
 
+/* Double rotate binary tree node: first right child.
+   with its left child; then node k1 with new right child.
+   For AVL trees, this is a double rotation for case 3.
+   Update heights, then set new root.                  */
 template<typename T>
 void AVLTree<T>::doubleWithRightChild(AvlNode*& k1){
     rotateWithLeftChild(k1->right);
