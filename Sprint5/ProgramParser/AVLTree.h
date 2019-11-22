@@ -194,7 +194,7 @@ void AVLTree<T>::insert(const T& x, AvlNode*& t){
         }
     }
 
-    else;
+    else{}
 
     t->height = max(height(t->left), height(t->right)) + 1;
 }

@@ -4,15 +4,23 @@
 #include <list>
 #include <string>
 #include <vector>
+#include <cstdio>
 #include <iostream>
 #include "AVLTree.h"
+#include "porter2_stemmer.h"
 #include <experimental/filesystem>
+#include "rapidjson/prettywriter.h"
+#include "rapidjson/document.h"
+#include "rapidjson/filereadstream.h"
+
+using namespace rapidjson;
 
 namespace filesystem = std::experimental::filesystem;
 
 using std::cout;
 using std::endl;
 using std::list;
+using std::fopen;
 using std::vector;
 using std::string;
 
@@ -30,7 +38,7 @@ class Parser{
     public:
         Parser();
         Parser(char* []);
-        void addFolder(string);
+        void parseJSON(string);
         void removeStopWords();
         void stem(string);
 

@@ -7,8 +7,10 @@ LIBS += -lstdc++fs
 
 SOURCES += \
         main.cpp \
-        parser.cpp
+        parser.cpp \
+        porter2_stemmer.cpp
 
 HEADERS += \
     AVLTree.h \
-    parser.h
+    parser.h \
+    porter2_stemmer.h
