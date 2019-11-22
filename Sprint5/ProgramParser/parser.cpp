@@ -24,8 +24,8 @@ Parser::Parser(char* argv[]) : totNumFiles(0), totNumWordAppears(0), totNumOfApp
             makeLowerCase(stopWordString);
             stopWords.emplace(stopWordString);
         }
-        printStopWords(stopWords);
         allFileLocations = setFileLocations(file_name);
+        index.printTree();
     }
 }
 
@@ -65,6 +65,7 @@ void Parser::parseJSON(string pathString){
         int documentID = document["id"].GetInt();
         string caseTitle = getCaseTitle(document["absolute_url"].GetString());
         string author = document["author_str"].GetString();
+
         string htmlString = stripHTML(document["html"].GetString());
         htmlString = split2Word(htmlString);
 
@@ -77,11 +78,11 @@ void Parser::parseJSON(string pathString){
         if(htmlString != ""){
             cout << "\nCase[" << totNumFiles + 1 << "]: " << caseTitle;
             cout << " ********************************************************************" << endl;
-            cout << "Document ID: " << documentID << endl;
-            cout << "Author: " << author << endl;
-            cout << "HTML: " <<  htmlString << endl;
-            cout << "HTML_Lawbox: " << htmlLawbox << endl;
-            cout << "Plain_Text: " << plainString << endl;
+            cout << "-->Document ID: " << documentID << endl;
+            cout << "-->Author: " << author << endl;
+            cout << "-->HTML: " <<  htmlString << endl;
+            cout << "-->HTML_Lawbox: " << htmlLawbox << endl;
+            cout << "-->Plain_Text: " << plainString << endl;
         }
 }
 
@@ -177,7 +178,8 @@ string Parser::split2Word(string htmlString){
         else{
             count = 0;
             if(rmStopWord.size() != 0){
-                newString += rmStopWord + " ";
+                index.insert(rmStopWord);
+                newString += rmStopWord + "|";
             }
         }
     }

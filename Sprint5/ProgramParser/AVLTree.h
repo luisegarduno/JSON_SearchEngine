@@ -19,12 +19,12 @@ class AVLTree{
     private:
         class AvlNode{
             public:
-                int element;
+                T element;
                 AvlNode   *left;
                 AvlNode   *right;
                 int       height;
 
-                AvlNode(const int& theElement, AvlNode* lt, AvlNode* rt, int h = 0)
+                AvlNode(const T& theElement, AvlNode* lt, AvlNode* rt, int h = 0)
                     : element(theElement), left(lt), right(rt), height(h) {      }
         };
 
@@ -56,6 +56,7 @@ class AVLTree{
             else
                 return new AvlNode(t->element, clone(t->left), clone(t->right), t->height);
         }
+        void insert(const T & x, AvlNode * & t );
 
         bool contains(const T& x, AvlNode* t) const;
 
@@ -75,7 +76,7 @@ class AVLTree{
         AVLTree(const AVLTree & rhs);
         ~AVLTree();
 
-        void insert(const T & x, AvlNode * & t );
+
         const T& findMin() const;
         const T& findMax() const;
 
