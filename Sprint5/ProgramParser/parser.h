@@ -7,23 +7,30 @@
 #include <cstdio>
 #include <sstream>
 #include <iostream>
+#include <fstream>
 #include "AVLTree.h"
+#include <unordered_set>
 #include "porter2_stemmer.h"
-#include <experimental/filesystem>
 #include "rapidjson/document.h"
+#include <experimental/iterator>
+#include <experimental/filesystem>
 #include "rapidjson/filereadstream.h"
 
 using namespace rapidjson;
 
 namespace filesystem = std::experimental::filesystem;
 
+using std::copy;
 using std::cout;
 using std::endl;
 using std::list;
 using std::fopen;
 using std::vector;
 using std::string;
+using std::ifstream;
 using std::istringstream;
+using std::unordered_set;
+using std::ostream_iterator;
 
 class Parser{
     private:
@@ -33,6 +40,7 @@ class Parser{
         void setFileNames(string);
         list<string> setFileLocations(string);
 
+        unordered_set<string> stopWords;
         list<string> fileNamesOnly;
         list<string> allFileLocations;
 
@@ -45,6 +53,7 @@ class Parser{
         void stem(string);
 
         void printFileNames();
+        void printStopWords(unordered_set<string> const &);
         size_t getSizeOfFolder();
         string getCaseTitle(string);
         list<string> getFileLocations();

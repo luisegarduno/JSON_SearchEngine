@@ -14,3 +14,5 @@ HEADERS += \
     AVLTree.h \
     parser.h \
     porter2_stemmer.h
+
+DISTFILES +=

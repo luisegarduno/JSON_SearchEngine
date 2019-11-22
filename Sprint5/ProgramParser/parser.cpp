@@ -41,7 +41,7 @@ list<string> Parser::setFileLocations(string fileName){
         setFileNames(pathToString);
         totNumFiles++;
     }
-
+    removeStopWords();
     return allFileLocations;
 }
 
@@ -115,6 +115,25 @@ string Parser::getCaseTitle(string absolute_string){
     caseTitle.erase(caseTitle.size() - 1);
 
     return caseTitle;
+}
+
+void Parser::printStopWords(unordered_set<string> const& iterator){
+    copy(iterator.begin(), iterator.end(), ostream_iterator<string>(cout,"\n"));
+}
+
+void Parser::removeStopWords(){
+    ifstream inputFile("StopWords.txt");
+    string stopWordString;
+
+    if(!inputFile.is_open()){
+        cout << "ERROR" << endl;
+    }
+
+    while(inputFile >> stopWordString){
+        stopWords.emplace(stopWordString);
+    }
+    inputFile.close();
+
 }
 
 
