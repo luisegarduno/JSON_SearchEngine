@@ -62,7 +62,7 @@ void Parser::parseJSON(string pathString){
         string htmlLawbox = stripHTML(document["html_lawbox"].GetString());
         string plainString = stripHTML(document["plain_text"].GetString());
 
-        cout << "\nFile[" << totNumFiles + 1 << "]: " << caseTitle;
+        cout << "\nCase[" << totNumFiles + 1 << "]: " << caseTitle;
         cout << " ********************************************************************" << endl;
         cout << "Document ID: " << documentID << endl;
         cout << "Author: " << author << endl;
@@ -72,7 +72,6 @@ void Parser::parseJSON(string pathString){
 }
 
 string Parser::stripHTML(string htmlString){
-
     for(size_t start = 0; start < htmlString.size(); start++){
         if(htmlString[start] == '<'){
             size_t end = start;
@@ -89,16 +88,33 @@ string Parser::stripHTML(string htmlString){
 
 string Parser::getCaseTitle(string absolute_string){
     string caseTitle;
-    istringstream ss(absolute_string);
-
     string opponent1;
-
+    string opponent2;
+    istringstream ss(absolute_string);
 
     for(int i = 0; i < 4; i++){
         getline(ss,opponent1,'/');
     }
 
-    return opponent1;
+    opponent1[0] = char(toupper(opponent1[0]));
+
+    istringstream ss2(opponent1);
+    while(getline(ss2,opponent2,'-')){
+        if(opponent2 == "v"){
+            caseTitle += "Vs.";
+        }
+
+        else{
+            opponent2[0] = char(toupper(opponent2[0]));
+            caseTitle += opponent2;
+        }
+
+        caseTitle += " ";
+    }
+
+    caseTitle.erase(caseTitle.size() - 1);
+
+    return caseTitle;
 }
 
 
