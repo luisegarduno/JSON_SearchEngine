@@ -61,42 +61,34 @@ void Parser::parseJSON(string pathString){
         printf("\nAccess values in document:\n");
         printf("\tDocument ID: %d\n",document["id"].GetInt());
         printf("\tAuthor: %s\n", document["author_str"].GetString());
-        printf("HTML: = %s\n", document["html"].GetString());
-
-
-        // Iterating object members
-        static const char* kTypeNames[] = { "Null", "False", "True", "Object", "Array", "String", "Number" };
-        for (Value::ConstMemberIterator itr = document.MemberBegin(); itr != document.MemberEnd(); ++itr)
-           printf("Type of member %s is %s\n", itr->name.GetString(), kTypeNames[itr->value.GetType()]);
+        printf("HTML: %s\n", document["html"].GetString());
+        printf("HTML_Lawbox: %s\n", document["html_lawbox"].GetString());
+        printf("Plain_Text: %s\n", document["plain_text"].GetString());
 
     // 3. Modify values in document.
 
         {
-            document["html"].SetString("rapidjson", 9);
+            string htmlString = document["html"].GetString();
+            cout << "String size: " << htmlString.size() << endl;
+            for(unsigned int start = 0; start < htmlString.size(); start++){
+                cout << "HERE[" << start << "]: " << htmlString[start] << endl;
+                cout << "\tHTML: " << htmlString << endl;
+                if(htmlString[start] == '<'){
+                    unsigned int end = start;
+
+                    while(htmlString[end] != '>' && end < htmlString.size()){
+                        end++;
+                    }
+                    htmlString.erase(start, end - start + 1);
+                    start--;
+                }
+            }
+
+            cout << "FINAL: " << htmlString << endl;
+            rapidjson::SizeType theSize = rapidjson::SizeType(htmlString.size());
+            document["html"].SetString(htmlString.c_str(), theSize);
         }
-        cout << "here" << endl;
 
-        // This version of SetString() needs an allocator, which means it will allocate a new buffer and copy the the string into the buffer.
-        Value author;
-        {
-           char buffer2[10];
-           int len = sprintf(buffer2, "%s %s", "Milo", "Yip");  // synthetic example of dynamically created string.
-
-           author.SetString(buffer2, static_cast<SizeType>(len), document.GetAllocator());
-           // Shorter but slower version:
-           // document["hello"].SetString(buffer, document.GetAllocator());
-
-           // Constructor version:
-           // Value author(buffer, len, document.GetAllocator());
-           // Value author(buffer, document.GetAllocator());
-           memset(buffer2, 0, sizeof(buffer2)); // For demonstration purpose.
-        }
-        // Variable 'buffer' is unusable now but 'author' has already made a copy.
-        document.AddMember("author", author, document.GetAllocator());
-
-        assert(author.IsNull());        // Move semantic for assignment. After this variable is assigned as a member, the variable becomes null.
-
-        ////////////////////////////////////////////////////////////////////////////
 // 4. Stringify JSON
 
         printf("\nModified JSON with reformatting:\n");
