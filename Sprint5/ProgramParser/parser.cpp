@@ -56,12 +56,14 @@ void Parser::parseJSON(string pathString){
         fclose(fp);
 
         int documentID = document["id"].GetInt();
+        string caseTitle = getCaseTitle(document["absolute_url"].GetString());
         string author = document["author_str"].GetString();
         string htmlString = stripHTML(document["html"].GetString());
         string htmlLawbox = stripHTML(document["html_lawbox"].GetString());
         string plainString = stripHTML(document["plain_text"].GetString());
 
-        cout << "\nFile[" << totNumFiles + 1 << "]********************************************************************" << endl;
+        cout << "\nFile[" << totNumFiles + 1 << "]: " << caseTitle;
+        cout << " ********************************************************************" << endl;
         cout << "Document ID: " << documentID << endl;
         cout << "Author: " << author << endl;
         cout << "HTML: " <<  htmlString << endl;
@@ -71,9 +73,9 @@ void Parser::parseJSON(string pathString){
 
 string Parser::stripHTML(string htmlString){
 
-    for(unsigned int start = 0; start < htmlString.size(); start++){
+    for(size_t start = 0; start < htmlString.size(); start++){
         if(htmlString[start] == '<'){
-            unsigned int end = start;
+            size_t end = start;
 
             while(htmlString[end] != '>' && end < htmlString.size()){
                 end++;
@@ -83,6 +85,20 @@ string Parser::stripHTML(string htmlString){
         }
     }
     return htmlString;
+}
+
+string Parser::getCaseTitle(string absolute_string){
+    string caseTitle;
+    istringstream ss(absolute_string);
+
+    string opponent1;
+
+
+    for(int i = 0; i < 4; i++){
+        getline(ss,opponent1,'/');
+    }
+
+    return opponent1;
 }
 
 

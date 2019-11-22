@@ -5,11 +5,11 @@
 #include <string>
 #include <vector>
 #include <cstdio>
+#include <sstream>
 #include <iostream>
 #include "AVLTree.h"
 #include "porter2_stemmer.h"
 #include <experimental/filesystem>
-#include "rapidjson/prettywriter.h"
 #include "rapidjson/document.h"
 #include "rapidjson/filereadstream.h"
 
@@ -23,6 +23,7 @@ using std::list;
 using std::fopen;
 using std::vector;
 using std::string;
+using std::istringstream;
 
 class Parser{
     private:
@@ -45,6 +46,7 @@ class Parser{
 
         void printFileNames();
         size_t getSizeOfFolder();
+        string getCaseTitle(string);
         list<string> getFileLocations();
         list<string> getFileNamesOnly();
 };
