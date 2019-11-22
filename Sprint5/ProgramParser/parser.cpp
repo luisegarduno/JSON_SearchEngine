@@ -17,10 +17,13 @@ Parser::Parser(char* argv[]) : totNumFiles(0), totNumWordAppears(0), totNumOfApp
         // Information window is displayed containing selected folder
         cout << "File Selected: " <<  file_name << endl;
 
-        ifstream inputFile("StopWords.txt");
+        ifstream inputFile("StopWords.txt");        // https://countwordsfree.com/stopwords
         string stopWordString;
 
         while(inputFile >> stopWordString){
+            stopWordString.erase(remove_if(stopWordString.begin(),stopWordString.end(), [] (char it){
+                return !((it >= 'a' && it <= 'z') || it == '\'');
+            }), stopWordString.end());
             makeLowerCase(stopWordString);
             stopWords.emplace(stopWordString);
         }
@@ -53,27 +56,34 @@ list<string> Parser::setFileLocations(string fileName){
 }
 
 void Parser::parseJSON(string pathString){
-        FILE* fp = fopen(pathString.c_str(), "rb"); // non-Windows use "r"
+        FILE* fp = fopen(pathString.c_str() ,"rb"); // non-Windows use "r"
 
         char readBuffer[65536];
-        FileReadStream is(fp, readBuffer, sizeof(readBuffer));
+        FileReadStream is(fp, readBuffer, 65536);
 
-        Document document;
+        Document document;// document;
         document.ParseStream(is);
         fclose(fp);
 
+
         int documentID = document["id"].GetInt();
+
         string caseTitle = getCaseTitle(document["absolute_url"].GetString());
         string author = document["author_str"].GetString();
+        string htmlString,htmlLawbox;
+        if(document.HasMember("html") && document["html"].IsString()){
+            htmlString = stripHTML(document["html"].GetString());
+            htmlString = split2Word(htmlString);
+        }
 
-        string htmlString = stripHTML(document["html"].GetString());
-        htmlString = split2Word(htmlString);
-
-        string htmlLawbox = stripHTML(document["html_lawbox"].GetString());
-        htmlLawbox = split2Word(htmlLawbox);
+        if(document.HasMember("html_lawbox") && document["html_lawbox"].IsString()){
+            htmlLawbox = stripHTML(document["html_lawbox"].GetString());
+            htmlLawbox = split2Word(htmlLawbox);
+        }
 
         string plainString = stripHTML(document["plain_text"].GetString());
         plainString = split2Word(plainString);
+
 
         if(htmlString != ""){
             cout << "\nCase[" << totNumFiles + 1 << "]: " << caseTitle;
@@ -84,6 +94,7 @@ void Parser::parseJSON(string pathString){
             cout << "-->HTML_Lawbox: " << htmlLawbox << endl;
             cout << "-->Plain_Text: " << plainString << endl;
         }
+
 }
 
 string Parser::stripHTML(string htmlString){
@@ -178,6 +189,7 @@ string Parser::split2Word(string htmlString){
         else{
             count = 0;
             if(rmStopWord.size() != 0){
+                Porter2Stemmer::stem(rmStopWord);
                 index.insert(rmStopWord);
                 newString += rmStopWord + "|";
             }
@@ -186,10 +198,6 @@ string Parser::split2Word(string htmlString){
 
     return newString;
 }
-
-//string Parser::stem(string& aValue){
-
-//}
 
 string& Parser::makeLowerCase(string& aWord){
     for(size_t aSize = 0; aSize < aWord.size(); aSize++){

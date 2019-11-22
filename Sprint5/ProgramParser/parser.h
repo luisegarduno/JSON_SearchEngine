@@ -56,7 +56,6 @@ class Parser{
         string& makeLowerCase(string&);
         string removeStopWords(string&);
         bool checkIfstopWord(string&);
-        string stem(string&);
 
         void printFileNames();
         void printStopWords(unordered_set<string> const&);
