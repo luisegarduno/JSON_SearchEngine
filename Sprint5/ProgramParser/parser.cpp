@@ -46,7 +46,6 @@ list<string> Parser::setFileLocations(string fileName){
 }
 
 void Parser::parseJSON(string pathString){
-    // 1. Parse a JSON text string to a document.
         FILE* fp = fopen(pathString.c_str(), "rb"); // non-Windows use "r"
 
         char readBuffer[65536];
@@ -56,46 +55,34 @@ void Parser::parseJSON(string pathString){
         document.ParseStream(is);
         fclose(fp);
 
-    // 2. Access values in document.
+        int documentID = document["id"].GetInt();
+        string author = document["author_str"].GetString();
+        string htmlString = stripHTML(document["html"].GetString());
+        string htmlLawbox = stripHTML(document["html_lawbox"].GetString());
+        string plainString = stripHTML(document["plain_text"].GetString());
 
-        printf("\nAccess values in document:\n");
-        printf("\tDocument ID: %d\n",document["id"].GetInt());
-        printf("\tAuthor: %s\n", document["author_str"].GetString());
-        printf("HTML: %s\n", document["html"].GetString());
-        printf("HTML_Lawbox: %s\n", document["html_lawbox"].GetString());
-        printf("Plain_Text: %s\n", document["plain_text"].GetString());
+        cout << "\nFile[" << totNumFiles + 1 << "]********************************************************************" << endl;
+        cout << "Document ID: " << documentID << endl;
+        cout << "Author: " << author << endl;
+        cout << "HTML: " <<  htmlString << endl;
+        cout << "HTML_Lawbox: " << htmlLawbox << endl;
+        cout << "Plain_Text: " << plainString << endl;
+}
 
-    // 3. Modify values in document.
+string Parser::stripHTML(string htmlString){
 
-        {
-            string htmlString = document["html"].GetString();
-            cout << "String size: " << htmlString.size() << endl;
-            for(unsigned int start = 0; start < htmlString.size(); start++){
-                cout << "HERE[" << start << "]: " << htmlString[start] << endl;
-                cout << "\tHTML: " << htmlString << endl;
-                if(htmlString[start] == '<'){
-                    unsigned int end = start;
+    for(unsigned int start = 0; start < htmlString.size(); start++){
+        if(htmlString[start] == '<'){
+            unsigned int end = start;
 
-                    while(htmlString[end] != '>' && end < htmlString.size()){
-                        end++;
-                    }
-                    htmlString.erase(start, end - start + 1);
-                    start--;
-                }
+            while(htmlString[end] != '>' && end < htmlString.size()){
+                end++;
             }
-
-            cout << "FINAL: " << htmlString << endl;
-            rapidjson::SizeType theSize = rapidjson::SizeType(htmlString.size());
-            document["html"].SetString(htmlString.c_str(), theSize);
+            htmlString.erase(start, end - start + 1);
+            start--;
         }
-
-// 4. Stringify JSON
-
-        printf("\nModified JSON with reformatting:\n");
-        StringBuffer sb;
-        PrettyWriter<StringBuffer> writer(sb);
-        document.Accept(writer);    // Accept() traverses the DOM and generates Handler events.
-        puts(sb.GetString());
+    }
+    return htmlString;
 }
 
 

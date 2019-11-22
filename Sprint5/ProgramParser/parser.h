@@ -39,6 +39,7 @@ class Parser{
         Parser();
         Parser(char* []);
         void parseJSON(string);
+        string stripHTML(string);
         void removeStopWords();
         void stem(string);
 
