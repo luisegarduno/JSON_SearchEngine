@@ -52,6 +52,7 @@ class Parser{
         Parser(char* []);
         void parseJSON(string);
         string stripHTML(string);
+        string split2Word(string);
         string& makeLowerCase(string&);
         string removeStopWords(string&);
         bool checkIfstopWord(string&);

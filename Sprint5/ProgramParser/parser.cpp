@@ -66,29 +66,23 @@ void Parser::parseJSON(string pathString){
         string caseTitle = getCaseTitle(document["absolute_url"].GetString());
         string author = document["author_str"].GetString();
         string htmlString = stripHTML(document["html"].GetString());
-        {
-            istringstream stream(htmlString);
-            string word;
-            while(stream >> word){
-                string rmStopWord = removeStopWords(word);
-                cout << rmStopWord << endl;
-            }
-        }
-        htmlString = removeStopWords(htmlString);
+        htmlString = split2Word(htmlString);
 
         string htmlLawbox = stripHTML(document["html_lawbox"].GetString());
-        htmlLawbox = removeStopWords(htmlLawbox);
+        htmlLawbox = split2Word(htmlLawbox);
 
         string plainString = stripHTML(document["plain_text"].GetString());
-        plainString = removeStopWords(htmlLawbox);
+        plainString = split2Word(plainString);
 
-        cout << "\nCase[" << totNumFiles + 1 << "]: " << caseTitle;
-        cout << " ********************************************************************" << endl;
-        cout << "Document ID: " << documentID << endl;
-        cout << "Author: " << author << endl;
-        cout << "HTML: " <<  htmlString << endl;
-        cout << "HTML_Lawbox: " << htmlLawbox << endl;
-        cout << "Plain_Text: " << plainString << endl;
+        if(htmlString != ""){
+            cout << "\nCase[" << totNumFiles + 1 << "]: " << caseTitle;
+            cout << " ********************************************************************" << endl;
+            cout << "Document ID: " << documentID << endl;
+            cout << "Author: " << author << endl;
+            cout << "HTML: " <<  htmlString << endl;
+            cout << "HTML_Lawbox: " << htmlLawbox << endl;
+            cout << "Plain_Text: " << plainString << endl;
+        }
 }
 
 string Parser::stripHTML(string htmlString){
@@ -159,10 +153,36 @@ string Parser::removeStopWords(string& aValue){
     }
 
     if(stopWords.count(parsedString) > 0){
-        return "******";
+        return "";
     }
 
     return parsedString;
+}
+
+string Parser::split2Word(string htmlString){
+    istringstream stream(htmlString);
+    string word;
+    string newString;
+    int count = 0;
+    while(stream >> word){
+        string rmStopWord = removeStopWords(word);
+
+        if(rmStopWord == "certiorari" || rmStopWord == "petition"){
+            count = 1;
+        }
+        else if((rmStopWord == "denied" || rmStopWord == "for") && count == 1){
+            newString = "";
+            return newString;
+        }
+        else{
+            count = 0;
+            if(rmStopWord.size() != 0){
+                newString += rmStopWord + " ";
+            }
+        }
+    }
+
+    return newString;
 }
 
 //string Parser::stem(string& aValue){
