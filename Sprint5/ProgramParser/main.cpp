@@ -1,9 +1,11 @@
 #include <iostream>
+#include "parser.h"
 
 using namespace std;
 
 int main(int argc, char *argv[]){
-    cout << "Hello World!" << endl;
+    Parser newParser = Parser(argv);
+    newParser.printFileNames();
 
 
     return 0;
