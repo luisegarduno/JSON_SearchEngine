@@ -17,6 +17,7 @@ int main(int argc, char *argv[]){
 
         else {
             Parser newParse = Parser(argv);
+            cout << "done" << endl;
         }
      }
 

@@ -30,7 +30,7 @@ class AVLTree{
 
         AvlNode* root;
 
-        void insert(const T & x, AvlNode * & t );
+
 
         AvlNode* findMin(AvlNode *t) const{
             if(t == nullptr)
@@ -75,6 +75,7 @@ class AVLTree{
         AVLTree(const AVLTree & rhs);
         ~AVLTree();
 
+        void insert(const T & x, AvlNode * & t );
         const T& findMin() const;
         const T& findMax() const;
 

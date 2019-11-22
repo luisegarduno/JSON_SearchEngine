@@ -17,6 +17,14 @@ Parser::Parser(char* argv[]) : totNumFiles(0), totNumWordAppears(0), totNumOfApp
         // Information window is displayed containing selected folder
         cout << "File Selected: " <<  file_name << endl;
 
+        ifstream inputFile("StopWords.txt");
+        string stopWordString;
+
+        while(inputFile >> stopWordString){
+            makeLowerCase(stopWordString);
+            stopWords.emplace(stopWordString);
+        }
+        printStopWords(stopWords);
         allFileLocations = setFileLocations(file_name);
     }
 }
@@ -41,7 +49,6 @@ list<string> Parser::setFileLocations(string fileName){
         setFileNames(pathToString);
         totNumFiles++;
     }
-    removeStopWords();
     return allFileLocations;
 }
 
@@ -59,8 +66,21 @@ void Parser::parseJSON(string pathString){
         string caseTitle = getCaseTitle(document["absolute_url"].GetString());
         string author = document["author_str"].GetString();
         string htmlString = stripHTML(document["html"].GetString());
+        {
+            istringstream stream(htmlString);
+            string word;
+            while(stream >> word){
+                string rmStopWord = removeStopWords(word);
+                cout << rmStopWord << endl;
+            }
+        }
+        htmlString = removeStopWords(htmlString);
+
         string htmlLawbox = stripHTML(document["html_lawbox"].GetString());
+        htmlLawbox = removeStopWords(htmlLawbox);
+
         string plainString = stripHTML(document["plain_text"].GetString());
+        plainString = removeStopWords(htmlLawbox);
 
         cout << "\nCase[" << totNumFiles + 1 << "]: " << caseTitle;
         cout << " ********************************************************************" << endl;
@@ -118,22 +138,52 @@ string Parser::getCaseTitle(string absolute_string){
 }
 
 void Parser::printStopWords(unordered_set<string> const& iterator){
-    copy(iterator.begin(), iterator.end(), ostream_iterator<string>(cout,"\n"));
+    copy(iterator.begin(), iterator.end(), ostream_iterator<string>(cout,"|"));
 }
 
-void Parser::removeStopWords(){
-    ifstream inputFile("StopWords.txt");
-    string stopWordString;
+string Parser::removeStopWords(string& aValue){
+    string parsedString = aValue;
 
-    if(!inputFile.is_open()){
-        cout << "ERROR" << endl;
+    if(parsedString.size() == 0){
+        return parsedString;
     }
 
-    while(inputFile >> stopWordString){
-        stopWords.emplace(stopWordString);
-    }
-    inputFile.close();
+    makeLowerCase(parsedString);
 
+    parsedString.erase(remove_if(parsedString.begin(),parsedString.end(), [] (char it){
+        return !((it >= 'a' && it <= 'z') || it == '\'');
+    }), parsedString.end());
+
+    if(parsedString.size() == 0){
+        return parsedString;
+    }
+
+    if(stopWords.count(parsedString) > 0){
+        return "******";
+    }
+
+    return parsedString;
+}
+
+//string Parser::stem(string& aValue){
+
+//}
+
+string& Parser::makeLowerCase(string& aWord){
+    for(size_t aSize = 0; aSize < aWord.size(); aSize++){
+        aWord[aSize] = char(tolower(aWord[aSize]));
+    }
+    return aWord;
+}
+
+bool Parser::checkIfstopWord(string& word){
+    string tempWord = word;
+
+    if(tempWord.size() == 0){
+        return false;
+    }
+
+    return stopWords.count(tempWord) > 0;
 }
 
 

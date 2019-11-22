@@ -6,8 +6,9 @@
 #include <vector>
 #include <cstdio>
 #include <sstream>
-#include <iostream>
 #include <fstream>
+#include <iostream>
+#include <algorithm>
 #include "AVLTree.h"
 #include <unordered_set>
 #include "porter2_stemmer.h"
@@ -28,12 +29,14 @@ using std::fopen;
 using std::vector;
 using std::string;
 using std::ifstream;
+using std::remove_if;
 using std::istringstream;
 using std::unordered_set;
 using std::ostream_iterator;
 
 class Parser{
     private:
+        AVLTree<string> index;
         size_t totNumFiles;
         int totNumWordAppears;
         int totNumOfApperances;
@@ -49,11 +52,13 @@ class Parser{
         Parser(char* []);
         void parseJSON(string);
         string stripHTML(string);
-        void removeStopWords();
-        void stem(string);
+        string& makeLowerCase(string&);
+        string removeStopWords(string&);
+        bool checkIfstopWord(string&);
+        string stem(string&);
 
         void printFileNames();
-        void printStopWords(unordered_set<string> const &);
+        void printStopWords(unordered_set<string> const&);
         size_t getSizeOfFolder();
         string getCaseTitle(string);
         list<string> getFileLocations();
