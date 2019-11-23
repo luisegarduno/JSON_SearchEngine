@@ -1,16 +1,16 @@
 #include "parser.h"
 
-Parser::Parser() : totNumNodes(0), totDocsFound(0), totNumOfApperances(0){
-}
-
 Parser::Parser(char* argv[]) : totNumNodes(0), totDocsFound(0), totNumOfApperances(0){
-    string file_name;
-    file_name = argv[1];
+    string file_name = argv[1];
     currentWord = argv[2];
+    fileIsValidFlag = true;
+    index = new AVLTree<string>;
 
-    currentWord.erase(remove_if(currentWord.begin(),currentWord.end(), [] (char it){
-        return !((it >= 'a' && it <= 'z') || it == '\'');
-    }), currentWord.end());
+    currentWord.erase(remove_if(currentWord.begin(),currentWord.end(),[] (char it){
+                                    return !((it >= 'a' && it <= 'z') || it == '\''); }),
+                      currentWord.end()
+                      );
+
     makeLowerCase(currentWord);
     Porter2Stemmer::stem(currentWord);
 
@@ -21,9 +21,6 @@ Parser::Parser(char* argv[]) : totNumNodes(0), totDocsFound(0), totNumOfApperanc
         cout << "Error: " << noFile + tryAgain << endl;
     }
     else{
-        // Information window is displayed containing selected folder
-        cout << "File Selected: " <<  file_name << endl;
-
         ifstream inputFile("StopWords.txt");        // https://countwordsfree.com/stopwords
         string stopWordString;
 
@@ -34,12 +31,11 @@ Parser::Parser(char* argv[]) : totNumNodes(0), totDocsFound(0), totNumOfApperanc
             makeLowerCase(stopWordString);
             stopWords.emplace(stopWordString);
         }
-        allFileLocations = setFileLocations(file_name);
-        index.printTree();
+        parseCurrentFile(file_name);
     }
 }
 
-list<string> Parser::setFileLocations(string fileName){
+void Parser::parseCurrentFile(string fileName){
     list<string> allFileLocations;
 
     filesystem::directory_iterator end;
@@ -51,31 +47,19 @@ list<string> Parser::setFileLocations(string fileName){
         string pathToString = dirToPath.string();
 
         parseJSON(pathToString);
-
-        // string is appended to end of vector
-        allFileLocations.push_back(pathToString);
-
-        // string is parsed to filename, and added to vector
-        setFileNames(pathToString);
     }
-    return allFileLocations;
 }
 
 void Parser::parseJSON(string pathString){
         FILE* fp = fopen(pathString.c_str() ,"rb"); // non-Windows use "r"
 
-        char readBuffer[65536];
+        char * readBuffer = new char[65536];
         FileReadStream is(fp, readBuffer, 65536);
 
         Document document;// document;
         document.ParseStream(is);
         fclose(fp);
 
-
-        int documentID = document["id"].GetInt();
-
-        string caseTitle = getCaseTitle(document["absolute_url"].GetString());
-        string author = document["author_str"].GetString();
         string htmlString,htmlLawbox;
         if(document.HasMember("html") && document["html"].IsString()){
             htmlString = stripHTML(document["html"].GetString());
@@ -91,17 +75,11 @@ void Parser::parseJSON(string pathString){
         plainString = split2Word(plainString);
 
 
-        if(htmlString != ""){
-            cout << "\nCase[" << ++totNumNodes << "]: " << caseTitle;
-            cout << " ********************************************************************" << endl;
-            cout << "-->Document ID: " << documentID << endl;
-            cout << "-->Author: " << author << endl;
-            cout << "-->HTML: " <<  htmlString << endl;
-            cout << "-->HTML_Lawbox: " << htmlLawbox << endl;
-            cout << "-->Plain_Text: " << plainString << endl;
+        if(htmlString != "" && fileIsValidFlag){
+            ++totNumNodes;
         }
 
-
+        delete [] readBuffer;
 }
 
 string Parser::stripHTML(string htmlString){
@@ -117,41 +95,6 @@ string Parser::stripHTML(string htmlString){
         }
     }
     return htmlString;
-}
-
-string Parser::getCaseTitle(string absolute_string){
-    string caseTitle;
-    string opponent1;
-    string opponent2;
-    istringstream ss(absolute_string);
-
-    for(int i = 0; i < 4; i++){
-        getline(ss,opponent1,'/');
-    }
-
-    opponent1[0] = char(toupper(opponent1[0]));
-
-    istringstream ss2(opponent1);
-    while(getline(ss2,opponent2,'-')){
-        if(opponent2 == "v"){
-            caseTitle += "Vs.";
-        }
-
-        else{
-            opponent2[0] = char(toupper(opponent2[0]));
-            caseTitle += opponent2;
-        }
-
-        caseTitle += " ";
-    }
-
-    caseTitle.erase(caseTitle.size() - 1);
-
-    return caseTitle;
-}
-
-void Parser::printStopWords(unordered_set<string> const& iterator){
-    copy(iterator.begin(), iterator.end(), ostream_iterator<string>(cout,"|"));
 }
 
 string Parser::removeStopWords(string& aValue){
@@ -180,8 +123,7 @@ string Parser::removeStopWords(string& aValue){
 
 string Parser::split2Word(string htmlString){
     istringstream stream(htmlString);
-    string word;
-    string newString;
+    string word, newString;
     int count = 0;
     bool wordFoundInDoc = false;
     while(stream >> word){
@@ -192,10 +134,20 @@ string Parser::split2Word(string htmlString){
         }
         else if((rmStopWord == "denied" || rmStopWord == "for") && count == 1){
             newString = "";
+            if(rmStopWord == "denied"){
+                fileIsValidFlag = false;
+                return newString;
+            }
+            count = 2;
+        }
+        else if(rmStopWord == "for" && count == 2){
+            newString = "";
+            fileIsValidFlag = false;
             return newString;
         }
         else{
             count = 0;
+            fileIsValidFlag = true;
             if(rmStopWord.size() != 0){
                 Porter2Stemmer::stem(rmStopWord);
                 if(rmStopWord == currentWord){
@@ -205,7 +157,7 @@ string Parser::split2Word(string htmlString){
                         wordFoundInDoc = true;
                     }
                 }
-                index.insert(rmStopWord);
+                index->insert(rmStopWord);
                 newString += rmStopWord + "|";
             }
         }
@@ -222,34 +174,14 @@ string& Parser::makeLowerCase(string& aWord){
 }
 
 bool Parser::checkIfstopWord(string& word){
-    string tempWord = word;
-
-    if(tempWord.size() == 0){
+    if(word.size() == 0){
         return false;
     }
 
-    return stopWords.count(tempWord) > 0;
-}
-
-
-void Parser::setFileNames(string fileName){
-    fileName.erase(0,133);
-
-    fileNamesOnly.push_back(fileName);
-}
-
-// returns vector of strings containing file locations
-list<string> Parser::getFileNamesOnly(){
-    return fileNamesOnly;
-}
-
-// returns vector of strings containing file locations
-list<string> Parser::getFileLocations(){
-    return allFileLocations;
+    return stopWords.count(word) > 0;
 }
 
 size_t Parser::getTotNumNodes(){
-
     if(totNumNodes > 0){
         return totNumNodes;
     }
@@ -258,7 +190,6 @@ size_t Parser::getTotNumNodes(){
 }
 
 int Parser::getTotDocsFound(){
-
     if(totDocsFound > 0){
         return totDocsFound;
     }
@@ -267,17 +198,9 @@ int Parser::getTotDocsFound(){
 }
 
 int Parser::getTotNumOfAppearances(){
-
     if(totNumOfApperances > 0){
         return totNumOfApperances;
     }
 
     return 0;
-}
-
-void Parser::printFileNames(){
-    int fileCounter = 0;
-    for(auto const &v : fileNamesOnly){
-        cout << "File[" << ++fileCounter << "]: " << v << "\n" ;
-    }
 }

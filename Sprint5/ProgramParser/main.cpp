@@ -1,7 +1,28 @@
 #include <iostream>
+#include <chrono>
 #include "parser.h"
 
 using namespace std;
+
+using std::chrono::high_resolution_clock;
+
+class Timer{
+    private:
+        using clock_t = high_resolution_clock;
+        using milli_t = std::chrono::duration<int,std::milli>;
+
+        std::chrono::time_point<clock_t> m_beg;
+
+    public:
+        Timer() : m_beg(clock_t::now()){}
+        void reset(){
+            m_beg = clock_t::now();
+        }
+
+        int elapsed() const{
+            return std::chrono::duration_cast<milli_t>(clock_t::now() - m_beg).count();
+        }
+};
 
 class missingFilesException{
     public:
@@ -16,15 +37,16 @@ int main(int argc, char *argv[]){
             throw missingFilesException{};      // throw custom exception
 
         else {
+            Timer theTime;
             Parser newParse = Parser(argv);
 
-            cout << "\n/*******************************************************************\\" << endl;
-            cout << "\tTotal Nodes: " << newParse.getTotNumNodes() << endl;
-            cout << "\tTotal Number of Files '" << argv[2] << "' appears in: " << newParse.getTotDocsFound() << endl;
-            cout << "\tTotal Number of appearances: " << newParse.getTotNumOfAppearances() << endl;
-            cout << "/*******************************************************************\\" << endl;
+            printf("tot nodes: %d\n", int(newParse.getTotNumNodes()));
+            printf("tot # of files containing '%s': %d\n", argv[2], newParse.getTotDocsFound());
+            printf("tot times found: %d\n", newParse.getTotNumOfAppearances());
+            printf("time: %d\n", theTime.elapsed());
 
-            cout << "Exiting Program" << endl;
+
+            //cout << "Exiting Program" << endl;
         }
      }
 
