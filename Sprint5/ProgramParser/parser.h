@@ -37,8 +37,9 @@ using std::ostream_iterator;
 class Parser{
     private:
         AVLTree<string> index;
-        size_t totNumFiles;
-        int totNumWordAppears;
+        size_t totNumNodes;
+        string currentWord;
+        int totDocsFound;
         int totNumOfApperances;
         void setFileNames(string);
         list<string> setFileLocations(string);
@@ -59,7 +60,9 @@ class Parser{
 
         void printFileNames();
         void printStopWords(unordered_set<string> const&);
-        size_t getSizeOfFolder();
+        size_t getTotNumNodes();
+        int getTotDocsFound();
+        int getTotNumOfAppearances();
         string getCaseTitle(string);
         list<string> getFileLocations();
         list<string> getFileNamesOnly();

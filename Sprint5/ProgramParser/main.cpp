@@ -17,8 +17,14 @@ int main(int argc, char *argv[]){
 
         else {
             Parser newParse = Parser(argv);
-            cout << "Number of files Indexed: " << newParse.getSizeOfFolder() << endl;
-            cout << "done" << endl;
+
+            cout << "\n/*******************************************************************\\" << endl;
+            cout << "\tTotal Nodes: " << newParse.getTotNumNodes() << endl;
+            cout << "\tTotal Number of Files '" << argv[2] << "' appears in: " << newParse.getTotDocsFound() << endl;
+            cout << "\tTotal Number of appearances: " << newParse.getTotNumOfAppearances() << endl;
+            cout << "/*******************************************************************\\" << endl;
+
+            cout << "Exiting Program" << endl;
         }
      }
 

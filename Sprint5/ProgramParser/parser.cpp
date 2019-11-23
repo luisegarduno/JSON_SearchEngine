@@ -1,11 +1,18 @@
 #include "parser.h"
 
-Parser::Parser() : totNumFiles(0), totNumWordAppears(0), totNumOfApperances(0){
+Parser::Parser() : totNumNodes(0), totDocsFound(0), totNumOfApperances(0){
 }
 
-Parser::Parser(char* argv[]) : totNumFiles(0), totNumWordAppears(0), totNumOfApperances(0){
+Parser::Parser(char* argv[]) : totNumNodes(0), totDocsFound(0), totNumOfApperances(0){
     string file_name;
     file_name = argv[1];
+    currentWord = argv[2];
+
+    currentWord.erase(remove_if(currentWord.begin(),currentWord.end(), [] (char it){
+        return !((it >= 'a' && it <= 'z') || it == '\'');
+    }), currentWord.end());
+    makeLowerCase(currentWord);
+    Porter2Stemmer::stem(currentWord);
 
     // If no file was selected, display warning message
     if(file_name == ""){
@@ -50,7 +57,6 @@ list<string> Parser::setFileLocations(string fileName){
 
         // string is parsed to filename, and added to vector
         setFileNames(pathToString);
-        totNumFiles++;
     }
     return allFileLocations;
 }
@@ -86,7 +92,7 @@ void Parser::parseJSON(string pathString){
 
 
         if(htmlString != ""){
-            cout << "\nCase[" << totNumFiles + 1 << "]: " << caseTitle;
+            cout << "\nCase[" << ++totNumNodes << "]: " << caseTitle;
             cout << " ********************************************************************" << endl;
             cout << "-->Document ID: " << documentID << endl;
             cout << "-->Author: " << author << endl;
@@ -94,6 +100,7 @@ void Parser::parseJSON(string pathString){
             cout << "-->HTML_Lawbox: " << htmlLawbox << endl;
             cout << "-->Plain_Text: " << plainString << endl;
         }
+
 
 }
 
@@ -176,6 +183,7 @@ string Parser::split2Word(string htmlString){
     string word;
     string newString;
     int count = 0;
+    bool wordFoundInDoc = false;
     while(stream >> word){
         string rmStopWord = removeStopWords(word);
 
@@ -190,6 +198,13 @@ string Parser::split2Word(string htmlString){
             count = 0;
             if(rmStopWord.size() != 0){
                 Porter2Stemmer::stem(rmStopWord);
+                if(rmStopWord == currentWord){
+                    ++totNumOfApperances;
+                    if(wordFoundInDoc == false){
+                        ++totDocsFound;
+                        wordFoundInDoc = true;
+                    }
+                }
                 index.insert(rmStopWord);
                 newString += rmStopWord + "|";
             }
@@ -233,10 +248,28 @@ list<string> Parser::getFileLocations(){
     return allFileLocations;
 }
 
-size_t Parser::getSizeOfFolder(){
+size_t Parser::getTotNumNodes(){
 
-    if(totNumFiles > 0){
-        return totNumFiles;
+    if(totNumNodes > 0){
+        return totNumNodes;
+    }
+
+    return 0;
+}
+
+int Parser::getTotDocsFound(){
+
+    if(totDocsFound > 0){
+        return totDocsFound;
+    }
+
+    return 0;
+}
+
+int Parser::getTotNumOfAppearances(){
+
+    if(totNumOfApperances > 0){
+        return totNumOfApperances;
     }
 
     return 0;
