@@ -32,9 +32,6 @@ class AVLTree{
         };
 
         AvlNode* root;
-
-
-
         AvlNode* findMin(AvlNode *t) const{
             if(t == nullptr)
                 return nullptr;
