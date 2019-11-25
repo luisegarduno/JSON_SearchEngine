@@ -74,6 +74,10 @@ void Interactive::on_Statistics_clicked(){
     QMessageBox::information(this,"Let's Search : Statistics",theStatistics);
 }
 
+void Interactive::setFileDirectory(vector<string> providedVector){
+
+}
+
 int Interactive::getNumOfOpinions(){
     return numberOfOpinions;
 }

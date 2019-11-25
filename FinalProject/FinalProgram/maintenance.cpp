@@ -32,7 +32,7 @@ void Maintenance::on_AddFolder_Button_clicked(){
     QString file_name;
     // Opens local file directory, user is able to navigate to select desired folder
     //file_name = QFileDialog::getExistingDirectory(this, "Open Folder", QDir::homePath());
-    file_name = QFileDialog::getExistingDirectory(this,"Open Folder","/home/student/Desktop/MyProjects/CSE2341-F19-Luis-Garduno/FinalProject/build-FinalProgram-Desktop_Qt_5_10_0_GCC_64bit-Debug/");
+    file_name = QFileDialog::getExistingDirectory(this,"Open Folder","/home/student/Desktop/MyProjects/CSE2341-F19-Luis-Garduno/FinalProject/FinalProgram");
 
     // If no file was selected, display warning message
     if(file_name == ""){
@@ -67,22 +67,10 @@ vector<string> Maintenance::setFileLocations(string fileName){
         allFileLocations.push_back(pathToString);
 
         // string is parsed to filename, and added to vector
-        setFileNames(pathToString);
-        totalFilesInFolder++;
+        totalNumOfValidDocs++;
     }
 
     return allFileLocations;
-}
-
-void Maintenance::setFileNames(string fileName){
-    fileName.erase(0,137);
-
-    fileNamesOnly.push_back(fileName);
-}
-
-// returns vector of strings containing file locations
-vector<string> Maintenance::getFileNamesOnly(){
-    return fileNamesOnly;
 }
 
 // returns vector of strings containing file locations
@@ -90,10 +78,10 @@ vector<string> Maintenance::getFileLocations(){
     return allFileLocations;
 }
 
-size_t Maintenance::getSizeOfFolder(){
+size_t Maintenance::getTotalNumValidDocs(){
 
-    if(totalFilesInFolder > 0){
-        return totalFilesInFolder;
+    if(totalNumOfValidDocs > 0){
+        return totalNumOfValidDocs;
     }
 
     return 0;

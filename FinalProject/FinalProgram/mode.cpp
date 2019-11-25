@@ -13,15 +13,13 @@ void Mode::on_Maintenance_Button_clicked(){
 }
 
 void Mode::on_Interactive_Button_clicked(){
-    totalOpinionsInFolder = maintenanceMode->getSizeOfFolder();
+    totalOpinionsInFolder = maintenanceMode->getTotalNumValidDocs();
 
     if(totalOpinionsInFolder > 0){
         opinionLocations = maintenanceMode->getFileLocations();
-        fileNames = maintenanceMode->getFileNamesOnly();
 
         for(size_t counter = 0; counter < opinionLocations.size(); counter++){
             cout << "[" << counter + 1 << "]: " << opinionLocations[counter] << endl;
-            cout << "[" << counter + 1 << "]: " << fileNames[counter] << endl << endl;
         }
 
         // Create new Interactive window object on HEAP

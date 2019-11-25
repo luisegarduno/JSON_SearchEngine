@@ -74,6 +74,8 @@ private:
         // Ex 3: (avlTreeFlag == false && hashTableFlag == false) --> None selected
         bool avlTreeFlag;
         bool hashTableFlag;
+        vector<string> fileDirectory;
+        void setFileDirectory(vector<string>);
 
         // numberOfOpinions, avgIndexedWords, & top50Words are outputted when
         // statistics button is clicked

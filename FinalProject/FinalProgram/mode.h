@@ -48,7 +48,6 @@ class Mode : public QMainWindow{
 
         // vectors containing paths & file names
         vector<string> opinionLocations;
-        vector<string> fileNames;
 
         // Interactive Object Pointer
         Interactive * interactiveMode;

@@ -5,20 +5,37 @@
 #include <string>
 #include <vector>
 #include <QDebug>
+#include <sstream>
+#include <fstream>
 #include <QDialog>
 #include <QString>
 #include <iostream>
+#include <algorithm>
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <unordered_set>
+#include "porter2_stemmer.h"
+#include "rapidjson/document.h"
+#include <experimental/iterator>
 #include <experimental/filesystem>
+#include "rapidjson/filereadstream.h"
+
+using namespace rapidjson;
 
 namespace filesystem = std::experimental::filesystem;
 
 using std::cout;
 using std::endl;
+using std::copy;
+using std::fopen;
 using std::vector;
 using std::string;
+using std::ifstream;
+using std::remove_if;
+using std::istringstream;
+using std::unordered_set;
+using std::ostream_iterator;
 
 namespace Ui {
     class Maintenance;
@@ -33,9 +50,8 @@ class Maintenance : public QDialog{
 
         // Vectors containing all strings
         vector<string> getFileLocations();
-        vector<string> getFileNamesOnly();
 
-        size_t getSizeOfFolder();
+        size_t getTotalNumValidDocs();
 
         // Maintenance Class Destructor
         ~Maintenance();
@@ -55,7 +71,7 @@ class Maintenance : public QDialog{
         // Maintenance UI Pointer
         Ui::Maintenance *ui;
 
-        size_t totalFilesInFolder;
+        size_t totalNumOfValidDocs;
 
         // vector containing allFileLocations as string types
         vector<string> allFileLocations;
@@ -63,11 +79,13 @@ class Maintenance : public QDialog{
         // vector containing the name of the files
         vector<string> fileNamesOnly;
 
+        Document parseJSON(string);
+
+        void parse(string);
+
+
         // iterates through folder and converts each directory path into a string
         vector<string> setFileLocations(string);
-
-        // erases the file path to only leave the file name.Then pushed to vector
-        void setFileNames(string);
 
 };
 
