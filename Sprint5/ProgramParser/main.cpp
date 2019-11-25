@@ -43,7 +43,7 @@ int main(int argc, char *argv[]){
             printf("Nodes: %d\n", newParse.getTotNumNodes());
             printf("Files containing '%s': %d\n", argv[2], newParse.getTotDocsFound());
             printf("Times found: %d\n", newParse.getTotNumOfAppearances());
-            //printf("time: %d ms \n", theTime.elapsed());
+            printf("time: %d ms \n", theTime.elapsed());
 
         }
      }

@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
-#include <avlnode.h>
+#include "avlnode.h"
 #include <stdexcept>
 
 using std::list;
@@ -17,7 +17,7 @@ using std::underflow_error;
 
 static int totalNumberOfNodes;
 
-template <typename T>
+template <class T>
 class AVLTree{
     friend class Parser;
     private:
@@ -32,6 +32,7 @@ class AVLTree{
 
         int height(AvlNode<T>* t) const;
         int max(int lhs, int rhs) const;
+        void setNumberOfNodes(AvlNode<T>*) const;
         int getNumberOfNodes();
 
         void rotateWithLeftChild(AvlNode<T>*& k2);
@@ -56,6 +57,8 @@ class AVLTree{
 
         const AVLTree & operator=(const AVLTree& rhs);
 };
+
+
 
 template<typename T>
 AVLTree<T>::AVLTree() : root(nullptr){
@@ -133,7 +136,6 @@ const AVLTree<T>& AVLTree<T>::operator=(const AVLTree& rhs){
 template<typename T>
 void AVLTree<T>::insert(const T& x, AvlNode<T>*& t){
     if(t == nullptr){
-        ++totalNumberOfNodes;
         t = new AvlNode<T>(x, nullptr, nullptr);
     }
 
@@ -152,6 +154,7 @@ void AVLTree<T>::insert(const T& x, AvlNode<T>*& t){
 
     else if(t->element < x){
         insert(x, t->right);
+
         if( height(t->right) - height(t->left) == 2){
             if(t->right->element < x){
                 rotateWithRightChild(t);
@@ -207,6 +210,15 @@ void AVLTree<T>::printTree(AvlNode<T>* t) const{
 }
 
 template<typename T>
+void AVLTree<T>::setNumberOfNodes(AvlNode<T>* t) const{
+    if(t != nullptr){
+        setNumberOfNodes(t->left);
+        ++totalNumberOfNodes;
+        setNumberOfNodes(t->right);
+    }
+}
+
+template<typename T>
 int AVLTree<T>::getNumberOfNodes(){
     if(isEmpty()){
         cout << "Empty tree" << endl;
@@ -214,6 +226,7 @@ int AVLTree<T>::getNumberOfNodes(){
     }
 
     else{
+        setNumberOfNodes(root);
         return totalNumberOfNodes;
     }
 }
@@ -229,9 +242,10 @@ int AVLTree<T>::max(int lhs, int rhs) const{
     return lhs > rhs ? lhs : rhs;
 }
 
-/* Rotate binary tree node with left child.
-   For AVL trees, this is a single rotation for case 1.
-   Update heights, then set new root.                */
+/*
+Rotate binary tree node with left child.
+For AVL trees, this is a single rotation for case 1.
+Update heights, then set new root.                */
 template<typename T>
 void AVLTree<T>::rotateWithLeftChild(AvlNode<T>*& k2){
     AvlNode<T> *k1 = k2->left;
@@ -245,9 +259,10 @@ void AVLTree<T>::rotateWithLeftChild(AvlNode<T>*& k2){
     k2 = k1;
 }
 
-/* Rotate binary tree node with right child.
-   For AVL trees, this is a single rotation for case 1.
-   Update heights, then set new root.                */
+/*
+Rotate binary tree node with right child.
+For AVL trees, this is a single rotation for case 1.
+Update heights, then set new root.                */
 template<typename T>
 void AVLTree<T>::rotateWithRightChild(AvlNode<T>*& k1){
     AvlNode<T> *k2 = k1->right;
@@ -261,20 +276,22 @@ void AVLTree<T>::rotateWithRightChild(AvlNode<T>*& k1){
     k1 = k2;
 }
 
-/* Double rotate binary tree node: first right child.
-   with its right child; then node k3 with new left child.
-   For AVL trees, this is a double rotation for case 2.
-   Update heights, then set new root.                  */
+/*
+Double rotate binary tree node: first right child.
+with its right child; then node k3 with new left child.
+For AVL trees, this is a double rotation for case 2.
+Update heights, then set new root.                  */
 template<typename T>
 void AVLTree<T>::doubleWithLeftChild(AvlNode<T>*& k3){
     rotateWithRightChild(k3->left);
     rotateWithLeftChild(k3);
 }
 
-/* Double rotate binary tree node: first right child.
-   with its left child; then node k1 with new right child.
-   For AVL trees, this is a double rotation for case 3.
-   Update heights, then set new root.                  */
+/*
+Double rotate binary tree node: first right child.
+with its left child; then node k1 with new right child.
+For AVL trees, this is a double rotation for case 3.
+Update heights, then set new root.                  */
 template<typename T>
 void AVLTree<T>::doubleWithRightChild(AvlNode<T>*& k1){
     rotateWithLeftChild(k1->right);
@@ -282,3 +299,4 @@ void AVLTree<T>::doubleWithRightChild(AvlNode<T>*& k1){
 }
 
 #endif
+

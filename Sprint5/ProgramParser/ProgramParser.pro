@@ -12,6 +12,7 @@ SOURCES += \
 
 HEADERS += \
     AVLTree.h \
+    avlnode.h \
     parser.h \
     porter2_stemmer.h
 

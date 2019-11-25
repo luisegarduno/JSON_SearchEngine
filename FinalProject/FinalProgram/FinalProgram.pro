@@ -22,12 +22,16 @@ SOURCES += \
     main.cpp \
     maintenance.cpp \
     mode.cpp \
+    porter2_stemmer.cpp \
     searchquery.cpp
 
 HEADERS += \
+    avlnode.h \
+    avltree.h \
     interactive.h \
     maintenance.h \
     mode.h \
+    porter2_stemmer.h \
     searchquery.h
 
 FORMS += \
@@ -40,3 +44,6 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    StopWords.txt
