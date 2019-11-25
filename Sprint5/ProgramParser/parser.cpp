@@ -65,16 +65,19 @@ void Parser::parseJSON(string pathString){
         string htmlString,htmlLawbox;
         if(document.HasMember("html") && document["html"].IsString()){
             htmlString = stripHTML(document["html"].GetString());
-            htmlString = split2Word(htmlString);
+            //htmlString = split2Word(htmlString);
+            split2Word(htmlString);
         }
 
         if(document.HasMember("html_lawbox") && document["html_lawbox"].IsString()){
             htmlLawbox = stripHTML(document["html_lawbox"].GetString());
-            htmlLawbox = split2Word(htmlLawbox);
+            //htmlLawbox = split2Word(htmlLawbox);
+            split2Word(htmlLawbox);
         }
 
         string plainString = stripHTML(document["plain_text"].GetString());
-        plainString = split2Word(plainString);
+        //plainString = split2Word(plainString);
+        split2Word(plainString);
 
 
         if(htmlString != "" && fileIsValidFlag){
@@ -123,9 +126,9 @@ string Parser::removeStopWords(string& aValue){
     return parsedString;
 }
 
-string Parser::split2Word(string htmlString){
+void Parser::split2Word(string htmlString){
     istringstream stream(htmlString);
-    string word, newString;
+    string word;//, newString;
     int count = 0;
     bool wordFoundInDoc = false;
     while(stream >> word){
@@ -135,17 +138,19 @@ string Parser::split2Word(string htmlString){
             count = 1;
         }
         else if((rmStopWord == "denied" || rmStopWord == "for") && count == 1){
-            newString = "";
+            //newString = "";
             if(rmStopWord == "denied"){
                 fileIsValidFlag = false;
-                return newString;
+                break;
+                //return newString;
             }
             count = 2;
         }
         else if(rmStopWord == "for" && count == 2){
-            newString = "";
+            //newString = "";
             fileIsValidFlag = false;
-            return newString;
+            break;
+            //return newString;
         }
         else{
             count = 0;
@@ -160,12 +165,12 @@ string Parser::split2Word(string htmlString){
                     }
                 }
                 index->insert(rmStopWord);
-                newString += rmStopWord + "|";
+                //newString += rmStopWord + "|";
             }
         }
     }
 
-    return newString;
+    //return newString;
 }
 
 string& Parser::makeLowerCase(string& aWord){

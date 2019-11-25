@@ -40,14 +40,11 @@ int main(int argc, char *argv[]){
             Timer theTime;
             Parser newParse = Parser(argv);
 
+            printf("Nodes: %d\n", newParse.getTotNumNodes());
+            printf("Files containing '%s': %d\n", argv[2], newParse.getTotDocsFound());
+            printf("Times found: %d\n", newParse.getTotNumOfAppearances());
+            printf("time: %d ms \n", theTime.elapsed());
 
-            printf("tot nodes: %d\n", newParse.getTotNumNodes());
-            printf("tot # of files containing '%s': %d\n", argv[2], newParse.getTotDocsFound());
-            printf("tot times found: %d\n", newParse.getTotNumOfAppearances());
-            printf("time: %d\n", theTime.elapsed());
-
-
-            //cout << "Exiting Program" << endl;
         }
      }
 
