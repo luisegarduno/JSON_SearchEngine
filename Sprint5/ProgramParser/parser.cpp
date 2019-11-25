@@ -1,7 +1,7 @@
 #include "parser.h"
 
 Parser::Parser(char* argv[]) : totNumNodes(0), totDocsFound(0), totNumOfApperances(0){
-    string file_name = argv[1];
+    filesystem::path file_name = argv[1];
     currentWord = argv[2];
     fileIsValidFlag = true;
     index = new AVLTree<string>;
@@ -16,10 +16,10 @@ Parser::Parser(char* argv[]) : totNumNodes(0), totDocsFound(0), totNumOfApperanc
 
     // If no file was selected, display warning message
     if(file_name == ""){
-        string noFile = "Nothing was selected!\n";
-        string tryAgain = "Please select valid path to a folder";
-        cout << "Error: " << noFile + tryAgain << endl;
+        cout << "Directory Error: Invalid path to a folder, exiting..." << endl;
+        exit(EXIT_FAILURE);
     }
+
     else{
         ifstream inputFile("StopWords.txt");        // https://countwordsfree.com/stopwords
         string stopWordString;
@@ -37,22 +37,17 @@ Parser::Parser(char* argv[]) : totNumNodes(0), totDocsFound(0), totNumOfApperanc
     }
 }
 
-void Parser::parseCurrentFile(string fileName){
-    list<string> allFileLocations;
-
+void Parser::parseCurrentFile(filesystem::path fileName){
     filesystem::directory_iterator end;
     for(filesystem::directory_iterator theIterator(fileName) ; theIterator!= end; ++theIterator){
         // directory iterator is first converted to a path
         filesystem::path dirToPath = *theIterator;
 
-        // path directory is converted to a string
-        string pathToString = dirToPath.string();
-
-        parseJSON(pathToString);
+        parseJSON(dirToPath);
     }
 }
 
-void Parser::parseJSON(string pathString){
+void Parser::parseJSON(filesystem::path pathString){
         FILE* fp = fopen(pathString.c_str() ,"rb"); // non-Windows use "r"
 
         char * readBuffer = new char[65536];
@@ -65,18 +60,15 @@ void Parser::parseJSON(string pathString){
         string htmlString,htmlLawbox;
         if(document.HasMember("html") && document["html"].IsString()){
             htmlString = stripHTML(document["html"].GetString());
-            //htmlString = split2Word(htmlString);
             split2Word(htmlString);
         }
 
         if(document.HasMember("html_lawbox") && document["html_lawbox"].IsString()){
             htmlLawbox = stripHTML(document["html_lawbox"].GetString());
-            //htmlLawbox = split2Word(htmlLawbox);
             split2Word(htmlLawbox);
         }
 
         string plainString = stripHTML(document["plain_text"].GetString());
-        //plainString = split2Word(plainString);
         split2Word(plainString);
 
 
@@ -102,75 +94,76 @@ string Parser::stripHTML(string htmlString){
     return htmlString;
 }
 
-string Parser::removeStopWords(string& aValue){
-    string parsedString = aValue;
+string& Parser::removeStopWords(string& aValue){
 
-    if(parsedString.size() == 0){
-        return parsedString;
+    if(aValue.size() == 0){
+        return aValue;
     }
 
-    makeLowerCase(parsedString);
+    makeLowerCase(aValue);
 
-    parsedString.erase(remove_if(parsedString.begin(),parsedString.end(), [] (char it){
+    aValue.erase(remove_if(aValue.begin(),aValue.end(), [] (char it){
         return !((it >= 'a' && it <= 'z') || it == '\'');
-    }), parsedString.end());
+    }), aValue.end());
 
-    if(parsedString.size() == 0){
-        return parsedString;
+    if(aValue.size() == 0){
+        return aValue;
     }
 
-    if(stopWords.count(parsedString) > 0){
-        return "";
+    if(stopWords.count(aValue) > 0){
+        aValue = "";
+        return aValue;
     }
 
-    return parsedString;
+    return aValue;
 }
 
 void Parser::split2Word(string htmlString){
     istringstream stream(htmlString);
-    string word;//, newString;
+    string word;
     int count = 0;
     bool wordFoundInDoc = false;
+    vector<string> listOfWords;
     while(stream >> word){
-        string rmStopWord = removeStopWords(word);
+        removeStopWords(word);
 
-        if(rmStopWord == "certiorari" || rmStopWord == "petition"){
+        if(word == "certiorari" || word == "petition"){
             count = 1;
         }
-        else if((rmStopWord == "denied" || rmStopWord == "for") && count == 1){
-            //newString = "";
-            if(rmStopWord == "denied"){
+        else if((word == "denied" || word == "for") && count == 1){
+            if(word == "denied"){
                 fileIsValidFlag = false;
                 break;
-                //return newString;
             }
             count = 2;
         }
-        else if(rmStopWord == "for" && count == 2){
-            //newString = "";
+        else if(word == "for" && count == 2){
             fileIsValidFlag = false;
             break;
-            //return newString;
         }
         else{
             count = 0;
             fileIsValidFlag = true;
-            if(rmStopWord.size() != 0){
-                Porter2Stemmer::stem(rmStopWord);
-                if(rmStopWord == currentWord){
+            listOfWords.push_back(word);
+        }
+    }
+
+    if(fileIsValidFlag == true){
+        for(size_t vecCount = 0; vecCount < listOfWords.size(); vecCount++){
+            if(listOfWords[vecCount].size() != 0){
+                Porter2Stemmer::stem(listOfWords[vecCount]);
+                if(listOfWords[vecCount] == currentWord){
                     ++totNumOfApperances;
                     if(wordFoundInDoc == false){
                         ++totDocsFound;
                         wordFoundInDoc = true;
                     }
                 }
-                index->insert(rmStopWord);
-                //newString += rmStopWord + "|";
+                index->insert(listOfWords[vecCount]);
             }
         }
-    }
 
-    //return newString;
+    }
 }
 
 string& Parser::makeLowerCase(string& aWord){
