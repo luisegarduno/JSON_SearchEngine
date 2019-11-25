@@ -162,7 +162,6 @@ void Parser::split2Word(string htmlString){
                 index->insert(listOfWords[vecCount]);
             }
         }
-
     }
 }
 
