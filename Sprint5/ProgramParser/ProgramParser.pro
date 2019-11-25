@@ -15,4 +15,5 @@ HEADERS += \
     parser.h \
     porter2_stemmer.h
 
-DISTFILES +=
+DISTFILES += \
+    StopWords.txt

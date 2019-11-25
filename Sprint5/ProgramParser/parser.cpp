@@ -21,7 +21,7 @@ Parser::Parser(char* argv[]) : totNumNodes(0), totDocsFound(0), totNumOfApperanc
     }
 
     else{
-        ifstream inputFile("StopWords.txt");        // https://countwordsfree.com/stopwords
+        ifstream inputFile("../ProgramParser/StopWords.txt");        // https://countwordsfree.com/stopwords
         string stopWordString;
 
         while(inputFile >> stopWordString){
