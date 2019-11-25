@@ -8,6 +8,8 @@
 #include <iostream>
 #include <QCheckBox>
 #include <QMessageBox>
+#include "avltree.h"
+#include "maintenance.h"
 #include <QDialogButtonBox>
 
 #include "searchquery.h"

@@ -10,6 +10,7 @@
 #include <QDialog>
 #include <QString>
 #include <iostream>
+#include "avltree.h"
 #include <algorithm>
 #include <QMessageBox>
 #include <QFileDialog>
@@ -67,9 +68,12 @@ class Maintenance : public QDialog{
         // Closes "Maintenance" windows and returns to "Mode" (Main Menu)
         void on_MainMenu_Button_clicked();
 
-    private:
+        void on_progressBar_valueChanged(int value);
+
+private:
         // Maintenance UI Pointer
         Ui::Maintenance *ui;
+
 
         size_t totalNumOfValidDocs;
 
@@ -79,7 +83,21 @@ class Maintenance : public QDialog{
         // vector containing the name of the files
         vector<string> fileNamesOnly;
 
+        vector<string> words;
+
         Document parseJSON(string);
+
+        void split2Word(string);
+        string& parseHTML(string&);
+        string& removeStopWords(string&);
+        string& lowerCase(string&);
+        bool isStopWord(string&);
+        bool isValidDoc;
+
+        int totNumOfFinds;
+        int totNumOfDocFinds;
+
+        unordered_set<string> stopWords;
 
         void parse(string);
 

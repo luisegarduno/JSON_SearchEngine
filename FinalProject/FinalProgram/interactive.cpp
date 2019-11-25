@@ -53,6 +53,7 @@ void Interactive::on_IndexMethod_Button_clicked(){
         avlTreeFlag = true;
         hashTableFlag = false;
         QMessageBox::information(this,"Let's Search : Index Mode", "Selected Mode: AVL Tree");
+
     }
     else{
         // Turns AVL Tree Flag on --> AVL Tree is selected as Index Method
@@ -75,7 +76,7 @@ void Interactive::on_Statistics_clicked(){
 }
 
 void Interactive::setFileDirectory(vector<string> providedVector){
-
+    fileDirectory = providedVector;
 }
 
 int Interactive::getNumOfOpinions(){

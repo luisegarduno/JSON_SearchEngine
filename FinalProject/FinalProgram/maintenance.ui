@@ -77,7 +77,7 @@
      <rect>
       <x>30</x>
       <y>40</y>
-      <width>371</width>
+      <width>427</width>
       <height>71</height>
      </rect>
     </property>
@@ -86,7 +86,7 @@
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_3">
-         <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+         <item>
           <widget class="QPushButton" name="AddFolder_Button">
            <property name="minimumSize">
             <size>
