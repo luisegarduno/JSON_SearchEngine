@@ -26,12 +26,14 @@ Parser::Parser(char* argv[]) : totNumNodes(0), totDocsFound(0), totNumOfApperanc
 
         while(inputFile >> stopWordString){
             stopWordString.erase(remove_if(stopWordString.begin(),stopWordString.end(), [] (char it){
-                return !((it >= 'a' && it <= 'z') || it == '\'');
+                return !(it == '\'' || (it >= 'a' && it <= 'z'));
             }), stopWordString.end());
             makeLowerCase(stopWordString);
             stopWords.emplace(stopWordString);
         }
         parseCurrentFile(file_name);
+        setTotalNumberOfNodes();
+        //index->printTree();
     }
 }
 
@@ -76,7 +78,7 @@ void Parser::parseJSON(string pathString){
 
 
         if(htmlString != "" && fileIsValidFlag){
-            ++totNumNodes;
+            ++totNumValidDocs;
         }
 
         delete [] readBuffer;
@@ -181,7 +183,12 @@ bool Parser::checkIfstopWord(string& word){
     return stopWords.count(word) > 0;
 }
 
-size_t Parser::getTotNumNodes(){
+void Parser::setTotalNumberOfNodes(){
+    totNumNodes = index->getNumberOfNodes();
+}
+
+
+int Parser::getTotNumNodes(){
     if(totNumNodes > 0){
         return totNumNodes;
     }

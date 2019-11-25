@@ -31,12 +31,17 @@ using std::ostream_iterator;
 class Parser{
     private:
         AVLTree<string> * index;
-        size_t totNumNodes;
-        string currentWord;
+
+        int totNumNodes;
         int totDocsFound;
+        int totNumValidDocs;
         int totNumOfApperances;
+
+        string currentWord;
+
         void setFileNames(string);
         void parseCurrentFile(string);
+        void setTotalNumberOfNodes();
 
         unordered_set<string> stopWords;
 
@@ -49,7 +54,7 @@ class Parser{
         string removeStopWords(string&);
         bool checkIfstopWord(string&);
         bool fileIsValidFlag;
-        size_t getTotNumNodes();
+        int getTotNumNodes();
         int getTotDocsFound();
         int getTotNumOfAppearances();
 };

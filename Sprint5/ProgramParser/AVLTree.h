@@ -14,8 +14,11 @@ using std::string;
 using std::vector;
 using std::underflow_error;
 
+static int totalNumberOfNodes;
+
 template <typename T>
 class AVLTree{
+    friend class Parser;
     private:
         class AvlNode{
             public:
@@ -65,6 +68,8 @@ class AVLTree{
 
         int height(AvlNode* t) const;
         int max(int lhs, int rhs) const;
+        void setNumberOfNodes(AvlNode*) const;
+        int getNumberOfNodes();
 
         void rotateWithLeftChild(AvlNode*& k2);
         void rotateWithRightChild(AvlNode*& k1);
@@ -170,7 +175,6 @@ void AVLTree<T>::insert(const T& x, AvlNode*& t){
 
     else if(x < t->element){
         insert(x, t->left);
-
         if(height(t->left) - height(t->right) == 2){
             if(x < t->left->element){
                 rotateWithLeftChild(t);
@@ -238,6 +242,29 @@ void AVLTree<T>::printTree(AvlNode* t) const{
         printTree(t->right);
     }
 }
+
+template<typename T>
+void AVLTree<T>::setNumberOfNodes(AvlNode* t) const{
+    if(t != nullptr){
+        setNumberOfNodes(t->left);
+        ++totalNumberOfNodes;
+        setNumberOfNodes(t->right);
+    }
+}
+
+template<typename T>
+int AVLTree<T>::getNumberOfNodes(){
+    if(isEmpty()){
+        cout << "Empty tree" << endl;
+        return 0;
+    }
+
+    else{
+        setNumberOfNodes(root);
+        return totalNumberOfNodes;
+    }
+}
+
 
 template<typename T>
 int AVLTree<T>::height(AvlNode* t) const{
