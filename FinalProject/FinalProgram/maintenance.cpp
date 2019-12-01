@@ -153,19 +153,19 @@ QString Maintenance::parsePathName(string section){
 
 
 void Maintenance::split2Word(string section){
-    string word;
+    string aWord;
     int flagCount = 0;
     istringstream stream(section);
 
-    while(stream >> word){
-        removeStopWords(word);
+    while(stream >> aWord){
+        removeStopWords(aWord);
 
-        if(word == "certiorari" || word == "petition"){
+        if(aWord == "certiorari" || aWord == "petition"){
             words.clear();
             flagCount = 1;
         }
-        else if((word == "denied" || word == "for") && flagCount == 1){
-            if(word == "denied"){
+        else if((aWord == "denied" || aWord == "for") && flagCount == 1){
+            if(aWord == "denied"){
                 words.clear();
                 isValidDoc = false;
                 break;
@@ -173,7 +173,7 @@ void Maintenance::split2Word(string section){
             words.clear();
             flagCount = 2;
         }
-        else if(word == "for" && flagCount == 2){
+        else if(aWord == "for" && flagCount == 2){
             words.clear();
             isValidDoc = false;
             break;
@@ -181,7 +181,7 @@ void Maintenance::split2Word(string section){
         else{
             flagCount = 0;
             isValidDoc = true;
-            words.insert(word);
+            words.insert(aWord);
         }
     }
 
