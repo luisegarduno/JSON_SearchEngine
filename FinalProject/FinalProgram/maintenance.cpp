@@ -1,7 +1,7 @@
 #include "maintenance.h"
 #include "ui_maintenance.h"
 
-Maintenance::Maintenance(QWidget *parent) :QDialog(parent), ui(new Ui::Maintenance){
+Maintenance::Maintenance(QWidget *parent) : QDialog(parent), steps(0),  ui(new Ui::Maintenance) {
     ui->setupUi(this);
 
     {
@@ -22,7 +22,6 @@ void Maintenance::on_MainMenu_Button_clicked(){
     // Closes current window.
     this->close();
 }
-
 
 void Maintenance::on_ClearFile_Button_clicked(){
     QMessageBox::StandardButton confirmation;
@@ -49,7 +48,7 @@ void Maintenance::on_ClearFile_Button_clicked(){
 void Maintenance::on_AddFolder_Button_clicked(){
     QString file_name;
     // Opens local file directory, user is able to navigate to select desired folder
-    //file_name = QFileDialog::getExistingDirectory(this, "Open Folder", QDir::homePath());
+    // file_name = QFileDialog::getExistingDirectory(this, "Open Folder", QDir::homePath());
     file_name = QFileDialog::getExistingDirectory(this,"Open Folder","/home/student/Desktop/MyProjects/CSE2341-F19-Luis-Garduno/FinalProject/build-FinalProgram-Desktop_Qt_5_10_0_GCC_64bit-Debug");
 
     // If no file was selected, display warning message
@@ -59,25 +58,32 @@ void Maintenance::on_AddFolder_Button_clicked(){
         QMessageBox::warning(this,"Error", noFile + tryAgain);
     }
     else{
+
         // Information window is displayed containing selected folder
-        QMessageBox::information(this, "File Selected", file_name);
+        //QMessageBox::information(this, "File Selected", file_name);
 
         // QString is converted and saved as a standard string
         string fileName = file_name.toStdString();
-
-
-        //parse(fileName);
+        pd = new QProgressDialog("Selected Directory:\n" + file_name, "Cancel", 0, getTotalNumberOfFiles(fileName));
+        pd->setWindowTitle("Parsing Index");
+        connect(pd,&QProgressDialog::canceled, this, &Maintenance::cancel);
 
         // A vector is created containing every path name for each file in folder
-        allFileLocations = setFileLocations(fileName);
+        setFileLocations(fileName);
+
+        QMessageBox::information(this, "Complete", "Index has been parsed succesfully");
     }
 }
 
 void Maintenance::parse(string fileName){
     Document currentDocument = parseJSON(fileName);
 
+    string caseTitle, html_Section, htmlLawbox_Section, plainText_Section;
 
-    string html_Section, htmlLawbox_Section, plainText_Section;
+    //int documentID = currentDocument["id"].GetInt();
+
+    caseTitle = currentDocument["absolute_url"].GetString();
+    getCaseTitle(caseTitle);
 
     if(currentDocument.HasMember("html") && currentDocument["html"].IsString()){
         html_Section = currentDocument["html"].GetString();
@@ -97,6 +103,7 @@ void Maintenance::parse(string fileName){
     if(html_Section != "" && isValidDoc){
         ++totalNumOfValidDocs;
     }
+    //steps++;
 }
 
 Document Maintenance::parseJSON(string fileName){
@@ -130,10 +137,9 @@ string& Maintenance::parseHTML(string& section){
 }
 
 void Maintenance::split2Word(string section){
-    istringstream stream(section);
     string word;
     int flagCount = 0;
-    //bool wordFoundInDoc = false;
+    istringstream stream(section);
 
     while(stream >> word){
         removeStopWords(word);
@@ -178,6 +184,38 @@ void Maintenance::split2Word(string section){
     }
 }
 
+string& Maintenance::getCaseTitle(string& absolute_string){
+    string caseTitle;
+    string opponent1;
+    string opponent2;
+    istringstream stream1(absolute_string);
+
+    for(int i = 0; i < 4; i++){
+        getline(stream1,opponent1,'/');
+    }
+
+    opponent1[0] = char(toupper(opponent1[0]));
+
+    istringstream stream2(opponent1);
+    while(getline(stream2,opponent2,'-')){
+        if(opponent2 == "v"){
+            caseTitle += "Vs.";
+        }
+
+        else{
+            opponent2[0] = char(toupper(opponent2[0]));
+            caseTitle += opponent2;
+        }
+
+        caseTitle += " ";
+    }
+
+    caseTitle.erase(caseTitle.size() - 1);
+    absolute_string = caseTitle;
+
+    return absolute_string;
+}
+
 string& Maintenance::removeStopWords(string& word){
 
     if(word.size() == 0){
@@ -217,40 +255,58 @@ bool Maintenance::isStopWord(string& word){
     return stopWords.count(word) > 0;
 }
 
-vector<string> Maintenance::setFileLocations(string fileName){
-    vector<string> allFileLocations;
+int Maintenance::getTotalNumberOfFiles(string& fileName){
+    int totalNumberOfFiles = 0;
 
     filesystem::directory_iterator end;
-    for(filesystem::directory_iterator theIterator(fileName) ; theIterator!= end; ++theIterator){
+    for(filesystem::directory_iterator theIterator(fileName) ; theIterator != end; ++theIterator){
+        ++totalNumberOfFiles;
+    }
+
+    return totalNumberOfFiles;
+}
+
+void Maintenance::setFileLocations(string& fileName){
+
+    pd->setValue(steps);
+
+    filesystem::directory_iterator end;
+    for(filesystem::directory_iterator theIterator(fileName) ; theIterator != end; ++theIterator){
+
+        QCoreApplication::processEvents();
         // directory iterator is first converted to a path
         filesystem::path dirToPath = *theIterator;
-
         // path directory is converted to a string
         string pathToString = dirToPath.string();
 
-        // string is appended to end of vector
-        allFileLocations.push_back(pathToString);
-
         parse(pathToString);
-        // string is parsed to filename, and added to vector
-        totalNumOfValidDocs++;
-    }
 
-    return allFileLocations;
+        if(isValidDoc == true){
+            // string is appended to end of vector
+            allFileLocations.push_back(pathToString);
+
+            // string is parsed to filename, and added to vector
+            totalNumOfValidDocs++;
+        }
+        steps++;
+        pd->setValue(steps);
+    }
 }
 
-// returns vector of strings containing file locations
 vector<string> Maintenance::getFileLocations(){
-    return allFileLocations;
+        return allFileLocations;
 }
 
 size_t Maintenance::getTotalNumValidDocs(){
-
     if(totalNumOfValidDocs > 0){
         return totalNumOfValidDocs;
     }
 
     return 0;
+}
+
+void Maintenance::cancel(){
+    theTimer->stop();
 }
 
 // Destructor

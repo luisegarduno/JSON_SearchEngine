@@ -5,10 +5,12 @@
 #include <string>
 #include <vector>
 #include <QDebug>
+#include <QTimer>
 #include <sstream>
 #include <fstream>
 #include <QDialog>
 #include <QString>
+#include <QThread>
 #include <iostream>
 #include "avltree.h"
 #include <algorithm>
@@ -16,8 +18,10 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <unordered_set>
+#include <QFutureWatcher>
+#include <QProgressDialog>
 #include "porter2_stemmer.h"
-#include "rapidjson/document.h"
+#include "rapidjson/document.h"             // rapidjson's DOM-style API
 #include <experimental/iterator>
 #include <experimental/filesystem>
 #include "rapidjson/filereadstream.h"
@@ -26,8 +30,6 @@ using namespace rapidjson;
 
 namespace filesystem = std::experimental::filesystem;
 
-using std::cout;
-using std::endl;
 using std::copy;
 using std::fopen;
 using std::vector;
@@ -36,6 +38,7 @@ using std::ifstream;
 using std::remove_if;
 using std::istringstream;
 using std::unordered_set;
+using std::cout, std::endl;
 using std::ostream_iterator;
 
 namespace Ui {
@@ -49,14 +52,45 @@ class Maintenance : public QDialog{
         // Explicit Constructor
         explicit Maintenance(QWidget *parent = nullptr);
 
-        // Vectors containing all strings
+        // Member function used to parse -> HTML -> split section into words
+        // -> turn into lower case -> remove stop words
+        void parse(string);
+
+        // An HTML section is sent in, removes any characters between '<' and '>'
+        string& parseHTML(string&);
+
+        // if referenced string parameter matches word on stop word list, update and
+        // return string as "", else word is not a stop word and return unchanged
+        string& removeStopWords(string&);
+
+        // A string is passed as a reference parameter, the char
+        // is then converted to lowerscase(if not already) then returned as reference
+        string& lowerCase(string&);
+
+        // Send string(file name) as parameter, return as Document type
+        Document parseJSON(string);
+
+        // A document section is sent as string parameter, split into word
+        void split2Word(string);
+
+        // Checks to see if string parameter matches any of stops words
+        bool isStopWord(string&);
+
+        // returns total number of valid documents
+        size_t getTotalNumValidDocs();
+
         vector<string> getFileLocations();
 
-        size_t getTotalNumValidDocs();
+        string& getCaseTitle(string&);
+
+        int steps;
+
+        QProgressDialog * pd;
+        QTimer * theTimer;
+        void cancel();
 
         // Maintenance Class Destructor
         ~Maintenance();
-
     private slots:
 
         // Clears contents in AVL Tree & Hash Table, also ~possibly~ deletes index file
@@ -68,13 +102,18 @@ class Maintenance : public QDialog{
         // Closes "Maintenance" windows and returns to "Mode" (Main Menu)
         void on_MainMenu_Button_clicked();
 
-        void on_progressBar_valueChanged(int value);
-
 private:
         // Maintenance UI Pointer
         Ui::Maintenance *ui;
 
+        ifstream persistentIndex;
 
+        // add word to persistent index file
+        void addToPersistentIndex(const string);
+
+        int getTotalNumberOfFiles(string&);
+
+        // Total number of valid documents (not denied)
         size_t totalNumOfValidDocs;
 
         // vector containing allFileLocations as string types
@@ -83,27 +122,19 @@ private:
         // vector containing the name of the files
         vector<string> fileNamesOnly;
 
+        // All words in all documents
         vector<string> words;
 
-        Document parseJSON(string);
-
-        void split2Word(string);
-        string& parseHTML(string&);
-        string& removeStopWords(string&);
-        string& lowerCase(string&);
-        bool isStopWord(string&);
+        // Used as a flag to check if document is valid (not denied)
         bool isValidDoc;
 
-        int totNumOfFinds;
-        int totNumOfDocFinds;
-
+        // Unordered set of strings containing all list of stop words
         unordered_set<string> stopWords;
 
-        void parse(string);
-
-
         // iterates through folder and converts each directory path into a string
-        vector<string> setFileLocations(string);
+        void setFileLocations(string&);
+
+
 
 };
 

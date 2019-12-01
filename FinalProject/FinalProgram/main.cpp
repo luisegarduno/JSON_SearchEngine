@@ -1,19 +1,19 @@
 #include "mode.h"
+#include <cstdio>
 #include <QApplication>
 
-#include "rapidjson/document.h"     // rapidjson's DOM-style API
-#include "rapidjson/prettywriter.h" // for stringify JSON
-#include <cstdio>
-
-using namespace rapidjson;
 using namespace std;
+using namespace rapidjson;
 
 int main(int argc, char *argv[]){
-    QApplication a(argc, argv);
+    QApplication theGUI(argc, argv);
 
-    Mode selectMode;            // Creates new Window on Stack
-    selectMode.show();          // Display "Mode" (Main Menu)
+    // Creates new Window on Stack
+    Mode selectMode;
 
-    return a.exec();
+    // Display "Mode" (Main Menu)
+    selectMode.show();
+
+    return theGUI.exec();
 }
 
