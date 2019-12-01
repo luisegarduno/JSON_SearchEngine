@@ -2,10 +2,12 @@
 #define MODE_H
 
 #include <vector>
+#include <QStyle>
 #include <iostream>
 #include <QMainWindow>
 #include "maintenance.h"
 #include "interactive.h"
+#include <QDesktopWidget>
 
 using std::cout;
 using std::endl;

@@ -32,9 +32,7 @@ void Maintenance::on_ClearFile_Button_clicked(){
     // If user selects "Yes", AVL Tree & Hash Table & ~possibly~ index file is cleared
     if(confirmation == QMessageBox::Yes){
         if(words.size() != 0){
-            for(size_t count = 0; count < words.size(); count++){
-                cout << words[count] << endl;
-            }
+            words.clear();
         }
         QMessageBox::information(this, "Clear", "Index has been cleared");
         this->close();
@@ -61,8 +59,9 @@ void Maintenance::on_AddFolder_Button_clicked(){
 
         // QString is converted and saved as a standard string
         string fileName = file_name.toStdString();
-
-        pd = new QProgressDialog("Selected Directory: " + parsePathName(fileName), "Cancel", 0, getTotalNumberOfFiles(fileName));
+        int totalNumberOfFiles = getTotalNumberOfFiles(fileName);
+        cout << "Done counting total number of files: " << totalNumberOfFiles << endl;
+        pd = new QProgressDialog("Selected Directory: " + parsePathName(fileName), "Cancel", 0, totalNumberOfFiles);
         pd->setWindowTitle("Parsing Index");
         connect(pd,&QProgressDialog::canceled, this, &Maintenance::cancel);
 
@@ -162,43 +161,42 @@ void Maintenance::split2Word(string section){
         removeStopWords(word);
 
         if(word == "certiorari" || word == "petition"){
+            words.clear();
             flagCount = 1;
         }
         else if((word == "denied" || word == "for") && flagCount == 1){
             if(word == "denied"){
+                words.clear();
                 isValidDoc = false;
                 break;
             }
+            words.clear();
             flagCount = 2;
         }
         else if(word == "for" && flagCount == 2){
+            words.clear();
             isValidDoc = false;
             break;
         }
         else{
             flagCount = 0;
             isValidDoc = true;
-            words.push_back(word);
+            words.insert(word);
         }
     }
 
+
     if(isValidDoc == true){
-        for(size_t vecCount = 0; vecCount < words.size(); vecCount++){
-            if(words[vecCount].size() != 0){
-                Porter2Stemmer::stem(words[vecCount]);
-                /*
-                if(words[vecCount] == currentCorpus){
-                    ++totNumOfFinds;
-                    if(wordFoundInDoc == false){
-                        ++totNumOfDocFinds;
-                        wordFoundInDoc = true;
-                    }
-                }
-                index->insert(words[vecCount]);
-                */
+        unordered_set<string>::iterator theIterator;
+        string tempWord;
+        for(theIterator = words.begin(); theIterator != words.end(); theIterator++){
+            if((*theIterator).size() != 0){
+                tempWord = *theIterator;
+                Porter2Stemmer::stem(tempWord);
             }
         }
     }
+
 }
 
 string& Maintenance::getCaseTitle(string& absolute_string){
@@ -274,6 +272,16 @@ bool Maintenance::isStopWord(string& word){
 
 int Maintenance::getTotalNumberOfFiles(string& fileName){
     int totalNumberOfFiles = 0;
+
+    /*
+    try {
+        cout << "Counting Folder Size" << endl;
+        filesystem::file_size(fileName);
+        cout << "Done" << endl;
+    } catch (filesystem::filesystem_error& e) {
+        cout << e.what() << "No bueno, caught error\n" ;
+    }
+    */
 
     filesystem::directory_iterator end;
     for(filesystem::directory_iterator theIterator(fileName) ; theIterator != end; ++theIterator){

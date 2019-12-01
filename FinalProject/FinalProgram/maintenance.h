@@ -125,7 +125,7 @@ private:
         vector<string> fileNamesOnly;
 
         // All words in all documents
-        vector<string> words;
+        unordered_set<string> words;
 
         // Used as a flag to check if document is valid (not denied)
         bool isValidDoc;
