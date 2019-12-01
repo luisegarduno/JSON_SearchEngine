@@ -44,6 +44,12 @@ class Interactive : public QDialog{
         bool avlTreeSelected();
         bool hashTableSelected();
 
+        // numberOfOpinions, avgIndexedWords, & top50Words are outputted when
+        // statistics button is clicked
+        int numberOfOpinions;
+        int avgIndexedWords;
+        string top50Words;
+
         // Interactive Class Destructor
         ~Interactive();
 
@@ -78,12 +84,6 @@ private:
         bool hashTableFlag;
         vector<string> fileDirectory;
         void setFileDirectory(vector<string>);
-
-        // numberOfOpinions, avgIndexedWords, & top50Words are outputted when
-        // statistics button is clicked
-        int numberOfOpinions;
-        int avgIndexedWords;
-        string top50Words;
 };
 
 #endif // INTERACTIVE_H

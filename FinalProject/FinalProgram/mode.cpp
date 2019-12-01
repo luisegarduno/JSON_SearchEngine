@@ -24,7 +24,9 @@ void Mode::on_Interactive_Button_clicked(){
 
         // Create new Interactive window object on HEAP
         interactiveMode = new Interactive(this);
+        interactiveMode->numberOfOpinions = int(opinionLocations.size());
         interactiveMode->show();
+
     }
 
     /*else{

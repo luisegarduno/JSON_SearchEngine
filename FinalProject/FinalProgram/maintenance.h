@@ -59,6 +59,8 @@ class Maintenance : public QDialog{
         // An HTML section is sent in, removes any characters between '<' and '>'
         string& parseHTML(string&);
 
+        QString parsePathName(string);
+
         // if referenced string parameter matches word on stop word list, update and
         // return string as "", else word is not a stop word and return unchanged
         string& removeStopWords(string&);

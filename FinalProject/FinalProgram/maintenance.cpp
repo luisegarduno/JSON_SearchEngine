@@ -59,12 +59,10 @@ void Maintenance::on_AddFolder_Button_clicked(){
     }
     else{
 
-        // Information window is displayed containing selected folder
-        //QMessageBox::information(this, "File Selected", file_name);
-
         // QString is converted and saved as a standard string
         string fileName = file_name.toStdString();
-        pd = new QProgressDialog("Selected Directory:\n" + file_name, "Cancel", 0, getTotalNumberOfFiles(fileName));
+
+        pd = new QProgressDialog("Selected Directory: " + parsePathName(fileName), "Cancel", 0, getTotalNumberOfFiles(fileName));
         pd->setWindowTitle("Parsing Index");
         connect(pd,&QProgressDialog::canceled, this, &Maintenance::cancel);
 
@@ -103,7 +101,6 @@ void Maintenance::parse(string fileName){
     if(html_Section != "" && isValidDoc){
         ++totalNumOfValidDocs;
     }
-    //steps++;
 }
 
 Document Maintenance::parseJSON(string fileName){
@@ -135,6 +132,26 @@ string& Maintenance::parseHTML(string& section){
     }
     return section;
 }
+
+QString Maintenance::parsePathName(string section){
+    for(size_t start = 0; start < section.size(); start++){
+        if(section[start] == '/'){
+            size_t end = start + 1;
+
+            while(section[end] != '/' && end < section.size()){
+                end++;
+                if(end == section.size()){
+                    return QString::fromStdString(section);
+                }
+            }
+            section.erase(start, end - start);
+            start--;
+        }
+    }
+
+    return QString::fromStdString(section);
+}
+
 
 void Maintenance::split2Word(string section){
     string word;
