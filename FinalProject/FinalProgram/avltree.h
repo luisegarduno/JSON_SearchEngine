@@ -1,64 +1,72 @@
 #ifndef AVLTREE_H
 #define AVLTREE_H
 
-#include <list>
-#include <string>
-#include <vector>
-#include <iostream>
 #include "avlnode.h"
-#include <stdexcept>
-
-using std::list;
-using std::cout;
-using std::endl;
-using std::string;
-using std::vector;
-using std::underflow_error;
 
 static int totalNumberOfNodes;
 
 template <class T>
 class AVLTree{
-    friend class Parser;
     private:
         AvlNode<T>* root;
 
-        void insert(const T & x, AvlNode<T> * & t );
+        void insert(const T& x, AvlNode<T>*& t);
 
         bool contains(const T& x, AvlNode<T>* t) const;
 
+        // Removes all nodes in AVL Tree
         void makeEmpty(AvlNode<T>*& t);
         void printTree(AvlNode<T>* t) const;
 
-        int height(AvlNode<T>* t) const;
         int max(int lhs, int rhs) const;
+        int height(AvlNode<T>* t) const;
+
+        // Finds total number of nodes in Avl Tree by using recursion
         void setNumberOfNodes(AvlNode<T>*) const;
+
+        // Returns total number of Nodes in Avl Tree
         int getNumberOfNodes();
 
+        // Descriptions provided below
         void rotateWithLeftChild(AvlNode<T>*& k2);
         void rotateWithRightChild(AvlNode<T>*& k1);
         void doubleWithLeftChild(AvlNode<T>*& k3);
         void doubleWithRightChild(AvlNode<T>*& k1);
 
     public:
+        // Default constructor
         AVLTree();
-        AVLTree(const AVLTree & rhs);
+
+        // Copy constructor
+        AVLTree(const AVLTree& rhs);
+
+        // Assignment operator
+        const AVLTree& operator=(const AVLTree& rhs);
+
+        // Destructor
         ~AVLTree();
 
-
+        // Calls private AVLNode function: findMin(AvlNode<T>*) const
         const T& findMin() const;
+
+        // Calls private AVLNode function: findMax(AvlNode<T>*) const
         const T& findMax() const;
 
-        bool contains(const T& x) const;
-        bool isEmpty() const;
-        void printTree() const;
-        void makeEmpty();
+        // Calls private function: insert(const T&, AvlNode<T>*&)
         void insert(const T& x);
 
-        const AVLTree & operator=(const AVLTree& rhs);
+        // Calls private function: contains(const T& x, AvlNode<T>* t) const
+        bool contains(const T& x) const;
+
+        // Returns boolean value depending on AVL Tree's size
+        bool isEmpty() const;
+
+        // Calls private function: makeEmpty(AvlNode<T>*&)
+        void makeEmpty();
+
+        // Calls private function: printTree(AvlNode<T>*) const
+        void printTree() const;
 };
-
-
 
 template<typename T>
 AVLTree<T>::AVLTree() : root(nullptr){
@@ -70,9 +78,20 @@ AVLTree<T>::AVLTree(const AVLTree& rhs) : root(nullptr){
 }
 
 template<typename T>
+const AVLTree<T>& AVLTree<T>::operator=(const AVLTree& rhs){
+    if(this != &rhs){
+        makeEmpty();
+        root = clone(rhs.root);
+    }
+
+    return *this;
+}
+
+template<typename T>
 AVLTree<T>::~AVLTree(){
     makeEmpty();
 }
+
 
 template<typename T>
 const T& AVLTree<T>::findMin() const{
@@ -92,47 +111,13 @@ const T& AVLTree<T>::findMax() const{
     return findMax(root)->element;
 }
 
-template<typename T>
-bool AVLTree<T>::contains(const T& x) const{
-    return contains(x, root);
-}
-
-template<typename T>
-bool AVLTree<T>::isEmpty() const{
-    return ((root == nullptr) ? true : false);
-}
-
-template<typename T>
-void AVLTree<T>::printTree() const{
-    if(isEmpty()){
-        cout << "Empty tree" << endl;
-    }
-
-    else{
-        printTree(root);
-    }
-}
-
-template<typename T>
-void AVLTree<T>::makeEmpty(){
-    makeEmpty(root);
-}
-
+// PUBLIC insert
 template<typename T>
 void AVLTree<T>::insert(const T& x){
     insert(x, root);
 }
 
-template<typename T>
-const AVLTree<T>& AVLTree<T>::operator=(const AVLTree& rhs){
-    if(this != &rhs){
-        makeEmpty();
-        root = clone(rhs.root);
-    }
-
-    return *this;
-}
-
+// PRIVATE insert
 template<typename T>
 void AVLTree<T>::insert(const T& x, AvlNode<T>*& t){
     if(t == nullptr){
@@ -171,6 +156,13 @@ void AVLTree<T>::insert(const T& x, AvlNode<T>*& t){
     t->height = max(height(t->left), height(t->right)) + 1;
 }
 
+// PUBLIC contains
+template<typename T>
+bool AVLTree<T>::contains(const T& x) const{
+    return contains(x, root);
+}
+
+// PRIVATE contains
 template<typename T>
 bool AVLTree<T>::contains(const T& x, AvlNode<T>* t) const{
     if(t == nullptr){
@@ -191,6 +183,18 @@ bool AVLTree<T>::contains(const T& x, AvlNode<T>* t) const{
 }
 
 template<typename T>
+bool AVLTree<T>::isEmpty() const{
+    return ((root == nullptr) ? true : false);
+}
+
+// PUBLIC makeEmpty
+template<typename T>
+void AVLTree<T>::makeEmpty(){
+    makeEmpty(root);
+}
+
+// PRIVATE makeEmpty
+template<typename T>
 void AVLTree<T>::makeEmpty(AvlNode<T>*& t){
     if(t != nullptr){
         makeEmpty(t->left);
@@ -200,6 +204,19 @@ void AVLTree<T>::makeEmpty(AvlNode<T>*& t){
     t = nullptr;
 }
 
+// PUBLIC printTree
+template<typename T>
+void AVLTree<T>::printTree() const{
+    if(isEmpty()){
+        cout << "Empty tree" << endl;
+    }
+
+    else{
+        printTree(root);
+    }
+}
+
+// PRIVATE printTree
 template<typename T>
 void AVLTree<T>::printTree(AvlNode<T>* t) const{
     if(t != nullptr){

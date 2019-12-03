@@ -1,20 +1,12 @@
 #ifndef MODE_H
 #define MODE_H
 
-#include <vector>
 #include <QStyle>
 #include <iostream>
 #include <QMainWindow>
 #include "maintenance.h"
 #include "interactive.h"
 #include <QDesktopWidget>
-
-using std::cout;
-using std::endl;
-using std::vector;
-using std::string;
-
-//static vector<string> aVector;
 
 QT_BEGIN_NAMESPACE
     namespace Ui{ class Mode; }
