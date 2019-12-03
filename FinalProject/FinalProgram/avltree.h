@@ -93,6 +93,9 @@ AVLTree<T>::~AVLTree(){
 }
 
 
+/*
+Find the smallest item in the tree.
+Throw UnderflowException if empty. */
 template<typename T>
 const T& AVLTree<T>::findMin() const{
     if(isEmpty()){
@@ -102,6 +105,9 @@ const T& AVLTree<T>::findMin() const{
     return findMin(root)->element;
 }
 
+/*
+Find the largest item in the tree.
+Throw UnderflowException if empty. */
 template<typename T>
 const T& AVLTree<T>::findMax() const{
     if(isEmpty()){
@@ -111,7 +117,7 @@ const T& AVLTree<T>::findMax() const{
     return findMax(root)->element;
 }
 
-// PUBLIC insert
+// PUBLIC insert    --> Insert x into the tree; duplicates are ignored
 template<typename T>
 void AVLTree<T>::insert(const T& x){
     insert(x, root);
@@ -156,7 +162,7 @@ void AVLTree<T>::insert(const T& x, AvlNode<T>*& t){
     t->height = max(height(t->left), height(t->right)) + 1;
 }
 
-// PUBLIC contains
+// PUBLIC contains  --> Returns true if x is found in the tree
 template<typename T>
 bool AVLTree<T>::contains(const T& x) const{
     return contains(x, root);
@@ -182,12 +188,15 @@ bool AVLTree<T>::contains(const T& x, AvlNode<T>* t) const{
     }
 }
 
+/*
+Test if the tree is logically empty.
+Return true if empty, false otherwise */
 template<typename T>
 bool AVLTree<T>::isEmpty() const{
     return ((root == nullptr) ? true : false);
 }
 
-// PUBLIC makeEmpty
+// PUBLIC makeEmpty --> makes tree logically empty
 template<typename T>
 void AVLTree<T>::makeEmpty(){
     makeEmpty(root);
@@ -248,7 +257,8 @@ int AVLTree<T>::getNumberOfNodes(){
     }
 }
 
-
+/*
+Returns the height of node t or -1 if nullptr */
 template<typename T>
 int AVLTree<T>::height(AvlNode<T>* t) const{
         return t == nullptr ? -1 : t->height;

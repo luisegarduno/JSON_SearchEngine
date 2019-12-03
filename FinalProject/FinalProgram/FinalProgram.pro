@@ -28,6 +28,7 @@ SOURCES += \
 HEADERS += \
     avlnode.h \
     avltree.h \
+    hashtable.h \
     interactive.h \
     maintenance.h \
     mode.h \
