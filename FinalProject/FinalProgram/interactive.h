@@ -38,7 +38,7 @@ class Interactive : public QDialog{
 
         // Returns  the average number of words indexed per opinion
         // (after removal of stop words)
-        int getAvgNumIndexWords();
+        double getAvgNumIndexWords();
 
         // avlTreeSelected & hashTableSelected work as boolean getters
         bool avlTreeSelected();
@@ -47,7 +47,7 @@ class Interactive : public QDialog{
         // numberOfOpinions, avgIndexedWords, & top50Words are outputted when
         // statistics button is clicked
         int numberOfOpinions;
-        int avgIndexedWords;
+        double avgIndexedWords;
         string top50Words;
 
         // Interactive Class Destructor

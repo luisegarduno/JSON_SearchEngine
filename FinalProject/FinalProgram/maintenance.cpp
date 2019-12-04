@@ -1,7 +1,7 @@
 #include "maintenance.h"
 #include "ui_maintenance.h"
 
-Maintenance::Maintenance(QWidget *parent) : QDialog(parent), steps(0),  ui(new Ui::Maintenance) {
+Maintenance::Maintenance(QWidget *parent) : QDialog(parent),  steps(0), ui(new Ui::Maintenance), totalNumberOfFiles(0), totalNumOfWords(0.0), totalNumOfValidDocs(0) {
     ui->setupUi(this);
 
     {
@@ -98,7 +98,6 @@ void Maintenance::parse(string fileName){
      split2Word(plainText_Section);
 
     if(html_Section != "" && isValidDoc){
-        ++totalNumOfValidDocs;
     }
 }
 
@@ -193,6 +192,7 @@ void Maintenance::split2Word(string section){
             if((*theIterator).size() != 0){
                 tempWord = *theIterator;
                 Porter2Stemmer::stem(tempWord);
+                ++totalNumOfWords;
             }
         }
     }
@@ -271,17 +271,6 @@ bool Maintenance::isStopWord(string& word){
 }
 
 int Maintenance::getTotalNumberOfFiles(string& fileName){
-    int totalNumberOfFiles = 0;
-
-    /*
-    try {
-        cout << "Counting Folder Size" << endl;
-        filesystem::file_size(fileName);
-        cout << "Done" << endl;
-    } catch (filesystem::filesystem_error& e) {
-        cout << e.what() << "No bueno, caught error\n" ;
-    }
-    */
 
     filesystem::directory_iterator end;
     for(filesystem::directory_iterator theIterator(fileName) ; theIterator != end; ++theIterator){
@@ -316,15 +305,23 @@ void Maintenance::setFileLocations(string& fileName){
         steps++;
         pd->setValue(steps);
     }
+    //avgNumOfWordsPerOpinion /= totalNumOfValidDocs;
 }
 
 vector<string> Maintenance::getFileLocations(){
         return allFileLocations;
 }
 
-size_t Maintenance::getTotalNumValidDocs(){
+int Maintenance::getTotalNumValidDocs(){
     if(totalNumOfValidDocs > 0){
         return totalNumOfValidDocs;
+    }
+    return 0;
+}
+
+double Maintenance::getTotalNumOfWords(){
+    if(totalNumOfWords > 0.0){
+        return totalNumOfWords;
     }
 
     return 0;

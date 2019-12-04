@@ -83,7 +83,7 @@ int Interactive::getNumOfOpinions(){
     return numberOfOpinions;
 }
 
-int Interactive::getAvgNumIndexWords(){
+double Interactive::getAvgNumIndexWords(){
     return avgIndexedWords;
 }
 

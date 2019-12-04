@@ -79,7 +79,8 @@ class Maintenance : public QDialog{
         bool isStopWord(string&);
 
         // returns total number of valid documents
-        size_t getTotalNumValidDocs();
+        int getTotalNumValidDocs();
+        double getTotalNumOfWords();
 
         vector<string> getFileLocations();
 
@@ -110,13 +111,17 @@ private:
 
         ifstream persistentIndex;
 
+        int totalNumberOfFiles;
+
+        double totalNumOfWords;
+
         // add word to persistent index file
         void addToPersistentIndex(const string);
 
         int getTotalNumberOfFiles(string&);
 
         // Total number of valid documents (not denied)
-        size_t totalNumOfValidDocs;
+        int totalNumOfValidDocs;
 
         // vector containing allFileLocations as string types
         vector<string> allFileLocations;
@@ -135,8 +140,6 @@ private:
 
         // iterates through folder and converts each directory path into a string
         void setFileLocations(string&);
-
-
 
 };
 

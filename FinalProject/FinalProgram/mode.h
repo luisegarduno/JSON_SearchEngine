@@ -35,8 +35,6 @@ class Mode : public QMainWindow{
         // Mode UI Pointer
         Ui::Mode *ui;
 
-        size_t totalOpinionsInFolder;
-
         // Maintenance Object Pointer
         Maintenance * maintenanceMode;
 

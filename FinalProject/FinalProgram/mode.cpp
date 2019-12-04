@@ -3,12 +3,15 @@
 
 Mode::Mode(QWidget *parent): QMainWindow(parent), ui(new Ui::Mode){
     ui->setupUi(this);
-    totalOpinionsInFolder = 0;
+
+    // Create new Maintenance window object on HEAP
+    maintenanceMode = new Maintenance(this);
+
+    // Create new Interactive window object on HEAP
+    interactiveMode = new Interactive(this);
 }
 
 void Mode::on_Maintenance_Button_clicked(){
-    // Create new Maintenance window object on HEAP
-    maintenanceMode = new Maintenance(this);
 
     maintenanceMode->setGeometry(
         QStyle::alignedRect(
@@ -23,17 +26,16 @@ void Mode::on_Maintenance_Button_clicked(){
 }
 
 void Mode::on_Interactive_Button_clicked(){
-    totalOpinionsInFolder += maintenanceMode->getTotalNumValidDocs();
+    interactiveMode->numberOfOpinions = maintenanceMode->getTotalNumValidDocs();
+    interactiveMode->avgIndexedWords = maintenanceMode->getTotalNumOfWords() / maintenanceMode->getTotalNumValidDocs();
 
-    if(totalOpinionsInFolder > 0){
+    if(maintenanceMode->getTotalNumValidDocs() > 0){
         // Create new Interactive window object on HEAP
-        interactiveMode = new Interactive(this);
         opinionLocations = maintenanceMode->getFileLocations();
 
-        //for(size_t counter = 0; counter < opinionLocations.size(); counter++){
-         //   cout << "[" << counter + 1 << "]: " << opinionLocations[counter] << endl;
-       // }
-
+        for(size_t counter = 0; counter < opinionLocations.size(); counter++){
+            cout << "[" << counter + 1 << "]: " << opinionLocations[counter] << endl;
+        }
 
         interactiveMode->setGeometry(
             QStyle::alignedRect(
@@ -44,7 +46,6 @@ void Mode::on_Interactive_Button_clicked(){
             )
         );
 
-        interactiveMode->numberOfOpinions += int(opinionLocations.size());
         interactiveMode->show();
 
     }
