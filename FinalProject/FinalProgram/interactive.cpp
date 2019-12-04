@@ -67,9 +67,9 @@ void Interactive::on_Statistics_clicked(){
     string theNumOfOpinions = to_string(getNumOfOpinions());
     string theAvgNumIndexWords = to_string(getAvgNumIndexWords());
 
-    QString opinionsIndex = "--> Total number of Opinions Index: " + QString::fromStdString(theNumOfOpinions) + "\n\n";
-    QString averageIndexedWords = "--> Average number of words indexed per opinion (after removal of stop words): " + QString::fromStdString(theAvgNumIndexWords) +  "\n\n";
-    QString top50Words = "--> Top 50 most frequent words: ";
+    QString opinionsIndex = "Total number of Opinions Index: " + QString::fromStdString(theNumOfOpinions) + "\n\n";
+    QString averageIndexedWords = "Average number of words indexed per opinion (after removal of stop words): " + QString::fromStdString(theAvgNumIndexWords) +  "\n\n";
+    QString top50Words = "Top 50 most frequent words: ";
 
     QString theStatistics = opinionsIndex + averageIndexedWords + top50Words;
     QMessageBox::information(this,"Let's Search : Statistics",theStatistics);

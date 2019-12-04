@@ -26,35 +26,37 @@ void Mode::on_Maintenance_Button_clicked(){
 }
 
 void Mode::on_Interactive_Button_clicked(){
-    interactiveMode->numberOfOpinions = maintenanceMode->getTotalNumValidDocs();
-    interactiveMode->avgIndexedWords = maintenanceMode->getTotalNumOfWords() / maintenanceMode->getTotalNumValidDocs();
+    if(maintenanceMode->getTotalNumValidDocs() != 0){
+        interactiveMode->numberOfOpinions = maintenanceMode->getTotalNumValidDocs();
+        interactiveMode->avgIndexedWords = maintenanceMode->getTotalNumOfWords() / maintenanceMode->getTotalNumValidDocs();
 
-    if(maintenanceMode->getTotalNumValidDocs() > 0){
-        // Create new Interactive window object on HEAP
-        opinionLocations = maintenanceMode->getFileLocations();
+        if(maintenanceMode->getTotalNumValidDocs() > 0){
+            // Create new Interactive window object on HEAP
+            opinionLocations = maintenanceMode->getFileLocations();
 
-        for(size_t counter = 0; counter < opinionLocations.size(); counter++){
-            cout << "[" << counter + 1 << "]: " << opinionLocations[counter] << endl;
+            //for(size_t counter = 0; counter < opinionLocations.size(); counter++){
+                //cout << "[" << counter + 1 << "]: " << opinionLocations[counter] << endl;
+            //}
+
+            interactiveMode->setGeometry(
+                QStyle::alignedRect(
+                            Qt::LeftToRight,
+                            Qt::AlignCenter,
+                            interactiveMode->size(),
+                            qApp->desktop()->availableGeometry()
+                )
+            );
+
+            interactiveMode->show();
+
         }
-
-        interactiveMode->setGeometry(
-            QStyle::alignedRect(
-                        Qt::LeftToRight,
-                        Qt::AlignCenter,
-                        interactiveMode->size(),
-                        qApp->desktop()->availableGeometry()
-            )
-        );
-
-        interactiveMode->show();
-
     }
 
-    /*else{
+    else{
         QString noFile = "No opinions added!\n";
         QString tryAgain = "Please select valid path to a folder";
         QMessageBox::warning(this,"Error", noFile + tryAgain);
-    }*/
+    }
 }
 
 

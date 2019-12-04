@@ -7,9 +7,10 @@
 #include <sstream>
 #include <iostream>
 #include <QCheckBox>
-#include <QMessageBox>
 #include "avltree.h"
+#include <QMessageBox>
 #include "maintenance.h"
+#include "indexinterface.h"
 #include <QDialogButtonBox>
 
 #include "searchquery.h"
