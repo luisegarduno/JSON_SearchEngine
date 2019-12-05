@@ -2,6 +2,7 @@
 #define MAINTENANCE_H
 
 #include <map>
+#include <set>
 #include <QDir>
 #include <string>
 #include <vector>
@@ -15,6 +16,7 @@
 #include <iostream>
 #include "avltree.h"
 #include <algorithm>
+#include <functional>
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QMessageBox>
@@ -29,7 +31,9 @@
 
 using namespace rapidjson; 
 
-using std:: map;
+using std::set;
+using std::map;
+using std::pair;
 using std::copy;
 using std::fopen;
 using std::vector;
@@ -44,6 +48,8 @@ using std::ostream_iterator;
 typedef map<string,int> stringInMap;
 
 namespace filesystem = std::experimental::filesystem;
+
+
 
 namespace Ui {
     class Maintenance;

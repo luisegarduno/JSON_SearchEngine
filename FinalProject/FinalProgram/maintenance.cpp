@@ -104,9 +104,24 @@ void Maintenance::parse(string fileName){
         countWords(htmlLawbox_Section,tempMap);
         countWords(plainText_Section,tempMap);
 
-        for(stringInMap::iterator aIterator = tempMap.begin(); aIterator != tempMap.end(); ++aIterator){
-            printf("%d[%s]: %d\n", documentID, aIterator->first.c_str(), aIterator->second);
+        typedef std::function<bool(pair<string, int>, pair<string, int>)> Comparator;
+
+        Comparator compFunctor =
+                    [](pair<string, int> elem1, pair<string,int> elem2)
+                    {
+                        return elem1.second < elem2.second;
+                    };
+        set<pair<string, int>, Comparator> setOfWords(tempMap.begin(), tempMap.end(), compFunctor);
+
+        for (pair<string, int> aIterator : setOfWords){
+                printf("%d[%s]: %d\n", documentID, aIterator.first.c_str(), aIterator.second);
+                //cout << documentID << element.first << " :: " << element.second << endl;
         }
+
+
+        //for(stringInMap::iterator aIterator = tempMap.begin(); aIterator != tempMap.end(); ++aIterator){
+          //  printf("%d[%s]: %d\n", documentID, aIterator->first.c_str(), aIterator->second);
+        //}
 
 
 
