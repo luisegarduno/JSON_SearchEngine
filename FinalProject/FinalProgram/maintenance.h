@@ -1,6 +1,7 @@
 #ifndef MAINTENANCE_H
 #define MAINTENANCE_H
 
+#include <map>
 #include <QDir>
 #include <string>
 #include <vector>
@@ -26,10 +27,9 @@
 #include <experimental/filesystem>
 #include "rapidjson/filereadstream.h"
 
-using namespace rapidjson;
+using namespace rapidjson; 
 
-namespace filesystem = std::experimental::filesystem;
-
+using std:: map;
 using std::copy;
 using std::fopen;
 using std::vector;
@@ -40,6 +40,10 @@ using std::istringstream;
 using std::unordered_set;
 using std::cout, std::endl;
 using std::ostream_iterator;
+
+typedef map<string,int> stringInMap;
+
+namespace filesystem = std::experimental::filesystem;
 
 namespace Ui {
     class Maintenance;
@@ -73,7 +77,9 @@ class Maintenance : public QDialog{
         Document parseJSON(string);
 
         // A document section is sent as string parameter, split into word
-        void split2Word(string);
+        string& split2Word(string&);
+
+        void countWords(string, stringInMap& words);
 
         // Checks to see if string parameter matches any of stops words
         bool isStopWord(string&);

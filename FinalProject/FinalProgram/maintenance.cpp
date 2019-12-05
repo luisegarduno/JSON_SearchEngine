@@ -60,7 +60,7 @@ void Maintenance::on_AddFolder_Button_clicked(){
         // QString is converted and saved as a standard string
         string fileName = file_name.toStdString();
         int totalNumberOfFiles = getTotalNumberOfFiles(fileName);
-        cout << "Done counting total number of files: " << totalNumberOfFiles << endl;
+        //cout << "Done counting total number of files: " << totalNumberOfFiles << endl;
         pd = new QProgressDialog("Selected Directory: " + parsePathName(fileName), "Cancel", 0, totalNumberOfFiles);
         pd->setWindowTitle("Parsing Index");
         connect(pd,&QProgressDialog::canceled, this, &Maintenance::cancel);
@@ -77,7 +77,7 @@ void Maintenance::parse(string fileName){
 
     string caseTitle, html_Section, htmlLawbox_Section, plainText_Section;
 
-    //int documentID = currentDocument["id"].GetInt();
+    int documentID = currentDocument["id"].GetInt();
 
     caseTitle = currentDocument["absolute_url"].GetString();
     getCaseTitle(caseTitle);
@@ -98,7 +98,33 @@ void Maintenance::parse(string fileName){
      split2Word(plainText_Section);
 
     if(html_Section != "" && isValidDoc){
+
+        stringInMap tempMap;
+        countWords(html_Section,tempMap);
+        countWords(htmlLawbox_Section,tempMap);
+        countWords(plainText_Section,tempMap);
+
+        for(stringInMap::iterator aIterator = tempMap.begin(); aIterator != tempMap.end(); ++aIterator){
+            printf("%d[%s]: %d\n", documentID, aIterator->first.c_str(), aIterator->second);
+        }
+
+
+
+        //printf("DocID: %d\n", documentID);
+        //printf("case_title: %s\n", caseTitle.c_str());
+        //printf("HTML: %s\n", html_Section.c_str());
+        //printf("HTML_Lawbox: %s\n", htmlLawbox_Section.c_str());
+        //printf("Plain Text: %s\n\n", plainText_Section.c_str());
     }
+}
+
+void Maintenance::countWords(string section, stringInMap& theMap){
+    string aString;
+    istringstream aStream(section);
+    while(getline(aStream,aString,' ')){
+        ++theMap[aString];
+    }
+
 }
 
 Document Maintenance::parseJSON(string fileName){
@@ -151,7 +177,7 @@ QString Maintenance::parsePathName(string section){
 }
 
 
-void Maintenance::split2Word(string section){
+string& Maintenance::split2Word(string& section){
     string aWord;
     int flagCount = 0;
     istringstream stream(section);
@@ -160,23 +186,30 @@ void Maintenance::split2Word(string section){
         removeStopWords(aWord);
 
         if(aWord == "certiorari" || aWord == "petition"){
-            words.clear();
             flagCount = 1;
+            words.insert(aWord);
         }
         else if((aWord == "denied" || aWord == "for") && flagCount == 1){
             if(aWord == "denied"){
                 words.clear();
                 isValidDoc = false;
-                break;
+                section = "";
+                return section;
             }
-            words.clear();
+            words.insert(aWord);
             flagCount = 2;
         }
         else if(aWord == "for" && flagCount == 2){
+            words.insert(aWord);
+            flagCount = 3;
+        }
+        else if(aWord == "reahearing" && flagCount == 3){
             words.clear();
             isValidDoc = false;
-            break;
+            section = "";
+            return section;
         }
+
         else{
             flagCount = 0;
             isValidDoc = true;
@@ -188,14 +221,18 @@ void Maintenance::split2Word(string section){
     if(isValidDoc == true){
         unordered_set<string>::iterator theIterator;
         string tempWord;
+        section = "";
         for(theIterator = words.begin(); theIterator != words.end(); theIterator++){
             if((*theIterator).size() != 0){
                 tempWord = *theIterator;
                 Porter2Stemmer::stem(tempWord);
+                section += tempWord + " ";
                 ++totalNumOfWords;
             }
         }
+        return section;
     }
+    return section;
 
 }
 
