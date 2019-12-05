@@ -98,32 +98,17 @@ void Maintenance::parse(string fileName){
      split2Word(plainText_Section);
 
     if(html_Section != "" && isValidDoc){
+        unordered_map<string,int> theOriginalSet;
 
-        stringInMap tempMap;
-        countWords(html_Section,tempMap);
-        countWords(htmlLawbox_Section,tempMap);
-        countWords(plainText_Section,tempMap);
+        insert(theOriginalSet,html_Section);
+        insert(theOriginalSet,htmlLawbox_Section);
+        insert(theOriginalSet,plainText_Section);
 
-        typedef std::function<bool(pair<string, int>, pair<string, int>)> Comparator;
 
-        Comparator compFunctor =
-                    [](pair<string, int> elem1, pair<string,int> elem2)
-                    {
-                        return elem1.second < elem2.second;
-                    };
-        set<pair<string, int>, Comparator> setOfWords(tempMap.begin(), tempMap.end(), compFunctor);
-
-        for (pair<string, int> aIterator : setOfWords){
-                printf("%d[%s]: %d\n", documentID, aIterator.first.c_str(), aIterator.second);
-                //cout << documentID << element.first << " :: " << element.second << endl;
+        unordered_map<string,int>::iterator aIterator;
+        for(aIterator = theOriginalSet.begin(); aIterator != theOriginalSet.end(); aIterator++){
+            printf("%d[%s]: %d\n", documentID, aIterator->first.c_str(), aIterator->second);
         }
-
-
-        //for(stringInMap::iterator aIterator = tempMap.begin(); aIterator != tempMap.end(); ++aIterator){
-          //  printf("%d[%s]: %d\n", documentID, aIterator->first.c_str(), aIterator->second);
-        //}
-
-
 
         //printf("DocID: %d\n", documentID);
         //printf("case_title: %s\n", caseTitle.c_str());
@@ -133,13 +118,17 @@ void Maintenance::parse(string fileName){
     }
 }
 
-void Maintenance::countWords(string section, stringInMap& theMap){
+void Maintenance::insert(unordered_map<string,int>& map1, string aSection){
     string aString;
-    istringstream aStream(section);
+    istringstream aStream(aSection);
     while(getline(aStream,aString,' ')){
-        ++theMap[aString];
+        if(map1.find(aString) != map1.end()){
+            map1[aString]++;
+        }
+        else{
+            map1.insert(unordered_map<string,int>::value_type(aString,1));
+        }
     }
-
 }
 
 Document Maintenance::parseJSON(string fileName){
@@ -197,32 +186,27 @@ string& Maintenance::split2Word(string& section){
     int flagCount = 0;
     istringstream stream(section);
 
+
     while(stream >> aWord){
         removeStopWords(aWord);
 
         if(aWord == "certiorari" || aWord == "petition"){
             flagCount = 1;
-            words.insert(aWord);
+            words.clear();
         }
         else if((aWord == "denied" || aWord == "for") && flagCount == 1){
+            words.clear();
             if(aWord == "denied"){
                 words.clear();
                 isValidDoc = false;
                 section = "";
                 return section;
             }
-            words.insert(aWord);
             flagCount = 2;
         }
         else if(aWord == "for" && flagCount == 2){
-            words.insert(aWord);
-            flagCount = 3;
-        }
-        else if(aWord == "reahearing" && flagCount == 3){
             words.clear();
             isValidDoc = false;
-            section = "";
-            return section;
         }
 
         else{

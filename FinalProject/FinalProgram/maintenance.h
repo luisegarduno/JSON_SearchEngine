@@ -1,8 +1,8 @@
 #ifndef MAINTENANCE_H
 #define MAINTENANCE_H
 
-#include <map>
-#include <set>
+
+
 #include <QDir>
 #include <string>
 #include <vector>
@@ -21,6 +21,7 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <unordered_set>
+#include <unordered_map>
 #include <QFutureWatcher>
 #include <QProgressDialog>
 #include "porter2_stemmer.h"
@@ -31,9 +32,7 @@
 
 using namespace rapidjson; 
 
-using std::set;
-using std::map;
-using std::pair;
+
 using std::copy;
 using std::fopen;
 using std::vector;
@@ -42,14 +41,11 @@ using std::ifstream;
 using std::remove_if;
 using std::istringstream;
 using std::unordered_set;
+using std::unordered_map;
 using std::cout, std::endl;
 using std::ostream_iterator;
 
-typedef map<string,int> stringInMap;
-
 namespace filesystem = std::experimental::filesystem;
-
-
 
 namespace Ui {
     class Maintenance;
@@ -85,7 +81,7 @@ class Maintenance : public QDialog{
         // A document section is sent as string parameter, split into word
         string& split2Word(string&);
 
-        void countWords(string, stringInMap& words);
+        void insert(unordered_map<string,int>&,string);
 
         // Checks to see if string parameter matches any of stops words
         bool isStopWord(string&);
