@@ -1,6 +1,7 @@
 #ifndef MAINTENANCE_H
 #define MAINTENANCE_H
 
+#include <set>
 #include <QDir>
 #include <string>
 #include <vector>
@@ -29,10 +30,14 @@
 
 using namespace rapidjson; 
 
+using std::pair;
+using std::sort;
 using std::copy;
 using std::fopen;
 using std::vector;
 using std::string;
+using std::fstream;
+using std::multiset;
 using std::ifstream;
 using std::remove_if;
 using std::istringstream;
@@ -40,11 +45,31 @@ using std::unordered_set;
 using std::unordered_map;
 using std::cout, std::endl;
 using std::ostream_iterator;
+using std::reference_wrapper; // Class template that wraps a reference in a copyable
 
 namespace filesystem = std::experimental::filesystem;
 
 namespace Ui {
     class Maintenance;
+}
+
+
+struct compareReferencedMap{
+    template <typename T>
+    bool operator() (const T& left, const T& right) const{
+        return left.second.get() > right.second.get();
+    }
+};
+
+template <typename T>
+multiset< pair<reference_wrapper<const string>, reference_wrapper<const int> >, compareReferencedMap > sortMap(const T& map){
+    multiset< pair<reference_wrapper<const string>, reference_wrapper<const int> >, compareReferencedMap > newMultiSet;
+
+    for(auto& pair : map){
+        newMultiSet.emplace(pair.first, pair.second);
+    }
+
+    return newMultiSet;
 }
 
 class Maintenance : public QDialog{
@@ -76,7 +101,7 @@ class Maintenance : public QDialog{
 
         // A document section is sent as string parameter, split into word
         string& split2Word(string&);
-
+        unordered_map<string,int> entireMap;
         void insert(unordered_map<string,int>&,string);
 
         // Checks to see if string parameter matches any of stops words
@@ -113,7 +138,7 @@ private:
         // Maintenance UI Pointer
         Ui::Maintenance *ui;
 
-        ifstream persistentIndex;
+        fstream persistentIndex;
 
         int totalNumberOfFiles;
 

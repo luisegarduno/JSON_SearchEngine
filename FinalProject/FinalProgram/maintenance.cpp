@@ -72,6 +72,7 @@ void Maintenance::on_AddFolder_Button_clicked(){
     }
 }
 
+
 void Maintenance::parse(string fileName){
     Document currentDocument = parseJSON(fileName);
 
@@ -104,23 +105,52 @@ void Maintenance::parse(string fileName){
         insert(theOriginalMap,htmlLawbox_Section);
         insert(theOriginalMap,plainText_Section);
 
+        insert(entireMap,html_Section);
+        insert(entireMap,htmlLawbox_Section);
+        insert(entireMap,plainText_Section);
+
+
+        for(const auto& pair : sortMap(theOriginalMap) ){
+            cout << documentID << "[" << pair.first.get() << "]:" << pair.second.get() << endl ;
+            persistentIndex << documentID << '[' << pair.first.get() << "]:" << pair.second.get() << "\n";
+        }
+
+
+        /*
+        unordered_map<string,int> theNewMap;
+
+        vector<pair<string,int>> tmp;
+        for(auto& i : theOriginalMap){
+            tmp.push_back(i);
+        }
+
+        sort(tmp.begin(), tmp.end(),
+            [&](pair<string, int>& a, pair<string, int>& b) { return a.second < b.second; });
+
+        for(auto& i : tmp){
+            theNewMap[i.first] = i.second;
+        }
+
+
+
         for(auto aIterator = theOriginalMap.begin(); aIterator != theOriginalMap.end(); aIterator++){
             printf("%d[%s]: %d\n", documentID, aIterator->first.c_str(), aIterator->second);
+            persistentIndex << documentID << '[' << aIterator->first.c_str() << "]:" << aIterator->second << "\n";
         }
-    }
+        */
 
+    }
 }
 
-void Maintenance::insert(unordered_map<string,int>& map1, string aSection){
+void Maintenance::insert(unordered_map<string,int>& theMap, string aSection){
     string aString;
     istringstream aStream(aSection);
     while(getline(aStream,aString,' ')){
-        if(map1.find(aString) != map1.end()) {
-
-            map1[aString]++;
+        if(theMap.find(aString) != theMap.end()) {
+            theMap[aString]++;
         }
         else{
-            map1.insert(unordered_map<string,int>::value_type(aString,1));
+            theMap.insert(unordered_map<string,int>::value_type(aString,1));
         }
     }
 }
@@ -319,7 +349,7 @@ int Maintenance::getTotalNumberOfFiles(string& fileName){
 }
 
 void Maintenance::setFileLocations(string& fileName){
-
+    persistentIndex.open("Index.txt" , fstream::in | fstream::out | fstream::app);
     pd->setValue(steps);
 
     filesystem::directory_iterator end;
@@ -343,7 +373,35 @@ void Maintenance::setFileLocations(string& fileName){
         steps++;
         pd->setValue(steps);
     }
-    //avgNumOfWordsPerOpinion /= totalNumOfValidDocs;
+
+
+
+    /*
+    unordered_map<string,int> theNewMap;
+    vector<pair<string,int>> tmp;
+    for(auto& i : entireMap){
+        tmp.push_back(i);
+    }
+
+
+    sort(tmp.begin(), tmp.end(),
+        [&](pair<string, int>& a, pair<string, int>& b) { return a.second < b.second; });
+
+    for(auto& i : tmp){
+        theNewMap[i.first] = i.second;
+    }
+
+
+
+    for(auto aIterator = theNewMap.begin(); aIterator != theNewMap.end(); aIterator++){
+        printf("[%s]: %d\n",aIterator->first.c_str(), aIterator->second);
+        persistentIndex << '[' << aIterator->first.c_str() << "]:" << aIterator->second << "\n";
+    }
+    */
+
+
+
+    persistentIndex.close();
 }
 
 vector<string> Maintenance::getFileLocations(){
