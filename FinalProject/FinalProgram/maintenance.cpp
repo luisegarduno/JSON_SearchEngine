@@ -111,34 +111,8 @@ void Maintenance::parse(string fileName){
 
 
         for(const auto& pair : sortMap(theOriginalMap) ){
-            cout << documentID << "[" << pair.first.get() << "]:" << pair.second.get() << endl ;
             persistentIndex << documentID << '[' << pair.first.get() << "]:" << pair.second.get() << "\n";
         }
-
-
-        /*
-        unordered_map<string,int> theNewMap;
-
-        vector<pair<string,int>> tmp;
-        for(auto& i : theOriginalMap){
-            tmp.push_back(i);
-        }
-
-        sort(tmp.begin(), tmp.end(),
-            [&](pair<string, int>& a, pair<string, int>& b) { return a.second < b.second; });
-
-        for(auto& i : tmp){
-            theNewMap[i.first] = i.second;
-        }
-
-
-
-        for(auto aIterator = theOriginalMap.begin(); aIterator != theOriginalMap.end(); aIterator++){
-            printf("%d[%s]: %d\n", documentID, aIterator->first.c_str(), aIterator->second);
-            persistentIndex << documentID << '[' << aIterator->first.c_str() << "]:" << aIterator->second << "\n";
-        }
-        */
-
     }
 }
 
@@ -374,34 +348,20 @@ void Maintenance::setFileLocations(string& fileName){
         pd->setValue(steps);
     }
 
-
-
-    /*
-    unordered_map<string,int> theNewMap;
-    vector<pair<string,int>> tmp;
-    for(auto& i : entireMap){
-        tmp.push_back(i);
-    }
-
-
-    sort(tmp.begin(), tmp.end(),
-        [&](pair<string, int>& a, pair<string, int>& b) { return a.second < b.second; });
-
-    for(auto& i : tmp){
-        theNewMap[i.first] = i.second;
-    }
-
-
-
-    for(auto aIterator = theNewMap.begin(); aIterator != theNewMap.end(); aIterator++){
-        printf("[%s]: %d\n",aIterator->first.c_str(), aIterator->second);
-        persistentIndex << '[' << aIterator->first.c_str() << "]:" << aIterator->second << "\n";
-    }
-    */
-
-
+    findTop50Words();
 
     persistentIndex.close();
+}
+
+void Maintenance::findTop50Words(){
+    int count = 0;
+    for(const auto& pair : sortMap(entireMap) ){
+        if(count < 50){
+            cout << count + 1 << ": " << pair.first.get() << "[" << pair.second.get() << "]" << endl;
+            top50Words[count].push_back(pair.first.get());
+            ++count;
+        }
+    }
 }
 
 vector<string> Maintenance::getFileLocations(){

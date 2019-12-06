@@ -53,7 +53,6 @@ namespace Ui {
     class Maintenance;
 }
 
-
 struct compareReferencedMap{
     template <typename T>
     bool operator() (const T& left, const T& right) const{
@@ -110,6 +109,8 @@ class Maintenance : public QDialog{
         // returns total number of valid documents
         int getTotalNumValidDocs();
         double getTotalNumOfWords();
+        vector<string> top50Words[50];
+        void findTop50Words();
 
         vector<string> getFileLocations();
 
