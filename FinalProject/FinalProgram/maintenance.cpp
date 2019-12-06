@@ -5,7 +5,7 @@ Maintenance::Maintenance(QWidget *parent) : QDialog(parent),  steps(0), ui(new U
     ui->setupUi(this);
 
     {
-        ifstream inputFile("../ProgramParser/StopWords.txt");        // https://countwordsfree.com/stopwords
+        ifstream inputFile("../FinalProgram/StopWords.txt");        // https://countwordsfree.com/stopwords
         string stopWordString;
 
         while(inputFile >> stopWordString){
@@ -38,9 +38,7 @@ void Maintenance::on_ClearFile_Button_clicked(){
         this->close();
     }
 
-    else{
-
-    }
+    else{}
 }
 
 void Maintenance::on_AddFolder_Button_clicked(){
@@ -182,6 +180,7 @@ string& Maintenance::split2Word(string& section){
     string aWord;
     int flagCount = 0;
     istringstream stream(section);
+    unordered_set<string> tempWords;
 
 
     while(stream >> aWord){
@@ -189,7 +188,7 @@ string& Maintenance::split2Word(string& section){
         removeStopWords(aWord);
 
         if(aWord == "certiorari" || aWord == "petition"){
-            words.insert(aWord);
+            tempWords.insert(aWord);
             if(aWord == "certiorari"){
                 flagCount = 1;
             }
@@ -199,42 +198,41 @@ string& Maintenance::split2Word(string& section){
         }
         else if((aWord == "denied" || aWord == "for") && flagCount >= 1){
             if(aWord == "denied" && (flagCount == 1)){
-                words.clear();
-                isValidDoc = false;
                 section = "";
+                tempWords.clear();
+                isValidDoc = false;
                 return section;
             }
-            words.insert(aWord);
             flagCount = 3;
+            tempWords.insert(aWord);
         }
         else if(aWord == "rehearing" && flagCount == 3){
-            words.clear();
-            isValidDoc = false;
             section = "";
+            tempWords.clear();
+            isValidDoc = false;
             return section;
         }
 
         else{
             flagCount = 0;
             isValidDoc = true;
-            words.insert(aWord);
+            tempWords.insert(aWord);
         }
     }
-
 
     if(isValidDoc == true){
         unordered_set<string>::iterator theIterator;
         string tempWord;
         section = "";
-        for(theIterator = words.begin(); theIterator != words.end(); theIterator++){
+        for(theIterator = tempWords.begin(); theIterator != tempWords.end(); theIterator++){
             if((*theIterator).size() != 0){
                 tempWord = *theIterator;
                 Porter2Stemmer::stem(tempWord);
+                words.insert(tempWord);
                 section += tempWord + " ";
                 ++totalNumOfWords;
             }
         }
-        words.clear();
         return section;
     }
     return section;
