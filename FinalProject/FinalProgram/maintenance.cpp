@@ -348,20 +348,24 @@ void Maintenance::setFileLocations(string& fileName){
         pd->setValue(steps);
     }
 
-    findTop50Words();
+    setTop50Words();
 
     persistentIndex.close();
 }
 
-void Maintenance::findTop50Words(){
+void Maintenance::setTop50Words(){
     int count = 0;
     for(const auto& pair : sortMap(entireMap) ){
         if(count < 50){
-            cout << count + 1 << ": " << pair.first.get() << "[" << pair.second.get() << "]" << endl;
-            top50Words[count].push_back(pair.first.get());
+            //cout << count + 1 << ": " << pair.first.get() << "[" << pair.second.get() << "]" << endl;
+            top50Words.push_back(pair.first.get());
             ++count;
         }
     }
+}
+
+vector<string> Maintenance::getTop50Words(){
+    return top50Words;
 }
 
 vector<string> Maintenance::getFileLocations(){

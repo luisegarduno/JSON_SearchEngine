@@ -66,12 +66,23 @@ void Interactive::on_IndexMethod_Button_clicked(){
 void Interactive::on_Statistics_clicked(){
     string theNumOfOpinions = to_string(getNumOfOpinions());
     string theAvgNumIndexWords = to_string(getAvgNumIndexWords());
+    string top50Print;
 
-    QString opinionsIndex = "Total number of Opinions Index: " + QString::fromStdString(theNumOfOpinions) + "\n\n";
-    QString averageIndexedWords = "Average number of words indexed per opinion (after removal of stop words): " + QString::fromStdString(theAvgNumIndexWords) +  "\n\n";
-    QString top50Words = "Top 50 most frequent words: ";
+    for(size_t i = 1; i < 51; i++){
+        if(i != 50){
+            top50Print +=  "\t[" + to_string(i) + "]: " + top50Words.at(i - 1) + "\n";
+        }
+        else{
+            top50Print += "\t[" + to_string(i) + "]: " + top50Words.at(i - 1);
+        }
+    }
 
-    QString theStatistics = opinionsIndex + averageIndexedWords + top50Words;
+
+    QString opinionsIndex = "[1]Total number of Opinions Index: " + QString::fromStdString(theNumOfOpinions) + "\n\n";
+    QString averageIndexedWords = "[2]Average number of words indexed per opinion (after removal of stop words): " + QString::fromStdString(theAvgNumIndexWords) +  "\n\n";
+    QString top50WordsFound = "[3]Top 50 most frequent words: \n" + QString::fromStdString(top50Print);
+
+    QString theStatistics = opinionsIndex + averageIndexedWords + top50WordsFound;
     QMessageBox::information(this,"Let's Search : Statistics",theStatistics);
 }
 

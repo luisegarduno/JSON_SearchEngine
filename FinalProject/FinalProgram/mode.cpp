@@ -29,6 +29,7 @@ void Mode::on_Interactive_Button_clicked(){
     if(maintenanceMode->getTotalNumValidDocs() != 0){
         interactiveMode->numberOfOpinions = maintenanceMode->getTotalNumValidDocs();
         interactiveMode->avgIndexedWords = maintenanceMode->getTotalNumOfWords() / maintenanceMode->getTotalNumValidDocs();
+        interactiveMode->top50Words = maintenanceMode->getTop50Words();
 
         if(maintenanceMode->getTotalNumValidDocs() > 0){
             // Create new Interactive window object on HEAP

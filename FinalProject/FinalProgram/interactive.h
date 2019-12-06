@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <iomanip>
 #include <QDialog>
 #include <sstream>
 #include <iostream>
@@ -49,7 +50,7 @@ class Interactive : public QDialog{
         // statistics button is clicked
         int numberOfOpinions;
         double avgIndexedWords;
-        string top50Words;
+        vector<string> top50Words;
 
         // Interactive Class Destructor
         ~Interactive();

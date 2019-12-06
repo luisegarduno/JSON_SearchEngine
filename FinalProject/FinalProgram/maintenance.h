@@ -109,8 +109,9 @@ class Maintenance : public QDialog{
         // returns total number of valid documents
         int getTotalNumValidDocs();
         double getTotalNumOfWords();
-        vector<string> top50Words[50];
-        void findTop50Words();
+
+        void setTop50Words();
+        vector<string> getTop50Words();
 
         vector<string> getFileLocations();
 
@@ -144,6 +145,8 @@ private:
         int totalNumberOfFiles;
 
         double totalNumOfWords;
+
+        vector<string> top50Words;
 
         // add word to persistent index file
         void addToPersistentIndex(const string);
