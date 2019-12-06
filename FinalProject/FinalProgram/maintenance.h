@@ -1,8 +1,6 @@
 #ifndef MAINTENANCE_H
 #define MAINTENANCE_H
 
-
-
 #include <QDir>
 #include <string>
 #include <vector>
@@ -16,7 +14,6 @@
 #include <iostream>
 #include "avltree.h"
 #include <algorithm>
-#include <functional>
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QMessageBox>
@@ -31,7 +28,6 @@
 #include "rapidjson/filereadstream.h"
 
 using namespace rapidjson; 
-
 
 using std::copy;
 using std::fopen;

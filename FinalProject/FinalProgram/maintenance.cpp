@@ -94,35 +94,29 @@ void Maintenance::parse(string fileName){
         split2Word(htmlLawbox_Section);
     }
 
-     plainText_Section = currentDocument["plain_text"].GetString();
-     split2Word(plainText_Section);
+    plainText_Section = currentDocument["plain_text"].GetString();
+    split2Word(plainText_Section);
 
     if(html_Section != "" && isValidDoc){
-        unordered_map<string,int> theOriginalSet;
+        unordered_map<string,int> theOriginalMap;
 
-        insert(theOriginalSet,html_Section);
-        insert(theOriginalSet,htmlLawbox_Section);
-        insert(theOriginalSet,plainText_Section);
+        insert(theOriginalMap,html_Section);
+        insert(theOriginalMap,htmlLawbox_Section);
+        insert(theOriginalMap,plainText_Section);
 
-
-        unordered_map<string,int>::iterator aIterator;
-        for(aIterator = theOriginalSet.begin(); aIterator != theOriginalSet.end(); aIterator++){
+        for(auto aIterator = theOriginalMap.begin(); aIterator != theOriginalMap.end(); aIterator++){
             printf("%d[%s]: %d\n", documentID, aIterator->first.c_str(), aIterator->second);
         }
-
-        //printf("DocID: %d\n", documentID);
-        //printf("case_title: %s\n", caseTitle.c_str());
-        //printf("HTML: %s\n", html_Section.c_str());
-        //printf("HTML_Lawbox: %s\n", htmlLawbox_Section.c_str());
-        //printf("Plain Text: %s\n\n", plainText_Section.c_str());
     }
+
 }
 
 void Maintenance::insert(unordered_map<string,int>& map1, string aSection){
     string aString;
     istringstream aStream(aSection);
     while(getline(aStream,aString,' ')){
-        if(map1.find(aString) != map1.end()){
+        if(map1.find(aString) != map1.end()) {
+
             map1[aString]++;
         }
         else{
@@ -180,7 +174,6 @@ QString Maintenance::parsePathName(string section){
     return QString::fromStdString(section);
 }
 
-
 string& Maintenance::split2Word(string& section){
     string aWord;
     int flagCount = 0;
@@ -188,25 +181,33 @@ string& Maintenance::split2Word(string& section){
 
 
     while(stream >> aWord){
+
         removeStopWords(aWord);
 
         if(aWord == "certiorari" || aWord == "petition"){
-            flagCount = 1;
-            words.clear();
+            words.insert(aWord);
+            if(aWord == "certiorari"){
+                flagCount = 1;
+            }
+            else{
+                flagCount = 2;
+            }
         }
-        else if((aWord == "denied" || aWord == "for") && flagCount == 1){
-            words.clear();
-            if(aWord == "denied"){
+        else if((aWord == "denied" || aWord == "for") && flagCount >= 1){
+            if(aWord == "denied" && (flagCount == 1)){
                 words.clear();
                 isValidDoc = false;
                 section = "";
                 return section;
             }
-            flagCount = 2;
+            words.insert(aWord);
+            flagCount = 3;
         }
-        else if(aWord == "for" && flagCount == 2){
+        else if(aWord == "rehearing" && flagCount == 3){
             words.clear();
             isValidDoc = false;
+            section = "";
+            return section;
         }
 
         else{
@@ -229,6 +230,7 @@ string& Maintenance::split2Word(string& section){
                 ++totalNumOfWords;
             }
         }
+        words.clear();
         return section;
     }
     return section;
@@ -336,7 +338,7 @@ void Maintenance::setFileLocations(string& fileName){
             allFileLocations.push_back(pathToString);
 
             // string is parsed to filename, and added to vector
-            totalNumOfValidDocs++;
+            ++totalNumOfValidDocs;
         }
         steps++;
         pd->setValue(steps);
