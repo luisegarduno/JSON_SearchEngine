@@ -182,7 +182,6 @@ string& Maintenance::split2Word(string& section){
     istringstream stream(section);
     unordered_set<string> tempWords;
 
-
     while(stream >> aWord){
 
         removeStopWords(aWord);
@@ -283,10 +282,6 @@ string& Maintenance::removeStopWords(string& word){
         return !((it >= 'a' && it <= 'z') || it == '\'');
     }), word.end());
 
-    if(word.size() == 0){
-        return word;
-    }
-
     if(stopWords.count(word) > 0){
         word = "";
         return word;
@@ -311,7 +306,6 @@ bool Maintenance::isStopWord(string& word){
 }
 
 int Maintenance::getTotalNumberOfFiles(string& fileName){
-
     filesystem::directory_iterator end;
     for(filesystem::directory_iterator theIterator(fileName) ; theIterator != end; ++theIterator){
         ++totalNumberOfFiles;
@@ -347,7 +341,6 @@ void Maintenance::setFileLocations(string& fileName){
     }
 
     setTop50Words();
-
     persistentIndex.close();
 }
 
@@ -355,7 +348,6 @@ void Maintenance::setTop50Words(){
     int count = 0;
     for(const auto& pair : sortMap(entireMap) ){
         if(count < 50){
-            //cout << count + 1 << ": " << pair.first.get() << "[" << pair.second.get() << "]" << endl;
             top50Words.push_back(pair.first.get());
             ++count;
         }
