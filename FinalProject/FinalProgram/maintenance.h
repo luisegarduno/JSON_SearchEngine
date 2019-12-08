@@ -1,9 +1,7 @@
 #ifndef MAINTENANCE_H
 #define MAINTENANCE_H
 
-#include <set>
 #include <QDir>
-#include <string>
 #include <vector>
 #include <QDebug>
 #include <QTimer>
@@ -14,8 +12,6 @@
 #include <QThread>
 #include <iostream>
 #include "avltree.h"
-#include <algorithm>
-#include <QMessageBox>
 #include <QFileDialog>
 #include <QMessageBox>
 #include <unordered_set>
@@ -24,6 +20,7 @@
 #include <QProgressDialog>
 #include "porter2_stemmer.h"
 #include "rapidjson/document.h"             // rapidjson's DOM-style API
+#include "comparereferencemap.h"
 #include <experimental/iterator>
 #include <experimental/filesystem>
 #include "rapidjson/filereadstream.h"
@@ -35,9 +32,7 @@ using std::sort;
 using std::copy;
 using std::fopen;
 using std::vector;
-using std::string;
 using std::fstream;
-using std::multiset;
 using std::ifstream;
 using std::remove_if;
 using std::istringstream;
@@ -45,30 +40,11 @@ using std::unordered_set;
 using std::unordered_map;
 using std::cout, std::endl;
 using std::ostream_iterator;
-using std::reference_wrapper; // Class template that wraps a reference in a copyable
 
 namespace filesystem = std::experimental::filesystem;
 
 namespace Ui {
     class Maintenance;
-}
-
-struct compareReferencedMap{
-    template <typename T>
-    bool operator() (const T& left, const T& right) const{
-        return left.second.get() > right.second.get();
-    }
-};
-
-template <typename T>
-multiset< pair<reference_wrapper<const string>, reference_wrapper<const int> >, compareReferencedMap > sortMap(const T& map){
-    multiset< pair<reference_wrapper<const string>, reference_wrapper<const int> >, compareReferencedMap > newMultiSet;
-
-    for(auto& pair : map){
-        newMultiSet.emplace(pair.first, pair.second);
-    }
-
-    return newMultiSet;
 }
 
 class Maintenance : public QDialog{

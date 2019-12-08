@@ -25,15 +25,18 @@ const auto TABLE_SIZE = 3250000;
 template<typename KEY, typename VALUE>
 class HashTable{
     private:
+        int totalNumberOfNodes;
         HashTableEntry<KEY,VALUE>** theHashTable;
 
     public:
         // Default constructor
         HashTable();
 
+        VALUE HashFunc(KEY);
+
         void insert(KEY,VALUE);
 
-        VALUE HashFunc(KEY);
+        void print();
 
         // Searches and returns KEY if found
         VALUE& searchKey(KEY k);
@@ -106,6 +109,20 @@ VALUE& HashTable<KEY,VALUE>::searchKey(KEY key){
     }
     if(!flag){
         //cout << "No Element found at key" << key << endl;
+    }
+}
+
+template<typename KEY,typename VALUE>
+void HashTable<KEY,VALUE>::print(){
+    HashTableEntry<KEY,VALUE>* tempPrint;
+
+    for(auto counter = 0; counter < TABLE_SIZE; counter++){
+        tempPrint = theHashTable[counter];
+        if(tempPrint != nullptr){
+            cout << tempPrint->value << endl;
+
+            tempPrint = tempPrint->next;
+        }
     }
 }
 

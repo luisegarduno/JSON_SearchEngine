@@ -32,6 +32,7 @@ HEADERS += \
     avlnode.h \
     avltree.h \
     avltreeindex.h \
+    comparereferencemap.h \
     hashtable.h \
     hashtableentry.h \
     hashtableindex.h \
