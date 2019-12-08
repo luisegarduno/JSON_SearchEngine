@@ -4,17 +4,19 @@
 /*
  * Implementation based around:
  * https://www.tutorialspoint.com/cplusplus-program-to-implement-hash-tables-chaining-with-singly-linked-lists
- * */
+ */
 
 #include <list>
 #include <vector>
 #include <string>
 #include <algorithm>
+#include <functional>
 
+using std::hash;
 using std::string;
 
 // Initialize table size so resizing isn't necessary
-const long TABLE_SIZE = 32;
+const long TABLE_SIZE = 3250000;
 
 template<typename KEY, typename VALUE>
 class HashTable{
@@ -65,7 +67,8 @@ HashTable<KEY,VALUE>::HashTable(){
 
 template<typename KEY,typename VALUE>
 VALUE HashTable<KEY,VALUE>::HashFunc(KEY key){
-    return key % TABLE_SIZE;
+    size_t theSize = hash<KEY>()(key);
+    return theSize % TABLE_SIZE;
 }
 
 template<typename KEY,typename VALUE>
@@ -127,7 +130,5 @@ template<typename KEY,typename VALUE>
 HashTable<KEY,VALUE>::~HashTable(){
 
 }
-
-
 
 #endif // HASHTABLE_H
