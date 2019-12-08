@@ -102,6 +102,8 @@ class Maintenance : public QDialog{
 
         string& getCaseTitle(string&);
 
+        vector<string> getIndex();
+
         int steps;
 
         QProgressDialog * pd;
@@ -125,7 +127,7 @@ private:
         // Maintenance UI Pointer
         Ui::Maintenance *ui;
 
-        fstream persistentIndex;
+        //fstream persistentIndex;
 
         int totalNumberOfFiles;
 

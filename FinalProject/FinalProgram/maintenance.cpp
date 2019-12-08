@@ -126,7 +126,7 @@ void Maintenance::parse(string fileName){
                 }
             }
 
-            while((count != theDoc.theWord.size()) && (theDoc.theWord.at(count) != pair.first.get())){
+            while((count != theDoc.theWord.size()) && (theDoc.theWord[count] != pair.first.get())){
                 count++;
             }
 
@@ -339,7 +339,7 @@ bool Maintenance::isStopWord(string& word){
 }
 
 void Maintenance::setFileLocations(string& fileName){
-    persistentIndex.open("Index.txt" , fstream::in | fstream::out | fstream::app);
+    //persistentIndex.open("Index.txt" , fstream::in | fstream::out | fstream::app);
     pd->setValue(steps);
 
     filesystem::directory_iterator end;
@@ -351,26 +351,101 @@ void Maintenance::setFileLocations(string& fileName){
         // path directory is converted to a string
         string pathToString = dirToPath.string();
 
-        parse(pathToString);
+        size_t counter = 0;
 
-        if(isValidDoc == true){
-            // string is appended to end of vector
-            allFileLocations.push_back(pathToString);
+        if(counter == 0){
+            if(allFileLocations.size() == 0){
+                parse(pathToString);
 
-            // string is parsed to filename, and added to vector
-            ++totalNumOfValidDocs;
+                if(isValidDoc == true){
+                    // string is appended to end of vector
+                    allFileLocations.push_back(pathToString);
+
+                    // string is parsed to filename, and added to vector
+                    ++totalNumOfValidDocs;
+                }
+
+                steps++;
+                pd->setValue(steps);
+
+                continue;
+            }
         }
+        bool aFlag = true;
+        while(counter != allFileLocations.size()){
+            if(parsePathName(pathToString) == parsePathName(allFileLocations[counter])){
+                aFlag = false;
+                break;
+            }
+            counter++;
+        }
+
+        if(aFlag == false){
+        }
+        else{
+            parse(pathToString);
+
+            if(isValidDoc == true){
+                // string is appended to end of vector
+                allFileLocations.push_back(pathToString);
+
+                // string is parsed to filename, and added to vector
+                ++totalNumOfValidDocs;
+            }
+        }
+
+        /*
+        if(parsePathName(pathToString) != parsePathName(allFileLocations[counter])){
+            parse(pathToString);
+
+            if(isValidDoc == true){
+                // string is appended to end of vector
+                allFileLocations.push_back(pathToString);
+
+                // string is parsed to filename, and added to vector
+                ++totalNumOfValidDocs;
+            }
+        }
+        */
+
+
+        /*
+
+        if((pathToString != allFileLocations[counter]) && (counter == allFileLocations.size())){
+            steps++;
+            pd->setValue(steps);
+
+            continue;
+        }
+
+        else if((pathToString != allFileLocations[counter]) && (counter == allFileLocations.size())){
+            parse(pathToString);
+
+            if(isValidDoc == true){
+                // string is appended to end of vector
+                allFileLocations.push_back(pathToString);
+
+                // string is parsed to filename, and added to vector
+                ++totalNumOfValidDocs;
+            }
+        }
+        */
+
         steps++;
         pd->setValue(steps);
     }
 
     setTop50Words();
-
+    /*
     for(size_t counter = 0; counter < theDoc.docName.size(); counter++){
         persistentIndex << theDoc.docName[counter] << "\n";
-    }
+    }*/
 
-    persistentIndex.close();
+    //persistentIndex.close();
+}
+
+vector<string> Maintenance::getIndex(){
+    return theDoc.docName;
 }
 
 void Maintenance::setTop50Words(){
