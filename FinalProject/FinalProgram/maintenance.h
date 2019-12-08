@@ -5,6 +5,7 @@
 #include <vector>
 #include <QDebug>
 #include <QTimer>
+#include <string>
 #include <sstream>
 #include <fstream>
 #include <QDialog>
@@ -31,6 +32,7 @@ using std::pair;
 using std::sort;
 using std::copy;
 using std::fopen;
+using std::string;
 using std::vector;
 using std::fstream;
 using std::ifstream;
@@ -46,6 +48,12 @@ namespace filesystem = std::experimental::filesystem;
 namespace Ui {
     class Maintenance;
 }
+
+struct docWord{
+    vector<string> theWord;
+    int freq;
+    vector<string> docName;
+};
 
 class Maintenance : public QDialog{
     Q_OBJECT
@@ -124,6 +132,8 @@ private:
         double totalNumOfWords;
 
         vector<string> top50Words;
+
+        docWord theDoc;
 
         // add word to persistent index file
         void addToPersistentIndex(const string);

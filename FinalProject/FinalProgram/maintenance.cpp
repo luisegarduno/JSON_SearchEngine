@@ -111,8 +111,26 @@ void Maintenance::parse(string fileName){
         insert(entireMap,plainText_Section);
 
 
+
         for(const auto& pair : sortMap(theOriginalMap) ){
             persistentIndex << pair.first.get() << " " << documentID  << ".json " << pair.second.get() << "\n";
+
+            size_t count = 0;
+            while((count != theDoc.theWord.size()) && (theDoc.theWord[count] != pair.first.get())){
+                count++;
+            }
+
+            if((count != theDoc.theWord.size()) && (theDoc.theWord[count] == pair.first.get())){
+                theDoc.docName[count] += " " + std::to_string(documentID) + ".json " + std::to_string(pair.second.get()) + " ";
+            }
+            /*else if((count == theDoc.theWord.size()) && (theDoc.theWord[count] != pair.first.get())){
+                theDoc.theWord[count] = pair.first.get();
+                theDoc.docName[count] += pair.first.get() + " " + std::to_string(documentID) + ".json " + std::to_string(pair.second.get());
+            }
+            else if((count == theDoc.theWord.size()) && (theDoc.theWord[count] == pair.first.get())){
+                theDoc.theWord[count] = pair.first.get();
+                theDoc.docName[count] += pair.first.get() + " " + std::to_string(documentID) + ".json " + std::to_string(pair.second.get());
+            }*/
         }
     }
 }
@@ -335,6 +353,13 @@ void Maintenance::setFileLocations(string& fileName){
     }
 
     setTop50Words();
+
+
+    for(size_t counter = 0; counter < theDoc.docName.size(); counter++){
+        cout << theDoc.docName[counter] << endl;
+    }
+
+
     persistentIndex.close();
 }
 
