@@ -16,7 +16,6 @@ void Interactive::on_MainMenu_Button_clicked(){
     this->close();
 }
 
-
 void Interactive::on_Search_Button_clicked(){
     newQuery = new SearchQuery(this);
 
@@ -38,7 +37,6 @@ void Interactive::on_Search_Button_clicked(){
 }
 
 void Interactive::on_IndexMethod_Button_clicked(){
-
     QMessageBox selectIndexMethod;
     selectIndexMethod.setIcon(QMessageBox::Question);
     selectIndexMethod.setWindowTitle("Let's Search : Index Method");
@@ -53,6 +51,7 @@ void Interactive::on_IndexMethod_Button_clicked(){
         avlTreeFlag = true;
         hashTableFlag = false;
         QMessageBox::information(this,"Let's Search : Index Mode", "Selected Mode: AVL Tree");
+        indexInterface = new AvlTreeIndex;
 
     }
     else{
@@ -60,6 +59,7 @@ void Interactive::on_IndexMethod_Button_clicked(){
         avlTreeFlag = false;
         hashTableFlag = true;
         QMessageBox::information(this,"Let's Search : Index Mode", "Selected Mode: Hash Table");
+        indexInterface = new HashTableIndex;
     }
 }
 

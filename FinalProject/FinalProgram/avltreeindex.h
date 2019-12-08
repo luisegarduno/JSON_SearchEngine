@@ -7,6 +7,10 @@
 class AvlTreeIndex : public IndexInterface{
     public:
         AvlTreeIndex();
+        ~AvlTreeIndex();
+
+    private:
+        AVLTree<string> index;
 };
 
 #endif // AVLTREEINDEX_H

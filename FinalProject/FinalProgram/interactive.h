@@ -10,11 +10,12 @@
 #include <QCheckBox>
 #include "avltree.h"
 #include <QMessageBox>
-#include "maintenance.h"
-#include "indexinterface.h"
-#include <QDialogButtonBox>
-
 #include "searchquery.h"
+#include "maintenance.h"
+#include "avltreeindex.h"
+#include "indexinterface.h"
+#include "hashtableindex.h"
+#include <QDialogButtonBox>
 
 using std::cout;
 using std::endl;
@@ -77,6 +78,8 @@ private:
 
         SearchQuery * newQuery;
 
+        IndexInterface * indexInterface;
+
         // avlTreeFlag & hashTableFlag are type boolean and work
         // as a way to tell which Index method has been chosen
         // Ex 1: (avlTreeFlag == true && hashTableFlag == false) --> AVL Tree
@@ -84,6 +87,7 @@ private:
         // Ex 3: (avlTreeFlag == false && hashTableFlag == false) --> None selected
         bool avlTreeFlag;
         bool hashTableFlag;
+
         vector<string> fileDirectory;
         void setFileDirectory(vector<string>);
 };

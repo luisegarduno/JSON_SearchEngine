@@ -7,6 +7,10 @@
 class HashTableIndex : public IndexInterface{
     public:
         HashTableIndex();
+        ~HashTableIndex();
+
+    private:
+        HashTable<string,int> index;
 };
 
 #endif // HASHTABLEINDEX_H

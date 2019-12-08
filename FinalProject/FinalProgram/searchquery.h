@@ -8,6 +8,7 @@
 #include <iostream>
 #include <QCheckBox>
 #include <QMessageBox>
+#include "indexinterface.h"
 
 using std::cout;
 using std::endl;
@@ -16,7 +17,9 @@ using std::vector;
 using std::getline;
 using std::stringstream;
 
-namespace Ui { class SearchQuery; }
+namespace Ui {
+    class SearchQuery;
+}
 
 class SearchQuery : public QDialog {
     Q_OBJECT

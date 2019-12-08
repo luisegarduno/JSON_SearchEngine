@@ -49,7 +49,6 @@ void Mode::on_Interactive_Button_clicked(){
             );
 
             interactiveMode->show();
-
         }
     }
 
@@ -59,7 +58,6 @@ void Mode::on_Interactive_Button_clicked(){
         QMessageBox::warning(this,"Error", noFile + tryAgain);
     }
 }
-
 
 Mode::~Mode(){
     delete ui;

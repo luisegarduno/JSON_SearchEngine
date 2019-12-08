@@ -113,8 +113,6 @@ void Maintenance::parse(string fileName){
 
 
         for(const auto& pair : sortMap(theOriginalMap) ){
-            //persistentIndex << pair.first.get() << " " << documentID  << ".json " << pair.second.get() << "\n";
-
             size_t count = 0;
 
             if(count == 0){
@@ -129,11 +127,8 @@ void Maintenance::parse(string fileName){
             }
 
             while((count != theDoc.theWord.size()) && (theDoc.theWord.at(count) != pair.first.get())){
-                //cout << "WORD[" << count << "]: " << theDoc.theWord.at(0) << endl;
                 count++;
             }
-
-
 
             if((count == theDoc.theWord.size()) && (theDoc.docName.size() != 0)){
                 theDoc.theWord.push_back(pair.first.get());
@@ -371,12 +366,9 @@ void Maintenance::setFileLocations(string& fileName){
 
     setTop50Words();
 
-
     for(size_t counter = 0; counter < theDoc.docName.size(); counter++){
-        cout << theDoc.docName[counter] << endl;
         persistentIndex << theDoc.docName[counter] << "\n";
     }
-
 
     persistentIndex.close();
 }
