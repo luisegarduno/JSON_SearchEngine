@@ -45,20 +45,23 @@ void Maintenance::on_AddFolder_Button_clicked(){
     QString file_name;
     // Opens local file directory, user is able to navigate to select desired folder
     // file_name = QFileDialog::getExistingDirectory(this, "Open Folder", QDir::homePath());
+
+    // Opens local build folder
     file_name = QFileDialog::getExistingDirectory(this,"Open Folder","/home/student/Desktop/MyProjects/CSE2341-F19-Luis-Garduno/FinalProject/build-FinalProgram-Desktop_Qt_5_10_0_GCC_64bit-Debug");
 
+    // QString is converted and saved as a standard string
+    string fileName = file_name.toStdString();
+
     // If no file was selected, display warning message
-    if(file_name == ""){
+    if(fileName == ""){
         QString noFile = "Nothing was selected!\n";
         QString tryAgain = "Please select valid path to a folder";
         QMessageBox::warning(this,"Error", noFile + tryAgain);
     }
-    else{
 
-        // QString is converted and saved as a standard string
-        string fileName = file_name.toStdString();
-        int totalNumberOfFiles = getTotalNumberOfFiles(fileName);
-        //cout << "Done counting total number of files: " << totalNumberOfFiles << endl;
+    else{
+        getTotalNumberOfFiles(fileName);
+
         pd = new QProgressDialog("Selected Directory: " + parsePathName(fileName), "Cancel", 0, totalNumberOfFiles);
         pd->setWindowTitle("Parsing Index");
         connect(pd,&QProgressDialog::canceled, this, &Maintenance::cancel);
@@ -109,7 +112,7 @@ void Maintenance::parse(string fileName){
 
 
         for(const auto& pair : sortMap(theOriginalMap) ){
-            persistentIndex << documentID << '[' << pair.first.get() << "]:" << pair.second.get() << "\n";
+            persistentIndex << pair.first.get() << " " << documentID  << ".json " << pair.second.get() << "\n";
         }
     }
 }
@@ -305,15 +308,6 @@ bool Maintenance::isStopWord(string& word){
     return stopWords.count(word) > 0;
 }
 
-int Maintenance::getTotalNumberOfFiles(string& fileName){
-    filesystem::directory_iterator end;
-    for(filesystem::directory_iterator theIterator(fileName) ; theIterator != end; ++theIterator){
-        ++totalNumberOfFiles;
-    }
-
-    return totalNumberOfFiles;
-}
-
 void Maintenance::setFileLocations(string& fileName){
     persistentIndex.open("Index.txt" , fstream::in | fstream::out | fstream::app);
     pd->setValue(steps);
@@ -352,6 +346,15 @@ void Maintenance::setTop50Words(){
             ++count;
         }
     }
+}
+
+int& Maintenance::getTotalNumberOfFiles(string& fileName){
+    filesystem::directory_iterator end;
+    for(filesystem::directory_iterator theIterator(fileName) ; theIterator != end; ++theIterator){
+        ++totalNumberOfFiles;
+    }
+
+    return totalNumberOfFiles;
 }
 
 vector<string> Maintenance::getTop50Words(){
