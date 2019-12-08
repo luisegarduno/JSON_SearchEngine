@@ -113,23 +113,40 @@ void Maintenance::parse(string fileName){
 
 
         for(const auto& pair : sortMap(theOriginalMap) ){
-            persistentIndex << pair.first.get() << " " << documentID  << ".json " << pair.second.get() << "\n";
+            //persistentIndex << pair.first.get() << " " << documentID  << ".json " << pair.second.get() << "\n";
 
             size_t count = 0;
-            while((count != theDoc.theWord.size()) && (theDoc.theWord[count] != pair.first.get())){
+
+            if(count == 0){
+                if(theDoc.theWord.size() == 0){
+                    theDoc.theWord.push_back(pair.first.get());
+
+                    string freq = std::to_string(pair.second.get());
+                    string newWord = pair.first.get() + " " + std::to_string(documentID) + ".json " + freq;
+                    theDoc.docName.push_back(newWord);
+                    continue;
+                }
+            }
+
+            while((count != theDoc.theWord.size()) && (theDoc.theWord.at(count) != pair.first.get())){
+                //cout << "WORD[" << count << "]: " << theDoc.theWord.at(0) << endl;
                 count++;
             }
 
-            if((count != theDoc.theWord.size()) && (theDoc.theWord[count] == pair.first.get())){
-                theDoc.docName[count] += " " + std::to_string(documentID) + ".json " + std::to_string(pair.second.get()) + " ";
+
+
+            if((count == theDoc.theWord.size()) && (theDoc.docName.size() != 0)){
+                theDoc.theWord.push_back(pair.first.get());
+
+                string newWord = pair.first.get() + " " + std::to_string(documentID) + ".json " + std::to_string(pair.second.get());
+                theDoc.docName.push_back(newWord);
             }
-            /*else if((count == theDoc.theWord.size()) && (theDoc.theWord[count] != pair.first.get())){
-                theDoc.theWord[count] = pair.first.get();
-                theDoc.docName[count] += pair.first.get() + " " + std::to_string(documentID) + ".json " + std::to_string(pair.second.get());
+            else if((count != theDoc.theWord.size()) && (theDoc.theWord.at(count) == pair.first.get()) && (theDoc.docName.size() != 0)){
+                theDoc.docName.at(count) += " " + std::to_string(documentID) + ".json " + std::to_string(pair.second.get()) + " ";
             }
-            else if((count == theDoc.theWord.size()) && (theDoc.theWord[count] == pair.first.get())){
-                theDoc.theWord[count] = pair.first.get();
-                theDoc.docName[count] += pair.first.get() + " " + std::to_string(documentID) + ".json " + std::to_string(pair.second.get());
+            /*else if((count == theDoc.theWord.size()) && (theDoc.theWord[count] == pair.first.get())){
+                theDoc.theWord.at(count) = pair.first.get();
+                theDoc.docName.at(count) += pair.first.get() + " " + std::to_string(documentID) + ".json " + std::to_string(pair.second.get());
             }*/
         }
     }
@@ -357,6 +374,7 @@ void Maintenance::setFileLocations(string& fileName){
 
     for(size_t counter = 0; counter < theDoc.docName.size(); counter++){
         cout << theDoc.docName[counter] << endl;
+        persistentIndex << theDoc.docName[counter] << "\n";
     }
 
 
