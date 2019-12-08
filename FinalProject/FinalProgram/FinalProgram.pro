@@ -33,6 +33,7 @@ HEADERS += \
     avltree.h \
     avltreeindex.h \
     hashtable.h \
+    hashtableentry.h \
     hashtableindex.h \
     indexinterface.h \
     interactive.h \

@@ -9,33 +9,22 @@
 #include <list>
 #include <vector>
 #include <string>
+#include <iostream>
 #include <algorithm>
 #include <functional>
+#include "hashtableentry.h"
 
 using std::hash;
+using std::cout;
+using std::endl;
 using std::string;
 
 // Initialize table size so resizing isn't necessary
-const long TABLE_SIZE = 3250000;
+const auto TABLE_SIZE = 3250000;
 
 template<typename KEY, typename VALUE>
 class HashTable{
     private:
-
-        template<typename aKEY, typename aVALUE>
-        struct HashTableEntry{
-            aKEY key;
-            aVALUE value;
-            HashTableEntry* next;
-            HashTableEntry* previous;
-
-            HashTableEntry(aKEY key, aVALUE value){
-                this->key = key;
-                this->value = value;
-                this->next = nullptr;
-            }
-        };
-
         HashTableEntry<KEY,VALUE>** theHashTable;
 
     public:
@@ -60,7 +49,7 @@ template<typename KEY, typename VALUE>
 HashTable<KEY,VALUE>::HashTable(){
     theHashTable = new HashTableEntry<KEY,VALUE>*[TABLE_SIZE];
 
-    for(long count = 0; count < TABLE_SIZE; count++){
+    for(auto count = 0; count < TABLE_SIZE; count++){
         theHashTable[count] = nullptr;
     }
 }
@@ -79,14 +68,16 @@ void HashTable<KEY,VALUE>::insert(KEY key,VALUE value){
 
     while(entry != nullptr){
         previous = entry;
-        entry = entry->next;
+        entry = previous->next;
     }
 
     if(entry == nullptr){
         entry = new HashTableEntry<KEY,VALUE>(key,value);
+
         if(previous == nullptr){
             theHashTable[hashVALUE] = entry;
         }
+
         else{
             previous->next = entry;
         }
@@ -120,7 +111,7 @@ VALUE& HashTable<KEY,VALUE>::searchKey(KEY key){
 
 template<typename KEY,typename VALUE>
 void HashTable<KEY,VALUE>::clear(){
-    for(long count = 0; count  < TABLE_SIZE; count++){
+    for(auto count = 0; count  < TABLE_SIZE; count++){
         HashTableEntry<KEY,VALUE>* entry = theHashTable[count];
     }
     delete [] theHashTable;
@@ -128,7 +119,7 @@ void HashTable<KEY,VALUE>::clear(){
 
 template<typename KEY,typename VALUE>
 HashTable<KEY,VALUE>::~HashTable(){
-
+    clear();
 }
 
 #endif // HASHTABLE_H
