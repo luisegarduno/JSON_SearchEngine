@@ -130,10 +130,10 @@ void AVLTree<T>::insert(const T& x, AvlNode<T>*& t){
         t = new AvlNode<T>(x, nullptr, nullptr);
     }
 
-    else if(x < t->element){
+    else if(x.the_Word < t->element.the_Word){
         insert(x, t->left);
         if(height(t->left) - height(t->right) == 2){
-            if(x < t->left->element){
+            if(x.the_Word < t->left->element.the_Word){
                 rotateWithLeftChild(t);
             }
 
@@ -143,11 +143,11 @@ void AVLTree<T>::insert(const T& x, AvlNode<T>*& t){
         }
     }
 
-    else if(t->element < x){
+    else if(t->element.the_Word < x.the_Word){
         insert(x, t->right);
 
         if( height(t->right) - height(t->left) == 2){
-            if(t->right->element < x){
+            if(t->right->element.the_Word < x.the_Word){
                 rotateWithRightChild(t);
             }
 
@@ -230,7 +230,7 @@ template<typename T>
 void AVLTree<T>::printTree(AvlNode<T>* t) const{
     if(t != nullptr){
         printTree(t->left);
-        cout << t->element << endl;
+        cout << t->element.the_Word << " --> File: " << t->element.the_File << " --> Frequency: " << t->element.the_Frequency << endl;
         printTree(t->right);
     }
 }

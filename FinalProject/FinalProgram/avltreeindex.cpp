@@ -37,7 +37,7 @@ void AvlTreeIndex::load_Index(){
                 thisWord.the_File = theFile;
                 thisWord.the_Frequency = std::stoi(theFrequency);
 
-                //index.insert(thisWord);
+                index.insert(thisWord);
             }
         }
 
@@ -56,7 +56,7 @@ void AvlTreeIndex::insert_In_Index(new_word_obj& thisWord, string& thisString){
 }
 
 void AvlTreeIndex::print_Index(){
-    //index.printTree();
+    index.printTree();
 }
 
 void AvlTreeIndex::clear_Index(){
