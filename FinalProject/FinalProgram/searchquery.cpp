@@ -27,7 +27,6 @@ void SearchQuery::on_Search_Button_clicked(){
     }
 }
 
-
 vector<string> SearchQuery::getWords(string aString){
     string tempString;
     stringstream splitString(aString);

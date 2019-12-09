@@ -8,12 +8,11 @@
 #include <sstream>
 #include <iostream>
 #include <QCheckBox>
-#include "avltree.h"
 #include <QMessageBox>
 #include "searchquery.h"
 #include "maintenance.h"
 #include "avltreeindex.h"
-#include "indexinterface.h"
+#include "index_interface.h"
 #include "hashtableindex.h"
 #include <QDialogButtonBox>
 
@@ -78,7 +77,7 @@ private:
 
         SearchQuery * newQuery;
 
-        IndexInterface * indexInterface;
+        Index_Interface * indexInterface;
 
         // avlTreeFlag & hashTableFlag are type boolean and work
         // as a way to tell which Index method has been chosen

@@ -38,10 +38,8 @@ void HashTableIndex::load_Index(){
                 thisWord.the_Frequency = std::stoi(theFrequency);
 
                 index.insert(theWord, thisWord);
-
             }
         }
-
     }
 
     theIndex_Loader.close();
@@ -61,11 +59,12 @@ void HashTableIndex::print_Index(){
 }
 
 void HashTableIndex::insert_In_Index(new_word_obj& thisWord, string& thisString){
-
 }
 
 void HashTableIndex::clear_Index(){
     index.clear();
 }
 
+HashTableIndex::~HashTableIndex(){
+}
 

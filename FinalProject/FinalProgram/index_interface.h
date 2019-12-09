@@ -1,14 +1,14 @@
-#ifndef INDEXINTERFACE_H
-#define INDEXINTERFACE_H
+#ifndef INDEX_INTERFACE_H
+#define INDEX_INTERFACE_H
 
 #include <string>
-#include <iostream>
 #include <fstream>
+#include <iostream>
 
 using std::cout;
 using std::endl;
-using std::ostream;
 using std::string;
+using std::ostream;
 
 struct new_word_obj{
     string the_Word;
@@ -16,18 +16,19 @@ struct new_word_obj{
     int the_Frequency;
 };
 
-class IndexInterface{
+
+class Index_Interface{
     public:
-        IndexInterface();
-        virtual ~IndexInterface() = 0;
+        Index_Interface() { }
         virtual void load_Index() = 0;
-        virtual void insert_In_Index(new_word_obj&, string&) = 0;
         virtual new_word_obj& search_Index(new_word_obj&) = 0;
+        virtual void insert_In_Index(new_word_obj&, string&) = 0;
         virtual void clear_Index() = 0;
         virtual void print_Index() = 0;
 
+        virtual ~Index_Interface() { }
+
     private:
-        string index_File;
 };
 
-#endif // INDEXINTERFACE_H
+#endif // INDEX_INTERFACE_H

@@ -20,7 +20,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     avltreeindex.cpp \
     hashtableindex.cpp \
-    indexinterface.cpp \
     interactive.cpp \
     main.cpp \
     maintenance.cpp \
@@ -36,7 +35,7 @@ HEADERS += \
     hashtable.h \
     hashtableentry.h \
     hashtableindex.h \
-    indexinterface.h \
+    index_interface.h \
     interactive.h \
     maintenance.h \
     mode.h \

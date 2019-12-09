@@ -2,28 +2,24 @@
 #define AVLTREEINDEX_H
 
 #include "avltree.h"
-#include "indexinterface.h"
+#include "index_interface.h"
 
-#include <sstream>
-#include <fstream>
 #include <string>
+#include <fstream>
 #include <iostream>
 
 using std::string;
-using std::fstream;
-using std::stringstream;
-using std::istringstream;
 using std::ifstream;
 
-class AvlTreeIndex : public IndexInterface{
+class AvlTreeIndex : public Index_Interface{
     public:
         AvlTreeIndex();
-        ~AvlTreeIndex();
         void load_Index();
         new_word_obj& search_Index(new_word_obj&);
         void insert_In_Index(new_word_obj&, string&);
         void clear_Index();
         void print_Index();
+        ~AvlTreeIndex();
 
     private:
         AVLTree<new_word_obj> index;

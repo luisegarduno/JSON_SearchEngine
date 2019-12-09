@@ -8,7 +8,7 @@
 #include <iostream>
 #include <QCheckBox>
 #include <QMessageBox>
-#include "indexinterface.h"
+//#include "indexinterface.h"
 
 using std::cout;
 using std::endl;

@@ -1,7 +1,6 @@
 #include "avltreeindex.h"
 
 AvlTreeIndex::AvlTreeIndex(){
-
 }
 
 void AvlTreeIndex::load_Index(){
@@ -40,11 +39,8 @@ void AvlTreeIndex::load_Index(){
                 index.insert(thisWord);
             }
         }
-
     }
-
     theIndex_Loader.close();
-
 }
 
 new_word_obj& AvlTreeIndex::search_Index(new_word_obj& thisWord){
@@ -60,7 +56,6 @@ void AvlTreeIndex::insert_In_Index(new_word_obj& thisWord, string& thisString){
     if(!index.contains(thisWord)){
         index.insert(thisWord);
     }
-
 }
 
 void AvlTreeIndex::print_Index(){
@@ -73,3 +68,4 @@ void AvlTreeIndex::clear_Index(){
 
 AvlTreeIndex::~AvlTreeIndex(){
 }
+
