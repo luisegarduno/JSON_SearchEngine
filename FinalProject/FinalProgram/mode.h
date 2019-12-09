@@ -43,7 +43,5 @@ class Mode : public QMainWindow{
 
         // Interactive Object Pointer
         Interactive * interactiveMode;
-
-        fstream persistentIndex;
 };
 #endif // MODE_H

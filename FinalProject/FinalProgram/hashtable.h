@@ -65,7 +65,7 @@ VALUE HashTable<KEY,VALUE>::HashFunc(KEY key){
 
 template<typename KEY,typename VALUE>
 void HashTable<KEY,VALUE>::insert(KEY key,VALUE value){
-    long hashVALUE = HashFunc(key);
+    auto hashVALUE = HashFunc(key);
     HashTableEntry<KEY,VALUE> * previous = nullptr;
     HashTableEntry<KEY,VALUE> * entry = theHashTable[hashVALUE];
 

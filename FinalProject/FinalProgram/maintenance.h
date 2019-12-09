@@ -127,7 +127,7 @@ private:
         // Maintenance UI Pointer
         Ui::Maintenance *ui;
 
-        //fstream persistentIndex;
+        fstream persistentIndex;
 
         int totalNumberOfFiles;
 
