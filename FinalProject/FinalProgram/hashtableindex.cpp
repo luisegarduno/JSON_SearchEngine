@@ -30,7 +30,7 @@ void HashTableIndex::load_Index(){
                 theIndex_Loader >> theLine;
                 theFrequency = theLine;
 
-                cout << "Word[" << theWord << "] : File[" << theFile << "] : Frequency[" << theFrequency << "]" << endl;
+                //cout << "Word[" << theWord << "] : File[" << theFile << "] : Frequency[" << theFrequency << "]" << endl;
 
                 new_word_obj thisWord;
 
@@ -38,7 +38,7 @@ void HashTableIndex::load_Index(){
                 thisWord.the_File = theFile;
                 thisWord.the_Frequency = std::stoi(theFrequency);
 
-                //index.insert(theWord, thisWord);
+                index.insert(theWord, thisWord);
 
             }
         }
@@ -50,6 +50,10 @@ void HashTableIndex::load_Index(){
 
 void HashTableIndex::search_Index(){
 
+}
+
+void HashTableIndex::print_Index(){
+    index.print();
 }
 
 void HashTableIndex::insert_In_Index(new_word_obj& thisWord, string& thisString){

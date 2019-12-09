@@ -53,6 +53,7 @@ void Interactive::on_IndexMethod_Button_clicked(){
         QMessageBox::information(this,"Let's Search : Index Mode", "Selected Mode: AVL Tree");
         indexInterface = new AvlTreeIndex;
         indexInterface->load_Index();
+        //indexInterface->print_Index();
 
     }
     else{
@@ -61,6 +62,8 @@ void Interactive::on_IndexMethod_Button_clicked(){
         hashTableFlag = true;
         QMessageBox::information(this,"Let's Search : Index Mode", "Selected Mode: Hash Table");
         indexInterface = new HashTableIndex;
+        indexInterface->load_Index();
+        indexInterface->print_Index();
     }
 }
 

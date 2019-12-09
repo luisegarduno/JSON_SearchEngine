@@ -35,10 +35,6 @@ void Mode::on_Interactive_Button_clicked(){
             // Create new Interactive window object on HEAP
             opinionLocations = maintenanceMode->getFileLocations();
 
-            //for(size_t counter = 0; counter < opinionLocations.size(); counter++){
-                //cout << "[" << counter + 1 << "]: " << opinionLocations[counter] << endl;
-            //}
-
             interactiveMode->setGeometry(
                 QStyle::alignedRect(
                             Qt::LeftToRight,

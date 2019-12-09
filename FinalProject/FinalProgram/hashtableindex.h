@@ -16,6 +16,7 @@ class HashTableIndex : public IndexInterface{
         void search_Index();
         void insert_In_Index(new_word_obj&, string&);
         void clear_Index();
+        void print_Index();
 
     private:
         HashTable<string,new_word_obj> index;

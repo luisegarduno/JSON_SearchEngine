@@ -32,7 +32,7 @@ class HashTable{
         // Default constructor
         HashTable();
 
-        VALUE HashFunc(KEY);
+        auto HashFunc(KEY);
 
         void insert(KEY,VALUE);
 
@@ -58,7 +58,7 @@ HashTable<KEY,VALUE>::HashTable(){
 }
 
 template<typename KEY,typename VALUE>
-VALUE HashTable<KEY,VALUE>::HashFunc(KEY key){
+auto HashTable<KEY,VALUE>::HashFunc(KEY key){
     size_t theSize = hash<KEY>()(key);
     return theSize % TABLE_SIZE;
 }
@@ -66,8 +66,8 @@ VALUE HashTable<KEY,VALUE>::HashFunc(KEY key){
 template<typename KEY,typename VALUE>
 void HashTable<KEY,VALUE>::insert(KEY key,VALUE value){
     auto hashVALUE = HashFunc(key);
-    HashTableEntry<KEY,VALUE> * previous = nullptr;
-    HashTableEntry<KEY,VALUE> * entry = theHashTable[hashVALUE];
+    HashTableEntry<KEY,VALUE>* previous = nullptr;
+    HashTableEntry<KEY,VALUE>* entry = theHashTable[hashVALUE];
 
     while(entry != nullptr){
         previous = entry;
@@ -119,9 +119,10 @@ void HashTable<KEY,VALUE>::print(){
     for(auto counter = 0; counter < TABLE_SIZE; counter++){
         tempPrint = theHashTable[counter];
         if(tempPrint != nullptr){
-            cout << tempPrint->value << endl;
-
-            tempPrint = tempPrint->next;
+            while(tempPrint != nullptr){
+                cout << tempPrint->key << " --> File: " << tempPrint->value.the_File << " --> Frequency: " << tempPrint->value.the_Frequency << endl;
+                tempPrint = tempPrint->next;
+            }
         }
     }
 }
@@ -130,6 +131,18 @@ template<typename KEY,typename VALUE>
 void HashTable<KEY,VALUE>::clear(){
     for(auto count = 0; count  < TABLE_SIZE; count++){
         HashTableEntry<KEY,VALUE>* entry = theHashTable[count];
+
+        while(entry != nullptr){
+            if(entry != nullptr){
+                delete entry;
+                break;
+            }
+            else{
+                HashTableEntry<KEY,VALUE>* next = entry->next;
+                delete entry;
+                entry = next;
+            }
+        }
     }
     delete [] theHashTable;
 }

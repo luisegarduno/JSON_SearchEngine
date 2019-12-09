@@ -3,7 +3,11 @@
 
 #include <string>
 #include <iostream>
+#include <fstream>
 
+using std::cout;
+using std::endl;
+using std::ostream;
 using std::string;
 
 struct new_word_obj{
@@ -20,6 +24,7 @@ class IndexInterface{
         virtual void insert_In_Index(new_word_obj&, string&) = 0;
         virtual void search_Index() = 0;
         virtual void clear_Index() = 0;
+        virtual void print_Index() = 0;
 
     private:
         string index_File;
