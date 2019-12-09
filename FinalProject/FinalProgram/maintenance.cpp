@@ -37,7 +37,6 @@ void Maintenance::on_ClearFile_Button_clicked(){
         QMessageBox::information(this, "Clear", "Index has been cleared");
         this->close();
     }
-
     else{}
 }
 
@@ -72,7 +71,6 @@ void Maintenance::on_AddFolder_Button_clicked(){
         QMessageBox::information(this, "Complete", "Index has been parsed succesfully");
     }
 }
-
 
 void Maintenance::parse(string fileName){
     Document currentDocument = parseJSON(fileName);
@@ -110,39 +108,33 @@ void Maintenance::parse(string fileName){
         insert(entireMap,htmlLawbox_Section);
         insert(entireMap,plainText_Section);
 
-
-
         for(const auto& pair : sortMap(theOriginalMap) ){
             size_t count = 0;
 
             if(count == 0){
-                if(theDoc.theWord.size() == 0){
-                    theDoc.theWord.push_back(pair.first.get());
+                if(word_obj.theWord.size() == 0){
+                    word_obj.theWord.push_back(pair.first.get());
 
                     string freq = std::to_string(pair.second.get());
                     string newWord = pair.first.get() + " " + std::to_string(documentID) + ".json " + freq;
-                    theDoc.docName.push_back(newWord);
+                    word_obj.word_Index.push_back(newWord);
                     continue;
                 }
             }
 
-            while((count != theDoc.theWord.size()) && (theDoc.theWord[count] != pair.first.get())){
+            while((count != word_obj.theWord.size()) && (word_obj.theWord[count] != pair.first.get())){
                 count++;
             }
 
-            if((count == theDoc.theWord.size()) && (theDoc.docName.size() != 0)){
-                theDoc.theWord.push_back(pair.first.get());
+            if((count == word_obj.theWord.size()) && (word_obj.word_Index.size() != 0)){
+                word_obj.theWord.push_back(pair.first.get());
 
                 string newWord = pair.first.get() + " " + std::to_string(documentID) + ".json " + std::to_string(pair.second.get());
-                theDoc.docName.push_back(newWord);
+                word_obj.word_Index.push_back(newWord);
             }
-            else if((count != theDoc.theWord.size()) && (theDoc.theWord.at(count) == pair.first.get()) && (theDoc.docName.size() != 0)){
-                theDoc.docName.at(count) += " " + std::to_string(documentID) + ".json " + std::to_string(pair.second.get()) + " ";
+            else if((count != word_obj.theWord.size()) && (word_obj.theWord.at(count) == pair.first.get()) && (word_obj.word_Index.size() != 0)){
+                word_obj.word_Index.at(count) += " " + std::to_string(documentID) + ".json " + std::to_string(pair.second.get()) + " ";
             }
-            /*else if((count == theDoc.theWord.size()) && (theDoc.theWord[count] == pair.first.get())){
-                theDoc.theWord.at(count) = pair.first.get();
-                theDoc.docName.at(count) += pair.first.get() + " " + std::to_string(documentID) + ".json " + std::to_string(pair.second.get());
-            }*/
         }
     }
 }
@@ -381,6 +373,7 @@ void Maintenance::setFileLocations(string& fileName){
         }
 
         if(aFlag == false){
+
         }
         else{
             parse(pathToString);
@@ -394,58 +387,15 @@ void Maintenance::setFileLocations(string& fileName){
             }
         }
 
-        /*
-        if(parsePathName(pathToString) != parsePathName(allFileLocations[counter])){
-            parse(pathToString);
-
-            if(isValidDoc == true){
-                // string is appended to end of vector
-                allFileLocations.push_back(pathToString);
-
-                // string is parsed to filename, and added to vector
-                ++totalNumOfValidDocs;
-            }
-        }
-        */
-
-
-        /*
-
-        if((pathToString != allFileLocations[counter]) && (counter == allFileLocations.size())){
-            steps++;
-            pd->setValue(steps);
-
-            continue;
-        }
-
-        else if((pathToString != allFileLocations[counter]) && (counter == allFileLocations.size())){
-            parse(pathToString);
-
-            if(isValidDoc == true){
-                // string is appended to end of vector
-                allFileLocations.push_back(pathToString);
-
-                // string is parsed to filename, and added to vector
-                ++totalNumOfValidDocs;
-            }
-        }
-        */
-
         steps++;
         pd->setValue(steps);
     }
 
     setTop50Words();
-    /*
-    for(size_t counter = 0; counter < theDoc.docName.size(); counter++){
-        persistentIndex << theDoc.docName[counter] << "\n";
-    }*/
-
-    //persistentIndex.close();
 }
 
 vector<string> Maintenance::getIndex(){
-    return theDoc.docName;
+    return word_obj.word_Index;
 }
 
 void Maintenance::setTop50Words(){

@@ -8,6 +8,9 @@ class HashTableIndex : public IndexInterface{
     public:
         HashTableIndex();
         ~HashTableIndex();
+        void search_Index();
+        void insert_In_Index();
+        void clear_Index();
 
     private:
         HashTable<string,int> index;

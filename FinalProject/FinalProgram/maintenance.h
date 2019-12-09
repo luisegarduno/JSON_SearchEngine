@@ -49,10 +49,10 @@ namespace Ui {
     class Maintenance;
 }
 
-struct docWord{
+struct wordObj{
     vector<string> theWord;
-    int freq;
-    vector<string> docName;
+    int frequency;
+    vector<string> word_Index;
 };
 
 class Maintenance : public QDialog{
@@ -135,7 +135,7 @@ private:
 
         vector<string> top50Words;
 
-        docWord theDoc;
+        wordObj word_obj;
 
         // add word to persistent index file
         void addToPersistentIndex(const string);

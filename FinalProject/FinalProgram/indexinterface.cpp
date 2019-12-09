@@ -3,3 +3,7 @@
 IndexInterface::IndexInterface(){
 
 }
+
+IndexInterface::~IndexInterface(){
+
+}
