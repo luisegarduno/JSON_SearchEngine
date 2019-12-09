@@ -20,7 +20,7 @@ class AvlTreeIndex : public IndexInterface{
         AvlTreeIndex();
         ~AvlTreeIndex();
         void load_Index();
-        void search_Index();
+        new_word_obj& search_Index(new_word_obj&);
         void insert_In_Index(new_word_obj&, string&);
         void clear_Index();
         void print_Index();

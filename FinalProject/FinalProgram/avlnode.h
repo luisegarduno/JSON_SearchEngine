@@ -22,8 +22,8 @@ class AvlNode{
         T element;
 
         // Parent Node will always contain a left and right child
-        AvlNode<T>*  left;
-        AvlNode<T>*  right;
+        AvlNode<T>* left;
+        AvlNode<T>* right;
         int height;
 
         AvlNode(const T&, AvlNode*, AvlNode*, int h = 0);
@@ -33,7 +33,7 @@ class AvlNode{
 };
 
 template<class T>
-AvlNode<T>::AvlNode(const T& theElement, AvlNode* lt, AvlNode* rt, int h)
+AvlNode<T>::AvlNode(const T& theElement, AvlNode<T>* lt, AvlNode<T>* rt, int h)
     : element(theElement), left(lt), right(rt), height(h) {      }
 
 

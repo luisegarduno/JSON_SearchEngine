@@ -22,7 +22,7 @@ class IndexInterface{
         virtual ~IndexInterface() = 0;
         virtual void load_Index() = 0;
         virtual void insert_In_Index(new_word_obj&, string&) = 0;
-        virtual void search_Index() = 0;
+        virtual new_word_obj& search_Index(new_word_obj&) = 0;
         virtual void clear_Index() = 0;
         virtual void print_Index() = 0;
 

@@ -1,7 +1,6 @@
 #include "hashtableindex.h"
 
 HashTableIndex::HashTableIndex(){
-
 }
 
 void HashTableIndex::load_Index(){
@@ -48,8 +47,13 @@ void HashTableIndex::load_Index(){
     theIndex_Loader.close();
 }
 
-void HashTableIndex::search_Index(){
-
+new_word_obj& HashTableIndex::search_Index(new_word_obj& thisWord){
+    if(!index.contains(thisWord.the_Word)){
+        throw std::out_of_range("Word not found in Index");
+    }
+    else{
+        return index.searchKey(thisWord.the_Word);
+    }
 }
 
 void HashTableIndex::print_Index(){
@@ -64,5 +68,4 @@ void HashTableIndex::clear_Index(){
     index.clear();
 }
 
-HashTableIndex::~HashTableIndex(){
-}
+

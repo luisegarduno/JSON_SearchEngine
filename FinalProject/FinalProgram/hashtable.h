@@ -10,6 +10,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <stdexcept>
 #include <algorithm>
 #include <functional>
 #include "hashtableentry.h"
@@ -39,7 +40,10 @@ class HashTable{
         void print();
 
         // Searches and returns KEY if found
-        VALUE& searchKey(KEY k);
+        VALUE& searchKey(KEY);
+
+        bool contains(KEY);
+
 
         // Clears HashTable
         void clear();
@@ -91,9 +95,32 @@ void HashTable<KEY,VALUE>::insert(KEY key,VALUE value){
     }
 }
 
+template<typename KEY, typename VALUE>
+bool HashTable<KEY,VALUE>::contains(KEY key){
+    bool aFlag = false;
+    auto hashVALUE = HashFunc(key);
+    if(theHashTable[hashVALUE] == nullptr){
+        return false;
+    }
+    else{
+        HashTableEntry<KEY,VALUE>* entry = theHashTable[hashVALUE];
+        while((entry != nullptr) && (entry->key != key)){
+            entry = entry->next;
+        }
+        if(entry == nullptr){
+            return false;
+        }
+        else{
+            aFlag = true;
+            return true;
+        }
+    }
+    return aFlag;
+}
+
 template<typename KEY,typename VALUE>
 VALUE& HashTable<KEY,VALUE>::searchKey(KEY key){
-    VALUE hashValue = HashFunc(key);
+    auto hashValue = HashFunc(key);
     bool flag = false;
     HashTableEntry<KEY,VALUE>* entry = theHashTable[hashValue];
     if(entry != nullptr){

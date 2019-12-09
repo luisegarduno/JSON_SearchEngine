@@ -2,6 +2,7 @@
 #define AVLTREE_H
 
 #include "avlnode.h"
+#include <stdexcept>
 
 static int totalNumberOfNodes;
 
@@ -63,6 +64,8 @@ class AVLTree{
 
         // Calls private function: makeEmpty(AvlNode<T>*&)
         void makeEmpty();
+
+        T& searchAvl(const T&);
 
         // Calls private function: printTree(AvlNode<T>*) const
         void printTree() const;
@@ -175,11 +178,11 @@ bool AVLTree<T>::contains(const T& x, AvlNode<T>* t) const{
         return false;
     }
 
-    else if(x < t->element){
+    else if(x.the_Word < t->element.the_Word){
         return contains(x, t->left);
     }
 
-    else if(t->element < x){
+    else if(t->element.the_Word < x.the_Word){
         return contains(x, t->right);
     }
 
@@ -232,6 +235,22 @@ void AVLTree<T>::printTree(AvlNode<T>* t) const{
         printTree(t->left);
         cout << t->element.the_Word << " --> File: " << t->element.the_File << " --> Frequency: " << t->element.the_Frequency << endl;
         printTree(t->right);
+    }
+}
+
+template<typename T>
+T& AVLTree<T>::searchAvl(const T& x){
+    AvlNode<T>* tempTree = root;
+    while(tempTree != nullptr){
+        if(tempTree->element.the_Word == x.the_Word){
+            return tempTree->element;
+        }
+        if(tempTree->element.the_Word < x.the_Word){
+            tempTree = tempTree->right;
+        }
+        else{
+            tempTree = tempTree->left;
+        }
     }
 }
 

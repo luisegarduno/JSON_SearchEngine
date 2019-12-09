@@ -44,7 +44,6 @@ HEADERS += \
     searchquery.h
 
 FORMS += \
-    indexinterface.ui \
     maintenance.ui \
     mode.ui \
     searchquery.ui

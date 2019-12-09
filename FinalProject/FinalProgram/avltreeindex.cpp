@@ -47,11 +47,19 @@ void AvlTreeIndex::load_Index(){
 
 }
 
-void AvlTreeIndex::search_Index(){
-
+new_word_obj& AvlTreeIndex::search_Index(new_word_obj& thisWord){
+    if(!index.contains(thisWord)){
+        throw std::out_of_range("Word not found in Index");
+    }
+    else{
+        return index.searchAvl(thisWord);
+    }
 }
 
 void AvlTreeIndex::insert_In_Index(new_word_obj& thisWord, string& thisString){
+    if(!index.contains(thisWord)){
+        index.insert(thisWord);
+    }
 
 }
 
