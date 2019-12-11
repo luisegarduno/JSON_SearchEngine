@@ -66,18 +66,18 @@ void Interactive::on_IndexMethod_Button_clicked(){
         // Turns AVL Tree Flag on --> AVL Tree is selected as Index Method
         avlTreeFlag = true;
         hashTableFlag = false;
-        QMessageBox::information(this,"Let's Search : Index Mode", "Selected Mode: AVL Tree");
         indexInterface = new AvlTree_Index;
         indexInterface->load_Index();
+        QMessageBox::information(this,"Let's Search : Index Mode", "Selected Mode: AVL Tree");
 
     }
     else{
         // Turns AVL Tree Flag on --> AVL Tree is selected as Index Method
         avlTreeFlag = false;
         hashTableFlag = true;
-        QMessageBox::information(this,"Let's Search : Index Mode", "Selected Mode: Hash Table");
         indexInterface = new HashTable_Index;
         indexInterface->load_Index();
+        QMessageBox::information(this,"Let's Search : Index Mode", "Selected Mode: Hash Table");
     }
 }
 

@@ -36,7 +36,6 @@ void HashTable_Index::load_Index(){
                 thisWord.addDocumentName(theFile);
                 thisWord.setFrequencyForDoc(theFile,std::stoi(theFrequency));
 
-
             }
             index.insert(theWord,thisWord);
         }

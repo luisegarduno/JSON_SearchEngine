@@ -27,17 +27,17 @@ void AvlTree_Index::load_Index(){
                     break;
                 }
                 theFile = theLine;
+                thisWord.addDocumentName(theFile);
+                //cout << " " << theFile;
+
 
                 theIndex_Loader >> theLine;
+                if(theLine == "-->"){
+                    break;
+                }
                 theFrequency = theLine;
-
-                //cout << " " << theFile << " " << theFrequency;
-
-                thisWord.setWord(theWord);
-                thisWord.addDocumentName(theFile);
                 thisWord.setFrequencyForDoc(theFile,std::stoi(theFrequency));
-
-                //cout << theWord << ", " << theFile << " : " << theFrequency << endl;
+                //cout << "(" + theFrequency + ")  |  ";
             }
             index.insert(thisWord);
         }
