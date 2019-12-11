@@ -143,7 +143,7 @@ void HashTable<KEY,VALUE>::print(){
         tempPrint = theHashTable[counter];
         if(tempPrint != nullptr){
             while(tempPrint != nullptr){
-                cout << tempPrint->key << " --> File: " << tempPrint->value.the_File << " --> Frequency: " << tempPrint->value.the_Frequency << endl;
+                //cout << tempPrint->key << " --> File: " << tempPrint->value.getDoc() << " --> Frequency: " << tempPrint->value.the_Frequency << endl;
                 tempPrint = tempPrint->next;
             }
         }

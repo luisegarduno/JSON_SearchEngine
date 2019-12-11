@@ -16,7 +16,7 @@ void SearchQuery::on_Search_Button_clicked(){
         string searchQuery = qString_searchQuery.toStdString();
         vector<string> listOfWords = getWords(searchQuery);
         word tempWord;
-        tempWord.the_Word = listOfWords[0];
+        tempWord.setWord(listOfWords[0]);
         theIndex->search_Index(tempWord).printWord();
         QMessageBox::information(this,"Let's Search : AVL Tree", qString_searchQuery);
     }

@@ -133,10 +133,10 @@ void AvlTree<T>::insert(const T& x, AvlTree_Node<T>*& t){
         t = new AvlTree_Node<T>(x, nullptr, nullptr);
     }
 
-    else if(x.the_Word < t->element.the_Word){
+    else if(x.getWord() < t->element.getWord()){
         insert(x, t->left);
         if(height(t->left) - height(t->right) == 2){
-            if(x.the_Word < t->left->element.the_Word){
+            if(x.getWord() < t->left->element.getWord()){
                 rotateWithLeftChild(t);
             }
 
@@ -146,11 +146,11 @@ void AvlTree<T>::insert(const T& x, AvlTree_Node<T>*& t){
         }
     }
 
-    else if(t->element.the_Word < x.the_Word){
+    else if(t->element.getWord() < x.getWord()){
         insert(x, t->right);
 
         if( height(t->right) - height(t->left) == 2){
-            if(t->right->element.the_Word < x.the_Word){
+            if(t->right->element.getWord() < x.getWord()){
                 rotateWithRightChild(t);
             }
 
@@ -178,11 +178,11 @@ bool AvlTree<T>::contains(const T& x, AvlTree_Node<T>* t) const{
         return false;
     }
 
-    else if(x.the_Word < t->element.the_Word){
+    else if(x.getWord() < t->element.getWord()){
         return contains(x, t->left);
     }
 
-    else if(t->element.the_Word < x.the_Word){
+    else if(t->element.getWord() < x.getWord()){
         return contains(x, t->right);
     }
 
@@ -233,7 +233,7 @@ template<typename T>
 void AvlTree<T>::printTree(AvlTree_Node<T>* t) const{
     if(t != nullptr){
         printTree(t->left);
-        cout << t->element.the_Word << " --> File: " << t->element.the_File << " --> Frequency: " << t->element.the_Frequency << endl;
+        //cout << t->element.getWord() << " --> File: " << t->element.getFile() << " --> Frequency: " << t->element.the_Frequency << endl;
         printTree(t->right);
     }
 }
@@ -242,10 +242,10 @@ template<typename T>
 T& AvlTree<T>::searchAvl(const T& x){
     AvlTree_Node<T>* tempTree = root;
     while(tempTree != nullptr){
-        if(tempTree->element.the_Word == x.the_Word){
+        if(tempTree->element.getWord() == x.getWord()){
             return tempTree->element;
         }
-        if(tempTree->element.the_Word < x.the_Word){
+        if(tempTree->element.getWord() < x.getWord()){
             tempTree = tempTree->right;
         }
         else{

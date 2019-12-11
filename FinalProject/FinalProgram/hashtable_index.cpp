@@ -17,7 +17,7 @@ void HashTable_Index::load_Index(){
         }
         else{
             theWord = theLine;
-            cout << "--> " << theWord;
+            //cout << "--> " << theWord;
 
 
 
@@ -31,18 +31,18 @@ void HashTable_Index::load_Index(){
                 theIndex_Loader >> theLine;
                 theFrequency = theLine;
 
-                cout << " " << theFile << " " << theFrequency;
+                //cout << " " << theFile << " " << theFrequency;
 
                 word thisWord;
 
-                thisWord.the_Word = theWord;
-                thisWord.the_File = theFile;
-                thisWord.the_Frequency = std::stoi(theFrequency);
+                thisWord.setWord(theWord);
+                thisWord.addDocumentName(theFile);
+                thisWord.setFrequencyForDoc(theFile,std::stoi(theFrequency));
 
                 index.insert(theWord,thisWord);
             }
 
-            cout << endl;
+            //cout << endl;
         }
     }
 
@@ -50,11 +50,11 @@ void HashTable_Index::load_Index(){
 }
 
 word& HashTable_Index::search_Index(word& thisWord){
-    if(!index.contains(thisWord.the_Word)){
+    if(!index.contains(thisWord.getWord())){
         throw std::out_of_range("Word not found in Index");
     }
     else{
-        return index.searchKey(thisWord.the_Word);
+        return index.searchKey(thisWord.getWord());
     }
 }
 
@@ -63,15 +63,15 @@ void HashTable_Index::print_Index(){
 }
 
 void HashTable_Index::insert_In_Index(word& thisWord, string& thisString){
-    if(!index.contains(thisWord.the_Word)){
-        index.insert(thisWord.the_Word,thisWord);
+    if(!index.contains(thisWord.getWord())){
+        index.insert(thisWord.getWord(),thisWord);
     }
     else{
-        if(index.searchKey(thisWord.the_Word).docANDFreq.count(thisString)){
-            index.searchKey(thisWord.the_Word).docANDFreq[thisString]++;
+        if(index.searchKey(thisWord.getWord()).checkMap(thisString)){
+            index.searchKey(thisWord.getWord()).newDocumentName(thisString);
         }
         else{
-            index.searchKey(thisWord.the_Word).docANDFreq[thisString] = 1;
+            index.searchKey(thisWord.getWord()).addDocumentName(thisString);
         }
     }
 }

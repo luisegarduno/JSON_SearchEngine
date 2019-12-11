@@ -25,7 +25,8 @@ SOURCES += \
     maintenance.cpp \
     mode.cpp \
     porter2_stemmer.cpp \
-    searchquery.cpp
+    searchquery.cpp \
+    word.cpp
 
 HEADERS += \
     avltree.h \
@@ -40,7 +41,8 @@ HEADERS += \
     maintenance.h \
     mode.h \
     porter2_stemmer.h \
-    searchquery.h
+    searchquery.h \
+    word.h
 
 FORMS += \
     maintenance.ui \

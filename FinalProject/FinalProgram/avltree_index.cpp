@@ -33,16 +33,14 @@ void AvlTree_Index::load_Index(){
 
                 //cout << " " << theFile << " " << theFrequency;
 
-                thisWord.the_Word = theWord;
-                thisWord.the_File = theFile;
-                thisWord.the_Frequency = std::stoi(theFrequency);
+                thisWord.setWord(theWord);
+                thisWord.addDocumentName(theFile);
+                thisWord.setFrequencyForDoc(theFile,std::stoi(theFrequency));
 
-                cout << theWord << ", " << theFile << " : " << theFrequency << endl;
-                thisWord.docANDFreq[theFile] = std::stoi(theFrequency);
+                //cout << theWord << ", " << theFile << " : " << theFrequency << endl;
                 index.insert(thisWord);
             }
-
-            cout << endl;
+            //cout << endl;
         }
     }
     theIndex_Loader.close();
@@ -57,16 +55,16 @@ word& AvlTree_Index::search_Index(word& thisWord){
     }
 }
 
-void AvlTree_Index::insert_In_Index(word& thisWord, string& thisString){
+void AvlTree_Index::insert_In_Index(word& thisWord, string& thisDoc){
     if(!index.contains(thisWord)){
         index.insert(thisWord);
     }
     else{
-        if(index.searchAvl(thisWord).docANDFreq.count(thisString)){
-            index.searchAvl(thisWord).docANDFreq[thisString]++;
+        if(index.searchAvl(thisWord).checkMap(thisDoc)){
+            index.searchAvl(thisWord).newDocumentName(thisDoc);
         }
         else{
-            index.searchAvl(thisWord).docANDFreq[thisString] = 1;
+            index.searchAvl(thisWord).addDocumentName(thisDoc);
         }
     }
 }
