@@ -7,27 +7,50 @@ SearchQuery::SearchQuery(QWidget *parent) : QDialog(parent), ui(new Ui::SearchQu
 
 void SearchQuery::on_Search_Button_clicked(){
 
-    if(getIndexMethod() == "AVL Tree"){
-        // Open window containing inputted text & "AVL Tree" as window title
-        QString qString_searchQuery = ui->SearchQuery_Line->text();
-        //QMessageBox::information(this,"Let's Search : AVL Tree", qString_searchQuery);
+    // Open window containing inputted text & "AVL Tree"/"HashTable as window title
+    QString qString_searchQuery = ui->SearchQuery_Line->text();
+    string searchQuery = qString_searchQuery.toStdString();
+    Porter2Stemmer::stem(searchQuery);
+    vector<string> listOfWords = getWords(searchQuery);
 
-        // QString is converted and saved as string, the each word is added to a vector
-        string searchQuery = qString_searchQuery.toStdString();
-        vector<string> listOfWords = getWords(searchQuery);
-        word tempWord;
-        tempWord.setWord(listOfWords[0]);
-        theIndex->search_Index(tempWord).printWord();
-        QMessageBox::information(this,"Let's Search : AVL Tree", qString_searchQuery);
+    if(getIndexMethod() == "AVL Tree"){
+        if(listOfWords.size() == 1){
+            string finResults;
+            word tempWord(searchQuery,finResults);
+            tempWord = theIndex->search_Index(tempWord);
+            map<string,int> tempMap = tempWord.getDocumentNames();
+            finResults = searchQuery + " was found in: \n";
+
+            map<string,int>::iterator theIterator;
+            for(theIterator = tempMap.begin(); theIterator != tempMap.end(); ++theIterator){
+                finResults += theIterator->first + "\n";
+                //cout << theIterator->first << endl;
+            }
+            QMessageBox::information(this,"Let's Search : AVL Tree", QString::fromStdString(finResults));
+        }
+        else{
+            cout << "Actual Size: " << listOfWords.size() << endl;
+        }
     }
 
     else if(getIndexMethod() == "Hash Table"){
-        // Open window containing inputted text & "Hash Table" as window title
-        QString qString_searchQuery = ui->SearchQuery_Line->text();
-        QMessageBox::information(this,"Let's Search : Hash Table", qString_searchQuery);
+        if(listOfWords.size() == 1){
+            string finResults;
+            word tempWord(searchQuery,finResults);
+            tempWord = theIndex->search_Index(tempWord);
+            map<string,int> tempMap = tempWord.getDocumentNames();
+            finResults = searchQuery + " was found in: \n";
 
-        string searchQuery = qString_searchQuery.toStdString();
-        vector<string> listOfWords = getWords(searchQuery);
+            map<string,int>::iterator theIterator;
+            for(theIterator = tempMap.begin(); theIterator != tempMap.end(); ++theIterator){
+                finResults += theIterator->first + "\n";
+                //cout << theIterator->first << endl;
+            }
+            QMessageBox::information(this,"Let's Search : Hash Table", qString_searchQuery);
+        }
+        else{
+            cout << "Actual Size: " << listOfWords.size() << endl;
+        }
     }
 }
 

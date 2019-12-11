@@ -40,7 +40,6 @@ void AvlTree_Index::load_Index(){
                 //cout << theWord << ", " << theFile << " : " << theFrequency << endl;
                 index.insert(thisWord);
             }
-            //cout << endl;
         }
     }
     theIndex_Loader.close();

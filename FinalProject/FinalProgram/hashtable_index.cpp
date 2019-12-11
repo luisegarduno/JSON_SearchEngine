@@ -31,8 +31,6 @@ void HashTable_Index::load_Index(){
                 theIndex_Loader >> theLine;
                 theFrequency = theLine;
 
-                //cout << " " << theFile << " " << theFrequency;
-
                 word thisWord;
 
                 thisWord.setWord(theWord);
@@ -41,8 +39,6 @@ void HashTable_Index::load_Index(){
 
                 index.insert(theWord,thisWord);
             }
-
-            //cout << endl;
         }
     }
 

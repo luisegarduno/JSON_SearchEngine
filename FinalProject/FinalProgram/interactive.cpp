@@ -69,9 +69,6 @@ void Interactive::on_IndexMethod_Button_clicked(){
         QMessageBox::information(this,"Let's Search : Index Mode", "Selected Mode: AVL Tree");
         indexInterface = new AvlTree_Index;
         indexInterface->load_Index();
-        //word tempWord;
-        //tempWord.the_Word = "sanford";
-        //cout << indexInterface->search_Index(tempWord).the_File << endl;
 
     }
     else{

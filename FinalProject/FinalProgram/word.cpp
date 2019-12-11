@@ -4,6 +4,24 @@ word::word(){
 
 }
 
+// Constructor
+word::word(string aWord, string documentName){
+    the_Word = aWord;
+    docANDfreq[documentName] = 1;
+}
+
+word::word(const word& originalWord){
+    the_Word = originalWord.the_Word;
+    docANDfreq = originalWord.docANDfreq;
+}
+
+word& word::operator=(const word& originalWord){
+    this->the_Word = originalWord.the_Word;
+    this->docANDfreq = originalWord.docANDfreq;
+
+    return *this;
+}
+
 void word::setWord(string aWord){
     this->the_Word = aWord;
 }
