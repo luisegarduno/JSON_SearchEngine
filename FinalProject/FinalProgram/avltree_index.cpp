@@ -19,7 +19,7 @@ void AvlTree_Index::load_Index(){
             theWord = theLine;
             //cout << "--> " << theWord;
 
-            word thisWord;
+            word thisWord(theWord);
 
             while(theLine != "-->"){
                 theIndex_Loader >> theLine;
@@ -38,8 +38,8 @@ void AvlTree_Index::load_Index(){
                 thisWord.setFrequencyForDoc(theFile,std::stoi(theFrequency));
 
                 //cout << theWord << ", " << theFile << " : " << theFrequency << endl;
-                index.insert(thisWord);
             }
+            index.insert(thisWord);
         }
     }
     theIndex_Loader.close();

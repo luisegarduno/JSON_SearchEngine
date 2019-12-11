@@ -4,6 +4,10 @@ word::word(){
 
 }
 
+word::word(string word){
+    this->the_Word = word;
+}
+
 // Constructor
 word::word(string aWord, string documentName){
     the_Word = aWord;

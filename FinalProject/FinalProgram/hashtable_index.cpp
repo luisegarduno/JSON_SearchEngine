@@ -18,6 +18,7 @@ void HashTable_Index::load_Index(){
         else{
             theWord = theLine;
             //cout << "--> " << theWord;
+            word thisWord(theWord);
 
 
 
@@ -31,14 +32,13 @@ void HashTable_Index::load_Index(){
                 theIndex_Loader >> theLine;
                 theFrequency = theLine;
 
-                word thisWord;
-
                 thisWord.setWord(theWord);
                 thisWord.addDocumentName(theFile);
                 thisWord.setFrequencyForDoc(theFile,std::stoi(theFrequency));
 
-                index.insert(theWord,thisWord);
+
             }
+            index.insert(theWord,thisWord);
         }
     }
 

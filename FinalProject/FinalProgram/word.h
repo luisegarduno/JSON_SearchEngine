@@ -18,6 +18,7 @@ using std::ostream_iterator;
 class word{
     public:
         word();
+        word(string);
         word(string,string);
         word(const word&);
         word& operator=(const word&);
