@@ -4,6 +4,21 @@
 Maintenance::Maintenance(QWidget *parent) : QDialog(parent),  steps(0), ui(new Ui::Maintenance), totalNumberOfFiles(0), totalNumOfWords(0.0), totalNumOfValidDocs(0) {
     ui->setupUi(this);
 
+    QPalette MaintenanceLabel = ui->label->palette();
+    MaintenanceLabel.setColor(ui->label->backgroundRole(), Qt::white);
+    MaintenanceLabel.setColor(ui->label->foregroundRole(), Qt::white);
+    ui->label->setPalette(MaintenanceLabel);
+
+    QPalette questLabel = ui->questionLabel->palette();
+    questLabel.setColor(ui->questionLabel->backgroundRole(), Qt::white);
+    questLabel.setColor(ui->questionLabel->foregroundRole(), Qt::white);
+    ui->questionLabel->setPalette(questLabel);
+
+    QPixmap pix("/home/student/Pictures/image.jpg");
+    int w = ui->picLabel->width();
+    int h = ui->picLabel->height();
+    ui->picLabel->setPixmap(pix.scaled(w,h,Qt::KeepAspectRatio));
+
     {
         ifstream inputFile("../FinalProgram/StopWords.txt");        // https://countwordsfree.com/stopwords
         string stopWordString;
@@ -33,7 +48,28 @@ void Maintenance::on_ClearFile_Button_clicked(){
     if(confirmation == QMessageBox::Yes){
         if(words.size() != 0){
             words.clear();
+
         }
+        std::ofstream ofs;
+        ofs.open("../Index.txt", std::ofstream::out | std::ofstream::trunc);
+        ofs.close();
+        totalNumOfWords = 0;
+        totalNumberOfFiles = 0;
+        totalNumOfValidDocs = 0;
+
+
+        top50Words.clear();
+        fileNamesOnly.clear();
+        allFileLocations.clear();
+
+        words.clear();
+
+        word_obj.theWord.clear();
+        word_obj.word_Index.clear();
+        word_obj.frequency = 0;
+
+
+
         QMessageBox::information(this, "Clear", "Index has been cleared");
         this->close();
     }
@@ -46,7 +82,7 @@ void Maintenance::on_AddFolder_Button_clicked(){
     // file_name = QFileDialog::getExistingDirectory(this, "Open Folder", QDir::homePath());
 
     // Opens local build folder
-    file_name = QFileDialog::getExistingDirectory(this,"Open Folder","/home/student/Desktop/MyProjects/CSE2341-F19-Luis-Garduno/FinalProject/build-FinalProgram-Desktop_Qt_5_10_0_GCC_64bit-Debug");
+    file_name = QFileDialog::getExistingDirectory(this,"Open Folder","/home/student/Desktop/Temp/DuckDuckSearch/build-SearchEngine-Desktop_Qt_5_10_0_GCC_64bit-Debug");
 
     // QString is converted and saved as a standard string
     string fileName = file_name.toStdString();
@@ -62,6 +98,17 @@ void Maintenance::on_AddFolder_Button_clicked(){
         getTotalNumberOfFiles(fileName);
 
         pd = new QProgressDialog("Selected Directory: " + parsePathName(fileName), "Cancel", 0, totalNumberOfFiles);
+
+        QPalette palette1;
+        QBrush brush2(QColor(78, 51, 169, 255));
+        brush2.setStyle(Qt::SolidPattern);
+        palette1.setBrush(QPalette::Active, QPalette::Highlight, brush2);
+        palette1.setBrush(QPalette::Inactive, QPalette::Highlight, brush2);
+        QBrush brush3(QColor(204, 199, 197, 255));
+        brush3.setStyle(Qt::SolidPattern);
+        palette1.setBrush(QPalette::Disabled, QPalette::Highlight, brush3);
+        pd->setPalette(palette1);
+
         pd->setWindowTitle("Parsing Index");
         connect(pd,&QProgressDialog::canceled, this, &Maintenance::cancel);
 
@@ -69,6 +116,7 @@ void Maintenance::on_AddFolder_Button_clicked(){
         setFileLocations(fileName);
 
         QMessageBox::information(this, "Complete", "Index has been parsed succesfully");
+        //myBar->close();
     }
 }
 
@@ -331,7 +379,7 @@ bool Maintenance::isStopWord(string& word){
 }
 
 void Maintenance::setFileLocations(string& fileName){
-    //persistentIndex.open("Index.txt" , fstream::in | fstream::out | fstream::app);
+    //persistentIndex.open("../Index.txt" , fstream::in | fstream::out | fstream::app);
     pd->setValue(steps);
 
     filesystem::directory_iterator end;
@@ -393,12 +441,12 @@ void Maintenance::setFileLocations(string& fileName){
 
     setTop50Words();
 
-    persistentIndex.open("Index.txt" , fstream::in | fstream::out | fstream::app);
-    vector<string> indexVector = getIndex();
-    for(size_t counter = 0; counter < indexVector.size(); counter++){
-        persistentIndex << "--> "  << indexVector[counter] << " \n";
-    }
-    persistentIndex.close();
+    //persistentIndex.open("../Index.txt" , fstream::in | fstream::out | fstream::app);
+    //vector<string> indexVector = getIndex();
+    //for(size_t counter = 0; counter < indexVector.size(); counter++){
+      //  persistentIndex << "--> "  << indexVector[counter] << " \n";
+    //}
+    //persistentIndex.close();
 }
 
 vector<string> Maintenance::getIndex(){

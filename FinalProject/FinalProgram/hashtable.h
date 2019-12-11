@@ -9,16 +9,12 @@
 #include <list>
 #include <vector>
 #include <string>
-#include <iostream>
 #include <stdexcept>
 #include <algorithm>
 #include <functional>
-#include "hashtableentry.h"
+#include "hashtable_entry.h"
 
 using std::hash;
-using std::cout;
-using std::endl;
-using std::string;
 
 // Initialize table size so resizing isn't necessary
 const auto TABLE_SIZE = 3250000;
@@ -27,7 +23,7 @@ template<typename KEY, typename VALUE>
 class HashTable{
     private:
         int totalNumberOfNodes;
-        HashTableEntry<KEY,VALUE>** theHashTable;
+        HashTable_Entry<KEY,VALUE>** theHashTable;
 
     public:
         // Default constructor
@@ -54,7 +50,7 @@ class HashTable{
 
 template<typename KEY, typename VALUE>
 HashTable<KEY,VALUE>::HashTable(){
-    theHashTable = new HashTableEntry<KEY,VALUE>*[TABLE_SIZE];
+    theHashTable = new HashTable_Entry<KEY,VALUE>*[TABLE_SIZE];
 
     for(auto count = 0; count < TABLE_SIZE; count++){
         theHashTable[count] = nullptr;
@@ -70,8 +66,8 @@ auto HashTable<KEY,VALUE>::HashFunc(KEY key){
 template<typename KEY,typename VALUE>
 void HashTable<KEY,VALUE>::insert(KEY key,VALUE value){
     auto hashVALUE = HashFunc(key);
-    HashTableEntry<KEY,VALUE>* previous = nullptr;
-    HashTableEntry<KEY,VALUE>* entry = theHashTable[hashVALUE];
+    HashTable_Entry<KEY,VALUE>* previous = nullptr;
+    HashTable_Entry<KEY,VALUE>* entry = theHashTable[hashVALUE];
 
     while(entry != nullptr){
         previous = entry;
@@ -79,7 +75,7 @@ void HashTable<KEY,VALUE>::insert(KEY key,VALUE value){
     }
 
     if(entry == nullptr){
-        entry = new HashTableEntry<KEY,VALUE>(key,value);
+        entry = new HashTable_Entry<KEY,VALUE>(key,value);
 
         if(previous == nullptr){
             theHashTable[hashVALUE] = entry;
@@ -103,7 +99,7 @@ bool HashTable<KEY,VALUE>::contains(KEY key){
         return false;
     }
     else{
-        HashTableEntry<KEY,VALUE>* entry = theHashTable[hashVALUE];
+        HashTable_Entry<KEY,VALUE>* entry = theHashTable[hashVALUE];
         while((entry != nullptr) && (entry->key != key)){
             entry = entry->next;
         }
@@ -122,7 +118,7 @@ template<typename KEY,typename VALUE>
 VALUE& HashTable<KEY,VALUE>::searchKey(KEY key){
     auto hashValue = HashFunc(key);
     bool flag = false;
-    HashTableEntry<KEY,VALUE>* entry = theHashTable[hashValue];
+    HashTable_Entry<KEY,VALUE>* entry = theHashTable[hashValue];
     if(entry != nullptr){
         while(entry != nullptr){
             if(entry->key == key){
@@ -141,7 +137,7 @@ VALUE& HashTable<KEY,VALUE>::searchKey(KEY key){
 
 template<typename KEY,typename VALUE>
 void HashTable<KEY,VALUE>::print(){
-    HashTableEntry<KEY,VALUE>* tempPrint;
+    HashTable_Entry<KEY,VALUE>* tempPrint;
 
     for(auto counter = 0; counter < TABLE_SIZE; counter++){
         tempPrint = theHashTable[counter];
@@ -157,7 +153,7 @@ void HashTable<KEY,VALUE>::print(){
 template<typename KEY,typename VALUE>
 void HashTable<KEY,VALUE>::clear(){
     for(auto count = 0; count  < TABLE_SIZE; count++){
-        HashTableEntry<KEY,VALUE>* entry = theHashTable[count];
+        HashTable_Entry<KEY,VALUE>* entry = theHashTable[count];
 
         while(entry != nullptr){
             if(entry != nullptr){
@@ -165,7 +161,7 @@ void HashTable<KEY,VALUE>::clear(){
                 break;
             }
             else{
-                HashTableEntry<KEY,VALUE>* next = entry->next;
+                HashTable_Entry<KEY,VALUE>* next = entry->next;
                 delete entry;
                 entry = next;
             }
@@ -180,3 +176,4 @@ HashTable<KEY,VALUE>::~HashTable(){
 }
 
 #endif // HASHTABLE_H
+

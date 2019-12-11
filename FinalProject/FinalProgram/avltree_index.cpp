@@ -1,10 +1,10 @@
-#include "avltreeindex.h"
+#include "avltree_index.h"
 
-AvlTreeIndex::AvlTreeIndex(){
+AvlTree_Index::AvlTree_Index(){
 }
 
-void AvlTreeIndex::load_Index(){
-    ifstream theIndex_Loader("Index.txt");
+void AvlTree_Index::load_Index(){
+    ifstream theIndex_Loader("../Index.txt");
 
     string theLine;
     string theWord;
@@ -17,7 +17,9 @@ void AvlTreeIndex::load_Index(){
         }
         else{
             theWord = theLine;
-            //cout << "Word: " << theWord << endl;
+            //cout << "--> " << theWord;
+
+            word thisWord;
 
             while(theLine != "-->"){
                 theIndex_Loader >> theLine;
@@ -29,21 +31,24 @@ void AvlTreeIndex::load_Index(){
                 theIndex_Loader >> theLine;
                 theFrequency = theLine;
 
-                //cout << "Word[" << theWord << "] : File[" << theFile << "] : Frequency[" << theFrequency << "]" << endl;
-                new_word_obj thisWord;
+                //cout << " " << theFile << " " << theFrequency;
 
                 thisWord.the_Word = theWord;
                 thisWord.the_File = theFile;
                 thisWord.the_Frequency = std::stoi(theFrequency);
 
+                cout << theWord << ", " << theFile << " : " << theFrequency << endl;
+                thisWord.docANDFreq[theFile] = std::stoi(theFrequency);
                 index.insert(thisWord);
             }
+
+            cout << endl;
         }
     }
     theIndex_Loader.close();
 }
 
-new_word_obj& AvlTreeIndex::search_Index(new_word_obj& thisWord){
+word& AvlTree_Index::search_Index(word& thisWord){
     if(!index.contains(thisWord)){
         throw std::out_of_range("Word not found in Index");
     }
@@ -52,20 +57,28 @@ new_word_obj& AvlTreeIndex::search_Index(new_word_obj& thisWord){
     }
 }
 
-void AvlTreeIndex::insert_In_Index(new_word_obj& thisWord, string& thisString){
+void AvlTree_Index::insert_In_Index(word& thisWord, string& thisString){
     if(!index.contains(thisWord)){
         index.insert(thisWord);
     }
+    else{
+        if(index.searchAvl(thisWord).docANDFreq.count(thisString)){
+            index.searchAvl(thisWord).docANDFreq[thisString]++;
+        }
+        else{
+            index.searchAvl(thisWord).docANDFreq[thisString] = 1;
+        }
+    }
 }
 
-void AvlTreeIndex::print_Index(){
+void AvlTree_Index::print_Index(){
     index.printTree();
 }
 
-void AvlTreeIndex::clear_Index(){
+void AvlTree_Index::clear_Index(){
     index.makeEmpty();
 }
 
-AvlTreeIndex::~AvlTreeIndex(){
+AvlTree_Index::~AvlTree_Index(){
 }
 

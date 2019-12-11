@@ -144,6 +144,21 @@
     </layout>
    </widget>
   </widget>
+  <widget class="QLabel" name="picLabel">
+   <property name="geometry">
+    <rect>
+     <x>6</x>
+     <y>0</y>
+     <width>791</width>
+     <height>311</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <zorder>picLabel</zorder>
+  <zorder>SearchBox</zorder>
  </widget>
  <resources/>
  <connections/>

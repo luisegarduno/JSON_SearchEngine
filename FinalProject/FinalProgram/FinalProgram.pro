@@ -18,8 +18,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    avltreeindex.cpp \
-    hashtableindex.cpp \
+    avltree_index.cpp \
+    hashtable_index.cpp \
     interactive.cpp \
     main.cpp \
     maintenance.cpp \
@@ -28,13 +28,13 @@ SOURCES += \
     searchquery.cpp
 
 HEADERS += \
-    avlnode.h \
     avltree.h \
-    avltreeindex.h \
-    comparereferencemap.h \
+    avltree_index.h \
+    avltree_node.h \
+    compare_referenced_map.h \
     hashtable.h \
-    hashtableentry.h \
-    hashtableindex.h \
+    hashtable_entry.h \
+    hashtable_index.h \
     index_interface.h \
     interactive.h \
     maintenance.h \

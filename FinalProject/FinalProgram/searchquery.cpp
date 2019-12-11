@@ -10,11 +10,15 @@ void SearchQuery::on_Search_Button_clicked(){
     if(getIndexMethod() == "AVL Tree"){
         // Open window containing inputted text & "AVL Tree" as window title
         QString qString_searchQuery = ui->SearchQuery_Line->text();
-        QMessageBox::information(this,"Let's Search : AVL Tree", qString_searchQuery);
+        //QMessageBox::information(this,"Let's Search : AVL Tree", qString_searchQuery);
 
         // QString is converted and saved as string, the each word is added to a vector
         string searchQuery = qString_searchQuery.toStdString();
         vector<string> listOfWords = getWords(searchQuery);
+        word tempWord;
+        tempWord.the_Word = listOfWords[0];
+        theIndex->search_Index(tempWord).printWord();
+        QMessageBox::information(this,"Let's Search : AVL Tree", qString_searchQuery);
     }
 
     else if(getIndexMethod() == "Hash Table"){
@@ -26,6 +30,7 @@ void SearchQuery::on_Search_Button_clicked(){
         vector<string> listOfWords = getWords(searchQuery);
     }
 }
+
 
 vector<string> SearchQuery::getWords(string aString){
     string tempString;

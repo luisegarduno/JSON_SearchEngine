@@ -2,6 +2,7 @@
 #define MODE_H
 
 #include <QStyle>
+#include <QPixmap>
 #include <iostream>
 #include <QMainWindow>
 #include "maintenance.h"

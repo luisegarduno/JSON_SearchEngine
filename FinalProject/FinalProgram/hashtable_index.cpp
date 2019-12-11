@@ -1,10 +1,10 @@
-#include "hashtableindex.h"
+#include "hashtable_index.h"
 
-HashTableIndex::HashTableIndex(){
+HashTable_Index::HashTable_Index(){
 }
 
-void HashTableIndex::load_Index(){
-    ifstream theIndex_Loader("Index.txt");
+void HashTable_Index::load_Index(){
+    ifstream theIndex_Loader("../Index.txt");
 
     string theLine;
     string theWord;
@@ -17,7 +17,9 @@ void HashTableIndex::load_Index(){
         }
         else{
             theWord = theLine;
-            //cout << "Word: " << theWord << endl;
+            cout << "--> " << theWord;
+
+
 
             while(theLine != "-->"){
                 theIndex_Loader >> theLine;
@@ -29,23 +31,25 @@ void HashTableIndex::load_Index(){
                 theIndex_Loader >> theLine;
                 theFrequency = theLine;
 
-                //cout << "Word[" << theWord << "] : File[" << theFile << "] : Frequency[" << theFrequency << "]" << endl;
+                cout << " " << theFile << " " << theFrequency;
 
-                new_word_obj thisWord;
+                word thisWord;
 
                 thisWord.the_Word = theWord;
                 thisWord.the_File = theFile;
                 thisWord.the_Frequency = std::stoi(theFrequency);
 
-                index.insert(theWord, thisWord);
+                index.insert(theWord,thisWord);
             }
+
+            cout << endl;
         }
     }
 
     theIndex_Loader.close();
 }
 
-new_word_obj& HashTableIndex::search_Index(new_word_obj& thisWord){
+word& HashTable_Index::search_Index(word& thisWord){
     if(!index.contains(thisWord.the_Word)){
         throw std::out_of_range("Word not found in Index");
     }
@@ -54,17 +58,28 @@ new_word_obj& HashTableIndex::search_Index(new_word_obj& thisWord){
     }
 }
 
-void HashTableIndex::print_Index(){
+void HashTable_Index::print_Index(){
     index.print();
 }
 
-void HashTableIndex::insert_In_Index(new_word_obj& thisWord, string& thisString){
+void HashTable_Index::insert_In_Index(word& thisWord, string& thisString){
+    if(!index.contains(thisWord.the_Word)){
+        index.insert(thisWord.the_Word,thisWord);
+    }
+    else{
+        if(index.searchKey(thisWord.the_Word).docANDFreq.count(thisString)){
+            index.searchKey(thisWord.the_Word).docANDFreq[thisString]++;
+        }
+        else{
+            index.searchKey(thisWord.the_Word).docANDFreq[thisString] = 1;
+        }
+    }
 }
 
-void HashTableIndex::clear_Index(){
+void HashTable_Index::clear_Index(){
     index.clear();
 }
 
-HashTableIndex::~HashTableIndex(){
+HashTable_Index::~HashTable_Index(){
 }
 

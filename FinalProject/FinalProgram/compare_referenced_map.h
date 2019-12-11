@@ -1,5 +1,5 @@
-#ifndef COMPAREREFERENCEMAP_H
-#define COMPAREREFERENCEMAP_H
+#ifndef COMPARE_REFERENCED_MAP_H
+#define COMPARE_REFERENCED_MAP_H
 
 #include <set>
 #include <string>
@@ -14,7 +14,7 @@ using std::reference_wrapper; // Class template that wraps a reference in a copy
  * http://www.cplusplus.com/forum/beginner/168761/
  */
 
-struct compareReferencedMap{
+struct Compare_Referenced_Map{
     template <typename T>
     bool operator() (const T& left, const T& right) const{
         return left.second.get() > right.second.get();
@@ -22,8 +22,8 @@ struct compareReferencedMap{
 };
 
 template <typename T>
-multiset< pair<reference_wrapper<const string>, reference_wrapper<const int> >, compareReferencedMap > sortMap(const T& map){
-    multiset< pair<reference_wrapper<const string>, reference_wrapper<const int> >, compareReferencedMap > newMultiSet;
+multiset< pair<reference_wrapper<const string>, reference_wrapper<const int> >, Compare_Referenced_Map > sortMap(const T& map){
+    multiset< pair<reference_wrapper<const string>, reference_wrapper<const int> >, Compare_Referenced_Map > newMultiSet;
 
     for(auto& pair : map){
         newMultiSet.emplace(pair.first, pair.second);

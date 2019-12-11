@@ -4,6 +4,21 @@
 Interactive::Interactive(QWidget *parent) : QDialog(parent), ui(new Ui::Interactive){
     ui->setupUi(this);
 
+    QPixmap pix("/home/student/Pictures/image.jpg");
+    int w = ui->picLabel->width();
+    int h = ui->picLabel->height();
+    ui->picLabel->setPixmap(pix.scaled(w,h,Qt::KeepAspectRatio));
+
+    QPalette InteractiveLabel = ui->Interactive_Label->palette();
+    InteractiveLabel.setColor(ui->Interactive_Label->backgroundRole(), Qt::white);
+    InteractiveLabel.setColor(ui->Interactive_Label->foregroundRole(), Qt::white);
+    ui->Interactive_Label->setPalette(InteractiveLabel);
+
+    QPalette groupLabel = ui->groupBox->palette();
+    groupLabel.setColor(ui->groupBox->backgroundRole(), Qt::white);
+    groupLabel.setColor(ui->groupBox->foregroundRole(), Qt::white);
+    ui->groupBox->setPalette(groupLabel);
+
     avlTreeFlag = false;
     hashTableFlag = false;
 
@@ -23,6 +38,7 @@ void Interactive::on_Search_Button_clicked(){
     if(avlTreeSelected() == true && hashTableSelected() == false){
         indexMethod = "AVL Tree";
         newQuery->setIndexMethod(indexMethod);
+        newQuery->theIndex = *&indexInterface;
         newQuery->show();
     }
     else if(avlTreeSelected() == false && hashTableSelected() == true){
@@ -51,9 +67,11 @@ void Interactive::on_IndexMethod_Button_clicked(){
         avlTreeFlag = true;
         hashTableFlag = false;
         QMessageBox::information(this,"Let's Search : Index Mode", "Selected Mode: AVL Tree");
-        indexInterface = new AvlTreeIndex;
+        indexInterface = new AvlTree_Index;
         indexInterface->load_Index();
-        //indexInterface->print_Index();
+        //word tempWord;
+        //tempWord.the_Word = "sanford";
+        //cout << indexInterface->search_Index(tempWord).the_File << endl;
 
     }
     else{
@@ -61,33 +79,39 @@ void Interactive::on_IndexMethod_Button_clicked(){
         avlTreeFlag = false;
         hashTableFlag = true;
         QMessageBox::information(this,"Let's Search : Index Mode", "Selected Mode: Hash Table");
-        indexInterface = new HashTableIndex;
+        indexInterface = new HashTable_Index;
         indexInterface->load_Index();
-        //indexInterface->print_Index();
     }
 }
 
 void Interactive::on_Statistics_clicked(){
-    string theNumOfOpinions = to_string(getNumOfOpinions());
-    string theAvgNumIndexWords = to_string(getAvgNumIndexWords());
-    string top50Print;
+    fstream persistentIndex("../Index.txt");
+    if(persistentIndex.is_open() && (avlTreeFlag == true || hashTableFlag == true)){
+        string theNumOfOpinions = to_string(getNumOfOpinions());
+        string theAvgNumIndexWords = to_string(getAvgNumIndexWords());
+        string top50Print;
 
-    for(size_t i = 1; i < 51; i++){
-        if(i != 50){
-            top50Print +=  "\t[" + to_string(i) + "]: " + top50Words.at(i - 1) + "\n";
+        for(size_t i = 1; i < 51; i++){
+            if(i != 50){
+                top50Print +=  "\t[" + to_string(i) + "]: " + top50Words.at(i - 1) + "\n";
+            }
+            else{
+                top50Print += "\t[" + to_string(i) + "]: " + top50Words.at(i - 1);
+            }
         }
-        else{
-            top50Print += "\t[" + to_string(i) + "]: " + top50Words.at(i - 1);
-        }
+
+
+        QString opinionsIndex = "[1]Total number of Opinions Index: " + QString::fromStdString(theNumOfOpinions) + "\n\n";
+        QString averageIndexedWords = "[2]Average number of words indexed per opinion (after removal of stop words): " + QString::fromStdString(theAvgNumIndexWords) +  "\n\n";
+        QString top50WordsFound = "[3]Top 50 most frequent words: \n" + QString::fromStdString(top50Print);
+
+        QString theStatistics = opinionsIndex + averageIndexedWords + top50WordsFound;
+        QMessageBox::information(this,"Let's Search : Statistics",theStatistics);
+        persistentIndex.close();
     }
-
-
-    QString opinionsIndex = "[1]Total number of Opinions Index: " + QString::fromStdString(theNumOfOpinions) + "\n\n";
-    QString averageIndexedWords = "[2]Average number of words indexed per opinion (after removal of stop words): " + QString::fromStdString(theAvgNumIndexWords) +  "\n\n";
-    QString top50WordsFound = "[3]Top 50 most frequent words: \n" + QString::fromStdString(top50Print);
-
-    QString theStatistics = opinionsIndex + averageIndexedWords + top50WordsFound;
-    QMessageBox::information(this,"Let's Search : Statistics",theStatistics);
+    else{
+        QMessageBox::warning(this,"Invalid", "Index Method has not been selected yet",QMessageBox::Ok);
+    }
 }
 
 void Interactive::setFileDirectory(vector<string> providedVector){

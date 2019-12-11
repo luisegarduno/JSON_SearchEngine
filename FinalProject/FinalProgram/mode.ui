@@ -25,6 +25,9 @@
   <property name="windowTitle">
    <string>Let's Search</string>
   </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QGroupBox" name="SelectMode_Group">
     <property name="geometry">
@@ -53,7 +56,7 @@
      </font>
     </property>
     <property name="title">
-     <string>Select Mode:</string>
+     <string/>
     </property>
     <widget class="QWidget" name="horizontalLayoutWidget">
      <property name="geometry">
@@ -127,11 +130,31 @@
       </item>
      </layout>
     </widget>
+    <widget class="QLabel" name="selectMode">
+     <property name="geometry">
+      <rect>
+       <x>160</x>
+       <y>10</y>
+       <width>121</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+       <underline>true</underline>
+      </font>
+     </property>
+     <property name="text">
+      <string>Select Mode</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QLabel" name="Welcome_Label">
     <property name="geometry">
      <rect>
-      <x>150</x>
+      <x>130</x>
       <y>20</y>
       <width>340</width>
       <height>80</height>
@@ -151,13 +174,35 @@
     </property>
     <property name="font">
      <font>
-      <pointsize>25</pointsize>
+      <pointsize>24</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+      <underline>true</underline>
      </font>
     </property>
     <property name="text">
      <string>Welcome, Let's Search</string>
     </property>
+    <property name="textFormat">
+     <enum>Qt::AutoText</enum>
+    </property>
    </widget>
+   <widget class="QLabel" name="picLabel">
+    <property name="geometry">
+     <rect>
+      <x>-10</x>
+      <y>0</y>
+      <width>871</width>
+      <height>411</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <zorder>picLabel</zorder>
+   <zorder>SelectMode_Group</zorder>
+   <zorder>Welcome_Label</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

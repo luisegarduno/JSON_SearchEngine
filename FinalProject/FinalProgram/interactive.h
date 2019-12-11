@@ -11,9 +11,9 @@
 #include <QMessageBox>
 #include "searchquery.h"
 #include "maintenance.h"
-#include "avltreeindex.h"
+#include "avltree_index.h"
 #include "index_interface.h"
-#include "hashtableindex.h"
+#include "hashtable_index.h"
 #include <QDialogButtonBox>
 
 using std::cout;

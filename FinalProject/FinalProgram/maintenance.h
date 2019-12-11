@@ -2,10 +2,8 @@
 #define MAINTENANCE_H
 
 #include <QDir>
-#include <vector>
 #include <QDebug>
 #include <QTimer>
-#include <string>
 #include <sstream>
 #include <fstream>
 #include <QDialog>
@@ -15,32 +13,29 @@
 #include "avltree.h"
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QProgressBar>
 #include <unordered_set>
 #include <unordered_map>
 #include <QFutureWatcher>
 #include <QProgressDialog>
 #include "porter2_stemmer.h"
 #include "rapidjson/document.h"             // rapidjson's DOM-style API
-#include "comparereferencemap.h"
+#include "compare_referenced_map.h"
 #include <experimental/iterator>
 #include <experimental/filesystem>
 #include "rapidjson/filereadstream.h"
 
-using namespace rapidjson; 
+using namespace rapidjson;
 
-using std::pair;
 using std::sort;
 using std::copy;
 using std::fopen;
-using std::string;
-using std::vector;
 using std::fstream;
 using std::ifstream;
 using std::remove_if;
 using std::istringstream;
 using std::unordered_set;
 using std::unordered_map;
-using std::cout, std::endl;
 using std::ostream_iterator;
 
 namespace filesystem = std::experimental::filesystem;
@@ -53,6 +48,7 @@ struct wordObj{
     vector<string> theWord;
     int frequency;
     vector<string> word_Index;
+
 };
 
 class Maintenance : public QDialog{

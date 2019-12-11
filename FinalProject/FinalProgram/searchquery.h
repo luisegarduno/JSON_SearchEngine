@@ -8,14 +8,14 @@
 #include <iostream>
 #include <QCheckBox>
 #include <QMessageBox>
-//#include "indexinterface.h"
+#include "index_interface.h"
 
-using std::cout;
 using std::endl;
 using std::string;
 using std::vector;
 using std::getline;
 using std::stringstream;
+using std::cout, std::endl;
 
 namespace Ui {
     class SearchQuery;
@@ -32,6 +32,10 @@ class SearchQuery : public QDialog {
 
         // returns IndexMethod of type string
         string getIndexMethod();
+
+        void setIndex();
+
+        Index_Interface * theIndex;
 
         // SearchQuery destructor
         ~SearchQuery();
