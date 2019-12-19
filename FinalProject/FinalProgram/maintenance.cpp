@@ -441,11 +441,11 @@ void Maintenance::setFileLocations(string& fileName){
 
     setTop50Words();
 
-    //persistentIndex.open("../Index.txt" , fstream::in | fstream::out | fstream::app);
-    //vector<string> indexVector = getIndex();
-    //for(size_t counter = 0; counter < indexVector.size(); counter++){
-      //  persistentIndex << "--> "  << indexVector[counter] << " \n";
-    //}
+   // persistentIndex.open("../Index.txt" , fstream::in | fstream::out | fstream::app);
+   // vector<string> indexVector = getIndex();
+   // for(size_t counter = 0; counter < indexVector.size(); counter++){
+     //   persistentIndex << "--> "  << indexVector[counter] << " \n";
+   // }
     //persistentIndex.close();
 }
 

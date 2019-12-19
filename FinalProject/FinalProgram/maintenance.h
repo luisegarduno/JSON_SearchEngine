@@ -20,9 +20,9 @@
 #include <QProgressDialog>
 #include "porter2_stemmer.h"
 #include "rapidjson/document.h"             // rapidjson's DOM-style API
-#include "compare_referenced_map.h"
 #include <experimental/iterator>
 #include <experimental/filesystem>
+#include "compare_referenced_map.h"
 #include "rapidjson/filereadstream.h"
 
 using namespace rapidjson;

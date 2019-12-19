@@ -62,8 +62,6 @@ void Mode::on_Interactive_Button_clicked(){
                             qApp->desktop()->availableGeometry()
                 )
             );
-
-            //interactiveMode->show();
         }
 
         interactiveMode->show();
