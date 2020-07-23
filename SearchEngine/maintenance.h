@@ -9,8 +9,10 @@
 #include <QDialog>
 #include <QString>
 #include <QThread>
+#include <iterator>
 #include <iostream>
 #include "avltree.h"
+#include <filesystem>
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QProgressBar>
@@ -20,9 +22,6 @@
 #include <QProgressDialog>
 #include "porter2_stemmer.h"
 #include "rapidjson/document.h"             // rapidjson's DOM-style API
-#include <iterator>
-#include <filesystem>
-//#include <experimental/filesystem>
 #include "compare_referenced_map.h"
 #include "rapidjson/filereadstream.h"
 

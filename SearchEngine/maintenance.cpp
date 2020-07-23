@@ -14,13 +14,13 @@ Maintenance::Maintenance(QWidget *parent) : QDialog(parent),  steps(0), ui(new U
     questLabel.setColor(ui->questionLabel->foregroundRole(), Qt::white);
     ui->questionLabel->setPalette(questLabel);
 
-    QPixmap pix("../image.jpg");
+    QPixmap pix("../FinalProject/image.jpg");
     int w = ui->picLabel->width();
     int h = ui->picLabel->height();
     ui->picLabel->setPixmap(pix.scaled(w,h,Qt::KeepAspectRatio));
 
     {
-        ifstream inputFile("..\FinalProgram\StopWords.txt");        // https://countwordsfree.com/stopwords
+        ifstream inputFile("../FinalProgram/StopWords.txt");        // https://countwordsfree.com/stopwords
         string stopWordString;
 
         while(inputFile >> stopWordString){
@@ -82,7 +82,7 @@ void Maintenance::on_AddFolder_Button_clicked(){
     // file_name = QFileDialog::getExistingDirectory(this, "Open Folder", QDir::homePath());
 
     // Opens local build folder
-    file_name = QFileDialog::getExistingDirectory(this,"Open Folder","/home/student/Desktop/Temp/DuckDuckSearch/build-SearchEngine-Desktop_Qt_5_10_0_GCC_64bit-Debug");
+    file_name = QFileDialog::getExistingDirectory(this,"Open Folder","/debug");
 
     // QString is converted and saved as a standard string
     string fileName = file_name.toStdString();

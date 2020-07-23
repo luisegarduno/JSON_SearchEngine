@@ -5,8 +5,6 @@
 #include <fstream>
 #include <iostream>
 
-
-
 class Index_Interface{
     public:
         Index_Interface() { }

@@ -16,13 +16,12 @@
 #include "hashtable_index.h"
 #include <QDialogButtonBox>
 
-using std::cout;
-using std::endl;
 using std::string;
 using std::vector;
 using std::getline;
 using std::to_string;
 using std::stringstream;
+using std::cout, std::endl;
 
 namespace Ui {
     class Interactive;

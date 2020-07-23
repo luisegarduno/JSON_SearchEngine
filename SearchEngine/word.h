@@ -1,22 +1,22 @@
 #ifndef WORD_H
 #define WORD_H
 
+#include <map>
+#include <vector>
 #include <string>
 #include <fstream>
 #include <iostream>
 #include <iterator>
-#include <vector>
-#include <map>
 
 using std::map;
+using std::vector;
 using std::string;
 using std::ostream;
-using std::vector;
-using std::cout;
-using std::endl;
+using std::cout, std::endl;
 using std::ostream_iterator;
 
 class word{
+
     public:
         word();
         word(string);
@@ -36,8 +36,8 @@ class word{
 
         bool checkMap(string);
 
-
         void printWord();
+
     private:
         string the_Word;
         string the_File;

@@ -15,7 +15,7 @@ Mode::Mode(QWidget *parent): QMainWindow(parent), ui(new Ui::Mode){
     ui->SelectMode_Group->setPalette(selectModeLabel);
 
 
-    QPixmap pix("/home/student/Pictures/image.jpg");
+    QPixmap pix("../FinalProject/image.jpg");
     int w = ui->picLabel->width();
     int h = ui->picLabel->height();
     ui->picLabel->setPixmap(pix.scaled(w,h,Qt::KeepAspectRatio));

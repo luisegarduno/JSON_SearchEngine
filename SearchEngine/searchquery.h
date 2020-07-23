@@ -8,17 +8,15 @@
 #include <iostream>
 #include <QCheckBox>
 #include <QMessageBox>
+#include "maintenance.h"
 #include "index_interface.h"
 #include "porter2_stemmer.h"
-#include "maintenance.h"
 
-using std::endl;
 using std::string;
 using std::vector;
 using std::getline;
 using std::stringstream;
-using std::cout;
-using std::endl;
+using std::cout, std::endl;
 
 namespace Ui {
     class SearchQuery;
