@@ -136,18 +136,15 @@ void Maintenance::parse(string fileName){
         split2Word(html_Section);
     }
 
-    cout << "2" << endl;
     if(currentDocument.HasMember("html_lawbox") && currentDocument["html_lawbox"].IsString()){
         htmlLawbox_Section = currentDocument["html_lawbox"].GetString();
         parseHTML(htmlLawbox_Section);
         split2Word(htmlLawbox_Section);
     }
 
-    cout << "3" << endl;
     plainText_Section = currentDocument["plain_text"].GetString();
     split2Word(plainText_Section);
 
-    cout << "4" << endl;
     if(html_Section != "" && isValidDoc){
         unordered_map<string,int> theOriginalMap;
 
