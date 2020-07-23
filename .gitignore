@@ -4,6 +4,8 @@
 # Build directories
 build-*/
 debug/
+release/
+profile/
 Datasets/
 
 # Autosaves
