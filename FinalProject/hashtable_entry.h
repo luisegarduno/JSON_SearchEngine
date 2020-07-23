@@ -4,7 +4,8 @@
 #include <iostream>
 
 using std::string;
-using std::cout, std::endl;
+using std::cout;
+using std::endl;
 
 template<typename KEY, typename VALUE>
 struct HashTable_Entry{

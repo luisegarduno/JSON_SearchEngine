@@ -14,13 +14,13 @@ Maintenance::Maintenance(QWidget *parent) : QDialog(parent),  steps(0), ui(new U
     questLabel.setColor(ui->questionLabel->foregroundRole(), Qt::white);
     ui->questionLabel->setPalette(questLabel);
 
-    QPixmap pix("/home/student/Pictures/image.jpg");
+    QPixmap pix("../image.jpg");
     int w = ui->picLabel->width();
     int h = ui->picLabel->height();
     ui->picLabel->setPixmap(pix.scaled(w,h,Qt::KeepAspectRatio));
 
     {
-        ifstream inputFile("../FinalProgram/StopWords.txt");        // https://countwordsfree.com/stopwords
+        ifstream inputFile("..\FinalProgram\StopWords.txt");        // https://countwordsfree.com/stopwords
         string stopWordString;
 
         while(inputFile >> stopWordString){

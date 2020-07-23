@@ -17,7 +17,8 @@ using std::string;
 using std::vector;
 using std::getline;
 using std::stringstream;
-using std::cout, std::endl;
+using std::cout;
+using std::endl;
 
 namespace Ui {
     class SearchQuery;

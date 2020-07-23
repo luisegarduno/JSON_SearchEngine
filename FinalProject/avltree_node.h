@@ -10,7 +10,8 @@
 using std::list;
 using std::string;
 using std::vector;
-using std::cout, std::endl;
+using std::cout;
+using std::endl;
 using std::underflow_error;
 
 template <class T>

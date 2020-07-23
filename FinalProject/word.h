@@ -4,7 +4,7 @@
 #include <string>
 #include <fstream>
 #include <iostream>
-#include <experimental/iterator>
+#include <iterator>
 #include <vector>
 #include <map>
 
@@ -12,7 +12,8 @@ using std::map;
 using std::string;
 using std::ostream;
 using std::vector;
-using std::cout, std::endl;
+using std::cout;
+using std::endl;
 using std::ostream_iterator;
 
 class word{

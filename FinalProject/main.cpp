@@ -3,6 +3,7 @@
 #include <QStyle>
 #include <QApplication>
 #include <QDesktopWidget>
+#include <QGuiApplication>
 
 using namespace std;
 using namespace rapidjson;
@@ -19,6 +20,7 @@ int main(int argc, char *argv[]){
                     Qt::AlignCenter,
                     selectMode.size(),
                     qApp->desktop()->availableGeometry()
+                    
         )
     );
 

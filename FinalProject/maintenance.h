@@ -20,8 +20,9 @@
 #include <QProgressDialog>
 #include "porter2_stemmer.h"
 #include "rapidjson/document.h"             // rapidjson's DOM-style API
-#include <experimental/iterator>
-#include <experimental/filesystem>
+#include <iterator>
+#include <filesystem>
+//#include <experimental/filesystem>
 #include "compare_referenced_map.h"
 #include "rapidjson/filereadstream.h"
 
@@ -38,7 +39,7 @@ using std::unordered_set;
 using std::unordered_map;
 using std::ostream_iterator;
 
-namespace filesystem = std::experimental::filesystem;
+namespace filesystem = std::filesystem;
 
 namespace Ui {
     class Maintenance;
