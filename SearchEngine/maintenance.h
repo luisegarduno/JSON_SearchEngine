@@ -20,9 +20,9 @@
 #include <unordered_map>
 #include <QFutureWatcher>
 #include <QProgressDialog>
-#include "porter2_stemmer.h"
 #include "rapidjson/document.h"             // rapidjson's DOM-style API
 #include "compare_referenced_map.h"
+#include "stemmer/porter2_stemmer.h"
 #include "rapidjson/filereadstream.h"
 
 using namespace rapidjson;

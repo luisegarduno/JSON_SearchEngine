@@ -300,7 +300,9 @@ string& Maintenance::split2Word(string& section){
         for(auto theIterator = tempWords.begin(); theIterator != tempWords.end(); theIterator++){
             if((*theIterator).size() != 0){
                 tempWord = *theIterator;
-                //Porter2Stemmer::stem(tempWord);
+                Porter2Stemmer::stem(tempWord);
+                // Test
+                // cout << *theIterator << " --> " << tempWord << endl;
                 words.insert(tempWord);
                 section += tempWord + " ";
                 ++totalNumOfWords;

@@ -10,7 +10,7 @@
 #include <QMessageBox>
 #include "maintenance.h"
 #include "index_interface.h"
-#include "porter2_stemmer.h"
+#include "stemmer/porter2_stemmer.h"
 
 using std::string;
 using std::vector;

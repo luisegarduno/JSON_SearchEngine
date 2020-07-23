@@ -23,7 +23,7 @@ SOURCES += \
     main.cpp \
     maintenance.cpp \
     mode.cpp \
-    porter2_stemmer.cpp \
+    stemmer/porter2_stemmer.cpp \
     searchquery.cpp \
     word.cpp
 
@@ -38,12 +38,13 @@ HEADERS += \
     index_interface.h \
     interactive.h \
     maintenance.h \
+    stemmer/porter2_stemmer.h \
     mode.h \
-    porter2_stemmer.h \
     searchquery.h \
     word.h
 
 FORMS += \
+    interactive.ui \
     maintenance.ui \
     mode.ui \
     searchquery.ui
