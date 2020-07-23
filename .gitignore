@@ -3,6 +3,7 @@
 
 # Build directories
 build-*/
+debug/
 
 # Autosaves
 *~
