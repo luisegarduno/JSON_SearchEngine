@@ -14,7 +14,7 @@ Maintenance::Maintenance(QWidget *parent) : QDialog(parent),  steps(0), ui(new U
     questLabel.setColor(ui->questionLabel->foregroundRole(), Qt::white);
     ui->questionLabel->setPalette(questLabel);
 
-    QPixmap pix("../FinalProject/image.jpg");
+    QPixmap pix("../FinalProject/Images/image.jpg");
     int w = ui->picLabel->width();
     int h = ui->picLabel->height();
     ui->picLabel->setPixmap(pix.scaled(w,h,Qt::KeepAspectRatio));
