@@ -154,21 +154,21 @@
    <widget class="QLabel" name="Welcome_Label">
     <property name="geometry">
      <rect>
-      <x>130</x>
+      <x>125</x>
       <y>20</y>
-      <width>340</width>
+      <width>360</width>
       <height>80</height>
      </rect>
     </property>
     <property name="minimumSize">
      <size>
-      <width>340</width>
+      <width>360</width>
       <height>80</height>
      </size>
     </property>
     <property name="maximumSize">
      <size>
-      <width>340</width>
+      <width>360</width>
       <height>80</height>
      </size>
     </property>
@@ -210,7 +210,7 @@
      <x>0</x>
      <y>0</y>
      <width>600</width>
-     <height>22</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>

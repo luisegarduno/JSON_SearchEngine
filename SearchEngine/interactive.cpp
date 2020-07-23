@@ -4,7 +4,7 @@
 Interactive::Interactive(QWidget *parent) : QDialog(parent), ui(new Ui::Interactive){
     ui->setupUi(this);
 
-    QPixmap pix("../FinalProject/Images/image.jpg");
+    QPixmap pix("../SearchEngine/Images/image.jpg");
     int w = ui->picLabel->width();
     int h = ui->picLabel->height();
     ui->picLabel->setPixmap(pix.scaled(w,h,Qt::KeepAspectRatio));

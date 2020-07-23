@@ -14,13 +14,13 @@ Maintenance::Maintenance(QWidget *parent) : QDialog(parent),  steps(0), ui(new U
     questLabel.setColor(ui->questionLabel->foregroundRole(), Qt::white);
     ui->questionLabel->setPalette(questLabel);
 
-    QPixmap pix("../FinalProject/Images/image.jpg");
+    QPixmap pix("../SearchEngine/Images/image.jpg");
     int w = ui->picLabel->width();
     int h = ui->picLabel->height();
     ui->picLabel->setPixmap(pix.scaled(w,h,Qt::KeepAspectRatio));
 
     {
-        ifstream inputFile("../FinalProgram/StopWords.txt");        // https://countwordsfree.com/stopwords
+        ifstream inputFile("../SearchEngine/StopWords.txt");        // https://countwordsfree.com/stopwords
         string stopWordString;
 
         while(inputFile >> stopWordString){
@@ -82,7 +82,7 @@ void Maintenance::on_AddFolder_Button_clicked(){
     // file_name = QFileDialog::getExistingDirectory(this, "Open Folder", QDir::homePath());
 
     // Opens local build folder
-    file_name = QFileDialog::getExistingDirectory(this,"Open Folder","/debug");
+    file_name = QFileDialog::getExistingDirectory(this,"Open Folder","../");
 
     // QString is converted and saved as a standard string
     string fileName = file_name.toStdString();
@@ -136,15 +136,18 @@ void Maintenance::parse(string fileName){
         split2Word(html_Section);
     }
 
+    cout << "2" << endl;
     if(currentDocument.HasMember("html_lawbox") && currentDocument["html_lawbox"].IsString()){
         htmlLawbox_Section = currentDocument["html_lawbox"].GetString();
         parseHTML(htmlLawbox_Section);
         split2Word(htmlLawbox_Section);
     }
 
+    cout << "3" << endl;
     plainText_Section = currentDocument["plain_text"].GetString();
     split2Word(plainText_Section);
 
+    cout << "4" << endl;
     if(html_Section != "" && isValidDoc){
         unordered_map<string,int> theOriginalMap;
 
@@ -231,6 +234,7 @@ string& Maintenance::parseHTML(string& section){
 }
 
 QString Maintenance::parsePathName(string section){
+    section.erase(0,2);
     for(size_t start = 0; start < section.size(); start++){
         if(section[start] == '/'){
             size_t end = start + 1;
@@ -288,18 +292,18 @@ string& Maintenance::split2Word(string& section){
         else{
             flagCount = 0;
             isValidDoc = true;
-            tempWords.insert(aWord);
+            if(aWord != ""){
+                tempWords.insert(aWord);
+            }
         }
     }
 
     if(isValidDoc == true){
-        unordered_set<string>::iterator theIterator;
-        string tempWord;
-        section = "";
-        for(theIterator = tempWords.begin(); theIterator != tempWords.end(); theIterator++){
+        string tempWord = section = "";
+        for(auto theIterator = tempWords.begin(); theIterator != tempWords.end(); theIterator++){
             if((*theIterator).size() != 0){
                 tempWord = *theIterator;
-                Porter2Stemmer::stem(tempWord);
+                //Porter2Stemmer::stem(tempWord);
                 words.insert(tempWord);
                 section += tempWord + " ";
                 ++totalNumOfWords;
@@ -308,7 +312,6 @@ string& Maintenance::split2Word(string& section){
         return section;
     }
     return section;
-
 }
 
 string& Maintenance::getCaseTitle(string& absolute_string){
@@ -382,6 +385,8 @@ void Maintenance::setFileLocations(string& fileName){
     //persistentIndex.open("../Index.txt" , fstream::in | fstream::out | fstream::app);
     pd->setValue(steps);
 
+
+
     filesystem::directory_iterator end;
     for(filesystem::directory_iterator theIterator(fileName) ; theIterator != end; ++theIterator){
 
@@ -390,6 +395,14 @@ void Maintenance::setFileLocations(string& fileName){
         filesystem::path dirToPath = *theIterator;
         // path directory is converted to a string
         string pathToString = dirToPath.string();
+
+        int i = 0;
+        while(i != int(pathToString.size())){
+            if(pathToString[i] == '\\'){
+                pathToString[i] = '/';
+            }
+            i++;
+        }
 
         size_t counter = 0;
 
