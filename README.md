@@ -19,3 +19,22 @@
   <tr>   <th>Choosing an Index Method</th>   </tr>
   <tr>   <td><img src="https://github.com/luisegarduno/JSON_SearchEngine/blob/master/SearchEngine/Images/IndexMethod.gif"  /> </td>   </tr>
 </table>
+
+4. Select __*Search*__ to enter a new query.
+<table>
+  <tr>   <th>Entering a Search Query</th>   </tr>
+  <tr>   <td><img src="https://github.com/luisegarduno/JSON_SearchEngine/blob/master/SearchEngine/Images/SearchQuery.gif"  /> </td>   </tr>
+</table>
+
+
+ Examples of different available boolean pre-fixes & how they can be used : 
+ > Education                  : Returns all opinions that contain the word education.
+ 
+ > __OR__ privacy security    : Returns all opinions that contain either privacy OR security OR both.
+ 
+ > security __NOT__ privacy   : Returns all opinions that contain security, but not privacy.
+ 
+ > __AND__ higher education texas : Returns all opinions that contain the words higher and education and texas
+ 
+ > __AND__ privacy security NOT computer : Returns all opinions that contain privacy and security, but not computer.
+ 
