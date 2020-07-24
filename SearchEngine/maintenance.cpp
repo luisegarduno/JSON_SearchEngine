@@ -13,12 +13,12 @@ Maintenance::Maintenance(QWidget *parent) : QDialog(parent),  steps(0), ui(new U
     questLabel.setColor(ui->questionLabel->backgroundRole(), Qt::white);
     questLabel.setColor(ui->questionLabel->foregroundRole(), Qt::white);
     ui->questionLabel->setPalette(questLabel);
-
+    /*
     QPixmap pix("../SearchEngine/Images/image.jpg");
     int w = ui->picLabel->width();
     int h = ui->picLabel->height();
     ui->picLabel->setPixmap(pix.scaled(w,h,Qt::KeepAspectRatio));
-
+    */
     {
         ifstream inputFile("../SearchEngine/StopWords.txt");        // https://countwordsfree.com/stopwords
         string stopWordString;

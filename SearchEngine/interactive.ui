@@ -255,11 +255,19 @@
    <property name="text">
     <string/>
    </property>
+   <property name="pixmap">
+    <pixmap resource="../debug/debug/qmake_qmake_immediate.qrc">:/Images/image.jpg</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
   </widget>
   <zorder>picLabel</zorder>
   <zorder>groupBox</zorder>
   <zorder>Interactive_Label</zorder>
  </widget>
- <resources/>
+ <resources>
+  <include location="../debug/debug/qmake_qmake_immediate.qrc"/>
+ </resources>
  <connections/>
 </ui>

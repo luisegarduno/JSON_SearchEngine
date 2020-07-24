@@ -186,12 +186,23 @@
    <property name="text">
     <string/>
    </property>
+   <property name="pixmap">
+    <pixmap resource="../debug/debug/qmake_qmake_immediate.qrc">:/Images/image.jpg</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
   </widget>
   <zorder>picLabel</zorder>
   <zorder>label</zorder>
   <zorder>groupBox</zorder>
   <zorder>MainMenu_Button</zorder>
  </widget>
- <resources/>
+ <resources>
+  <include location="../debug/debug/qmake_qmake_immediate.qrc"/>
+ </resources>
  <connections/>
 </ui>

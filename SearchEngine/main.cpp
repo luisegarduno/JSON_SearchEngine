@@ -10,7 +10,7 @@ using namespace rapidjson;
 
 int main(int argc, char *argv[]){
     QApplication theGUI(argc, argv);
-
+    theGUI.setWindowIcon(QIcon("../SearchEngine/Images/icon.png"));
     // Creates new Window on Stack
     Mode selectMode;
 

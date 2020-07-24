@@ -3,12 +3,12 @@
 
 Interactive::Interactive(QWidget *parent) : QDialog(parent), ui(new Ui::Interactive){
     ui->setupUi(this);
-
+    /*
     QPixmap pix("../SearchEngine/Images/image.jpg");
     int w = ui->picLabel->width();
     int h = ui->picLabel->height();
     ui->picLabel->setPixmap(pix.scaled(w,h,Qt::KeepAspectRatio));
-
+    */
     QPalette InteractiveLabel = ui->Interactive_Label->palette();
     InteractiveLabel.setColor(ui->Interactive_Label->backgroundRole(), Qt::white);
     InteractiveLabel.setColor(ui->Interactive_Label->foregroundRole(), Qt::white);

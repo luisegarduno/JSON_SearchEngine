@@ -14,12 +14,12 @@ Mode::Mode(QWidget *parent): QMainWindow(parent), ui(new Ui::Mode){
     selectModeLabel.setColor(ui->SelectMode_Group->foregroundRole(), Qt::white);
     ui->SelectMode_Group->setPalette(selectModeLabel);
 
-
+    /*
     QPixmap pix("../SearchEngine/Images/image.jpg");
     int w = ui->picLabel->width();
     int h = ui->picLabel->height();
     ui->picLabel->setPixmap(pix.scaled(w,h,Qt::KeepAspectRatio));
-
+    */
     // Create new Maintenance window object on HEAP
     maintenanceMode = new Maintenance(this);
 

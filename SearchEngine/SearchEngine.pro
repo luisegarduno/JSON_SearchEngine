@@ -2,6 +2,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+RC_ICONS = Images/icon.ico
 
 CONFIG += c++1z
 
@@ -52,7 +53,13 @@ FORMS += \
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
+!isEmpty(target.path): INSTALLS += targeta
 
 DISTFILES += \
     StopWords.txt
+
+RESOURCES += \
+    Images/image.jpg
+
+#DISTFILES += \
+#    StopWords.txt
