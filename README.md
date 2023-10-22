@@ -3,7 +3,7 @@
 ### Test JSON Datasets (SCOTUS Opinions) : 
 - [__Small__ ](https://www.dropbox.com/s/hxep4wthstqkrs9/scotus-small.tar.xz?dl=0) : (50 Files)
 - [__Medium__ ](https://www.dropbox.com/s/8zdm3zl06fqmg24/scotus-med.tar.xz?dl=0) : (502 Files) ⬅ *__Recommended__* 
-- [__Large__ ](https://www.courtlistener.com/api/bulk-data/opinions/ca1.tar.gz) : (35,587 Files)
+- [__Large__ ](https://web.archive.org/web/20210715231147/https://www.courtlistener.com/api/bulk-data/opinions/ca1.tar.gz) : (35,587 Files)
 
 ## Instructions on how to use:
 1. Run program & select __*Maintenance*__ in the Main Menu
