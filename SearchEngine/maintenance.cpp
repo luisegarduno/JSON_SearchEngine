@@ -230,24 +230,19 @@ string& Maintenance::parseHTML(string& section){
     return section;
 }
 
+//QString normalizeDirectoryPath(const std::string& section) {
 QString Maintenance::parsePathName(string section){
-    section.erase(0,2);
-    for(size_t start = 0; start < section.size(); start++){
-        if(section[start] == '/'){
-            size_t end = start + 1;
+    // Find the last occurrence of a path separator ('/' or '\')
+    size_t lastSeparator = section.find_last_of("/\\");
 
-            while(section[end] != '/' && end < section.size()){
-                end++;
-                if(end == section.size()){
-                    return QString::fromStdString(section);
-                }
-            }
-            section.erase(start, end - start);
-            start--;
-        }
+    // If no separator is found, the input is already a relative path
+    if (lastSeparator == std::string::npos) {
+        return QString::fromStdString(section);
     }
 
-    return QString::fromStdString(section);
+    // Extract the portion after the last separator and prepend a slash
+    std::string normalizedPath = "/" + section.substr(lastSeparator + 1);
+    return QString::fromStdString(normalizedPath);
 }
 
 string& Maintenance::split2Word(string& section){
