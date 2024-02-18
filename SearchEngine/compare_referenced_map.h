@@ -22,11 +22,14 @@ struct Compare_Referenced_Map{
 };
 
 template <typename T>
-multiset< pair<reference_wrapper<const string>, reference_wrapper<const int> >, Compare_Referenced_Map > sortMap(const T& map){
-    multiset< pair<reference_wrapper<const string>, reference_wrapper<const int> >, Compare_Referenced_Map > newMultiSet;
+std::multiset<std::pair<std::reference_wrapper<const std::string>, std::reference_wrapper<const int>>, Compare_Referenced_Map>
+sortMap(const T& map) {
+    std::multiset<std::pair<std::reference_wrapper<const std::string>, std::reference_wrapper<const int>>, Compare_Referenced_Map> newMultiSet;
 
-    for(auto& pair : map){
-        newMultiSet.emplace(pair.first, pair.second);
+    // Iterate over key-value pairs in the map
+    for (const auto& pair : map) {
+        // Insert pair into the multiset, using references to avoid unnecessary copies
+        newMultiSet.emplace(std::ref(pair.first), std::ref(pair.second));
     }
 
     return newMultiSet;
