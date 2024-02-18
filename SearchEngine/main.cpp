@@ -4,6 +4,7 @@
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QGuiApplication>
+#include <QScreen>
 
 using namespace std;
 using namespace rapidjson;
@@ -14,16 +15,18 @@ int main(int argc, char *argv[]){
     // Creates new Window on Stack
     Mode selectMode;
 
-    selectMode.setGeometry(
-        QStyle::alignedRect(
-                    Qt::LeftToRight,
-                    Qt::AlignCenter,
-                    selectMode.size(),
-                    qApp->desktop()->availableGeometry()
-                    
-        )
-    );
-
+    // Get the screen where the widget should be centered
+    QScreen *screen = QGuiApplication::screenAt(QCursor::pos());
+    if (screen) {
+        selectMode.setGeometry(
+            QStyle::alignedRect(
+                Qt::LeftToRight,
+                Qt::AlignCenter,
+                selectMode.size(),
+                screen->availableGeometry()
+                )
+            );
+    }
 
     // Display "Mode" (Main Menu)
     selectMode.show();
