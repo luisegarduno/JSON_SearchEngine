@@ -30,6 +30,20 @@ Mode::Mode(QWidget *parent): QMainWindow(parent), ui(new Ui::Mode){
 
 void Mode::on_Maintenance_Button_clicked(){
 
+    // Get the screen where the widget should be centered
+    QScreen *screen = QGuiApplication::screenAt(QCursor::pos());
+    if (screen) {
+        maintenanceMode->setGeometry(
+            QStyle::alignedRect(
+                Qt::LeftToRight,
+                Qt::AlignCenter,
+                maintenanceMode->size(),
+                screen->availableGeometry()
+                )
+            );
+    }
+
+    /*
     maintenanceMode->setGeometry(
         QStyle::alignedRect(
                     Qt::LeftToRight,
@@ -38,6 +52,7 @@ void Mode::on_Maintenance_Button_clicked(){
                     qApp->desktop()->availableGeometry()
         )
     );
+    */
 
     maintenanceMode->show();
 }
@@ -54,6 +69,20 @@ void Mode::on_Interactive_Button_clicked(){
             // Create new Interactive window object on HEAP
             opinionLocations = maintenanceMode->getFileLocations();
 
+                // Get the screen where the widget should be centered
+                QScreen *screen = QGuiApplication::screenAt(QCursor::pos());
+                if (screen) {
+                    interactiveMode->setGeometry(
+                        QStyle::alignedRect(
+                            Qt::LeftToRight,
+                            Qt::AlignCenter,
+                            interactiveMode->size(),
+                            screen->availableGeometry()
+                        )
+                    );
+                }
+
+                /*
             interactiveMode->setGeometry(
                 QStyle::alignedRect(
                             Qt::LeftToRight,
@@ -62,6 +91,7 @@ void Mode::on_Interactive_Button_clicked(){
                             qApp->desktop()->availableGeometry()
                 )
             );
+                */
         }
 
         interactiveMode->show();

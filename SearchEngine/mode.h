@@ -3,6 +3,7 @@
 
 #include <QStyle>
 #include <QPixmap>
+#include <QScreen>
 #include <iostream>
 #include <QMainWindow>
 #include "maintenance.h"
