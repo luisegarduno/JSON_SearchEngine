@@ -1,5 +1,7 @@
 # Let's Search! JSON Search Engine
 
+![Number of GitHub Downloads badge](https://img.shields.io/github/downloads/luisegarduno/JSON_SearchEngine/total?color=pink&label=GitHub%20Downloads)
+
 ### Test JSON Datasets (SCOTUS Opinions) : 
 - [__Small__ ](https://www.dropbox.com/s/hxep4wthstqkrs9/scotus-small.tar.xz?dl=0) : (50 Files)
 - [__Medium__ ](https://www.dropbox.com/s/8zdm3zl06fqmg24/scotus-med.tar.xz?dl=0) : (502 Files) ⬅ *__Recommended__* 
